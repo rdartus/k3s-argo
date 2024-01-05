@@ -18,6 +18,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: metallb
+    targetRevision: "*"
     repoURL: https://metallb.github.io/metallb
     values: |
 

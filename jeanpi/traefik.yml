@@ -18,6 +18,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: traefik
+    targetRevision: 
     repoURL: https://helm.traefik.io/traefik
     values: |
 

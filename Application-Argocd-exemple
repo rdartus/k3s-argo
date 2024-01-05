@@ -16,7 +16,7 @@ spec:
   source:
     path: jeanpi
     repoURL: https://github.com/rdartus/k3s-argo.git
-    targetRevision: HEAD
+    targetRevision: main
   destination:
     server: https://kubernetes.default.svc
     namespace: jeanpi
