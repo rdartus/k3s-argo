@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jeanpi
+  name: jeanpi-argo
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
@@ -16,7 +16,7 @@ spec:
   source:
     path: jeanpi
     repoURL: https://github.com/rdartus/k3s-argo.git
-    targetRevision: main
+    targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
     namespace: jeanpi
