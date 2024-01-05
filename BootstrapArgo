@@ -14,6 +14,8 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
+    directory:
+      recurse: true
     path: jeanpi
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
