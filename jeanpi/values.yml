@@ -1,6 +1,0 @@
-spec:
-  destination:
-    server: https://kubernetes.default.svc
-  source:
-    repoURL: git@gitlab.com:goudi-pi/k3s.git
-    targetRevision: HEAD

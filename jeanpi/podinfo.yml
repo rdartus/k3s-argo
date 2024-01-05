@@ -8,7 +8,7 @@ metadata:
 spec:
   destination:
     namespace: podinfo
-    server: {{ .Values.spec.destination.server }}
+    server: https://kubernetes.default.svc
   project: default
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
