@@ -18,6 +18,7 @@ spec:
   source:
     chart: podinfo
     repoURL: https://stefanprodan.github.io/podinfo
+    targetRevision: "*"
     values: |
 
       # Default values for podinfo.
