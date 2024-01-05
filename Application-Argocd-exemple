@@ -14,9 +14,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    helm:
-      valueFiles:
-      - values.yaml
     path: jeanpi
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: HEAD
