@@ -17,7 +17,7 @@ spec:
     helm:
       valueFiles:
       - values.yaml
-    path: cluster-charts
+    path: jeanpi
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: HEAD
   destination:
