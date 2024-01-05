@@ -18,6 +18,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: longhorn
+    targetRevision: "*"
     repoURL: https://charts.longhorn.io
     values: |
 
