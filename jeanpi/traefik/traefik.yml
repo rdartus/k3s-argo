@@ -19,7 +19,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: traefik
-    targetRevision: "*"
+    targetRevision: "26.0.0"
     repoURL: https://helm.traefik.io/traefik
     values: |
 
