@@ -3,6 +3,8 @@ kind: ClusterIssuer
 metadata:
   name: letsencrypt-staging
   namespace: lets-encrypt
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
