@@ -91,7 +91,7 @@ data:
   # Perform strict validation of TLS certificates when connecting to dex server
   server.dex.server.strict.tls: "false"
   # Disable client authentication
-  server.disable.auth: "false"
+  server.disable.auth: "true"
   # Toggle GZIP compression
   server.enable.gzip: "true"
   # Set X-Frame-Options header in HTTP responses to value. To disable, set to "". (default "sameorigin")
