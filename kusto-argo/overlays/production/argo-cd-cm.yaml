@@ -26,3 +26,4 @@ data:
 kind: ConfigMap
 metadata:
   name: argocd-cm
+  namespace: argocd
