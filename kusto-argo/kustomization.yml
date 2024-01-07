@@ -7,7 +7,7 @@ resources:
 - base/argo-cd-issuer.yaml
 - base/argo-cd-certificate.yaml
 - base/ingress-argo.yaml
-- base/rollouts-extension.yaml
+# - base/rollouts-extension.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml
 
 components:
