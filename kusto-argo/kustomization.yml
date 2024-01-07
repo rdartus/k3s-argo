@@ -20,9 +20,9 @@ patches:
   - path: overlays/production/argocd-notifications-controller-deploy.yaml
   - path: overlays/production/argocd-notifications-cm.yaml
   - path: overlays/production/argocd-cmd-params-cm.yaml
-  - path: https://raw.githubusercontent.com/argoproj/argo-cd/master/notifications_catalog/install.yaml
+  # - path: https://raw.githubusercontent.com/argoproj/argo-cd/master/notifications_catalog/install.yaml
 
-images:
-- name: quay.io/argoproj/argocd
-  newName: ghcr.io/argoproj/argo-cd/argocd
-  newTag: 2.9.0-ecbd24da
+# images:
+# - name: quay.io/argoproj/argocd
+#   newName: ghcr.io/argoproj/argo-cd/argocd
+#   newTag: 2.9.0-ecbd24da
