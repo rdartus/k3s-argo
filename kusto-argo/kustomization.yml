@@ -20,6 +20,8 @@ patches:
   - path: overlays/production/argocd-notifications-controller-deploy.yaml
   - path: overlays/production/argocd-notifications-cm.yaml
   - path: overlays/production/argocd-cmd-params-cm.yaml
+  target : 
+    name : "*.yaml"
   # - path: https://raw.githubusercontent.com/argoproj/argo-cd/master/notifications_catalog/install.yaml
 
 # images:
