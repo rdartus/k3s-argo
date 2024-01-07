@@ -15,10 +15,10 @@ data:
   # Enable compression for data sent to Redis with the required compression algorithm. (default 'gzip')
   redis.compression: gzip
   # Redis database
-  redis.db:
+  # redis.db:
 
   # Open-Telemetry collector address: (e.g. "otel-collector:4317")
-  otlp.address:
+  # otlp.address:
 
   # List of additional namespaces where applications may be created in and
   # reconciled from. The namespace where Argo CD is installed to will always
