@@ -7,6 +7,12 @@ metadata:
     app.kubernetes.io/name: argocd-cmd-params-cm
     app.kubernetes.io/part-of: argocd
 data:
+  resource.customizations: |
+    extensions/Ingress:
+        health.lua: |
+          hs = {}
+          hs.status = "Healthy"
+          return hs
   # Repo server address. (default "argocd-repo-server:8081")
   repo.server: "argocd-repo-server:8081"
 
