@@ -13,7 +13,7 @@ resources:
 components:
 - https://github.com/argoproj-labs/argocd-extensions/manifests
 
-patchesStrategicMerge:
+patches:
 - overlays/production/argo-cd-cm.yaml
 - overlays/production/argocd-server-service.yaml
 - overlays/production/argocd-repo-server-deploy.yaml
