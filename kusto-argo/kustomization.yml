@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+- base/argo-cd-issuer.yaml
+- base/argo-cd-certificate.yaml
+- base/ingress-argo.yaml
+- base/rollouts-extension.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml
+
+components:
+- https://github.com/argoproj-labs/argocd-extensions/manifests
+
+patchesStrategicMerge:
+- overlays/production/argo-cd-cm.yaml
+- overlays/production/argocd-server-service.yaml
+- overlays/production/argocd-repo-server-deploy.yaml
+- overlays/production/argocd-notifications-controller-deploy.yaml
+- overlays/production/argocd-notifications-cm.yaml
+- overlays/production/argocd-cmd-params-cm.yaml
+- https://raw.githubusercontent.com/argoproj/argo-cd/master/notifications_catalog/install.yaml
+
+images:
+- name: quay.io/argoproj/argocd
+  newName: ghcr.io/argoproj/argo-cd/argocd
+  newTag: 2.9.0-ecbd24da
