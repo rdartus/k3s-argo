@@ -53,7 +53,8 @@ spec:
         # Kubernetes Service settings
         service:
           enabled: true
-          annotations: {}
+          annotations:
+            traefik.ingress.kubernetes.io/service.nativelb: "true"
           type: ClusterIP
           metricsPort: 9797
           httpPort: 9898
