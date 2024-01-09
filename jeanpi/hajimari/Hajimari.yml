@@ -141,10 +141,11 @@ spec:
             className: traefik-ingresses
 
             # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-            defaultBackend: test
-              # service:
-              #   name: main
-              #   port:
+            defaultBackend:
+              service:
+                name: hajimari
+                port:
+                  number : 3001
 
             # ## Configure the hosts for the ingress
             # hosts:
