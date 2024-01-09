@@ -16,4 +16,4 @@ spec:
         #   - "example.com"
     - http01:
         ingress:
-          ingressClassName: traefik
+          ingressClassName: traefik-ingress

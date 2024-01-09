@@ -4,7 +4,7 @@ metadata:
   name: podinfo
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io/background
 spec:
   destination:
     namespace: podinfo
@@ -128,7 +128,7 @@ spec:
         ingress:
           enabled: true
           # className: ""
-          ingressClassName: ~
+          ingressClassName: traefik-ingresses
           annotations: {}
             # kubernetes.io/ingress.class: nginx
             # kubernetes.io/tls-acme: "true"

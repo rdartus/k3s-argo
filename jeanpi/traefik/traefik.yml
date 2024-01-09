@@ -4,7 +4,7 @@ metadata:
   name: traefik
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
+  - resources-finalizer.argocd.argoproj.io/background
 spec:
   destination:
     namespace: traefik
@@ -139,7 +139,7 @@ spec:
         ingressClass:
           enabled: true
           isDefaultClass: true
-          # name: my-custom-class
+          name: traefik-ingresses
 
         # Traefik experimental features
         experimental:
