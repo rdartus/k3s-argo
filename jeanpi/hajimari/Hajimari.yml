@@ -111,7 +111,7 @@ spec:
           main:
             enabled: true
             className: traefik-ingresses
-            defaultBackend: main 
+            defaultBackend: hajimari
             #   service:
             #     name: main
             #     port:
