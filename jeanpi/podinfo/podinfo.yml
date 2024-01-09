@@ -39,7 +39,7 @@ spec:
         ui:
           color: "#34577c"
           message: "👋 Greetings, fellow geek!"
-          logo: "https://geek-cookbook.funkypenguin.co.nz/images/site-logo.svg"
+          # logo: "https://geek-cookbook.funkypenguin.co.nz/images/site-logo.svg"
 
         # failure conditions
         faults:

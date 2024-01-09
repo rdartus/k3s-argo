@@ -12,7 +12,6 @@ spec:
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
       selfHeal: true
       allowEmpty: true
-      allowEmpty: true
     syncOptions:
       - CreateNamespace=true
   source:
