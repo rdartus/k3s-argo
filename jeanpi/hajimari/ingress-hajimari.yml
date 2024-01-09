@@ -9,4 +9,5 @@ spec:
   defaultBackend:
     service:
       name: hajimari
-      port: 3000
+      port: 
+        number : 3000
