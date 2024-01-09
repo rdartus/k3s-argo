@@ -105,18 +105,6 @@ spec:
           # -- Create service account
           create: true
 
-        ingress:
-          # -- Enable and configure ingress settings for the chart under this key.
-          # @default -- See values.yaml
-          main:
-            enabled: true
-            className: traefik-ingresses
-            defaultBackend: hajimari
-            #   service:
-            #     name: main
-            #     port:
-            #       number: 3000
-
 
         # -- Configure persistence settings for the chart under this key.
         # @default -- See values.yaml
@@ -126,3 +114,57 @@ spec:
             type: pvc
             accessMode: ReadWriteOnce
             size: 1Gi
+
+
+          ingress:
+            main:
+              # -- Enables or disables the ingress
+              enabled: true
+
+              # -- Make this the primary ingress (used in probes, notes, etc...).
+              # If there is more than 1 ingress, make sure that only 1 ingress is marked as primary.
+              primary: true
+
+              # -- Override the name suffix that is used for this ingress.
+              nameOverride:
+
+              # -- Provide additional annotations which may be required.
+              annotations:
+                {}
+                # kubernetes.io/ingress.class: nginx
+                # kubernetes.io/tls-acme: "true"
+
+              # -- Provide additional labels which may be required.
+              labels: {}
+
+              # -- Set the ingressClass that is used for this ingress.
+              className: traefik-ingresses
+
+              # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
+              defaultBackend: test
+                # service:
+                #   name: main
+                #   port:
+
+              # ## Configure the hosts for the ingress
+              # hosts:
+              #   - # -- Host address. Helm template can be passed.
+              #     host: chart-example.local
+              #     ## Configure the paths for the host
+              #     paths:
+              #       - # -- Path.  Helm template can be passed.
+              #         path: /
+              #         pathType: Prefix
+              #         service:
+              #           # -- Overrides the service name reference for this path
+              #           # This can be an actual service name, or reference a service identifier
+              #           # from this values.yaml
+              #           name: main
+              #           # -- Overrides the service port number reference for this path
+              #           port:
+
+              # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+              tls: []
+              #  - secretName: chart-example-tls
+              #    hosts:
+              #      - chart-example.local
