@@ -113,7 +113,7 @@ spec:
             className: traefik-ingresses
             defaultBackend: 
               service:
-                name: hajimari
+                name: main
                 port:
                   number: 3000
 
