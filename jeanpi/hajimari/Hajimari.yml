@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ingress-nginx
+  name: hajimari
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
 spec:
   destination:
-    namespace: nginx
+    namespace: hajimari
     server: https://kubernetes.default.svc
   project: default
   syncPolicy:
@@ -18,9 +18,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: ingress-nginx
+    chart: hajimari
     targetRevision: "*"
-    repoURL: https://kubernetes.github.io/ingress-nginx
+    repoURL: https://hajimari.io
     helm : 
       values: |
 
