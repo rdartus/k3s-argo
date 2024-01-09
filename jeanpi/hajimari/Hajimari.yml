@@ -136,11 +136,11 @@ spec:
 
             # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
             # defaultBackend: main
-            defaultBackend: 
-              service:
-                name: hajimari
-                port: 
-                  number : 3000
+            defaultBackend: true
+              # service:
+              #   name: hajimari
+              #   port: 
+              #     number : 3000
 
             # ## Configure the hosts for the ingress
             # hosts:
