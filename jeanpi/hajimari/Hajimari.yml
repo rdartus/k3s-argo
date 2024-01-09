@@ -112,6 +112,8 @@ spec:
             enabled: true
             # className: traefik-ingresses
             defaultBackend: 
+              service:
+                name: main
 
         # -- Configure persistence settings for the chart under this key.
         # @default -- See values.yaml
