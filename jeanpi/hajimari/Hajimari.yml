@@ -109,12 +109,12 @@ spec:
           # -- Enable and configure ingress settings for the chart under this key.
           # @default -- See values.yaml
           main:
-            enabled: true
-            # className: traefik-ingresses
+            # enabled: true
+            className: traefik-ingresses
             defaultBackend: 
-              service:
-                name: main
-                port: http
+              # service:
+              #   name: main
+              #   port: http
 
         # -- Configure persistence settings for the chart under this key.
         # @default -- See values.yaml
