@@ -111,7 +111,7 @@ spec:
           main:
             enabled: true
             className: traefik-ingresses
-            defaultBackend: 
+            defaultBackend: main
               # service:
               #   name: main
               #   port: http
