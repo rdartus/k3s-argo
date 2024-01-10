@@ -7,7 +7,7 @@ subPath: "config.yaml"
 type: "custom"
 volumeSpec:
   configMap:
-    name: {{ include "common.names.fullname" . }}-settings
+    name: {{ include "bjw-s.common.lib.chart.names.fullname" .  }}-settings
 {{- end -}}
 {{- $_ := set .Values.persistence "hajimari-settings" (include "hajimari.settingsVolume" . | fromYaml) -}}
 
