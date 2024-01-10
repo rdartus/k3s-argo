@@ -19,6 +19,6 @@ maintainers:
   email: toboshii@users.noreply.github.com
 dependencies:
 - name: common
-  version: 0.2.2
-  # version: 2.3.0
+  # version: 0.2.2
+  version: 2.3.0
   repository: https://bjw-s.github.io/helm-charts/
