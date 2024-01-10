@@ -11,4 +11,4 @@ volumeSpec:
 {{- end -}}
 {{- $_ := set .Values.persistence "hajimari-settings" (include "hajimari.settingsVolume" . | fromYaml) -}}
 
-{{- include "bjw-s.common.loader.all" }}
+{{- include "bjw-s.common.loader.all" . -}}
