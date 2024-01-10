@@ -5,13 +5,15 @@
 # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
 #
 
-image:
-  # -- image repository
-  repository: ghcr.io/toboshii/hajimari
-  # -- image pull policy
-  pullPolicy: IfNotPresent
-  # -- image tag
-  tag: v0.3.1
+containers:
+  main:
+    image:
+      # -- image repository
+      repository: ghcr.io/toboshii/hajimari
+      # -- image pull policy
+      pullPolicy: IfNotPresent
+      # -- image tag
+      tag: v0.3.1
 
 # -- environment variables.
 # @default -- See below
@@ -38,7 +40,7 @@ hajimari:
   title: null
 
   # -- Default name for welcome message
-  name: "You"
+  name: "Satan"
 
   # -- Add custom applications to the discovered application list
   customApps: []
@@ -87,8 +89,8 @@ ingress:
 # -- Configure persistence settings for the chart under this key.
 # @default -- See values.yaml
 persistence:
-  data:
+  config:
     enabled: true
-    type: pvc
+    type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     size: 1Gi
