@@ -1,4 +1,4 @@
-{{- include "common.values.setup" . }}
+{{- include "bjw-s.common.loader.init" . -}}
 
 {{- define "hajimari.settingsVolume" -}}
 enabled: "true"
