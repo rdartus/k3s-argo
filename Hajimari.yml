@@ -18,9 +18,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: hajimari
-    targetRevision: "*"
-    repoURL: https://hajimari.io
+    path: hajimari
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    targetRevision: main
     helm : 
       values: |
 
