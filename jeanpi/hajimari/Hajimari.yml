@@ -136,7 +136,8 @@ spec:
 
             # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
             # defaultBackend: main
-            defaultBackend: 
+            # defaultBackend: true 
+            defaultBackend:
               service:
                 name: main
                 port: 
