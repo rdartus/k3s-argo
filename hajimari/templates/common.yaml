@@ -1,6 +1,7 @@
 {{- include "bjw-s.common.loader.init" . -}}
 
-{{- define "hajimari.settingsVolume" -}}
+{{/* Append the hardcoded settings */}}
+{{- define "hajimari.hardcodedValues" -}}
 enabled: "true"
 mountPath: "/config/config.yaml"
 subPath: "config.yaml"
@@ -9,6 +10,9 @@ volumeSpec:
   configMap:
     name: {{ include "bjw-s.common.lib.chart.names.fullname" .  }}-settings
 {{- end -}}
-{{- $_ := set .Values.persistence "hajimari-settings" (include "hajimari.settingsVolume" . | fromYaml) -}}
 
-{{- include "bjw-s.common.loader.all" . -}}
+{{/* Render the templates */}}
+{{- $ctx := deepCopy . -}}
+{{- $_ := include "hajimari.hardcodedValues" . | fromYaml | merge $ctx.Values -}}
+
+{{- include "bjw-s.common.loader.all" $ctx }}
