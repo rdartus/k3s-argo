@@ -1,18 +1,19 @@
 {{- include "bjw-s.common.loader.init" . -}}
 
-{{/* Append the hardcoded settings */}}
-{{- define "hajimari.hardcodedValues" -}}
-enabled: "true"
-mountPath: "/config/config.yaml"
-subPath: "config.yaml"
-type: "custom"
-volumeSpec:
-  configMap:
-    name: {{ include "bjw-s.common.lib.chart.names.fullname" .  }}-settings
-{{- end -}}
+# {{/* Append the hardcoded settings */}}
+# {{- define "hajimari.hardcodedValues" -}}
+# enabled: "true"
+# mountPath: "/config/config.yaml"
+# subPath: "config.yaml"
+# type: "custom"
+# volumeSpec:
+#   configMap:
+#     name: {{ include "bjw-s.common.lib.chart.names.fullname" .  }}-settings
+# {{- end -}}
 
-{{/* Render the templates */}}
-{{- $ctx := deepCopy . -}}
-{{- $_ := include "hajimari.hardcodedValues" . | fromYaml | merge $ctx.Values -}}
+# {{/* Render the templates */}}
+# {{- $ctx := deepCopy . -}}
+# {{- $_ := include "hajimari.hardcodedValues" . | fromYaml | merge $ctx.Values -}}
 
-{{- include "bjw-s.common.loader.all" $ctx }}
+# {{- include "bjw-s.common.loader.all" $ctx }}
+{{- include "bjw-s.common.loader.all" . }}
