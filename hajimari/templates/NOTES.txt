@@ -1,2 +1,0 @@
-{{- include "common.values.setup" . }}
-{{ include "common.notes.defaultNotes" . }}
