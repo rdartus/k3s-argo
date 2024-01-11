@@ -113,3 +113,8 @@ spec:
           # @default -- See values.yaml
           main:
             enabled: false
+        persistence:
+          config:
+            enabled: true
+            type: configMap
+            name: hajimari-settings
