@@ -122,4 +122,4 @@ persistence:
     name: hajimari-config
     globalMounts:
       - path: /config/config.yaml
-        subPath: config.yaml
+        # subPath: config.yaml
