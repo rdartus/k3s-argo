@@ -2,13 +2,12 @@
 
 {{/* Append the hardcoded settings */}}
 {{- define "hajimari.hardcodedValues" -}}
-enabled: "true"
-mountPath: "/config/config.yaml"
-subPath: "config.yaml"
-type: "custom"
-volumeSpec:
-  configMap:
-    name: {{ include "bjw-s.common.lib.chart.names.fullname" .  }}-settings
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: hajimari-settings
+
 {{- end -}}
 
 {{/* Render the templates */}}
