@@ -10,10 +10,8 @@ keywords:
 - hajimari
 - startpage
 - dashboard
-home: https://github.com/toboshii/hajimari/tree/master/charts/hajimari
 icon: https://raw.githubusercontent.com/toboshii/hajimari/main/assets/logo.png
-sources:
-- https://github.com/toboshii/hajimari
+
 maintainers:
 - name: toboshii
   email: toboshii@users.noreply.github.com
