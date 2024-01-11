@@ -42,7 +42,7 @@ hajimari:
   title: null
 
   # -- Default name for welcome message
-  name: "Satan"
+  name: "Satan 2"
 
   # -- Add custom applications to the discovered application list
   customApps: []

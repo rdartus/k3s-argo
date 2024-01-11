@@ -1,18 +1,17 @@
 {{- include "bjw-s.common.loader.init" . -}}
 
-# {{/* Append the hardcoded settings */}}
-# {{- define "hajimari.hardcodedValues" -}}
-# persistence:
-#   config:
-#     enabled: true
-#     type: configMap
-#     name: hajimari-settings
+{{/* Append the hardcoded settings */}}
+{{- define "hajimari.hardcodedValues" -}}
+persistence:
+  config:
+    enabled: true
+    type: configMap
+    name: hajimari-settings
 
-# {{- end -}}
+{{- end -}}
 
-# {{/* Render the templates */}}
-# {{- $ctx := deepCopy . -}}
-# {{- $_ := include "hajimari.hardcodedValues" . | fromYaml | merge $ctx.Values -}}
+{{/* Render the templates */}}
+{{- $ctx := deepCopy . -}}
+{{- $_ := include "hajimari.hardcodedValues" . | fromYaml | merge $ctx.Values -}}
 
-# {{- include "bjw-s.common.loader.all" $ctx }}
-# {{- include "bjw-s.common.loader.all" . }}
+{{- include "bjw-s.common.loader.all" $ctx }}
