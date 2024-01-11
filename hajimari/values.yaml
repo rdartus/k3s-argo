@@ -31,47 +31,46 @@ configMaps:
     data:
       config.yaml: |
 
-        hajimari:
-          # -- The name of this instance, this allows running multiple 
-          # instances of Hajimari on the same cluster
-          instanceName: null
+        # -- The name of this instance, this allows running multiple 
+        # instances of Hajimari on the same cluster
+        instanceName: null
 
-          # -- Set to true to show all discovered applications by default.
-          defaultEnable: false
+        # -- Set to true to show all discovered applications by default.
+        defaultEnable: false
 
-          # -- Namespace selector to use for discovering applications
-          namespaceSelector:
-            matchNames:
-            - media
-            
-          # -- Override the title of the Hajimari pages
-          title: null
+        # -- Namespace selector to use for discovering applications
+        namespaceSelector:
+          matchNames:
+          - media
+          
+        # -- Override the title of the Hajimari pages
+        title: null
 
-          # -- Default name for welcome message
-          name: "Satan 2"
+        # -- Default name for welcome message
+        name: "Satan 2"
 
-          # -- Add custom applications to the discovered application list
-          customApps: []
-          # - group: Media
-          #   apps:
-          #     - name: Test
-          #       url: 'https://example.com'
-          #       icon: 'mdi:test-tube'
-          #       info: This is a test app
+        # -- Add custom applications to the discovered application list
+        customApps: []
+        # - group: Media
+        #   apps:
+        #     - name: Test
+        #       url: 'https://example.com'
+        #       icon: 'mdi:test-tube'
+        #       info: This is a test app
 
-          # -- Create sample Custom Resource Application
-          createCRAppSample: false
+        # -- Create sample Custom Resource Application
+        createCRAppSample: false
 
-          # -- Set default bookmarks
-          globalBookmarks: []
-          # - group: Communicate
-          #   bookmarks:
-          #   - name: Discord
-          #     url: 'https://discord.com'
-          #   - name: Gmail
-          #     url: 'http://gmail.com'
-          #   - name: Slack
-          #     url: 'https://slack.com/signin'
+        # -- Set default bookmarks
+        globalBookmarks: []
+        # - group: Communicate
+        #   bookmarks:
+        #   - name: Discord
+        #     url: 'https://discord.com'
+        #   - name: Gmail
+        #     url: 'http://gmail.com'
+        #   - name: Slack
+        #     url: 'https://slack.com/signin'
 
 
 # -- Configures service settings for the chart.
@@ -120,4 +119,4 @@ persistence:
   config:
     enabled: true
     type: configMap
-    name: hajimari-settings
+    name: hajimari-config
