@@ -24,119 +24,119 @@ spec:
     helm : 
       values: |
 
-        #
-        # IMPORTANT NOTE
-        #
-        # This chart inherits from the bjw-s library chart. You can check the default values/options here:
-        # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-        #
+        # #
+        # # IMPORTANT NOTE
+        # #
+        # # This chart inherits from the bjw-s library chart. You can check the default values/options here:
+        # # https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+        # #
 
-        controllers:
-          main:
-            containers:
-              main:
-                image:
-                  # -- image repository
-                  repository: ghcr.io/toboshii/hajimari
-                  # -- image pull policy
-                  pullPolicy: IfNotPresent
-                  # -- image tag
-                  tag: v0.3.1
+        # controllers:
+        #   main:
+        #     containers:
+        #       main:
+        #         image:
+        #           # -- image repository
+        #           repository: ghcr.io/toboshii/hajimari
+        #           # -- image pull policy
+        #           pullPolicy: IfNotPresent
+        #           # -- image tag
+        #           tag: v0.3.1
 
-        # -- environment variables.
-        # @default -- See below
-        env:
-          # -- Set the container timezone
-          TZ: UTC
+        # # -- environment variables.
+        # # @default -- See below
+        # env:
+        #   # -- Set the container timezone
+        #   TZ: UTC
 
-        # -- Configures Hajimari settings for this instance.
-        # @default -- See below
-        hajimari:
-          # -- The name of this instance, this allows running multiple 
-          # instances of Hajimari on the same cluster
-          instanceName: null
+        # # -- Configures Hajimari settings for this instance.
+        # # @default -- See below
+        # hajimari:
+        #   # -- The name of this instance, this allows running multiple 
+        #   # instances of Hajimari on the same cluster
+        #   instanceName: null
 
-          # -- Set to true to show all discovered applications by default.
-          defaultEnable: false
+        #   # -- Set to true to show all discovered applications by default.
+        #   defaultEnable: false
 
-          # -- Namespace selector to use for discovering applications
-          namespaceSelector:
-            matchNames:
-            - media
+        #   # -- Namespace selector to use for discovering applications
+        #   namespaceSelector:
+        #     matchNames:
+        #     - media
             
-          # -- Override the title of the Hajimari pages
-          title: null
+        #   # -- Override the title of the Hajimari pages
+        #   title: null
 
-          # -- Default name for welcome message
-          name: "test"
+        #   # -- Default name for welcome message
+        #   name: "test"
 
-          # -- Add custom applications to the discovered application list
-          customApps: []
-          # - group: Media
-          #   apps:
-          #     - name: Test
-          #       url: 'https://example.com'
-          #       icon: 'mdi:test-tube'
-          #       info: This is a test app
+        #   # -- Add custom applications to the discovered application list
+        #   customApps: []
+        #   # - group: Media
+        #   #   apps:
+        #   #     - name: Test
+        #   #       url: 'https://example.com'
+        #   #       icon: 'mdi:test-tube'
+        #   #       info: This is a test app
 
-          # -- Create sample Custom Resource Application
-          createCRAppSample: false
+        #   # -- Create sample Custom Resource Application
+        #   createCRAppSample: false
 
-          # -- Set default bookmarks
-          globalBookmarks: []
-          # - group: Communicate
-          #   bookmarks:
-          #   - name: Discord
-          #     url: 'https://discord.com'
-          #   - name: Gmail
-          #     url: 'http://gmail.com'
-          #   - name: Slack
-          #     url: 'https://slack.com/signin'
+        #   # -- Set default bookmarks
+        #   globalBookmarks: []
+        #   # - group: Communicate
+        #   #   bookmarks:
+        #   #   - name: Discord
+        #   #     url: 'https://discord.com'
+        #   #   - name: Gmail
+        #   #     url: 'http://gmail.com'
+        #   #   - name: Slack
+        #   #     url: 'https://slack.com/signin'
 
 
-        # -- Configures service settings for the chart.
-        # @default -- See values.yaml
-        service:
-          main:
-            ports:
-              http:
-                port: 3000
+        # # -- Configures service settings for the chart.
+        # # @default -- See values.yaml
+        # service:
+        #   main:
+        #     ports:
+        #       http:
+        #         port: 3000
 
-        # -- Configures service account needed for reading k8s ingress objects
-        # @default -- See below
-        serviceAccount:
-          # -- Create service account
-          create: true
+        # # -- Configures service account needed for reading k8s ingress objects
+        # # @default -- See below
+        # serviceAccount:
+        #   # -- Create service account
+        #   create: true
 
-        ingress:
-          main:
-            # -- Enables or disables the ingress
-            enabled: true
+        # ingress:
+        #   main:
+        #     # -- Enables or disables the ingress
+        #     enabled: true
 
-            # -- Override the name suffix that is used for this ingress.
-            nameOverride:
+        #     # -- Override the name suffix that is used for this ingress.
+        #     nameOverride:
 
-            # -- Provide additional annotations which may be required.
-            annotations:
-              kubernetes.io/ingress.class: pdpdpd
+        #     # -- Provide additional annotations which may be required.
+        #     annotations:
+        #       kubernetes.io/ingress.class: pdpdpd
 
-            # -- Provide additional labels which may be required.
-            labels: {}
+        #     # -- Provide additional labels which may be required.
+        #     labels: {}
 
-            # -- Set the ingressClass that is used for this ingress.
-            className: "traefik-ingresses"
+        #     # -- Set the ingressClass that is used for this ingress.
+        #     className: "traefik-ingresses"
 
-            # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-            # defaultBackend: main
-            # defaultBackend: true 
-            defaultBackend:
-              service:
-                name: main
-                port: 
-                  number : http
+        #     # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
+        #     # defaultBackend: main
+        #     # defaultBackend: true 
+        #     defaultBackend:
+        #       service:
+        #         name: main
+        #         port: 
+        #           number : http
 
-        persistence:
-          config:
-            enabled: true
-            type: configMap
-            name: hajimari-settings
+        # persistence:
+        #   config:
+        #     enabled: true
+        #     type: configMap
+        #     name: hajimari-settings
