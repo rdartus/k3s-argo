@@ -25,47 +25,53 @@ env:
 
 # -- Configures Hajimari settings for this instance.
 # @default -- See below
-hajimari:
-  # -- The name of this instance, this allows running multiple 
-  # instances of Hajimari on the same cluster
-  instanceName: null
+configMaps:
+  config:
+    enabled: true
+    data:
+      config.yaml: |
 
-  # -- Set to true to show all discovered applications by default.
-  defaultEnable: false
+        hajimari:
+          # -- The name of this instance, this allows running multiple 
+          # instances of Hajimari on the same cluster
+          instanceName: null
 
-  # -- Namespace selector to use for discovering applications
-  namespaceSelector:
-    matchNames:
-    - media
-    
-  # -- Override the title of the Hajimari pages
-  title: null
+          # -- Set to true to show all discovered applications by default.
+          defaultEnable: false
 
-  # -- Default name for welcome message
-  name: "Satan 2"
+          # -- Namespace selector to use for discovering applications
+          namespaceSelector:
+            matchNames:
+            - media
+            
+          # -- Override the title of the Hajimari pages
+          title: null
 
-  # -- Add custom applications to the discovered application list
-  customApps: []
-  # - group: Media
-  #   apps:
-  #     - name: Test
-  #       url: 'https://example.com'
-  #       icon: 'mdi:test-tube'
-  #       info: This is a test app
+          # -- Default name for welcome message
+          name: "Satan 2"
 
-  # -- Create sample Custom Resource Application
-  createCRAppSample: false
+          # -- Add custom applications to the discovered application list
+          customApps: []
+          # - group: Media
+          #   apps:
+          #     - name: Test
+          #       url: 'https://example.com'
+          #       icon: 'mdi:test-tube'
+          #       info: This is a test app
 
-  # -- Set default bookmarks
-  globalBookmarks: []
-  # - group: Communicate
-  #   bookmarks:
-  #   - name: Discord
-  #     url: 'https://discord.com'
-  #   - name: Gmail
-  #     url: 'http://gmail.com'
-  #   - name: Slack
-  #     url: 'https://slack.com/signin'
+          # -- Create sample Custom Resource Application
+          createCRAppSample: false
+
+          # -- Set default bookmarks
+          globalBookmarks: []
+          # - group: Communicate
+          #   bookmarks:
+          #   - name: Discord
+          #     url: 'https://discord.com'
+          #   - name: Gmail
+          #     url: 'http://gmail.com'
+          #   - name: Slack
+          #     url: 'https://slack.com/signin'
 
 
 # -- Configures service settings for the chart.
