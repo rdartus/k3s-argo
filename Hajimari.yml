@@ -68,7 +68,7 @@ spec:
           title: null
 
           # -- Default name for welcome message
-          name: "Satan"
+          name: "test"
 
           # -- Add custom applications to the discovered application list
           customApps: []
