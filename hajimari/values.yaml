@@ -120,6 +120,6 @@ persistence:
     enabled: true
     type: configMap
     name: hajimari-config
-    globalMounts:
-      - path: /config/config.yaml
+    # globalMounts:
+    #   - path: /config/config.yaml
         # subPath: config.yaml
