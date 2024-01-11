@@ -6,7 +6,7 @@ persistence:
   config:
     enabled: true
     type: configMap
-    name: hajimari-settings
+    name: {{ include "bjw-s.common.lib.chart.names.fullname" .  }}-settings
 
 {{- end -}}
 
