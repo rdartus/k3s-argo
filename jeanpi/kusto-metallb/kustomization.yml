@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: argocd
+
+resources:
+  - github.com/metallb/metallb/config/frr?ref=v0.13.12
+
+patches:
+  - path: overlays/production/ip-adresspool.yaml
+  - path: overlays/production/bgppeers.yaml
+  - path: overlays/production/adresspools.yaml
+  - path: overlays/production/L2Advertisement.yaml
