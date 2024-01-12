@@ -58,10 +58,15 @@ spec:
           # @default -- See values.yaml
           main:
             enabled: true
-            ingressClassName: traefik-ingresses
-            labels: {}
             hosts:
-              - host: radarr.dartus.fr
+              -  # -- Host address. Helm template can be passed.
+                host: radarr.dartus.fr
+                ## Configure the paths for the host
+                paths:
+                  -  # -- Path.  Helm template can be passed.
+                    path: /
+                    # -- Ignored if not kubeVersion >= 1.14-0
+                    pathType: Prefix
 
         # -- Configures the probes for the main Pod.
         # @default -- See values.yaml
