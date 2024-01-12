@@ -57,7 +57,17 @@ spec:
           # -- Enable and configure ingress settings for the chart under this key.
           # @default -- See values.yaml
           main:
-            enabled: false
+            enabled: true
+            hosts:
+              -  # -- Host address. Helm template can be passed.
+                host: sonarr.dartus.fr
+                ## Configure the paths for the host
+                paths:
+                  -  # -- Path.  Helm template can be passed.
+                    path: /
+                    # -- Ignored if not kubeVersion >= 1.14-0
+                    pathType: Prefix
+
 
         # -- Configures the probes for the main Pod.
         # @default -- See values.yaml
