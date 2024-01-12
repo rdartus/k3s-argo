@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: prowlarr
+  name: jellyfin
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
@@ -18,9 +18,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: prowlarr
+    chart: jellyfin
     targetRevision: "*"
-    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    repoURL: https://utkuozdemir.org/helm-charts
     helm : 
       values: |
 
@@ -33,13 +33,14 @@ spec:
 
         image:
           # -- image repository
-          repository: ghcr.io/onedr0p/prowlarr
+          repository: jellyfin/jellyfin
+          # -- image tag
           # @default -- chart.appVersion
           tag:
           # -- image pull policy
           pullPolicy: IfNotPresent
 
-        # -- environment variables.
+        # -- environment variables. See [image docs](https://jellyfin.org/docs/general/administration/configuration.html) for more details.
         # @default -- See below
         env:
           # -- Set the container timezone
@@ -51,7 +52,7 @@ spec:
           main:
             ports:
               http:
-                port: 9696
+                port: 8096
 
 
         ingress:
@@ -61,7 +62,7 @@ spec:
             enabled: true
             hosts:
               -  # -- Host address. Helm template can be passed.
-                host: prowlarr.dartus.fr
+                host: stream.dartus.fr
                 ## Configure the paths for the host
                 paths:
                   -  # -- Path.  Helm template can be passed.
@@ -75,3 +76,40 @@ spec:
         persistence:
           config:
             enabled: false
+
+          # Cache does NOT contain temporary transcoding data.
+          cache:
+            enabled: false
+            mountPath: /cache
+
+          media:
+            enabled: false
+            mountPath: /media
+
+        # -- Configure the Security Context for the Pod
+        podSecurityContext: {}
+        #   runAsUser: 568
+        #   runAsGroup: 568
+        #   fsGroup: 568
+        #   # Hardware acceleration using an Intel iGPU w/ QuickSync
+        #   # These IDs below should be matched to your `video` and `render` group on the host
+        #   # To obtain those IDs run the following grep statement on the host:
+        #   # $ cat /etc/group | grep "video\|render"
+        #   # video:x:44:
+        #   # render:x:109:
+        #   supplementalGroups:
+        #   - 44
+        #   - 109
+
+        # resources:
+        #   requests:
+        #     # Hardware acceleration using an Intel iGPU w/ QuickSync and
+        #     # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+        #     gpu.intel.com/i915: 1
+        #     cpu: 200m
+        #     memory: 256Mi
+        #   limits:
+        #     # Hardware acceleration using an Intel iGPU w/ QuickSync and
+        #     # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+        #     gpu.intel.com/i915: 1
+        #     memory: 4096Mi
