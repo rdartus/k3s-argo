@@ -15,8 +15,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    directory:
-      recurse: true
     path: kusto-metallb
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
