@@ -33,18 +33,13 @@ spec:
 
         image:
           # -- image repository
-          repository: ghcr.io/onedr0p/qbittorrent
-          # @default -- chart.appVersion
-          tag:
+          repository: ghcr.io/flaresolverr/flaresolverr
           # -- image pull policy
           pullPolicy: IfNotPresent
+          # -- image tag
+          tag:
 
-        settings:
-          # -- Enables automatic port configuration at startup
-          # This sets the qbittorrent port to the value of `service.bittorrent.ports.bittorrent.port`.
-          automaticPortSetup: false
-
-        # -- environment variables. See [image docs](https://docs.k8s-at-home.com/our-container-images/configuration/) for more details.
+        # -- environment variables. See more environment variables in the [flaresolverr documentation](https://github.com/FlareSolverr/FlareSolverr#environment-variables).
         # @default -- See below
         env:
           # -- Set the container timezone
@@ -56,16 +51,7 @@ spec:
           main:
             ports:
               http:
-                port: 8080
-          bittorrent:
-            enabled: false
-            type: ClusterIP
-            ports:
-              bittorrent:
-                enabled: true
-                port: 6881
-                protocol: TCP
-                targetPort: 6881
+                port: 8191
 
 
         ingress:
@@ -82,63 +68,3 @@ spec:
                     path: /
                     # -- Ignored if not kubeVersion >= 1.14-0
                     pathType: Prefix
-
-
-        # -- Configure persistence settings for the chart under this key.
-        # @default -- See values.yaml
-        persistence:
-          config:
-            enabled: false
-
-          media:
-            enabled: false
-            mountPath: /media
-
-          downloads:
-            enabled: false
-            mountPath: /downloads
-
-        metrics:
-          # -- Enable and configure prometheus-qbittorrent-exporter sidecar and Prometheus podMonitor.
-          # @default -- See values.yaml
-          enabled: false
-          serviceMonitor:
-            interval: 15s
-            scrapeTimeout: 5s
-            labels: {}
-          # -- Enable and configure Prometheus Rules for the chart under this key.
-          # @default -- See values.yaml
-          prometheusRule:
-            enabled: false
-            labels: {}
-            # -- Configure additionial rules for the chart under this key.
-            # @default -- See prometheusrules.yaml
-            rules: []
-              # - alert: qBittorrentDown
-              #   annotations:
-              #     description: qBittorrent service is down.
-              #     summary: qBittorrent is down.
-              #   expr: |
-              #     qbittorrent_up == 0
-              #   for: 5m
-              #   labels:
-              #     severity: critical
-          exporter:
-            image:
-              # -- image repository
-              repository: esanchezm/prometheus-qbittorrent-exporter
-              # -- image tag
-              tag: v1.2.0
-              # -- image pull policy
-              pullPolicy: IfNotPresent
-            env:
-              # -- qbittorrent username
-              # update value after configuring qbittorrent
-              user: "admin"
-              # -- qbittorrent password
-              # update value after configuring qbittorrent
-              password: "adminadmin"
-              # -- metrics port
-              port: 9022
-              # -- log level [DEBUG|INFO|WARNING|ERROR|CRITICAL]
-              logLevel: INFO
