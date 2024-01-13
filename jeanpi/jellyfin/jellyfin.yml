@@ -58,11 +58,11 @@ spec:
         ingress:
           # -- Enable and configure ingress settings for the chart under this key.
           # @default -- See values.yaml
-          annotations:
-            - hajimari.io/enable: true
-            - hajimari.io/group: jeanPi
 
           main:
+            annotations:
+              - hajimari.io/enable: true
+              - hajimari.io/group: jeanPi
             enabled: true
             hosts:
               -  # -- Host address. Helm template can be passed.
