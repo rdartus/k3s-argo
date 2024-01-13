@@ -75,12 +75,12 @@ spec:
 
           # -- Add custom applications to the discovered application list
           customApps: 
-          - group: test
+          - group: Hallais
             apps:
               - name: AnaNAS
                 url: 'https://ananas-ext.synology.me:5001'
                 icon: 'mdi:fruit-pineapple'
-                info: NAS
+                info: 'NAS'
 
           # -- Create sample Custom Resource Application
           createCRAppSample: false
