@@ -24,6 +24,17 @@ spec:
     helm : 
       values: |
 
+        configmap:
+          config:
+            # -- Enables or disables the configMap
+            enabled: true
+            # -- Labels to add to the configMap
+            labels: {}
+            # -- Annotations to add to the configMap
+            annotations: {}
+            # -- configMap data content. Helm template enabled.
+            data: 
+              foo: bar
         #
         # IMPORTANT NOTE
         #
@@ -144,14 +155,3 @@ spec:
               additionalMetrics: false
               # -- Set to true to enable gathering unknown queue items
               unknownQueueItems: false
-          configmap:
-            config:
-              # -- Enables or disables the configMap
-              enabled: true
-              # -- Labels to add to the configMap
-              labels: {}
-              # -- Annotations to add to the configMap
-              annotations: {}
-              # -- configMap data content. Helm template enabled.
-              data: 
-                foo: bar
