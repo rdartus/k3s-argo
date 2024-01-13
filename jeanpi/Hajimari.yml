@@ -133,7 +133,7 @@ spec:
               service:
                 name: hajimari
                 port: 
-                  number : 3000
+                  number : pdpdpdpd
 
         persistence:
           config:
