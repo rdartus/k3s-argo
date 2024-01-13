@@ -146,6 +146,12 @@ spec:
               unknownQueueItems: false
           configmap:
             config:
+              # -- Enables or disables the configMap
               enabled: true
-              data:
-                config.yaml: test
+              # -- Labels to add to the configMap
+              labels: {}
+              # -- Annotations to add to the configMap
+              annotations: {}
+              # -- configMap data content. Helm template enabled.
+              data: 
+                foo: bar
