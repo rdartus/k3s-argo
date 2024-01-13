@@ -130,7 +130,6 @@ spec:
             # defaultBackend: main
             # defaultBackend: true 
             defaultBackend: |
-
               service:
                 name: hajimari
                 port: 
