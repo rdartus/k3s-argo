@@ -98,8 +98,8 @@ spec:
           config:
             enabled: true
             type: configMap
-            name: hajimari-config
-            
+            name: radarr-config
+
           media:
             enabled: false
             mountPath: /media
