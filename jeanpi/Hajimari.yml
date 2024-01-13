@@ -79,8 +79,8 @@ spec:
             apps:
               - name: AnaNAS
                 url: 'https://ananas-ext.synology.me:5001'
-                icon: 'mdi:fruit-pineapple'
-                info: NAS
+                icon: 'fruit-pineapple'
+                info: 'NAS'
 
           # -- Create sample Custom Resource Application
           createCRAppSample: false
