@@ -129,11 +129,12 @@ spec:
             # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
             # defaultBackend: main
             # defaultBackend: true 
-            defaultBackend:
+            defaultBackend: |
+
               service:
                 name: hajimari
                 port: 
-                  number : pdpdpdpd
+                  number : 3000
 
         persistence:
           config:
