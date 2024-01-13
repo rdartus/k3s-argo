@@ -62,22 +62,25 @@ spec:
           # -- Namespace selector to use for discovering applications
           namespaceSelector:
             matchNames:
-            - media
+            - default
+            - argocd
+            - podinfo
+            - jeanpi
             
           # -- Override the title of the Hajimari pages
           title: null
 
           # -- Default name for welcome message
-          name: "test"
+          name: "Satan"
 
           # -- Add custom applications to the discovered application list
-          customApps: []
-          # - group: Media
-          #   apps:
-          #     - name: Test
-          #       url: 'https://example.com'
-          #       icon: 'mdi:test-tube'
-          #       info: This is a test app
+          customApps: 
+          - group: test
+            apps:
+              - name: AnaNAS
+                url: 'https://ananas-ext.synology.me:5001'
+                icon: 'mdi:fruit-pineapple'
+                info: NAS
 
           # -- Create sample Custom Resource Application
           createCRAppSample: false
@@ -126,15 +129,7 @@ spec:
             className: "traefik-ingresses"
 
             # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-            # defaultBackend: main
-            # defaultBackend: true 
             defaultBackend: '{"service": {"name": "hajimari","port": {"number": 3000}}}'
-
-            # defaultBackend:
-            #   service:
-            #     name: hajimari
-            #     port: 
-            #       number : 3000
 
         persistence:
           config:
