@@ -20,7 +20,7 @@ spec:
   source:
     chart: postgresql
     targetRevision: "*"
-    repoURL: oci://registry-1.docker.io/bitnamicharts/postgresql
+    repoURL: oci://registry-1.docker.io/bitnamicharts/
     helm : 
       values: |
 
