@@ -144,7 +144,7 @@ spec:
               additionalMetrics: false
               # -- Set to true to enable gathering unknown queue items
               unknownQueueItems: false
-          configMaps:
+          configmap:
             config:
               enabled: true
               data:
