@@ -118,7 +118,6 @@ spec:
 
             # -- Provide additional annotations which may be required.
             annotations:
-              kubernetes.io/ingress.class: pdpdpd
 
             # -- Provide additional labels which may be required.
             labels: {}
