@@ -25,7 +25,7 @@ spec:
       values: |
 
         configmap:
-          config:
+          test:
             # -- Enables or disables the configMap
             enabled: true
             # -- Labels to add to the configMap
@@ -106,10 +106,10 @@ spec:
         ## Config persistence is required for the Prometheus exporter sidecar.
         # @default -- See values.yaml
         persistence:
-          config:
+          test:
             enabled: true
             type: configMap
-            name: radarr-config
+            name: radarr-test
 
           media:
             enabled: false
