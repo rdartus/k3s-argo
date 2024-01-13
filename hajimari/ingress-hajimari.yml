@@ -1,13 +1,13 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: hajimari-ingress-le-bon
-  namespace: hajimari
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: hajimari-ingress-le-bon
+#   namespace: hajimari
 
-spec:
-  className: traefik-ingresses
-  defaultBackend:
-    service:
-      name: hajimari
-      port: 
-        number : 3000
+# spec:
+#   className: traefik-ingresses
+#   defaultBackend:
+#     service:
+#       name: hajimari
+#       port: 
+#         number : 3000
