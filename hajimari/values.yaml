@@ -111,9 +111,9 @@ ingress:
     # defaultBackend: true 
     defaultBackend:
       service:
-        name: main
+        name: hajimari
         port: 
-          number : http
+          number : 3000
 
 persistence:
   config:
