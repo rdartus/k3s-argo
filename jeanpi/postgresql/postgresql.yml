@@ -24,7 +24,7 @@ spec:
 
   source:
     path: bitnami/postgresql
-    repoURL: https://github.com/bitnami/
+    repoURL: https://github.com/bitnami/charts
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
