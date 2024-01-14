@@ -10,6 +10,12 @@ spec:
     namespace: default
     server: https://kubernetes.default.svc
   project: default
+  ignoreDifferences:
+  - group: "admissionregistration.k8s.io/v1"
+    kind: "MutatingWebhookConfiguration"
+    jsonPointers:
+    - /webhooks/clientConfig
+
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
@@ -17,6 +23,8 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
+
   source:
     chart: vault
     targetRevision: "0.27.0"
