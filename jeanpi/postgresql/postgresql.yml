@@ -19,7 +19,7 @@ spec:
       - CreateNamespace=true
   source:
     path: postgresql
-    targetRevision: "*"
+    targetRevision: main
     repoURL: https://github.com/bitnami/charts/tree/main/bitnami/
     helm : 
       values: |
