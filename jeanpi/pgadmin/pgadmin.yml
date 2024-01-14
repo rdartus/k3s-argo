@@ -122,13 +122,13 @@ spec:
         ## Ingress
         ## Ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
         ingress:
-          enabled: false
+          enabled: true
           annotations: {}
             # kubernetes.io/ingress.class: nginx
             # kubernetes.io/tls-acme: "true"
           # ingressClassName: ""
           hosts:
-            - host: chart-example.local
+            - host: pgadmin.dartus.fr
               paths:
                 - path: /
                   pathType: Prefix
@@ -160,6 +160,7 @@ spec:
         ## Specify additional containers in extraContainers.
         ## For example, to add an authentication proxy to a pgadmin4 pod.
         extraContainers: |
+
         # - name: proxy
         #   image: quay.io/gambol99/keycloak-proxy:latest
         #   args:
@@ -298,6 +299,7 @@ spec:
         ## Additional InitContainers to initialize the pod
         ##
         extraInitContainers: |
+
         #   - name: add-folder-for-pgpass
         #     image: "dpage/pgadmin4:latest"
         #     command: ["/bin/mkdir", "-p", "/var/lib/pgadmin/storage/pgadmin"]
