@@ -18,9 +18,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: postgresql
+    path: postgresql
     targetRevision: "*"
-    repoURL: oci://registry-1.docker.io/bitnamicharts/
+    repoURL: https://github.com/bitnami/charts/tree/main/bitnami/
     helm : 
       values: |
 
