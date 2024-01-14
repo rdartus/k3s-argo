@@ -23,7 +23,7 @@ spec:
       - RespectIgnoreDifferences=true
 
   source:
-    path: bitnami/postgresql
+    path: ./bitnami/postgresql
     repoURL: https://github.com/bitnami/charts
     targetRevision: main
   destination:
