@@ -15,6 +15,10 @@ spec:
     kind: "MutatingWebhookConfiguration"
     jqPathExpressions:
     - '.webhooks[]?.clientConfig.caBundle'
+  - group: "*"
+    kind: "*"
+    jqPathExpressions:
+    - '.webhooks[]?.clientConfig.caBundle'
 
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
