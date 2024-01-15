@@ -449,12 +449,8 @@ spec:
             labels: {}
               # traffic: external
             annotations: 
-              # |
-              # kubernetes.io/ingress.class: nginx
-              # kubernetes.io/tls-acme: "true"
-              #   or
-              hajimari.io/enable: true
-              hajimari.io/group: jeanPi
+              # hajimari.io/enable: true
+              # hajimari.io/group: jeanPi
 
             # Optionally use ingressClassName instead of deprecated annotation.
             # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
