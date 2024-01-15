@@ -3,6 +3,6 @@ kind: Kustomization
 namespace: metallb-system
 
 resources:
-  - github.com/metallb/metallb/config/frr?ref=v0.13.12
+  - https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
   - base/ip-adresspool.yaml
   - base/L2Advertisement.yaml
