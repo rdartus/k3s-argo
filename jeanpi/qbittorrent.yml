@@ -130,7 +130,8 @@ spec:
             enabled: true
             type: configMap
             name: qbittorrent-config
-            mountPath: /test/qBittorrent/categories.json
+            mountPath: /test/qBittorrent/
+            readOnly: false
 
           media:
             enabled: false
