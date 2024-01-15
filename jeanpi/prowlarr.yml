@@ -63,7 +63,7 @@ spec:
             annotations:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
-              hajimari.io/icon: "mdiCogPlayOutline"
+              hajimari.io/icon: "mdi:CogPlayOutline"
             hosts:
               -  # -- Host address. Helm template can be passed.
                 host: prowlarr.dartus.fr
