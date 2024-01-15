@@ -19,7 +19,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: qbittorrent
-    targetRevision: "*"
+    targetRevision: "14.1.0"
     repoURL: https://k8s-home-lab.github.io/helm-charts/
     helm : 
       values: |
