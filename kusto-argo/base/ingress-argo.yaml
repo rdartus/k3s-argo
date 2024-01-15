@@ -4,8 +4,8 @@ metadata:
   name: argo-ingress
   namespace: argocd
   annotations:
-  - hajimari.io/enable: true
-  - hajimari.io/group: jeanPi
+    hajimari.io/enable: true
+    hajimari.io/group: jeanPi
 
 spec:
   rules:
