@@ -8,7 +8,7 @@ data:
   admin.enabled: 'false'
   statusbadge.enabled: 'true'
   users.anonymous.enabled: 'true'
-  timeout.reconciliation: 600s
+  timeout.reconciliation: "600s"
   ga.trackingid: 'UA-105170809-6'
   url: https://cd.apps.argoproj.io
   configManagementPlugins: |
