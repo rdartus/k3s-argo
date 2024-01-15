@@ -1,31 +1,31 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: argocd
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io/background
-# spec:
-#   project: default
-#   ignoreDifferences:
-#   - group: "apiextensions.k8s.io"
-#     kind: "CustomResourceDefinition"
-#     jsonPointers:
-#     - /spec/conversion/webhook/clientConfig
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/background
+spec:
+  project: default
+  ignoreDifferences:
+  - group: "apiextensions.k8s.io"
+    kind: "CustomResourceDefinition"
+    jsonPointers:
+    - /spec/conversion/webhook/clientConfig
 
-#   syncPolicy:
-#     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-#       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
-#       selfHeal: true
-#       allowEmpty: true
-#     syncOptions:
-#       - CreateNamespace=true
-#       - RespectIgnoreDifferences=true
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+      - RespectIgnoreDifferences=true
 
-#   source:
-#     path: kusto-argo
-#     repoURL: https://github.com/rdartus/k3s-argo.git
-#     targetRevision: main
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: argocd
+  source:
+    path: kusto-argo
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
