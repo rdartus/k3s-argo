@@ -130,8 +130,8 @@ spec:
           # className: ""
           ingressClassName: traefik-ingresses
           annotations:
-            - hajimari.io/enable: true
-            - hajimari.io/group: jeanPi
+            hajimari.io/enable: true
+            hajimari.io/group: jeanPi
           hosts:
             - host: podinfo.dartus.fr
               paths:

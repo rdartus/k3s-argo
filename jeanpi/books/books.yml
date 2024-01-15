@@ -64,8 +64,8 @@ spec:
           main:
             enabled: true
             annotations:
-              - hajimari.io/enable: true
-              - hajimari.io/group: jeanPi
+              hajimari.io/enable: true
+              hajimari.io/group: jeanPi
             hosts:
               -  # -- Host address. Helm template can be passed.
                 host: books.dartus.fr

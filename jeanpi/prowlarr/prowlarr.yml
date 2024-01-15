@@ -60,8 +60,8 @@ spec:
 
           main:
             annotations:
-              - hajimari.io/enable: true
-              - hajimari.io/group: jeanPi
+              hajimari.io/enable: true
+              hajimari.io/group: jeanPi
             enabled: true
             hosts:
               -  # -- Host address. Helm template can be passed.
