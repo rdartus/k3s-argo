@@ -126,11 +126,11 @@ spec:
         # -- Configure persistence settings for the chart under this key.
         # @default -- See values.yaml
         persistence:
-          config:
+          test:
             enabled: true
             type: configMap
             name: qbittorrent-config
-            mountPath: /config/qBittorrent/categories.json
+            mountPath: /test/qBittorrent/categories.json
 
           media:
             enabled: false
