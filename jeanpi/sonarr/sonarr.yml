@@ -59,7 +59,7 @@ spec:
 
           main:
             annotations:
-              hajimari.io/enable: true
+              hajimari.io/enable: "true"
               hajimari.io/group: jeanPi
             enabled: true
             hosts:

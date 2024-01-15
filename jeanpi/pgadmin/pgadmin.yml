@@ -124,7 +124,7 @@ spec:
         ingress:
           enabled: true
           annotations: 
-            hajimari.io/enable: true
+            hajimari.io/enable: "true"
             hajimari.io/group: jeanPi
           ingressClassName: traefik-ingresses
           hosts:

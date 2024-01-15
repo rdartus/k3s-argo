@@ -56,7 +56,7 @@ spec:
           #   - name: image-pull-secret
 
           # TLS for end-to-end encrypted transport
-          tlsDisable: true
+          tlsDisable: "true"
 
           # External vault server address for the injector and CSI provider to use.
           # Setting this will disable deployment of a vault server.
@@ -449,8 +449,8 @@ spec:
             labels: {}
               # traffic: external
             annotations: 
-              # hajimari.io/enable: true
-              # hajimari.io/group: jeanPi
+              hajimari.io/enable: "true"
+              hajimari.io/group: jeanPi
 
             # Optionally use ingressClassName instead of deprecated annotation.
             # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
