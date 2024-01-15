@@ -33,6 +33,40 @@ spec:
         global:
           labels: 
             test: "test"
+        configmap:
+          config:
+            # -- Enables or disables the configMap
+            enabled: true
+            # -- Labels to add to the configMap
+            labels: {}
+            # -- Annotations to add to the configMap
+            annotations: {}
+            # -- configMap data content. Helm template enabled.
+            data: 
+              categories.json: |
+                {
+                  "books": {
+                      "save_path": ""
+                  },
+                  "manga": {
+                      "save_path": "/data/seed/manga/unlinked"
+                  },
+                  "programmes": {
+                      "save_path": ""
+                  },
+                  "prowlarr": {
+                      "save_path": ""
+                  },
+                  "radarr": {
+                      "save_path": "/data/seed/films/hardlinked"
+                  },
+                  "sonarr": {
+                      "save_path": "/data/seed/series/hardlinked"
+                  },
+                  "tmp": {
+                      "save_path": ""
+                  }
+                }
         image:
           # -- image repository
           repository: ghcr.io/onedr0p/qbittorrent
@@ -93,7 +127,9 @@ spec:
         # @default -- See values.yaml
         persistence:
           config:
-            enabled: false
+            enabled: true
+            type: configMap
+            name: config
 
           media:
             enabled: false
