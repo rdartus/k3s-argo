@@ -126,7 +126,7 @@ spec:
           annotations: 
             hajimari.io/enable: "true"
             hajimari.io/group: "Management"
-              hajimari.io/icon: "DatabaseEdit"
+            hajimari.io/icon: "DatabaseEdit"
           ingressClassName: traefik-ingresses
           hosts:
             - host: pgadmin.dartus.fr
