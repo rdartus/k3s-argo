@@ -56,7 +56,7 @@ spec:
           #   - name: image-pull-secret
 
           # TLS for end-to-end encrypted transport
-          tlsDisable: "true"
+          tlsDisable: true
 
           # External vault server address for the injector and CSI provider to use.
           # Setting this will disable deployment of a vault server.
