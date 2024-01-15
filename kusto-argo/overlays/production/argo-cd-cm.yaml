@@ -1,9 +1,14 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
 data:
   application.resourceTrackingMethod: annotation
   admin.enabled: 'false'
   statusbadge.enabled: 'true'
   users.anonymous.enabled: 'true'
+  timeout.reconciliation: 600s
   ga.trackingid: 'UA-105170809-6'
   url: https://cd.apps.argoproj.io
   configManagementPlugins: |
@@ -23,7 +28,3 @@ data:
         - name: argoproj
           teams:
           - argo-cd-admins
-kind: ConfigMap
-metadata:
-  name: argocd-cm
-  namespace: argocd
