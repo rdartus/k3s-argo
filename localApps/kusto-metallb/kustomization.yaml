@@ -6,7 +6,3 @@ resources:
   - github.com/metallb/metallb/config/frr?ref=v0.13.12
   - base/ip-adresspool.yaml
   - base/L2Advertisement.yaml
-
-patches:
-  - path: overlays/production/addresspools.yaml
-  - path: overlays/production/bgppeers.yaml

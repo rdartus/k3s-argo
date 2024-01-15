@@ -23,7 +23,7 @@ spec:
       - RespectIgnoreDifferences=true
 
   source:
-    path: kusto-argo
+    path: localApps/kusto-argo
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
   destination:

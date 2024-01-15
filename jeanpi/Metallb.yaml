@@ -23,7 +23,7 @@ spec:
       - RespectIgnoreDifferences=true
 
   source:
-    path: kusto-metallb
+    path: localApps/kusto-metallb
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
   destination:
