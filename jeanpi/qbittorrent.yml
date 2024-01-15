@@ -130,6 +130,7 @@ spec:
             enabled: true
             type: configMap
             name: qbittorrent-config
+            mountPath: /config/qBittorrent
 
           media:
             enabled: false
