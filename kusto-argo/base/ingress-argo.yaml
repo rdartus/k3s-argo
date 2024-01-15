@@ -5,7 +5,8 @@ metadata:
   namespace: argocd
   annotations:
     hajimari.io/enable: "true"
-    hajimari.io/group: jeanPi
+    hajimari.io/group: "Management"
+    hajimari.io/icon: "Jellyfish"
 
 spec:
   rules:

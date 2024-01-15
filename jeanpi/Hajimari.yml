@@ -52,14 +52,7 @@ spec:
         # -- Configures Hajimari settings for this instance.
         # @default -- See below
         hajimari:
-          # -- The name of this instance, this allows running multiple 
-          # instances of Hajimari on the same cluster
-          instanceName: null
-
-          # -- Set to true to show all discovered applications by default.
           defaultEnable: false
-
-          # -- Namespace selector to use for discovering applications
           namespaceSelector:
             matchNames:
             - default
@@ -67,35 +60,56 @@ spec:
             - podinfo
             - jeanpi
             
-          # -- Override the title of the Hajimari pages
-          title: null
+          title: "test title"
+          name: "Chacal"
+          lightTheme: Paper
+          darkTheme: horizon
+          showAppGroups: true
 
-          # -- Default name for welcome message
-          name: "Satan"
-
-          # -- Add custom applications to the discovered application list
           customApps: 
           - group: Hallais
             apps:
               - name: AnaNAS
+                group: 'Hallais-Corp'
                 url: 'https://ananas-ext.synology.me:5001'
                 icon: 'fruit-pineapple'
                 info: 'NAS'
 
-          # -- Create sample Custom Resource Application
+          alwaysTargetBlank: true
           createCRAppSample: false
-
-          # -- Set default bookmarks
-          globalBookmarks: []
-          # - group: Communicate
-          #   bookmarks:
-          #   - name: Discord
-          #     url: 'https://discord.com'
-          #   - name: Gmail
-          #     url: 'http://gmail.com'
-          #   - name: Slack
-          #     url: 'https://slack.com/signin'
-
+          defaultSearchProvider: Google
+          defaultAppIcon: mdi:application
+          searchProviders:
+            - name: Google
+              token: g
+              icon: simple-icons:google
+              searchUrl: https://www.google.com/search?q={query}
+              url: https://www.google.com
+            - name: DuckDuckGo
+              token: d
+              icon: simple-icons:duckduckgo
+              searchUrl: https://duckduckgo.com/?q={query}
+              url: https://duckduckgo.com
+            - name: IMDB
+              token: i
+              icon: simple-icons:imdb
+              searchUrl: https://www.imdb.com/find?q={query}
+              url: https://www.imdb.com
+            - name: Reddit
+              token: r
+              icon: simple-icons:reddit
+              searchUrl: https://www.reddit.com/search?q={query}
+              url: https://www.reddit.com
+            - name: YouTube
+              token: 'y'
+              icon: simple-icons:youtube
+              searchUrl: https://www.youtube.com/results?search_query={query}
+              url: https://www.youtube.com
+            - name: Spotify
+              token: s
+              icon: simple-icons:spotify
+              searchUrl: hhttps://open.spotify.com/search/{query}
+              url: https://open.spotify.com
 
         # -- Configures service settings for the chart.
         # @default -- See values.yaml
