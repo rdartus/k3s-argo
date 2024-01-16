@@ -197,7 +197,7 @@ spec:
         # @default -- See values.yaml
         persistence:
           test:
-            enabled: true
+            enabled: false
             type: configMap
             name: qbittorrent-config
             mountPath: /config/qBittorrent/categories.json
