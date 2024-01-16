@@ -131,6 +131,7 @@ spec:
             type: configMap
             name: qbittorrent-config
             mountPath: /test/qBittorrent/
+            subPath: categories.json
             readOnly: false
 
           media:
