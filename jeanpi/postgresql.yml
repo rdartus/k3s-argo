@@ -23,8 +23,8 @@ spec:
       - RespectIgnoreDifferences=true
 
   source:
-    path: bitnami/postgresql
-    repoURL: https://github.com/bitnami/charts.git
+    path: postgresql-bitnami
+    repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
