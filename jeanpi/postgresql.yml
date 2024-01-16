@@ -23,7 +23,7 @@ spec:
       - RespectIgnoreDifferences=true
 
   source:
-    path: postgresql-bitnami
+    path: localApps/postgresql-bitnami
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
   destination:
