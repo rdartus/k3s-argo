@@ -44,6 +44,7 @@ spec:
         env:
           # -- Set the container timezone
           TZ: UTC
+          PROWLARR__AUTHENTICATION_METHOD: "External"
 
         # -- Configures service settings for the chart.
         # @default -- See values.yaml
