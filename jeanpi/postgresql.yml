@@ -65,7 +65,7 @@ spec:
               postgresPassword: "pdsupreme"
               username: "Jeank"
               password: "pdpdpd"
-              database: ""
+              database: "default"
               existingSecret: ""
               secretKeys:
                 adminPasswordKey: ""
