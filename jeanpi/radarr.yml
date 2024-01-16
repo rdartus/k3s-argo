@@ -94,7 +94,7 @@ spec:
           # -- image repository
           repository: ghcr.io/onedr0p/radarr
           # @default -- chart.appVersion
-          tag:
+          tag: rolling
           # -- image pull policy
           pullPolicy: IfNotPresent
 
@@ -105,7 +105,7 @@ spec:
           TZ: UTC
           # RADARR__ANALYTICS_ENABLED: 'False'
           # RADARR__API_KEY: ''
-          RADARR__AUTHENTICATION_METHOD: "Basic"
+          RADARR__AUTHENTICATION_METHOD: "External"
           # RADARR__AUTHENTICATION_REQUIRED: ''
           # RADARR__BRANCH: '(current channel)'
           # RADARR__INSTANCE_NAME: 'Radarr'
