@@ -71,7 +71,7 @@ spec:
           # -- image repository
           repository: ghcr.io/onedr0p/qbittorrent
           # @default -- chart.appVersion
-          tag:
+          tag: rolling
           # -- image pull policy
           pullPolicy: IfNotPresent
 
