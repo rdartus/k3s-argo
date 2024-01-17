@@ -227,12 +227,6 @@ spec:
             # objectSelector:
             #    matchLabels:
             #      vault-sidecar-injector: enabled
-            objectSelector: |
-              matchExpressions:
-              - key: app.kubernetes.io/name
-                operator: NotIn
-                values:
-                - {{ template "vault.name" . }}-agent-injector
 
             # Extra annotations to attach to the webhook
             annotations: {}
@@ -290,17 +284,6 @@ spec:
             certName: tls.crt
             keyName: tls.key
 
-          # Security context for the pod template and the injector container
-          # The default pod securityContext is:
-          #   runAsNonRoot: true
-          #   runAsGroup: {{ .Values.injector.gid | default 1000 }}
-          #   runAsUser: {{ .Values.injector.uid | default 100 }}
-          #   fsGroup: {{ .Values.injector.gid | default 1000 }}
-          # and for container is
-          #    allowPrivilegeEscalation: false
-          #    capabilities:
-          #      drop:
-          #        - ALL
           securityContext:
             pod: {}
             container: {}
@@ -323,16 +306,7 @@ spec:
           # This can either be a multi-line string or YAML matching the PodSpec's affinity field.
           # Commenting out or setting as empty the affinity variable, will allow
           # deployment of multiple replicas to single node services such as Minikube.
-          affinity: |
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
-                      app.kubernetes.io/instance: "{{ .Release.Name }}"
-                      component: webhook
-                  topologyKey: kubernetes.io/hostname
-
+       
           # Topology settings for injector pods
           # ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
           # This should be either a multi-line string or YAML matching the topologySpreadConstraints array
@@ -643,16 +617,6 @@ spec:
           # Commenting out or setting as empty the affinity variable, will allow
           # deployment to single node services such as Minikube
           # This should be either a multi-line string or YAML matching the PodSpec's affinity field.
-          affinity: |
-            podAntiAffinity:
-              requiredDuringSchedulingIgnoredDuringExecution:
-                - labelSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: {{ template "vault.name" . }}
-                      app.kubernetes.io/instance: "{{ .Release.Name }}"
-                      component: server
-                  topologyKey: kubernetes.io/hostname
-
           # Topology settings for server pods
           # ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
           # This should be either a multi-line string or YAML matching the topologySpreadConstraints array
@@ -722,7 +686,6 @@ spec:
               # YAML-formatted multi-line templated string map of the annotations to apply
               # to the standby service.
               annotations: {}
-            # If enabled, the service selectors will include `app.kubernetes.io/instance: {{ .Release.Name }}`
             # When disabled, services may select Vault pods not deployed from the chart.
             # Does not affect the headless vault-internal service with `ClusterIP: None`
             instanceSelector:
@@ -911,7 +874,6 @@ spec:
 
             # Set the cluster_addr confuguration for Vault HA
             # See https://developer.hashicorp.com/vault/docs/configuration#cluster_addr
-            # If set to null, this will be set to https://$(HOSTNAME).{{ template "vault.fullname" . }}-internal:8201
             clusterAddr: null
 
             # Enables Vault's integrated Raft storage.  Unlike the typical HA modes where
@@ -1033,19 +995,6 @@ spec:
             # to the statefulSet.
             annotations: {}
 
-            # Set the pod and container security contexts.
-            # If not set, these will default to, and for *not* OpenShift:
-            # pod:
-            #   runAsNonRoot: true
-            #   runAsGroup: {{ .Values.server.gid | default 1000 }}
-            #   runAsUser: {{ .Values.server.uid | default 100 }}
-            #   fsGroup: {{ .Values.server.gid | default 1000 }}
-            # container:
-            #   allowPrivilegeEscalation: false
-            #
-            # If not set, these will default to, and for OpenShift:
-            # pod: {}
-            # container: {}
             securityContext:
               pod: {}
               container: {}

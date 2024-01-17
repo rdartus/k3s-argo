@@ -66,7 +66,6 @@ spec:
           # -- Additional deployment labels (e.g. for filtering deployment by custom labels)
           labels: {}
           # -- Additional pod annotations (e.g. for mesh injection or prometheus scraping)
-          # It supports templating. One can set it with values like traefik/name: '{{ template "traefik.name" . }}'
           podAnnotations: {}
           # -- Additional Pod labels (e.g. for filtering Pod by custom labels)
           podLabels: {}
@@ -307,12 +306,6 @@ spec:
         # - "--ping"
         # - "--ping.entrypoint=web"`
         volumes: []
-        # - name: public-cert
-        #   mountPath: "/certs"
-        #   type: secret
-        # - name: '{{ printf "%s-configs" .Release.Name }}'
-        #   mountPath: "/config"
-        #   type: configMap
 
         # -- Additional volumeMounts to add to the Traefik container
         additionalVolumeMounts: []
@@ -526,19 +519,6 @@ spec:
           #    #   foo: bar
           #    # namespace: "another-namespace"
           #    # namespaceSelector: {}
-          #  prometheusRule:
-          #    additionalLabels: {}
-          #    namespace: "another-namespace"
-          #    rules:
-          #      - alert: TraefikDown
-          #        expr: up{job="traefik"} == 0
-          #        for: 5m
-          #        labels:
-          #          context: traefik
-          #          severity: warning
-          #        annotations:
-          #          summary: "Traefik Down"
-          #          description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
 
         ## Tracing
         # -- https://doc.traefik.io/traefik/observability/tracing/overview/
@@ -943,9 +923,6 @@ spec:
         #    requiredDuringSchedulingIgnoredDuringExecution:
         #      - labelSelector:
         #          matchLabels:
-        #            app.kubernetes.io/name: '{{ template "traefik.name" . }}'
-        #            app.kubernetes.io/instance: '{{ .Release.Name }}-{{ .Release.Namespace }}'
-        #        topologyKey: kubernetes.io/hostname
 
         # -- nodeSelector is the simplest recommended form of node selection constraint.
         nodeSelector: {}
@@ -954,15 +931,6 @@ spec:
         # -- You can use topology spread constraints to control
         # how Pods are spread across your cluster among failure-domains.
         topologySpreadConstraints: []
-        # This example topologySpreadConstraints forces the scheduler to put traefik pods
-        # on nodes where no other traefik pods are scheduled.
-        #  - labelSelector:
-        #      matchLabels:
-        #        app: '{{ template "traefik.name" . }}'
-        #    maxSkew: 1
-        #    topologyKey: kubernetes.io/hostname
-        #    whenUnsatisfiable: DoNotSchedule
-
         # -- Pods can have priority.
         # -- Priority indicates the importance of a Pod relative to other Pods.
         priorityClassName: ""
