@@ -42,7 +42,7 @@ data:
   # Set the logging format. One of: text|json (default "text")
   controller.log.format: "text"
   # Set the logging level. One of: debug|info|warn|error (default "info")
-  controller.log.level: "info"
+  controller.log.level: "debug"
   # Prometheus metrics cache expiration (disabled  by default. e.g. 24h0m0s)
   controller.metrics.cache.expiration: "24h0m0s"
   # Specifies timeout between application self heal attempts (default 5)
@@ -78,7 +78,7 @@ data:
   # Set the logging format. One of: text|json (default "text")
   server.log.format: "text"
   # Set the logging level. One of: debug|info|warn|error (default "info")
-  server.log.level: "info"
+  server.log.level: "debug"
   # Repo server RPC call timeout seconds. (default 60)
   server.repo.server.timeout.seconds: "60"
   # Use a plaintext client (non-TLS) to connect to repository server
@@ -124,7 +124,7 @@ data:
   # Set the logging format. One of: text|json (default "text")
   reposerver.log.format: "text"
   # Set the logging level. One of: debug|info|warn|error (default "info")
-  reposerver.log.level: "info"
+  reposerver.log.level: "debug"
   # Limit on number of concurrent manifests generate requests. Any value less the 1 means no limit.
   reposerver.parallelism.limit: "1"
   # Disable TLS on the gRPC endpoint
@@ -170,7 +170,7 @@ data:
   # Set the logging format. One of: text|json (default "text")
   applicationsetcontroller.log.format: "text"
   # Set the logging level. One of: debug|info|warn|error (default "info")
-  applicationsetcontroller.log.level: "info"
+  applicationsetcontroller.log.level: "debug"
   # Enable dry run mode
   applicationsetcontroller.dryrun: "false"
   # Enable git submodule support
