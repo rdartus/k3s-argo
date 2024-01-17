@@ -63,8 +63,8 @@ spec:
             ##
             auth:
               postgresPassword: "pdsupreme"
-              username: "Jeank"
-              password: "pdpdpd"
+              username: {{ .Values.db.user }}
+              password: {{ .Values.db.userPass }}
               database: "default"
               existingSecret: ""
               secretKeys:
