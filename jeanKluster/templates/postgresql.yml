@@ -1579,9 +1579,6 @@ spec:
             sessionAffinity: None
             ## @param metrics.service.annotations [object] Annotations for Prometheus to auto-discover the metrics endpoint
             ##
-            annotations:
-              prometheus.io/scrape: "true"
-              prometheus.io/port: "{{ .Values.metrics.service.ports.metrics }}"
           ## Prometheus Operator ServiceMonitor configuration
           ##
           serviceMonitor:
