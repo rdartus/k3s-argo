@@ -8,7 +8,7 @@ metadata:
 spec:
   destination:
     namespace: default
-    server: https://kubernetes.default.svc
+    server: {{ .Values.dest_server }}
   project: default
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
@@ -45,12 +45,6 @@ spec:
           # -- Set the container timezone
           TZ: UTC
           SONARR__AUTHENTICATION_METHOD: "External"
-          {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
-          SONARR__POSTGRES_HOST: {{ $dbServiceName }}
-          # SONARR__POSTGRES_MAIN_DB: ''
-          # SONARR__POSTGRES_LOG_DB: ''
-          SONARR__POSTGRES_USER: {{ .Values.db.user }}
-          SONARR__POSTGRES_PASSWORD: {{ .Values.db.userPass }}
 
         # -- Configures service settings for the chart.
         # @default -- See values.yaml
