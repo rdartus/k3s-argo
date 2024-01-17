@@ -1,3 +1,4 @@
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -45,7 +46,6 @@ spec:
           # -- Set the container timezone
           TZ: UTC
           PROWLARR__AUTHENTICATION_METHOD: "External"
-          {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
           PROWLARR__POSTGRES_HOST: {{ $dbServiceName }}
           # PROWLARR__POSTGRES_MAIN_DB: ''
           # PROWLARR__POSTGRES_LOG_DB: ''

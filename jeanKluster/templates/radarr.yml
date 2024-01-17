@@ -1,3 +1,4 @@
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -112,7 +113,7 @@ spec:
           # RADARR__INSTANCE_NAME: 'Radarr'
           # RADARR__LOG_LEVEL: 'info'
           # RADARR__PORT: '7878'
-          {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
+          
           RADARR__POSTGRES_HOST: {{ $dbServiceName }}
           # RADARR__POSTGRES_MAIN_DB: ''
           # RADARR__POSTGRES_LOG_DB: ''
