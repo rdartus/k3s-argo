@@ -12,17 +12,20 @@ spec:
     spec:
       containers:
       - name: pgloader
+        volumeMounts:
+        - mountPath: /db
+          name: pxvol
         image: dimitri/pgloader
         command:
         - /bin/sh
         - -c
         - |
-          pgloader --with "quote identifiers" --with "data only" radarr/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
-          pgloader --with "quote identifiers" --with "data only" radarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-log'
-          pgloader --with "quote identifiers" --with "data only" sonarr/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
-          pgloader --with "quote identifiers" --with "data only" sonarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-log'
-          pgloader --with "quote identifiers" --with "data only" prowlarr/prowlarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main'
-          pgloader --with "quote identifiers" --with "data only" prowlarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-log'
+          pgloader --with "quote identifiers" --with "data only" /db/radarr/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
+          pgloader --with "quote identifiers" --with "data only" /db/radarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-log'
+          pgloader --with "quote identifiers" --with "data only" /db/sonarr/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
+          pgloader --with "quote identifiers" --with "data only" /db/sonarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-log'
+          pgloader --with "quote identifiers" --with "data only" /db/prowlarr/prowlarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main'
+          pgloader --with "quote identifiers" --with "data only" /db/prowlarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-log'
           
       restartPolicy: Never
   backoffLimit: 2
