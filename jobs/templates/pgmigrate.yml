@@ -32,4 +32,12 @@ spec:
           pgloader --with "quote identifiers" --with "data only" /db/prowlarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-log'
           
       restartPolicy: Never
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - pirate
   backoffLimit: 2
