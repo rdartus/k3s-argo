@@ -16,7 +16,7 @@ spec:
       - CreateNamespace=true
   source:
     directory:
-      recurse: true
+      recurse: False
     path: jeanKluster
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
