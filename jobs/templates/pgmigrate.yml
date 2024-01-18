@@ -33,12 +33,11 @@ spec:
           
       restartPolicy: Never
       # affinity:
-      #   nodeAffinity:
-      #     required:
-      #       nodeSelectorTerms:
-      #       - matchExpressions:
-      #         - key: kubernetes.io/hostname
-      #           operator: In
-      #           values:
-      #           - pirate
+      #   nodeSelector:
+      #     nodeSelectorTerms:
+      #     - matchExpressions:
+      #       - key: kubernetes.io/hostname
+      #         operator: In
+      #         values:
+      #         - pirate
   backoffLimit: 2
