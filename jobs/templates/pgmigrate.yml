@@ -14,7 +14,7 @@ spec:
       - name: pgloader
         volumeMounts:
         - mountPath: /db
-          name: pxvol
+          name: db-to-migrate
         image: dimitri/pgloader
         command:
         - /bin/sh
