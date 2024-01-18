@@ -10,11 +10,15 @@ metadata:
 spec:
   template:
     spec:
+      volumes: 
+      - name: db-storage
+        persistentVolumeClaim:
+          claimName: db-to-migrate
       containers:
       - name: pgloader
         volumeMounts:
         - mountPath: /db
-          name: db-to-migrate
+          name: db-storage
         image: dimitri/pgloader
         command:
         - /bin/sh
