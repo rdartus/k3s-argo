@@ -25,4 +25,4 @@ spec:
     targetRevision: main
     helm : 
       values: |
-        {{ .Values.db}}
+        {{ .Values.db | toYaml }}
