@@ -1,22 +1,18 @@
 apiVersion: v1
-kind: PersistentVolume
+kind: PersistentVolumeClaim
 metadata:
-  name: db-to-migrate
+  name: pvc-db-to-migrate
 spec:
-  capacity:
-    storage: 500Mi
-  volumeMode: Filesystem
   accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  resources:
+    requests:
+      storage: 500Mi
   storageClassName: local-storage
-  local:
-    path: /home/jeank/db-arr
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-          - pirate
+  selector:
+    matchExpressions:
+      - key: kubernetes.io/hostname
+        operator: In
+        values:
+        - pirate

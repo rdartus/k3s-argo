@@ -13,7 +13,7 @@ spec:
       volumes: 
       - name: db-storage
         persistentVolumeClaim:
-          claimName: db-to-migrate
+          claimName: pvc-db-to-migrate
       containers:
       - name: pgloader
         volumeMounts:
