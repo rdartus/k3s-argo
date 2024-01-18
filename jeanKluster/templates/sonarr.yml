@@ -47,7 +47,7 @@ spec:
           TZ: UTC
           SONARR__AUTHENTICATION_METHOD: "External"
           SONARR__POSTGRES_HOST: {{ $dbServiceName }}
-          SONARR__POSTGRES_MAIN_DB: 'sondarr-main'
+          SONARR__POSTGRES_MAIN_DB: 'sonarr-main'
           SONARR__POSTGRES_LOG_DB: 'sonarr-log'
           SONARR__POSTGRES_USER: {{ .Values.db.user }}
           SONARR__POSTGRES_PASSWORD: {{ .Values.db.userPass }}

@@ -365,11 +365,18 @@ spec:
             ## @param primary.initdb.scripts Dictionary of initdb scripts
             ## Specify dictionary of scripts to be run at first boot
             ## e.g:
-            ## scripts:
-            ##   my_init_script.sh: |
-            ##      #!/bin/sh
-            ##      echo "Do something."
-            ##
+              scripts:
+                my_init_script.sh: |
+                  #!/bin/sh
+                  PGPASSWORD={{ .Values.db.userPass }} psql -h localhost -U {{ .Values.db.user }} -d default <<- EOSQL
+                    CREATE DATABASE "sonarr-log";
+                    CREATE DATABASE "sonarr-main";
+                    CREATE DATABASE "radarr-log";
+                    CREATE DATABASE "radarr-main";
+                    CREATE DATABASE "prowlarr-log";
+                    CREATE DATABASE "prowlarr-main";
+                  EOSQL
+              
             scripts: {}
             ## @param primary.initdb.scriptsConfigMap ConfigMap with scripts to be run at first boot
             ## NOTE: This will override `primary.initdb.scripts`
