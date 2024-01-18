@@ -1,0 +1,9 @@
+dest_server : https://kubernetes.default.svc
+default_folder_app : localApps
+
+db :
+  appName: postgresql
+  namespace: postgresql
+  user: jeank
+  userPass: pdpdpd
+

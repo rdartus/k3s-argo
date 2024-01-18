@@ -1,0 +1,28 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pgloader-migrate
+  annotations:
+  argocd.argoproj.io/hook: Sync
+  argocd.argoproj.io/hook-delete-policy: HookSucceeded
+  argocd.argoproj.io/sync-wave: "1"
+spec:
+  template:
+    spec:
+      containers:
+      - name: pgloader
+        image: dimitri/pgloader
+        command:
+        - /bin/sh
+        - -c
+        - |
+          pgloader --with "quote identifiers" --with "data only" radarr/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
+          pgloader --with "quote identifiers" --with "data only" radarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-log'
+          pgloader --with "quote identifiers" --with "data only" sonarr/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
+          pgloader --with "quote identifiers" --with "data only" sonarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-log'
+          pgloader --with "quote identifiers" --with "data only" prowlarr/prowlarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main'
+          pgloader --with "quote identifiers" --with "data only" prowlarr/logs.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-log'
+          
+      restartPolicy: Never
+  backoffLimit: 2

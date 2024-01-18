@@ -1,21 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: metallb
+  name: hajimari
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
-
+    argocd.argoproj.io/sync-wave: "1"
 spec:
+  destination:
+    namespace: default
+    server: {{ .Values.dest_server }}
   project: default
-  ignoreDifferences:
-  - group: "apiextensions.k8s.io"
-    kind: "CustomResourceDefinition"
-    jsonPointers:
-    - /spec/conversion/webhook/clientConfig
-
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
@@ -23,12 +19,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=true
-
   source:
-    path: localApps/kusto-metallb
+    path: jobs
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
-  destination:
-    server: {{ .Values.dest_server }}
-    namespace: metallb-system
+    helm : 
+      values: |
+        {{ .Values.db}}
