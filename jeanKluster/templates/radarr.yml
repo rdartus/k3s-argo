@@ -115,8 +115,8 @@ spec:
           # RADARR__PORT: '7878'
           
           RADARR__POSTGRES_HOST: {{ $dbServiceName }}
-          # RADARR__POSTGRES_MAIN_DB: ''
-          # RADARR__POSTGRES_LOG_DB: ''
+          RADARR__POSTGRES_MAIN_DB: 'radarr-main'
+          RADARR__POSTGRES_LOG_DB: 'radarr-log'
           RADARR__POSTGRES_USER: {{ .Values.db.user }}
           RADARR__POSTGRES_PASSWORD: {{ .Values.db.userPass }}
           # RADARR__POSTGRES_PORT: '5432'

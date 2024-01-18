@@ -47,8 +47,8 @@ spec:
           TZ: UTC
           PROWLARR__AUTHENTICATION_METHOD: "External"
           PROWLARR__POSTGRES_HOST: {{ $dbServiceName }}
-          # PROWLARR__POSTGRES_MAIN_DB: ''
-          # PROWLARR__POSTGRES_LOG_DB: ''
+          PROWLARR__POSTGRES_MAIN_DB: 'prowlarr-main'
+          PROWLARR__POSTGRES_LOG_DB: 'prowlarr-log'
           PROWLARR__POSTGRES_USER: {{ .Values.db.user }}
           PROWLARR__POSTGRES_PASSWORD: {{ .Values.db.userPass }}
 
