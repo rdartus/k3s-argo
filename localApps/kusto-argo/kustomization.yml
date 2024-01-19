@@ -5,6 +5,7 @@ namespace: argocd
 
 resources:
 - base/ingress-argo.yaml
+- base/namespace.yaml
 # - base/rollouts-extension.yaml
 - https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/install.yaml
 
