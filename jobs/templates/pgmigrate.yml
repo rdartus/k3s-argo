@@ -19,7 +19,7 @@ spec:
         volumeMounts:
         - mountPath: /db
           name: db-storage
-        image: pgloader
+        image: pgloader:local
         imagePullPolicy: Never
         command:
         - /bin/sh
