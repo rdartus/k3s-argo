@@ -10,9 +10,9 @@ spec:
     requests:
       storage: 500Mi
   storageClassName: local-storage
-  selector:
-    matchExpressions:
-      - key: kubernetes.io/hostname
-        operator: In
-        values:
-        - pirate
+  # selector:
+  #   matchExpressions:
+  #     - key: kubernetes.io/hostname
+  #       operator: In
+  #       values:
+  #       - pirate
