@@ -6,4 +6,6 @@ resources:
   - https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml
   - base/ip-adresspool.yaml
   - base/L2Advertisement.yaml
-  - base/kube-proxy-cfm.yml
+
+patchesStrategicMerge:
+  - base/metallb.io_addresspools.yaml
