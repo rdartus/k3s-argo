@@ -51,8 +51,8 @@ spec:
           SONARR__POSTGRES_HOST: {{ $dbServiceName }}
           SONARR__POSTGRES_MAIN_DB: 'sonarr-main'
           SONARR__POSTGRES_LOG_DB: 'sonarr-log'
-          SONARR__POSTGRES_USER: {{ .Values.db.user }}
-          SONARR__POSTGRES_PASSWORD: {{ .Values.db.userPass }}
+          SONARR__POSTGRES_USER: {{ .Values.arr.user }}
+          SONARR__POSTGRES_PASSWORD: {{ .Values.arr.userPass }}
 
         # -- Configures service settings for the chart.
         # @default -- See values.yaml

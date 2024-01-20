@@ -120,8 +120,8 @@ spec:
           RADARR__POSTGRES_HOST: {{ $dbServiceName }}
           RADARR__POSTGRES_MAIN_DB: 'radarr-main'
           RADARR__POSTGRES_LOG_DB: 'radarr-log'
-          RADARR__POSTGRES_USER: {{ .Values.db.user }}
-          RADARR__POSTGRES_PASSWORD: {{ .Values.db.userPass }}
+          RADARR__POSTGRES_USER: {{ .Values.arr.user }}
+          RADARR__POSTGRES_PASSWORD: {{ .Values.arr.userPass }}
           # RADARR__POSTGRES_PORT: '5432'
           # RADARR__URL_BASE: ''
         # -- Configures service settings for the chart.
