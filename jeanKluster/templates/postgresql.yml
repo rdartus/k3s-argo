@@ -62,10 +62,10 @@ spec:
             ## @param global.postgresql.auth.secretKeys.replicationPasswordKey Name of key in existing secret to use for PostgreSQL credentials (overrides `auth.secretKeys.replicationPasswordKey`). Only used when `global.postgresql.auth.existingSecret` is set.
             ##
             auth:
-              postgresPassword: "pdsupreme"
-              username: {{ .Values.db.user }}
-              password: {{ .Values.db.userPass }}
-              database: "default"
+              # postgresPassword: "pdsupreme"
+              # username: {{ .Values.db.user }}
+              # password: {{ .Values.db.userPass }}
+              # database: "default"
               existingSecret: ""
               secretKeys:
                 adminPasswordKey: ""
@@ -161,16 +161,16 @@ spec:
           enablePostgresUser: true
           ## @param auth.postgresPassword Password for the "postgres" admin user. Ignored if `auth.existingSecret` is provided
           ##
-          postgresPassword: ""
+          postgresPassword: "pdsupreme"
           ## @param auth.username Name for a custom user to create
           ##
-          username: ""
+          username: {{ .Values.db.user }}
           ## @param auth.password Password for the custom user to create. Ignored if `auth.existingSecret` is provided
           ##
-          password: ""
+          password: {{ .Values.db.userPass }}
           ## @param auth.database Name for a custom database to create
           ##
-          database: ""
+          database: "default"
           ## @param auth.replicationUsername Name of the replication user
           ##
           replicationUsername: repl_user
