@@ -24,4 +24,17 @@
 #     repoURL: https://github.com/rdartus/k3s-argo.git
 #     targetRevision: main
 #     helm : 
-#       values: |
+      # values: |
+
+      #   dest_server : {{ .Values.dest_server }}  
+      #   default_folder_app : {{ .Values.default_folder_app }}  
+
+      #   db :
+      #     appName: {{ .Values.db.appName }} 
+      #     namespace: {{ .Values.db.namespace }} 
+      #     user: {{ .Values.db.user }} 
+      #     userPass: {{ .Values.db.userPass }} 
+
+      #   arr:
+      #     user : {{ .Values.arr.user }} 
+      #     userPass : {{ .Values.arr.userPass }} 
