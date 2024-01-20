@@ -6,7 +6,7 @@ metadata:
   name: radarr
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io/background
+  - resources-finalizer.argocd.argoproj.io
   annotations:
     argocd.argoproj.io/sync-wave: "2"
 
