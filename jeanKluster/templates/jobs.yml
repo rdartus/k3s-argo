@@ -25,4 +25,3 @@
 #     targetRevision: main
 #     helm : 
 #       values: |
-#         {{ .Values.db | toYaml }}
