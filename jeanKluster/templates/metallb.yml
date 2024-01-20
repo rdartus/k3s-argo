@@ -23,7 +23,6 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=true
 
   source:
     path: localApps/kusto-metallb
