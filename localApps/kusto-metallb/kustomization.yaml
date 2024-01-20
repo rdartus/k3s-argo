@@ -7,5 +7,5 @@ resources:
   - base/ip-adresspool.yaml
   - base/L2Advertisement.yaml
 
-patchesStrategicMerge:
-  - base/metallb.io_addresspools.yaml
+# patchesStrategicMerge:
+#   - base/metallb.io_addresspools.yaml
