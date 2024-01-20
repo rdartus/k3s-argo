@@ -8,8 +8,8 @@ resources:
   - base/L2Advertisement.yaml
 
 patches :
-  - overlays/prod/controller.yaml
-  - overlays/prod/speaker.yaml
+  - path: overlays/prod/controller.yaml
+  - path: overlays/prod/speaker.yaml
 
 # patchesStrategicMerge:
 #   - base/metallb.io_addresspools.yaml
