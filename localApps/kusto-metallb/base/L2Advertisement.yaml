@@ -8,6 +8,6 @@ metadata:
 spec:
   ipAddressPools:
   - metallb-pool
-  interfaces:
-  - eth0
-  - wlan0
+  # interfaces:
+  # - eth0
+  # - wlan0
