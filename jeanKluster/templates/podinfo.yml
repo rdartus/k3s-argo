@@ -166,13 +166,13 @@ spec:
         tolerations: []
 
         # affinity: {}
-        affinity:
-          nodeSelector:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: kubernetes.io/hostname
-                operator: In
-                values:
-                - pirate
+        # affinity:
+        #   nodeSelector:
+        #     nodeSelectorTerms:
+        #     - matchExpressions:
+        #       - key: kubernetes.io/hostname
+        #         operator: In
+        #         values:
+        #         - pirate
         podAnnotations: {}
 
