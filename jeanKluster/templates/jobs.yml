@@ -1,40 +1,40 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: jobs
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io/background
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "1"
-# spec:
-#   destination:
-#     namespace: default
-#     server: {{ .Values.dest_server }}
-#   project: default
-#   syncPolicy:
-#     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-#       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
-#       selfHeal: true
-#       allowEmpty: true
-#     syncOptions:
-#       - CreateNamespace=true
-#   source:
-#     path: jobs
-#     repoURL: https://github.com/rdartus/k3s-argo.git
-#     targetRevision: main
-#     helm : 
-      # values: |
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: jobs
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/background
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  destination:
+    namespace: default
+    server: {{ .Values.dest_server }}
+  project: default
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    path: jobs
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    targetRevision: main
+    helm : 
+      values: |
 
-      #   dest_server : {{ .Values.dest_server }}  
-      #   default_folder_app : {{ .Values.default_folder_app }}  
+        dest_server : {{ .Values.dest_server }}  
+        default_folder_app : {{ .Values.default_folder_app }}  
 
-      #   db :
-      #     appName: {{ .Values.db.appName }} 
-      #     namespace: {{ .Values.db.namespace }} 
-      #     user: {{ .Values.db.user }} 
-      #     userPass: {{ .Values.db.userPass }} 
+        db :
+          appName: {{ .Values.db.appName }} 
+          namespace: {{ .Values.db.namespace }} 
+          user: {{ .Values.db.user }} 
+          userPass: {{ .Values.db.userPass }} 
 
-      #   arr:
-      #     user : {{ .Values.arr.user }} 
-      #     userPass : {{ .Values.arr.userPass }} 
+        arr:
+          user : {{ .Values.arr.user }} 
+          userPass : {{ .Values.arr.userPass }} 
