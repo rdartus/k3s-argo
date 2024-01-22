@@ -8,7 +8,7 @@ data:
 
     #!/bin/bash
     echo "Initialize Vault"
-    vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init > /dev/null
+    vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
 
     # Store master keys in consul for operator to retrieve and remove
     COUNTER=1
