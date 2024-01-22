@@ -24,40 +24,35 @@ data:
       echo "Checking if Vault is up and running (try $COUNT)..." &> /proc/1/fd/1
       VAULT_STATUS=$(vault status $1 2>&1)
       EXIT_STATUS=$?
-      if echo "$VAULT_STATUS" | grep "server is not yet initialized"; then
-        echo "Initialize Vault"
-        export STATUS=$(vault status | grep 'Initialized' | awk '{print $2}')
-        echo "status vault $STATUS"
-        if [ $STATUS = "false" ]; then
-          vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
+      echo "Initialize Vault"
+      export STATUS=$(vault status | grep 'Initialized' | awk '{print $2}')
+      echo "status vault $STATUS"
+      if [ $STATUS = "false" ]; then
+        vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
 
-          # Store master keys in consul for operator to retrieve and remove
-          COUNTER=1
-          cat /config/cred/vault.init  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
-            echo  $key | tee /config/cred/vault-init-$COUNTER
-            COUNTER=$((COUNTER + 1))
-          done
+        # Store master keys in consul for operator to retrieve and remove
+        COUNTER=1
+        cat /config/cred/vault.init  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
+          echo  $key | tee /config/cred/vault-init-$COUNTER
+          COUNTER=$((COUNTER + 1))
+        done
 
-          export ROOT_TOKEN=$(cat /config/cred/vault.init | grep '^Initial' | awk '{print $4}')
-          echo  $ROOT_TOKEN | tee /config/cred/vault-root-token
+        export ROOT_TOKEN=$(cat /config/cred/vault.init | grep '^Initial' | awk '{print $4}')
+        echo  $ROOT_TOKEN | tee /config/cred/vault-root-token
 
-          # echo "Remove master keys from disk"
-          # shred /config/cred/vault.init
+        # echo "Remove master keys from disk"
+        # shred /config/cred/vault.init
 
-          echo "Unsealing Vault"
-          vault operator unseal $(cat /config/cred/vault-init-1)
-          vault operator unseal $(cat /config/cred/vault-init-2)
+        echo "Unsealing Vault"
+        vault operator unseal $(cat /config/cred/vault-init-1)
+        vault operator unseal $(cat /config/cred/vault-init-2)
 
-          echo "Vault init complete."
+        echo "Vault init complete."
 
-          echo "Start configuration"
-          vault login $ROOT_TOKEN
-          vault auth enable kubernetes
-          exit 0
-        else
-          echo "Vault already init"
-          exit 0
-        fi
+        echo "Start configuration"
+        vault login $ROOT_TOKEN
+        vault auth enable kubernetes
+        exit 0
       elif [ $COUNT -ge $LIMIT ]; then
         # Dont know what happened... Exiting
         echo "$VAULT_STAUS" &> /proc/1/fd/1
