@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  creationTimestamp: 2022-02-18T18:52:05Z
+  name: game-config
+  namespace: default
+  resourceVersion: "516"
+  uid: b4952dc3-d670-11e5-8cd0-68f728db1985
+data:
+  initScript.sh: |
+
+    #!/bin/bash
+    echo "Initialize Vault"
+    vault init | tee /cred/vault.init > /dev/null
+
+    # Store master keys in consul for operator to retrieve and remove
+    COUNTER=1
+    cat /tmp/vault.init -key-shares=3 -key-threshold=2  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
+      echo  $key | tee /cred/vault-init-$COUNTER
+      COUNTER=$((COUNTER + 1))
+    done
+
+    export ROOT_TOKEN=$(cat /tmp/vault.init | grep '^Initial' | awk '{print $4}')
+    echo  $ROOT_TOKEN | tee /cred/vault-root-token
+
+    # echo "Remove master keys from disk"
+    # shred /tmp/vault.init
+
+    echo "Unsealing Vault"
+    vault unseal $(cat /cred/vault-init-1)
+    vault unseal $(cat /cred/vault-init-2)
+
+    echo "Vault init complete."
+
+    vault auth enable kubernetes
