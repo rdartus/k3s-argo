@@ -8,7 +8,7 @@ data:
 
     #!/bin/bash
     echo "Initialize Vault"
-    vault init | tee /cred/vault.init > /dev/null
+    vault operator init | tee /cred/vault.init > /dev/null
 
     # Store master keys in consul for operator to retrieve and remove
     COUNTER=1
@@ -24,8 +24,8 @@ data:
     # shred /tmp/vault.init
 
     echo "Unsealing Vault"
-    vault unseal $(cat /cred/vault-init-1)
-    vault unseal $(cat /cred/vault-init-2)
+    vault operator unseal $(cat /cred/vault-init-1)
+    vault operator unseal $(cat /cred/vault-init-2)
 
     echo "Vault init complete."
 
