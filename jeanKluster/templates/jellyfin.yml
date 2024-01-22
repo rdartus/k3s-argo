@@ -67,7 +67,7 @@ spec:
             annotations:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
-              hajimari.io/icon: "VideoVintage"
+              hajimari.io/icon: "video-vintage"
             hosts:
               -  # -- Host address. Helm template can be passed.
                 host: stream2.dartus.fr

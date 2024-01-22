@@ -185,7 +185,7 @@ spec:
             annotations:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
-              hajimari.io/icon: "CartArrowDown"
+              hajimari.io/icon: "cart-arrow-down"
             hosts:
               -  # -- Host address. Helm template can be passed.
                 host: tor.dartus.fr

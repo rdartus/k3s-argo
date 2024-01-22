@@ -70,7 +70,7 @@ spec:
             annotations:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
-              hajimari.io/icon: "CogPlayOutline"
+              hajimari.io/icon: "cog-play-outline"
             enabled: true
             hosts:
               -  # -- Host address. Helm template can be passed.

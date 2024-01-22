@@ -6,7 +6,7 @@ metadata:
   annotations:
     hajimari.io/enable: "true"
     hajimari.io/group: "Management"
-    hajimari.io/icon: "Jellyfish"
+    hajimari.io/icon: "jellyfish"
 
 spec:
   rules:

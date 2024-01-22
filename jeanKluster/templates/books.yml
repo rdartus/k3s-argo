@@ -68,7 +68,7 @@ spec:
             annotations:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
-              hajimari.io/icon: "Bookshelf"
+              hajimari.io/icon: "bookshelf"
             hosts:
               -  # -- Host address. Helm template can be passed.
                 host: books.dartus.fr

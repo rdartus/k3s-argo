@@ -425,7 +425,7 @@ spec:
             annotations: 
               hajimari.io/enable: "true"
               hajimari.io/group: "Management"
-              hajimari.io/icon: "SafeSquare"
+              hajimari.io/icon: "safe-square"
 
             # Optionally use ingressClassName instead of deprecated annotation.
             # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
