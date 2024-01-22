@@ -24,3 +24,8 @@ kubectl logs svc/argocd-repo-server -n argocd  > argorepo.log
 kubectl logs svc/webhook-service -n metallb-system > metallb.log
 kubectl logs pod/speaker-stlm6 -n metallb-system > speaker.log
 ```
+
+Delte :
+```
+kubectl delete pod -l app.kubernetes.io/component=speaker -n metallb
+```
