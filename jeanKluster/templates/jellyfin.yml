@@ -22,8 +22,8 @@ spec:
       - CreateNamespace=true
   source:
     chart: jellyfin
-    targetRevision: "*"
-    repoURL: https://k8s-at-home.com/charts/
+    targetRevision: "9.5.3"
+    repoURL: https://geek-cookbook.github.io/charts/
     helm : 
       values: |
 
