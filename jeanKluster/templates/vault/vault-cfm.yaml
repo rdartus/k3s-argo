@@ -6,9 +6,9 @@ metadata:
 data:
   initScript.sh: |
 
-    #!/bin/bash
+    #!/bin/sh
     echo "Initialize Vault"
-    export STATUS = $(vault status | grep Initialized | awk '{print $2}')
+    export STATUS=$(vault status | grep 'Initialized' | awk '{print $2}')
     echo "status vault $STATUS"
     if [ ! $STATUS ]; then
       vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
@@ -34,6 +34,6 @@ data:
     else
       echo "Vault already init"
     fi
-    
+
     vault login $ROOT_TOKEN
     vault auth enable kubernetes
