@@ -1,0 +1,6 @@
+DELETE FROM public."DelayProfiles";
+DELETE FROM public."Metadata";
+DELETE FROM public."QualityProfiles";
+DELETE FROM public."QualityDefinitions";
+DELETE FROM public."NamingConfig";
+DELETE FROM public."ScheduledTasks";
