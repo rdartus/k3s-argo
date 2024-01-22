@@ -10,7 +10,7 @@ data:
     echo "Initialize Vault"
     export STATUS=$(vault status | grep 'Initialized' | awk '{print $2}')
     echo "status vault $STATUS"
-    if [ ! $STATUS ]; then
+    if [ $STATUS = "false" ]; then
       vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
 
       # Store master keys in consul for operator to retrieve and remove
