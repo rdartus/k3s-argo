@@ -13,6 +13,8 @@ sudo k3s ctl images import k3s-argo/pgloader.tar
 ```
 Vault Conf :
 ```zsh
+mkdir ~/cred
+sudo chown jeank:1000 cred
 kubectl exec -it vault-0 -- /bin/sh vault auth enable kubernetes
 kubectl exec -it vault-0 -- /bin/sh vault operator init -key-shares=3 -key-threshold=2
 kubectl exec -it vault-0 -- /bin/sh vault operator
@@ -25,7 +27,7 @@ kubectl logs svc/webhook-service -n metallb-system > metallb.log
 kubectl logs pod/speaker-stlm6 -n metallb-system > speaker.log
 ```
 
-Delte :
+Delete :
 ```
 kubectl delete pod -l app.kubernetes.io/component=speaker -n metallb
 ```

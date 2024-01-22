@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: scripts
+  name: vault-scripts
   namespace: default
 data:
   initScript.sh: |
