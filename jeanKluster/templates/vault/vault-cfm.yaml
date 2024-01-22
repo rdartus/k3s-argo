@@ -31,9 +31,10 @@ data:
       vault operator unseal $(cat /config/cred/vault-init-2)
 
       echo "Vault init complete."
+
+      echo "Start configuration"
+      vault login $ROOT_TOKEN
+      vault auth enable kubernetes
     else
       echo "Vault already init"
     fi
-
-    vault login $ROOT_TOKEN
-    vault auth enable kubernetes
