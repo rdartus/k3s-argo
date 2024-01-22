@@ -8,25 +8,32 @@ data:
 
     #!/bin/bash
     echo "Initialize Vault"
-    vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
+    export STATUS = $(vault status | grep Initialized | awk '{print $2}')
+    echo "status vault $STATUS"
+    if [ ! $STATUS ]; then
+      vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
 
-    # Store master keys in consul for operator to retrieve and remove
-    COUNTER=1
-    cat /config/cred/vault.init  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
-      echo  $key | tee /config/cred/vault-init-$COUNTER
-      COUNTER=$((COUNTER + 1))
-    done
+      # Store master keys in consul for operator to retrieve and remove
+      COUNTER=1
+      cat /config/cred/vault.init  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
+        echo  $key | tee /config/cred/vault-init-$COUNTER
+        COUNTER=$((COUNTER + 1))
+      done
 
-    export ROOT_TOKEN=$(cat /config/cred/vault.init | grep '^Initial' | awk '{print $4}')
-    echo  $ROOT_TOKEN | tee /config/cred/vault-root-token
+      export ROOT_TOKEN=$(cat /config/cred/vault.init | grep '^Initial' | awk '{print $4}')
+      echo  $ROOT_TOKEN | tee /config/cred/vault-root-token
 
-    # echo "Remove master keys from disk"
-    # shred /config/cred/vault.init
+      # echo "Remove master keys from disk"
+      # shred /config/cred/vault.init
 
-    echo "Unsealing Vault"
-    vault operator unseal $(cat /config/cred/vault-init-1)
-    vault operator unseal $(cat /config/cred/vault-init-2)
+      echo "Unsealing Vault"
+      vault operator unseal $(cat /config/cred/vault-init-1)
+      vault operator unseal $(cat /config/cred/vault-init-2)
 
-    echo "Vault init complete."
-
+      echo "Vault init complete."
+    else
+      echo "Vault already init"
+    fi
+    
+    vault login $ROOT_TOKEN
     vault auth enable kubernetes
