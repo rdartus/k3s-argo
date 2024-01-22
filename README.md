@@ -9,6 +9,7 @@ Deploy JeanKluter & K3S :
 ``` zsh
 kubectl apply -k ~/k3s-argo/localApps/kusto-argo/
 kubectl apply -k ~/k3s-argo/localApps
+sudo k3s ctl images import k3s-argo/pgloader.tar
 ```
 Vault Conf :
 ```zsh
