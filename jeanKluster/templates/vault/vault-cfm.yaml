@@ -8,20 +8,20 @@ data:
 
     #!/bin/bash
     echo "Initialize Vault"
-    vault operator init | tee /config/cred/vault.init > /dev/null
+    vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init > /dev/null
 
     # Store master keys in consul for operator to retrieve and remove
     COUNTER=1
-    cat /tmp/vault.init -key-shares=3 -key-threshold=2  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
+    cat /config/cred/vault.init  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
       echo  $key | tee /config/cred/vault-init-$COUNTER
       COUNTER=$((COUNTER + 1))
     done
 
-    export ROOT_TOKEN=$(cat /tmp/vault.init | grep '^Initial' | awk '{print $4}')
+    export ROOT_TOKEN=$(cat /config/cred/vault.init | grep '^Initial' | awk '{print $4}')
     echo  $ROOT_TOKEN | tee /config/cred/vault-root-token
 
     # echo "Remove master keys from disk"
-    # shred /tmp/vault.init
+    # shred /config/cred/vault.init
 
     echo "Unsealing Vault"
     vault operator unseal $(cat /config/cred/vault-init-1)
