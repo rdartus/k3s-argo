@@ -608,7 +608,8 @@ spec:
                 type: Directory
 
             - name: scripts
-              configmap: vault-scripts
+              configMap: 
+                name: vault-scripts
 
           # volumeMounts is a list of volumeMounts for the main server container. These are rendered
           # via toYaml rather than pre-processed like the extraVolumes value.
