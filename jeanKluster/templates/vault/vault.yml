@@ -571,9 +571,9 @@ spec:
           # This can be used to automate processes such as initialization
           # or boostrapping auth methods.
           postStart:
-          - /bin/sh
-          - -c
-          - /config/scripts/initScript.sh
+          # - /bin/sh
+          # - -c
+          # - /config/scripts/initScript.sh
 
           # extraEnvironmentVars is a list of extra environment variables to set with the stateful set. These could be
           # used to include variables required for auto-unseal.
