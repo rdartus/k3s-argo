@@ -1,11 +1,25 @@
 
-```
+WSL Conf
+``` zsh
 scp jeank@pirate:/home/jeank/.kube/config /home/jeank/.kube/config
-kubectl logs svc/argocd-repo-server -n argocd  > argorepo.log
-kubectl logs pod/speaker-stlm6 -n metallb-system > speaker.log
-kubectl logs svc/webhook-service -n metallb-system > metallb.log
+sed -i 's/127.0.0.1/192.168.1.32/g' ~/.kube/config
+```
 
+Deploy JeanKluter & K3S : 
+``` zsh
 kubectl apply -k ~/k3s-argo/localApps/kusto-argo/
 kubectl apply -k ~/k3s-argo/localApps
+```
+Vault Conf :
+```zsh
+kubectl exec -it vault-0 -- /bin/sh vault auth enable kubernetes
+kubectl exec -it vault-0 -- /bin/sh vault operator init -key-shares=3 -key-threshold=2
+kubectl exec -it vault-0 -- /bin/sh vault operator
+```
 
+Get logs
+```zsh
+kubectl logs svc/argocd-repo-server -n argocd  > argorepo.log
+kubectl logs svc/webhook-service -n metallb-system > metallb.log
+kubectl logs pod/speaker-stlm6 -n metallb-system > speaker.log
 ```

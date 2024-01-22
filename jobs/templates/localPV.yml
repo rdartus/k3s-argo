@@ -11,7 +11,7 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: local-storage
   local:
-    path: /home/jeank/db-arr
+    path: /home/jeank/k3s-argo/db
   nodeAffinity:
     required:
       nodeSelectorTerms:

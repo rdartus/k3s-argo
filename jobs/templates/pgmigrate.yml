@@ -25,9 +25,9 @@ spec:
         - /bin/sh
         - -c
         - |
-          pgloader --with "quote identifiers" --with "data only" /db/radarr/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
-          pgloader --with "quote identifiers" --with "data only" /db/sonarr/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
-          pgloader --with "quote identifiers" --with "data only" /db/prowlarr/prowlarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main'
+          pgloader --with "quote identifiers" --with "data only" /db/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
+          pgloader --with "quote identifiers" --with "data only" /db/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
+          pgloader --with "quote identifiers" --with "data only" /db/prowlarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main'
           
       restartPolicy: Never
       # affinity:
