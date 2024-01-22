@@ -4,3 +4,6 @@ DELETE FROM public."QualityProfiles";
 DELETE FROM public."QualityDefinitions";
 DELETE FROM public."NamingConfig";
 DELETE FROM public."ScheduledTasks";
+DELETE FROM public."Config";
+DELETE FROM public."MovieFiles";
+DELETE FROM public."VersionInfo";
