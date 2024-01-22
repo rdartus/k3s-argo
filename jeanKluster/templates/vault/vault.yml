@@ -605,7 +605,7 @@ spec:
             - name: cred
               hostPath:
                 path: /home/jeank/cred
-                type: DirectoryOrCreate
+                type: Directory
 
             - name: scripts
               configmap:
@@ -616,7 +616,7 @@ spec:
           volumeMounts:
             - mountPath: /config/cred
               name: cred
-              readOnly: false
+
             - mountPath: /config/scripts
               name: scripts
 
