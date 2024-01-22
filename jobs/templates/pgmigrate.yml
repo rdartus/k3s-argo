@@ -27,8 +27,8 @@ spec:
           PGPASSWORD={{.Values.db.userPass}} psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U {{.Values.db.user}} -d prowlarr-main -f /db/rm_prowlarr
           PGPASSWORD={{.Values.db.userPass}} psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U {{.Values.db.user}} -d radarr-main -f /db/rm_radarr
           PGPASSWORD={{.Values.db.userPass}} psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U {{.Values.db.user}} -d sonarr-main -f /db/rm_sonarr
-          pgloader --with "quote identifiers" --with "data only" /db/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
-          pgloader --with "quote identifiers" --with "data only" /db/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
+          pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /db/radarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main'
+          pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /db/sonarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main'
           pgloader --with "quote identifiers" --with "data only" /db/prowlarr.db 'postgresql://{{.Values.db.user}}:{{.Values.db.userPass}}@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main'
           
       restartPolicy: Never

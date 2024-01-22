@@ -2,3 +2,5 @@ DELETE FROM public."ScheduledTasks";
 DELETE FROM public."AppSyncProfiles";
 DELETE FROM public."VersionInfo";
 DELETE FROM public."Commands";
+DELETE FROM public."Indexers";
+DELETE FROM public."IndexerStatus";
