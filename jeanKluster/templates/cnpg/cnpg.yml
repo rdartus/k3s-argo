@@ -9,7 +9,7 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   destination:
-    namespace: cnpg-system
+    namespace: cnpg
     server: {{ .Values.dest_server }}
   project: default
   syncPolicy:
