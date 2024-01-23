@@ -4,6 +4,9 @@ kind: Cluster
 metadata:
   name: cnpg-cluster
   namespace: cnpg
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
 spec:
   instances: 2
 
