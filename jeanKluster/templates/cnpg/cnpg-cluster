@@ -1,0 +1,33 @@
+# Example of PostgreSQL cluster
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: cnpg-cluster
+  namespace: cnpg-system
+spec:
+  instances: 2
+
+  # Example of rolling update strategy:
+  # - unsupervised: automated update of the primary once all
+  #                 replicas have been upgraded (default)
+  # - supervised: requires manual supervision to perform
+  #               the switchover of the primary
+  primaryUpdateStrategy: unsupervised
+
+  bootstrap:
+    initdb:
+      database: default
+      owner: {{ .Values.db.user }}
+      secret:
+        name: app-secret
+      postInitSQL:
+        - CREATE DATABASE "sonarr-log"
+        - CREATE DATABASE "sonarr-main"
+        - CREATE DATABASE "radarr-log"
+        - CREATE DATABASE "radarr-main"
+        - CREATE DATABASE "prowlarr-log"
+        - CREATE DATABASE "prowlarr-main"
+
+  # Require 1Gi of space
+  storage:
+    size: 1Gi
