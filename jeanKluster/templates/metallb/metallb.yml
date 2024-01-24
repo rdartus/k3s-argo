@@ -44,7 +44,7 @@ spec:
         imagePullSecrets: []
         nameOverride: ""
         fullnameOverride: ""
-        loadBalancerClass: "traefik-ingresses"
+        # loadBalancerClass: "traefik-ingresses"
 
         # To configure MetalLB, you must specify ONE of the following two
         # options.
