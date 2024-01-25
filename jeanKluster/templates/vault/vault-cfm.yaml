@@ -94,8 +94,8 @@ data:
         ttl=24h
 
         vault write auth/kubernetes/role/rlpgsql \
-        bound_service_account_names=default \
-        bound_service_account_namespaces=default \
+        bound_service_account_names=cnpg-cluster \
+        bound_service_account_namespaces=cnpg \
         policies=plcpgsql \
         ttl=24h
 

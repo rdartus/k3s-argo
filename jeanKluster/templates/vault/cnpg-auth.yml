@@ -2,7 +2,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: static-auth
-  namespace: default
+  namespace: cnpg
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
@@ -10,7 +10,7 @@ spec:
   method: kubernetes
   mount: kubernetes
   kubernetes:
-    role: auth-role-operator
-    serviceAccount: default
+    role: rlpgsql
+    serviceAccount: cnpg-cluster
     audiences:
       - vault
