@@ -4,6 +4,25 @@ metadata:
   name: vault-scripts
   namespace: default
 data:
+  pgsql-policy.json: |
+
+    path "kv-v2/postgresql/config" {
+      capabilities = ["read"]
+    }
+  pgadmin-policy.json: |
+
+    path "kv-v2/pgadmin/config" {
+      capabilities = ["read"]
+    }
+  demo-auth-policy-operator.json: |
+
+    path "transit/encrypt/vso-client-cache" {
+      capabilities = ["create", "update"]
+    }
+    path "transit/decrypt/vso-client-cache" {
+      capabilities = ["create", "update"]
+    }
+
   initScript.sh: |
 
     #!/bin/sh
@@ -60,26 +79,9 @@ data:
         vault secrets enable -path=transit transit
         vault write -force transit/keys/vso-client-cache
 
-        # vault policy write demo-auth-policy-operator - <<EOF
-        # path "transit/encrypt/vso-client-cache" {
-        #   capabilities = ["create", "update"]
-        # }
-        # path "transit/decrypt/vso-client-cache" {
-        #   capabilities = ["create", "update"]
-        # }
-        # EOF
-
-        # vault policy write plcpgsql - <<END
-        # path "kv-v2/postgresql/config" {
-        #   capabilities = ["read"]
-        # }
-        # END
-
-        # vault policy write plcpgadmin - <<EOF
-        # path "kv-v2/pgadmin/config" {
-        #   capabilities = ["read"]
-        # }
-        # EOF
+        # vault policy write demo-auth-policy-operator demo-auth-policy-operator.json
+        # vault policy write plcpgsql pgsql-policy.json
+        # vault policy write plcpgadmin pgadmin-policy.json        
         
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
