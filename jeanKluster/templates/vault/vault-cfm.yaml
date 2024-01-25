@@ -84,16 +84,16 @@ data:
         policies=plcpgsql \
         ttl=24h
         EOF
-        vault policy write plcpgadmin - <<EOFF
-        path "kv-v2/pgadmin/config" {
-          capabilities = ["read"]
-        }
-        vault write auth/kubernetes/role/rlpgadmin \
-        bound_service_account_names=default \
-        bound_service_account_namespaces=default \
-        policies=plcpgadmin \
-        ttl=24h
-        EOFF
+        # vault policy write plcpgadmin - <<EOFF
+        # path "kv-v2/pgadmin/config" {
+        #   capabilities = ["read"]
+        # }
+        # vault write auth/kubernetes/role/rlpgadmin \
+        # bound_service_account_names=default \
+        # bound_service_account_namespaces=default \
+        # policies=plcpgadmin \
+        # ttl=24h
+        # EOFF
         exit 0
       elif [ $COUNT -ge $LIMIT ]; then
         # Dont know what happened... Exiting
