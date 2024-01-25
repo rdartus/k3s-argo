@@ -1,7 +1,7 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
-  name: static-auth
+  name: cnpg-auth
   namespace: cnpg
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
