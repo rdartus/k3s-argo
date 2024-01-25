@@ -10,7 +10,7 @@ spec:
   method: kubernetes
   mount: kubernetes
   kubernetes:
-    role: role1
+    role: auth-role-operator
     serviceAccount: default
     audiences:
       - vault
