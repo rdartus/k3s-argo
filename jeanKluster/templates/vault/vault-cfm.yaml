@@ -59,20 +59,20 @@ data:
 
         vault secrets enable -path=transit transit
         vault write -force transit/keys/vso-client-cache
-        vault policy write demo-auth-policy-operator - <<EOF
-        path "transit/encrypt/vso-client-cache" {
-          capabilities = ["create", "update"]
-        }
-        path "transit/decrypt/vso-client-cache" {
-          capabilities = ["create", "update"]
-        }
-        EOF
-
-        # vault policy write plcpgsql - <<EOF
-        # path "kv-v2/postgresql/config" {
-        #   capabilities = ["read"]
+        # vault policy write demo-auth-policy-operator - <<EOF
+        # path "transit/encrypt/vso-client-cache" {
+        #   capabilities = ["create", "update"]
+        # }
+        # path "transit/decrypt/vso-client-cache" {
+        #   capabilities = ["create", "update"]
         # }
         # EOF
+
+        vault policy write plcpgsql - <<END
+        path "kv-v2/postgresql/config" {
+          capabilities = ["read"]
+        }
+        END
 
         # vault policy write plcpgadmin - <<EOF
         # path "kv-v2/pgadmin/config" {
