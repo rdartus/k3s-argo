@@ -66,8 +66,7 @@ data:
         policies=plcpgsql \
         ttl=24h
         EOF
-        exit 0
-        vault policy write plcpgadmin - <<EOF
+        vault policy write plcpgadmin - <<EOFF
         path "kv-v2/pgadmin/config" {
           capabilities = ["read"]
         }
@@ -76,7 +75,7 @@ data:
         bound_service_account_namespaces=default \
         policies=plcpgadmin \
         ttl=24h
-        EOF
+        EOFF
         exit 0
       elif [ $COUNT -ge $LIMIT ]; then
         # Dont know what happened... Exiting
