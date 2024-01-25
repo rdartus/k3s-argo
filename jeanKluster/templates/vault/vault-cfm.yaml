@@ -76,32 +76,33 @@ data:
           capabilities = ["read"]
         }
         EOF
+
         vault policy write plcpgadmin - <<EOFF
         path "kv-v2/pgadmin/config" {
           capabilities = ["read"]
         }
         EOFF
         
-        vault write auth/kubernetes/role/auth-role-operator \
-        bound_service_account_names=demo-operator \
-        bound_service_account_namespaces=default \
-        token_ttl=0 \
-        token_period=120 \
-        token_policies=demo-auth-policy-db \
-        audience=vault
+        # vault write auth/kubernetes/role/auth-role-operator \
+        # bound_service_account_names=demo-operator \
+        # bound_service_account_namespaces=default \
+        # token_ttl=0 \
+        # token_period=120 \
+        # token_policies=demo-auth-policy-db \
+        # audience=vault
 
-        vault write auth/kubernetes/role/rlpgsql \
-        bound_service_account_names=default \
-        bound_service_account_namespaces=default \
-        policies=plcpgsql \
-        ttl=24h
+        # vault write auth/kubernetes/role/rlpgsql \
+        # bound_service_account_names=default \
+        # bound_service_account_namespaces=default \
+        # policies=plcpgsql \
+        # ttl=24h
 
-        vault write auth/kubernetes/role/rlpgadmin \
-        bound_service_account_names=default \
-        bound_service_account_namespaces=default \
-        policies=plcpgadmin \
-        ttl=24h
-        
+        # vault write auth/kubernetes/role/rlpgadmin \
+        # bound_service_account_names=default \
+        # bound_service_account_namespaces=default \
+        # policies=plcpgadmin \
+        # ttl=24h
+
         exit 0
       elif [ $COUNT -ge $LIMIT ]; then
         # Dont know what happened... Exiting
