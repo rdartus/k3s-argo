@@ -79,10 +79,10 @@ data:
         vault secrets enable -path=transit transit
         vault write -force transit/keys/vso-client-cache
 
-        # vault policy write demo-auth-policy-operator demo-auth-policy-operator.json
-        # vault policy write plcpgsql pgsql-policy.json
-        # vault policy write plcpgadmin pgadmin-policy.json        
-        
+        vault policy write demo-auth-policy-operator /config/scripts/demo-auth-policy-operator.json
+        vault policy write plcpgsql /config/scripts/pgsql-policy.json
+        vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
+
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
         bound_service_account_namespaces=default \
