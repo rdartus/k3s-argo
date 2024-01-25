@@ -56,6 +56,24 @@ data:
         vault kv put kv-v2/pgadmin/config username="jeank" password="testpdpdpd"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+        vault secrets enable -path=transit transit
+        vault write -force transit/keys/vso-client-cache
+        vault policy write demo-auth-policy-operator - <<EOFFF
+        path "transit/encrypt/vso-client-cache" {
+          capabilities = ["create", "update"]
+        }
+        path "transit/decrypt/vso-client-cache" {
+          capabilities = ["create", "update"]
+        }
+        EOFFF
+        vault write auth/kubernetes/role/auth-role-operator \
+        bound_service_account_names=demo-operator \
+        bound_service_account_namespaces=default \
+        token_ttl=0 \
+        token_period=120 \
+        token_policies=demo-auth-policy-db \
+        audience=vault
+        
         vault policy write plcpgsql - <<EOF
         path "kv-v2/postgresql/config" {
           capabilities = ["read"]
