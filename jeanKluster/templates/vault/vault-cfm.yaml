@@ -68,11 +68,11 @@ data:
         # }
         # EOF
 
-        vault policy write plcpgsql - <<END
-        path "kv-v2/postgresql/config" {
-          capabilities = ["read"]
-        }
-        END
+        # vault policy write plcpgsql - <<END
+        # path "kv-v2/postgresql/config" {
+        #   capabilities = ["read"]
+        # }
+        # END
 
         # vault policy write plcpgadmin - <<EOF
         # path "kv-v2/pgadmin/config" {
