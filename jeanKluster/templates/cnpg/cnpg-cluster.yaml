@@ -6,6 +6,7 @@ metadata:
   namespace: cnpg
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+    argocd.argoproj.io/sync-wave: "1"
 
 spec:
   instances: 2
@@ -22,7 +23,7 @@ spec:
       database: default
       owner: {{ .Values.db.user }}
       secret:
-        name: app-secret
+        name: pgsql-secret
       postInitSQL:
         - CREATE DATABASE "sonarr-log"
         - CREATE DATABASE "sonarr-main"

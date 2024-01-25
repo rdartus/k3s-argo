@@ -1,0 +1,16 @@
+apiVersion: secrets.hashicorp.com/v1beta1
+kind: VaultAuth
+metadata:
+  name: static-auth
+  namespace: app
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
+spec:
+  method: kubernetes
+  mount: demo-auth-mount
+  kubernetes:
+    role: role1
+    serviceAccount: default
+    audiences:
+      - vault

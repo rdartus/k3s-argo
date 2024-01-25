@@ -51,7 +51,32 @@ data:
 
         echo "Start configuration"
         vault login $ROOT_TOKEN
+        vault secrets enable kv-v2
+        vault kv put kv-v2/postgresql/config username="jeank" password="pdpdpd"
+        vault kv put kv-v2/pgadmin/config username="jeank" password="testpdpdpd"
         vault auth enable kubernetes
+        vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+        vault policy write plcpgsql - <<EOF
+        path "kv-v2/postgresql/config" {
+          capabilities = ["read"]
+        }
+        vault write auth/kubernetes/role/rlpgsql \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcpgsql \
+        ttl=24h
+        EOF
+        exit 0
+        vault policy write plcpgadmin - <<EOF
+        path "kv-v2/pgadmin/config" {
+          capabilities = ["read"]
+        }
+        vault write auth/kubernetes/role/rlpgadmin \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcpgadmin \
+        ttl=24h
+        EOF
         exit 0
       elif [ $COUNT -ge $LIMIT ]; then
         # Dont know what happened... Exiting
