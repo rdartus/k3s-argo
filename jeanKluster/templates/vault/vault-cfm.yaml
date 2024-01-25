@@ -22,6 +22,9 @@ data:
     path "transit/decrypt/vso-client-cache" {
       capabilities = ["create", "update"]
     }
+    path "kv-v2/*" {
+      capabilities = ["read"]
+    }
 
   initScript.sh: |
 
@@ -86,10 +89,9 @@ data:
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
         bound_service_account_namespaces=default \
-        token_ttl=0 \
-        token_period=120 \
-        token_policies=demo-auth-policy-db \
-        audience=vault
+        policies=demo-auth-policy-operator \
+        audience=vault\
+        ttl=24h
 
         vault write auth/kubernetes/role/rlpgsql \
         bound_service_account_names=default \
