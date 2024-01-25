@@ -74,11 +74,11 @@ data:
         }
         EOF
 
-        vault policy write plcpgadmin - <<EOF
+        vault policy write plcpgadmin - <<END
         path "kv-v2/pgadmin/config" {
           capabilities = ["read"]
         }
-        EOF
+        END
         
         # vault write auth/kubernetes/role/auth-role-operator \
         # bound_service_account_names=demo-operator \
