@@ -74,16 +74,16 @@ data:
         # token_policies=demo-auth-policy-db \
         # audience=vault
         
-        vault policy write plcpgsql - <<EOF
-        path "kv-v2/postgresql/config" {
-          capabilities = ["read"]
-        }
-        vault write auth/kubernetes/role/rlpgsql \
-        bound_service_account_names=default \
-        bound_service_account_namespaces=default \
-        policies=plcpgsql \
-        ttl=24h
-        EOF
+        # vault policy write plcpgsql - <<EOF
+        # path "kv-v2/postgresql/config" {
+        #   capabilities = ["read"]
+        # }
+        # vault write auth/kubernetes/role/rlpgsql \
+        # bound_service_account_names=default \
+        # bound_service_account_namespaces=default \
+        # policies=plcpgsql \
+        # ttl=24h
+        # EOF
         # vault policy write plcpgadmin - <<EOFF
         # path "kv-v2/pgadmin/config" {
         #   capabilities = ["read"]
