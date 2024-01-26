@@ -123,6 +123,8 @@ data:
         ttl=24h
 
         exit 0
+      elif [ $STATUS = "true" ]; then
+        exit 0
       elif [ $COUNT -ge $LIMIT ]; then
         # Dont know what happened... Exiting
         echo "$VAULT_STAUS" &> /proc/1/fd/1
