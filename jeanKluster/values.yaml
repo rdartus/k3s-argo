@@ -2,7 +2,7 @@ dest_server : https://kubernetes.default.svc
 default_folder_app : localApps
 
 db :
-  appName: cnpg
+  appName: cnpg-cluster-rw
   namespace: cnpg
   user: jeank
   userPass: pdpdpd
