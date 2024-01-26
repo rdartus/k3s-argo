@@ -6,17 +6,17 @@ metadata:
 data:
   ddns-updater-policy.json: |
 
-    path "kv-v2/ddns-updater/*" {
+    path "kv-v2/data/ddns-updater/*" {
       capabilities = ["read"]
     }
   pgsql-policy.json: |
 
-    path "kv-v2/postgresql/*" {
+    path "kv-v2/data/postgresql/*" {
       capabilities = ["read"]
     }
   pgadmin-policy.json: |
 
-    path "kv-v2/pgadmin/*" {
+    path "kv-v2/data/pgadmin/*" {
       capabilities = ["read"]
     }
   demo-auth-policy-operator.json: |
