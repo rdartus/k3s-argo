@@ -65,7 +65,7 @@ data:
                   for i, instance in ipairs(obj.status.health.instancesStatus.healthy) do
                     if i == numberInstance then
                       hs.status = "Healthy"
-                      hs.message = obj.status.health.phase
+                      -- hs.message = obj.status.health.phase
                     end              
                 end
               end
