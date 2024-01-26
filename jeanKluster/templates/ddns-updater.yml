@@ -10,7 +10,7 @@ metadata:
 
 spec:
   destination:
-    namespace: default
+    namespace: ddns-updater
     server: {{ .Values.dest_server }}
   project: default
   syncPolicy:
