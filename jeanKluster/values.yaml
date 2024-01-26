@@ -6,6 +6,7 @@ db :
   namespace: cnpg
   user: jeank
   userPass: pdpdpd
+  superuserPass: postgres
 
 arr:
   user : jeank

@@ -80,8 +80,9 @@ data:
         vault login $ROOT_TOKEN
         vault secrets enable kv-v2
         vault kv put kv-v2/ddns-updater/config CONFIG='{"settings":[{"provider":"ddnss","provider_ip":true,"domain":"YOUR-DOMAIN","host":"@","username":"YOUR-USERNAME","password":"YOUR-PASSWORD","ip_version":"ipv4"}]}'
-        vault kv put kv-v2/postgresql/config username="jeank" password="pdpdpd"
-        vault kv put kv-v2/pgadmin/config username="jeank" password="testpdpdpd"
+        vault kv put kv-v2/postgresql/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
+        vault kv put kv-v2/postgresql/superuser username="postgres" password="{{ .Values.db.superuserPass }}"
+        vault kv put kv-v2/pgadmin/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
