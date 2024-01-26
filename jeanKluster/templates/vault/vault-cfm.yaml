@@ -6,12 +6,12 @@ metadata:
 data:
   pgsql-policy.json: |
 
-    path "kv-v2/postgresql/config" {
+    path "kv-v2/postgresql/*" {
       capabilities = ["read"]
     }
   pgadmin-policy.json: |
 
-    path "kv-v2/pgadmin/config" {
+    path "kv-v2/pgadmin/*" {
       capabilities = ["read"]
     }
   demo-auth-policy-operator.json: |
