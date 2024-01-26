@@ -1,1 +1,1 @@
-{{- include "bjw-s.common.loader.all" $ctx }}
+{{- include "bjw-s.common.loader.init" . -}}
