@@ -4,6 +4,11 @@ metadata:
   name: vault-scripts
   namespace: default
 data:
+  arr-policy.json: |
+
+    path "kv-v2/data/arr/*" {
+      capabilities = ["read"]
+    }
   ddns-updater-policy.json: |
 
     path "kv-v2/data/ddns-updater/*" {
@@ -83,6 +88,7 @@ data:
         vault kv put kv-v2/postgresql/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
         vault kv put kv-v2/postgresql/superuser username="postgres" password="{{ .Values.db.superuserPass }}"
         vault kv put kv-v2/pgadmin/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
+        vault kv put kv-v2/arr/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
@@ -93,6 +99,7 @@ data:
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
         vault policy write plcddns-updater /config/scripts/ddns-updater-policy.json        
+        vault policy write plcarr /config/scripts/arr-policy.json        
 
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
@@ -119,6 +126,13 @@ data:
         bound_service_account_names=default \
         bound_service_account_namespaces=ddns-updater \
         policies=plcddns-updater \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rl&rr \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcarr \
         audience=vault\
         ttl=24h
 
