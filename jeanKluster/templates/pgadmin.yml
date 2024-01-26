@@ -1,3 +1,4 @@
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -110,14 +111,14 @@ spec:
           resourceType: ConfigMap
 
           servers:
-          #  firstServer:
-          #    Name: "Minimally Defined Server"
-          #    Group: "Servers"
-          #    Port: 5432
-          #    Username: "postgres"
-          #    Host: "localhost"
-          #    SSLMode: "prefer"
-          #    MaintenanceDB: "postgres"
+           firstServer:
+             Name: "CNPG"
+             Group: "Servers"
+             Port: 5432
+             Username: "postgres"
+             Host: "{{ $dbServiceName }}"
+             SSLMode: "prefer"
+             MaintenanceDB: "default"
 
         networkPolicy:
           enabled: true
@@ -194,7 +195,7 @@ spec:
         env:
           # can be email or nickname
           email: chart@domain.com
-          password: SuperSecret
+          # password: SuperSecret
           # pgpassfile: /var/lib/pgadmin/storage/pgadmin/file.pgpass
 
           # set context path for application (e.g. /pgadmin4/*)
