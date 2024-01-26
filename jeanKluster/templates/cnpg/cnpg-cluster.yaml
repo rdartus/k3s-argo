@@ -29,17 +29,17 @@ spec:
         name: pgsql-secret
       postInitSQL:
         - CREATE DATABASE "sonarr-log"
-        - GRANT ALL ON DATABASE "sonarr-log" TO "{{ .Values.db.user }}"
+        - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.user }}"
         - CREATE DATABASE "sonarr-main"
-        - GRANT ALL ON DATABASE "sonarr-main" TO "{{ .Values.db.user }}"
+        - ALTER DATABASE "sonarr-main" OWNER TO "{{ .Values.db.user }}"
         - CREATE DATABASE "radarr-log"
-        - GRANT ALL ON DATABASE "radarr-log" TO "{{ .Values.db.user }}"
+        - ALTER DATABASE "radarr-log" OWNER TO "{{ .Values.db.user }}"
         - CREATE DATABASE "radarr-main"
-        - GRANT ALL ON DATABASE "radarr-main" TO "{{ .Values.db.user }}"
+        - ALTER DATABASE "radarr-main" OWNER TO "{{ .Values.db.user }}"
         - CREATE DATABASE "prowlarr-log"
-        - GRANT ALL ON DATABASE "prowlarr-log" TO "{{ .Values.db.user }}"
+        - ALTER DATABASE "prowlarr-log" OWNER TO "{{ .Values.db.user }}"
         - CREATE DATABASE "prowlarr-main"
-        - GRANT ALL ON DATABASE "prowlarr-main" TO "{{ .Values.db.user }}"
+        - ALTER DATABASE "prowlarr-main" OWNER TO "{{ .Values.db.user }}"
 
   # Require 1Gi of space
   storage:
