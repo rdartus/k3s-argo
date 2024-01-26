@@ -254,11 +254,11 @@ controllers:
         # G) - name: TZ
         #      value: '{{ .Release.Name }}'
         env:
-          - CONFIG:
-              valueFrom:
-                  secretKeyRef:
-                    name: "ddns-updater-config"
-                    key: CONFIG
+          CONFIG:
+            valueFrom:
+                secretKeyRef:
+                  name: "ddns-updater-config"
+                  key: CONFIG
 
         # -- Secrets and/or ConfigMaps that will be loaded as environment variables.
         # Syntax options:
