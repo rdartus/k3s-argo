@@ -97,12 +97,14 @@ data:
         bound_service_account_names=cnpg-cluster \
         bound_service_account_namespaces=cnpg \
         policies=plcpgsql \
+        audience=vault\
         ttl=24h
 
         vault write auth/kubernetes/role/rlpgadmin \
         bound_service_account_names=default \
         bound_service_account_namespaces=default \
         policies=plcpgadmin \
+        audience=vault\
         ttl=24h
 
         exit 0
