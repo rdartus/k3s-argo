@@ -129,7 +129,7 @@ data:
         audience=vault\
         ttl=24h
 
-        vault write auth/kubernetes/role/rl&rr \
+        vault write auth/kubernetes/role/rlarr \
         bound_service_account_names=default \
         bound_service_account_namespaces=default \
         policies=plcarr \
