@@ -1,8 +1,7 @@
 apiVersion: v2
-appVersion: v0.3.1
 description: |
     Ddns-updater : Light container updating DNS A and/or AAAA records periodically for multiple DNS providers
-name: hajimari
+name: ddns-updater
 version: 1.0.0
 kubeVersion: ">=1.16.0-0"
 keywords:
