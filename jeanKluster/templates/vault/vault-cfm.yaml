@@ -4,6 +4,11 @@ metadata:
   name: vault-scripts
   namespace: default
 data:
+  ddns-updater-policy.json: |
+
+    path "kv-v2/ddns-updater/*" {
+      capabilities = ["read"]
+    }
   pgsql-policy.json: |
 
     path "kv-v2/postgresql/*" {
@@ -74,6 +79,7 @@ data:
         echo "Start configuration"
         vault login $ROOT_TOKEN
         vault secrets enable kv-v2
+        vault kv put kv-v2/ddns-updater/config CONFIG='{"settings":[{"provider":"ddnss","provider_ip":true,"domain":"YOUR-DOMAIN","host":"@","username":"YOUR-USERNAME","password":"YOUR-PASSWORD","ip_version":"ipv4"}]}'
         vault kv put kv-v2/postgresql/config username="jeank" password="pdpdpd"
         vault kv put kv-v2/pgadmin/config username="jeank" password="testpdpdpd"
         vault auth enable kubernetes
@@ -85,6 +91,7 @@ data:
         vault policy write demo-auth-policy-operator /config/scripts/demo-auth-policy-operator.json
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
+        vault policy write plcddns-updater /config/scripts/ddns-updater-policy.json        
 
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
@@ -104,6 +111,13 @@ data:
         bound_service_account_names=default \
         bound_service_account_namespaces=default \
         policies=plcpgadmin \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlddns-updater \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcddns-updater \
         audience=vault\
         ttl=24h
 
