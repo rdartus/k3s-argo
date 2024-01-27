@@ -38,7 +38,7 @@ spec:
           registry: docker.io
           repository: dpage/pgadmin4
           # Overrides the image tag whose default is the chart appVersion.
-          tag: ""
+          tag: "8.2"
           pullPolicy: IfNotPresent
 
         ## Deployment annotations
