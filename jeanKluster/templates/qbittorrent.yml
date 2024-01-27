@@ -79,7 +79,7 @@ spec:
           pullPolicy: IfNotPresent
 
         command:
-          - cp /localConfig/categories.json /config/qBittorrent/categories.json
+          # - cp /localConfig/categories.json /config/qBittorrent/categories.json
           - /entrypoint.sh
 
         settings:
