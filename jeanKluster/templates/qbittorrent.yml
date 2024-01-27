@@ -78,6 +78,10 @@ spec:
           # -- image pull policy
           pullPolicy: IfNotPresent
 
+        command:
+          # - cp /localConfig/categories.json /config/qBittorrent/categories.json
+          - /entrypoint.sh
+
         settings:
           # -- Enables automatic port configuration at startup
           # This sets the qbittorrent port to the value of `service.bittorrent.ports.bittorrent.port`.
@@ -200,10 +204,10 @@ spec:
         # @default -- See values.yaml
         persistence:
           test:
-            enabled: false
+            enabled: yes
             type: configMap
             name: qbittorrent-config
-            mountPath: /config/qBittorrent/categories.json
+            mountPath: /localConfig/categories.json
             subPath: categories.json
             readOnly: false
 
