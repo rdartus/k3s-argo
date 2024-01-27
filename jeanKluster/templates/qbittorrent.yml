@@ -79,7 +79,7 @@ spec:
           pullPolicy: IfNotPresent
 
         command:
-          - cp /localConfig/categories.json /config/qBittorrent/categories.json
+          # - cp /localConfig/categories.json /config/qBittorrent/categories.json
           - /entrypoint.sh
 
         settings:
@@ -162,6 +162,30 @@ spec:
           
           QBT_Core__AutoDeleteAddedTorrentFile: 'Never'
 
+          CATEGORIES : |
+            {
+              "books": {
+                  "save_path": ""
+              },
+              "manga": {
+                  "save_path": "/data/seed/manga/unlinked"
+              },
+              "programmes": {
+                  "save_path": ""
+              },
+              "prowlarr": {
+                  "save_path": ""
+              },
+              "radarr": {
+                  "save_path": "/data/seed/films/hardlinked"
+              },
+              "sonarr": {
+                  "save_path": "/data/seed/series/hardlinked"
+              },
+              "tmp": {
+                  "save_path": ""
+              }
+            }
 
         # -- Configures service settings for the chart.
         # @default -- See values.yaml
