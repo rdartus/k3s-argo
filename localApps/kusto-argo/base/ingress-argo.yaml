@@ -7,6 +7,7 @@ metadata:
     hajimari.io/enable: "true"
     hajimari.io/group: "Management"
     hajimari.io/icon: "jellyfish"
+    hajimari.io/appName: "argocd"
 
 spec:
   rules:

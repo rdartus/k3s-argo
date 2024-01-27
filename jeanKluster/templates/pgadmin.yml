@@ -104,7 +104,7 @@ spec:
         serverDefinitions:
           ## If true, server definitions will be created
           ##
-          enabled: false
+          enabled: true
 
           ## The resource type to use for deploying server definitions.
           ## Can either be ConfigMap or Secret
