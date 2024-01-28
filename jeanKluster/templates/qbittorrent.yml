@@ -79,8 +79,9 @@ spec:
           pullPolicy: IfNotPresent
 
         command:
-          - /entrypoint.sh
+          - mkdir -p /config/qBittorrent
           - echo $CATEGORIES > /config/qBittorrent/categories.json
+          - /entrypoint.sh
 
         settings:
           # -- Enables automatic port configuration at startup
