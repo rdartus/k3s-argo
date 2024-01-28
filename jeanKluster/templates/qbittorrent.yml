@@ -79,7 +79,9 @@ spec:
           pullPolicy: IfNotPresent
 
         command:
-          - mkdir -p /config
+          - /bin/sh
+          - -c
+          - |
           - mkdir -p /config/qBittorrent
           - echo $CATEGORIES > /config/qBittorrent/categories.json
           - /entrypoint.sh
