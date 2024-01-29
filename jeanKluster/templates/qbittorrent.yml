@@ -163,6 +163,11 @@ spec:
           QBT_Preferences__WebUI__TrustedReverseProxiesList: 'traefik'
           QBT_Preferences__WebUI__UseUPnP: 'false'
           QBT_Preferences__WebUI__Username: 'admin'
+          QBT_Preferences__WebUI__Password_PBKDF2: 
+            valueFrom:
+              secretKeyRef:
+                name: default-auth-secret
+                key: passwordPBKDF2
           
           QBT_Core__AutoDeleteAddedTorrentFile: 'Never'
 
