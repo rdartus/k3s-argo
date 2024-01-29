@@ -5,7 +5,7 @@ metadata:
   namespace: ddns-updater
   annotations:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-    argocd.argoproj.io/sync-wave: "50"
+    argocd.argoproj.io/sync-wave: "51"
 
 spec:
   method: kubernetes
