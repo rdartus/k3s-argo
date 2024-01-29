@@ -185,7 +185,7 @@ spec:
         removeSnapshotsDuringFilesystemTrim: ignored
 
       helmPreUpgradeCheckerJob:
-        enabled: true
+        enabled: false
 
       csi:
         # -- Specify kubelet root-dir. Leave blank to autodetect
