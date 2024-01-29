@@ -22,4 +22,4 @@ spec:
     repoURL: https://charts.longhorn.io
     helm : 
       valueFiles:
-        - longhorn-helm-values.yaml
+        - jeanKluster/longhorn-helm-values.yaml
