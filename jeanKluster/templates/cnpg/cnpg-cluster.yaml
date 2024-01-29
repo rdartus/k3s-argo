@@ -18,8 +18,8 @@ spec:
   #               the switchover of the primary
   primaryUpdateStrategy: unsupervised
   enableSuperuserAccess: true
-  # superuserSecret:
-  #   name: superuser-secret
+  superuserSecret:
+    name: superuser-secret
 
   bootstrap:
     initdb:
@@ -28,18 +28,18 @@ spec:
       secret:
         name: pgsql-secret
       postInitSQL:
-        # - CREATE DATABASE "sonarr-log"
-        # - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.user }}"
-        # - CREATE DATABASE "sonarr-main"
-        # - ALTER DATABASE "sonarr-main" OWNER TO "{{ .Values.db.user }}"
-        # - CREATE DATABASE "radarr-log"
-        # - ALTER DATABASE "radarr-log" OWNER TO "{{ .Values.db.user }}"
-        # - CREATE DATABASE "radarr-main"
-        # - ALTER DATABASE "radarr-main" OWNER TO "{{ .Values.db.user }}"
-        # - CREATE DATABASE "prowlarr-log"
-        # - ALTER DATABASE "prowlarr-log" OWNER TO "{{ .Values.db.user }}"
-        # - CREATE DATABASE "prowlarr-main"
-        # - ALTER DATABASE "prowlarr-main" OWNER TO "{{ .Values.db.user }}"
+        - CREATE DATABASE "sonarr-log"
+        - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.user }}"
+        - CREATE DATABASE "sonarr-main"
+        - ALTER DATABASE "sonarr-main" OWNER TO "{{ .Values.db.user }}"
+        - CREATE DATABASE "radarr-log"
+        - ALTER DATABASE "radarr-log" OWNER TO "{{ .Values.db.user }}"
+        - CREATE DATABASE "radarr-main"
+        - ALTER DATABASE "radarr-main" OWNER TO "{{ .Values.db.user }}"
+        - CREATE DATABASE "prowlarr-log"
+        - ALTER DATABASE "prowlarr-log" OWNER TO "{{ .Values.db.user }}"
+        - CREATE DATABASE "prowlarr-main"
+        - ALTER DATABASE "prowlarr-main" OWNER TO "{{ .Values.db.user }}"
 
   # Require 1Gi of space
   storage:
