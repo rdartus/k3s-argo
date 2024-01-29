@@ -22,4 +22,7 @@ spec:
     repoURL: https://charts.longhorn.io
     helm : 
       valueFiles:
-        - jeanKluster/longhorn-helm-values.yaml
+      - $values/jeanKluster/longhorn/longhorn-helm-values.yaml
+  - repoURL: 'https://github.com/rdartus/k3s-argo.git'
+    targetRevision: main
+    ref: values
