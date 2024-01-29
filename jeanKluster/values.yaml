@@ -12,5 +12,5 @@ arr:
   user : jeank
   userPass : pdpdpd
 
-job: false
+job: true
 longhorn : false
