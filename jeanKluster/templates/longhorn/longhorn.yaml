@@ -16,13 +16,13 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-  source:
-    chart: longhorn
-    targetRevision: "*"
-    repoURL: https://charts.longhorn.io
-    helm : 
-      valueFiles:
-      - $values/jeanKluster/longhorn/longhorn-helm-values.yaml
-  - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-    targetRevision: main
-    ref: values
+  sources:
+    - repoURL: https://charts.longhorn.io
+      chart: longhorn
+      targetRevision: "*"
+      helm : 
+        valueFiles:
+        - $values/jeanKluster/longhorn/longhorn-helm-values.yaml
+    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
+      targetRevision: main
+      ref: values
