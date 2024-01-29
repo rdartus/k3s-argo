@@ -19,7 +19,7 @@ spec:
   sources:
     - repoURL: https://charts.longhorn.io
       chart: longhorn
-      targetRevision: "*"
+      targetRevision: "1.6.*"
       helm : 
         valueFiles:
         - $values/jeanKluster/templates/longhorn/longhorn-helm-values.yaml
