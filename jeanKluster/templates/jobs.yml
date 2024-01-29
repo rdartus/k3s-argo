@@ -1,4 +1,4 @@
-{{ - if .Values.job }}
+{{- if .Values.job }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
