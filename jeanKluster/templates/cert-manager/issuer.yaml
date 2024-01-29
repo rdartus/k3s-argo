@@ -8,8 +8,8 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    privateKeySecretRef:
-      name: acme-issuer-account-key
+    # privateKeySecretRef:
+    #   name: acme-issuer-account-key
     solvers:
     - http01:
         ingress:
