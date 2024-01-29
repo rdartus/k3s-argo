@@ -22,3 +22,6 @@
 .idea/
 *.tmproj
 .vscode/
+
+#Values Helm
+*helm-values.yaml
