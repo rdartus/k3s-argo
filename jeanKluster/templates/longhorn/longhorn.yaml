@@ -1,3 +1,4 @@
+{{ - if .Values.longhorn -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -26,3 +27,4 @@ spec:
     - repoURL: 'https://github.com/rdartus/k3s-argo.git'
       targetRevision: main
       ref: values
+{{- end}}
