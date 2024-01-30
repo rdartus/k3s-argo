@@ -243,7 +243,7 @@ spec:
 
           ## pgAdmin4 Persistent Volume Size
           ##
-          size: 10Gi
+          size: 1Gi
 
           ## pgAdmin4 Persistent Volume Storage Class
           ## If defined, storageClassName: <storageClass>
@@ -252,7 +252,9 @@ spec:
           ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
           ##   GKE, AWS & OpenStack)
           ##
-          # storageClass: "-"
+          {{- if .Values.longhorn}}
+          storageClass: longhorn
+          {{- end}}
           # existingClaim: ""
           ## Sub-directory of the PV to mount
           # subPath: ""
