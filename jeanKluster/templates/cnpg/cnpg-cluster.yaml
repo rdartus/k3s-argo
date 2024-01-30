@@ -43,4 +43,7 @@ spec:
 
   # Require 1Gi of space
   storage:
+  {{- if .Values.longhorn}}
+    storageClass: longhorn
+  {{- end}}
     size: 1Gi
