@@ -37,6 +37,6 @@ kubectl logs pod/speaker-stlm6 -n metallb > speaker.log
 ```
 
 Delete :
-```
+```zsh
 kubectl delete pod -l app.kubernetes.io/component=speaker -n metallb
 ```
