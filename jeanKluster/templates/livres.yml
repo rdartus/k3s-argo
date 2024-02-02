@@ -87,9 +87,11 @@ spec:
         persistence:
           config:
             enabled: false
+            type : PVC
             mountPath: /config
             storageClass: smb
           books:
             enabled: true
-            mountPath: /books
+            type : PVC
             storageClass: longhorn
+            mountPath: /books
