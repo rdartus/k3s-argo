@@ -89,7 +89,7 @@ spec:
             enabled: true
             type : pvc
             mountPath: /config
-            accessMode: ReadWriteMany
+            accessMode: ReadWriteOnce
             storageClass: smb
             size: 1Gi
           books:
