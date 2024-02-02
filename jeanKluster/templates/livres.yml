@@ -86,7 +86,7 @@ spec:
         # @default -- See values.yaml
         persistence:
           config:
-            enabled: false
+            enabled: true
             type : pvc
             mountPath: /config
             accessMode: ReadWriteMany
