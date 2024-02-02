@@ -90,12 +90,12 @@ spec:
             type : pvc
             mountPath: /config
             accessMode: ReadWriteOnce
-            storageClass: smb
+            storageClass: longhorn
             size: 1Gi
           books:
             enabled: false
             type : pvc
-            storageClass: longhorn
+            storageClass: smb
             accessMode: ReadWriteMany
             mountPath: /books
             size: 1Gi
