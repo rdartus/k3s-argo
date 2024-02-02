@@ -9,7 +9,7 @@ metadata:
 provisioner: smb.csi.k8s.io
 parameters:
   # On Windows, "*.default.svc.cluster.local" could not be recognized by csi-proxy
-  source: //PIRANHA/jeanstock
+  source: //192.168.1.16/jeanstock
   # if csi.storage.k8s.io/provisioner-secret is provided, will create a sub directory
   # with PV name under source
   csi.storage.k8s.io/provisioner-secret-name: smb-secret
