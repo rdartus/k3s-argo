@@ -121,13 +121,13 @@ defaultSettings:
   createDefaultDiskLabeledNodes: ~
   defaultDataPath: ~
   defaultDataLocality: ~
-  replicaSoftAntiAffinity: ~
+  replicaSoftAntiAffinity: true
   replicaAutoBalance: ~
   storageOverProvisioningPercentage: ~
   storageMinimalAvailablePercentage: ~
   storageReservedPercentageForDefaultDisk: ~
   upgradeChecker: ~
-  defaultReplicaCount: ~
+  defaultReplicaCount: 2
   defaultLonghornStaticStorageClass: ~
   backupstorePollInterval: ~
   failedBackupTTL: ~
