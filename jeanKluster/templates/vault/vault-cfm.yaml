@@ -97,7 +97,7 @@ data:
         vault kv put kv-v2/pgadmin/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
         vault kv put kv-v2/arr/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/scripts/default-passwordPBKDF2.txt"
-        vault kv put kv-v2/default/config username="jeank" password="defaultPassword"
+        vault kv put kv-v2/default/smb username="jeank" password="defaultPassword"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 

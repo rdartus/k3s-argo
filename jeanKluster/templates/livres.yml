@@ -90,6 +90,6 @@ spec:
             mountPath: /config
             storageClass: smb
           books:
-            enabled: false
+            enabled: true
             mountPath: /books
             storageClass: longhorn
