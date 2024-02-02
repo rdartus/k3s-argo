@@ -93,7 +93,7 @@ spec:
             storageClass: smb
             size: 1Gi
           books:
-            enabled: true
+            enabled: false
             type : pvc
             storageClass: longhorn
             accessMode: ReadWriteMany
