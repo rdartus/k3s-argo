@@ -89,11 +89,11 @@ spec:
             enabled: false
             type : pvc
             mountPath: /config
-            accessModes: ReadWriteMany
+            accessMode: ReadWriteMany
             storageClass: smb
           books:
             enabled: true
             type : pvc
             storageClass: longhorn
-            accessModes: ReadWriteMany
+            accessMode: ReadWriteMany
             mountPath: /books
