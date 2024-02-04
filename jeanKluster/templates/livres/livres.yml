@@ -86,15 +86,13 @@ spec:
         # @default -- See values.yaml
         persistence:
           config:
-            enabled: true
+            enabled: false
             type : pvc
             existingClaim: pvc-livres
             size: 200Mi
 
           books:
-            enabled: false
+            enabled: true
             type : pvc
-            storageClass: smb
-            accessMode: ReadWriteMany
-            mountPath: /books
-            size: 1Gi
+            existingClaim: pvc-livres
+            size: 200Mi
