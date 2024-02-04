@@ -7,7 +7,7 @@ provisioner: nfs.csi.k8s.io
 parameters:
   server: "192.168.1.16"
   share: jeanstock
-  subDir: Loisir/tmp
+  subDir: Loisir/tmp2
   onDelete: retain
   # csi.storage.k8s.io/provisioner-secret is only needed for providing mountOptions in DeleteVolume
   # csi.storage.k8s.io/provisioner-secret-name: "mount-options"
