@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-livres
+  name: pvc-livres-conf
   namespace: default
   annotations:
     pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io

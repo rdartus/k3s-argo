@@ -86,9 +86,9 @@ spec:
         # @default -- See values.yaml
         persistence:
           config:
-            enabled: false
+            enabled: true
             type : pvc
-            existingClaim: pvc-livres
+            existingClaim: pvc-livres-conf
             size: 200Mi
 
           books:
