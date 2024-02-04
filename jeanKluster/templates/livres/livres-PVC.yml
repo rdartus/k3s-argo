@@ -14,23 +14,3 @@ spec:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: smb
-  mountOptions:
-    - dir_mode=0777
-    - file_mode=0777
-    - uid=1001
-    - gid=1001
-    - noperm
-    - mfsymlinks
-    - cache=strict
-    - noserverino  # required to prevent data corruption
-  csi:
-    driver: smb.csi.k8s.io
-    # # volumeHandle format: {smb-server-address}#{sub-dir-name}#{share-name}
-    # # make sure this value is unique for every share in the cluster
-    # volumeHandle: smb-server.default.svc.cluster.local/share##
-    volumeAttributes:
-      # source: //192.168.1.16/jeanstock
-      subDir: Loisir/tmp
-    # nodeStageSecretRef:
-    #   name: smbcreds
-    #   namespace: default
