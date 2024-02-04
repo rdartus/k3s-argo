@@ -89,6 +89,7 @@ spec:
             enabled: true
             type : pvc
             existingClaim: pvc-livres
+            size: 200Mi
 
           books:
             enabled: false
