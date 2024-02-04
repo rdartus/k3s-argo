@@ -12,5 +12,4 @@ spec:
       storage: 200Mi
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
   storageClassName: smb

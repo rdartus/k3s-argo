@@ -13,6 +13,7 @@ parameters:
   # if csi.storage.k8s.io/provisioner-secret is provided, will create a sub directory
   # with PV name under source
   subDir: Loisir/tmp
+  onDelete: retain
   csi.storage.k8s.io/provisioner-secret-name: smb-secret
   csi.storage.k8s.io/provisioner-secret-namespace: default
   csi.storage.k8s.io/node-stage-secret-name: smb-secret
