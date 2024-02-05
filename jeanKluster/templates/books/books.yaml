@@ -1,25 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: vault
+  name: books
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   destination:
     namespace: default
     server: {{ .Values.dest_server }}
   project: default
-  ignoreDifferences:
-  - group: "admissionregistration.k8s.io/v1"
-    kind: "MutatingWebhookConfiguration"
-    jqPathExpressions:
-    - '.webhooks[]?.clientConfig.caBundle'
-  - group: "*"
-    kind: "*"
-    jqPathExpressions:
-    - '.webhooks[]?.clientConfig.caBundle'
-
   syncPolicy:
     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
@@ -27,16 +19,13 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=true
-
-  source:
   sources:
     - repoURL: 'https://github.com/rdartus/k3s-argo.git'
       targetRevision: main
-      ref: values 
-    - repoURL: https://helm.releases.hashicorp.com
-      chart: vault
-      targetRevision: "0.27.0"
+      ref: values
+    - repoURL: https://k8s-home-lab.github.io/helm-charts/
+      chart: books
+      targetRevision: "*"
       helm : 
         valueFiles:
-        - $values/jeanKluster/templates/vault/vault-helm-values.yaml
+        - $values/jeanKluster/templates/books/books-helm-values.yaml
