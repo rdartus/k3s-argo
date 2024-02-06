@@ -21,13 +21,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - chart: pgadmin4
-      targetRevision: "*"
-      repoURL: https://helm.runix.net
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/pgadmin/pgadmin-helm-values.yaml
+    chart: pgadmin4
+    targetRevision: "*"
+    repoURL: https://helm.runix.net
+    helm : 
+      values: |
+{{ include "helmValues.pgadmin" . | indent 4 }}

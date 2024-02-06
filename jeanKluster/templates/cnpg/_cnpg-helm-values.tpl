@@ -1,3 +1,4 @@
+{{- define "helmValues.cnpg" }}
 
 #
 # Copyright The CloudNativePG Contributors
@@ -531,3 +532,4 @@ monitoringQueriesConfigMap:
         - setting:
             usage: "GAUGE"
             description: "Setting value"
+{{- end }}

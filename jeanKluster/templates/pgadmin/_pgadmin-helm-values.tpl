@@ -1,3 +1,5 @@
+{{- define "helmValues.pgadmin" }}
+
 # Default values for pgAdmin4.
 {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 
@@ -365,3 +367,4 @@ test:
     runAsUser: 5051
     runAsGroup: 5051
     fsGroup: 5051
+{{- end }}

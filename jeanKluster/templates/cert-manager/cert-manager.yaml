@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cnpg
+  name: cert-manager
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "200"
 spec:
   destination:
-    namespace: cnpg
+    namespace: cert-manager
     server: {{ .Values.dest_server }}
   project: default
   syncPolicy:
@@ -20,10 +20,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-  sources:
-    chart: cloudnative-pg
-    targetRevision: "0.20.0"
-    repoURL: https://cloudnative-pg.github.io/charts
+    chart: cert-manager
+    targetRevision: "1.13.3"
+    repoURL: https://charts.jetstack.io
     helm : 
       values: |
-{{ include "helmValues.cnpg" . | indent 4 }}
+{{ include "helmValues.certManager" . | indent 4 }}

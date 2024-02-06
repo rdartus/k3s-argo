@@ -1,4 +1,4 @@
-
+{{- define "helmValues.vault" }}
 
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
@@ -1266,3 +1266,4 @@ serverTelemetry:
       #    for: 5m
       #    labels:
       #      severity: critical
+{{- end }}

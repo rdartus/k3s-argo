@@ -20,13 +20,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - chart: tarefik
-      targetRevision: "26.0.0"
-      repoURL: https://helm.traefik.io/traefik
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/tarefik/tarefik-helm-values.yaml
+  source:
+    chart: tarefik
+    targetRevision: "26.0.0"
+    repoURL: https://helm.traefik.io/traefik
+    helm : 
+      values: |
+{{ include "helmValues.traefik" . | indent 4 }}

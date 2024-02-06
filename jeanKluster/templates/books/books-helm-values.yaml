@@ -1,3 +1,4 @@
+{{- define "helmValues.books" }}
 
 #
 # IMPORTANT NOTE
@@ -63,3 +64,4 @@ persistence:
   books:
     enabled: false
     mountPath: /books
+{{- end }}

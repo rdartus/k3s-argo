@@ -1,3 +1,5 @@
+{{- define "helmValues.longhorn" }}
+
 # Default values for longhorn.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -300,3 +302,4 @@ annotations: {}
 serviceAccount:
   # Annotations to add to the service account
   annotations: {}
+{{- end }}

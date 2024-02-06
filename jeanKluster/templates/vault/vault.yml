@@ -30,13 +30,9 @@ spec:
       - RespectIgnoreDifferences=true
 
   source:
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values 
-    - repoURL: https://helm.releases.hashicorp.com
-      chart: vault
-      targetRevision: "0.27.0"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/vault/vault-helm-values.yaml
+    repoURL: https://helm.releases.hashicorp.com
+    chart: vault
+    targetRevision: "0.27.0"
+    helm : 
+      values: |
+{{ include "helmValues.vault" . | indent 4 }}

@@ -1,3 +1,4 @@
+{{- define "helmValues.hajimari" }}
 
 #
 # IMPORTANT NOTE
@@ -125,3 +126,5 @@ persistence:
     enabled: true
     type: configMap
     name: hajimari-settings
+
+{{- end }}

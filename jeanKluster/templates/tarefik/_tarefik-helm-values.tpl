@@ -1,3 +1,4 @@
+{{- define "helmValues.traefik" }}
 
 # Default values for Traefik
 image:
@@ -945,3 +946,4 @@ extraObjects: []
 #
 ## -- This will override the default app.kubernetes.io/instance label for all Objects.
 # instanceLabelOverride: traefik
+{{- end }}

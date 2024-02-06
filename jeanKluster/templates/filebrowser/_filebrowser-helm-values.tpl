@@ -1,3 +1,5 @@
+{{- define "helmValues.filebrowser" }}
+
 #
 # IMPORTANT NOTE
 #
@@ -51,3 +53,4 @@ persistence:
   data:
     enabled: false
     mountPath: /srv
+{{- end }}

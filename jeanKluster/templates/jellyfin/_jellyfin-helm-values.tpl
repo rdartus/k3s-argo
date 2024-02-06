@@ -1,3 +1,5 @@
+{{- define "helmValues.jellyfin" }}
+
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -121,3 +123,4 @@ spec:
         #     # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
         #     gpu.intel.com/i915: 1
         #     memory: 4096Mi
+{{- end }}

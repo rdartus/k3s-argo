@@ -1,3 +1,5 @@
+{{- define "helmValues.sonarr" }}
+
 {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 
 #
@@ -138,3 +140,4 @@ metrics:
       additionalMetrics: false
       # -- Set to true to enable gathering unknown queue items
       unknownQueueItems: false
+{{- end }}

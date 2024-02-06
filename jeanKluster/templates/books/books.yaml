@@ -19,13 +19,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - repoURL: https://k8s-home-lab.github.io/helm-charts/
-      chart: books
-      targetRevision: "*"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/books/books-helm-values.yaml
+  source:
+    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    chart: books
+    targetRevision: "*"
+    helm : 
+      values: |
+{{ include "helmValues.books" . | indent 4 }}

@@ -22,13 +22,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - repoURL: https://k8s-home-lab.github.io/helm-charts/
-      chart: radarr
-      targetRevision: "*"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/arr/radarr/radarr-helm-values.yaml
+  source:
+    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    chart: radarr
+    targetRevision: "*"
+    helm : 
+      values: |
+{{ include "helmValues.radarr" . | indent 4 }}

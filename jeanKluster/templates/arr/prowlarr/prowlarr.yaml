@@ -25,13 +25,6 @@ spec:
     chart: prowlarr
     targetRevision: "*"
     repoURL: https://k8s-home-lab.github.io/helm-charts/
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - repoURL: https://k8s-home-lab.github.io/helm-charts/
-      chart: prowlarr
-      targetRevision: "*"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/arr/prowlarr/prowlarr-helm-values.yaml
+    helm : 
+      values: |
+{{ include "helmValues.prowlarr" . | indent 4 }}

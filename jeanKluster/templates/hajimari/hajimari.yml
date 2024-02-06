@@ -20,13 +20,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - repoURL: https://github.com/rdartus/k3s-argo.git
-      path: localApps/hajimari
-      targetRevision: "main"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/hajimari/hajimari-helm-values.yaml
+  source:
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    path: localApps/hajimari
+    targetRevision: "main"
+    helm : 
+      values: |
+{{ include "helmValues.hajimari" . | indent 4 }}

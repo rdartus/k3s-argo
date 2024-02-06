@@ -20,13 +20,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - chart: jellyfin
-      targetRevision: "9.5.3"
-      repoURL: https://geek-cookbook.github.io/charts/
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/jellyfin/jellyfin-helm-values.yaml
+  source:
+    chart: jellyfin
+    targetRevision: "9.5.3"
+    repoURL: https://geek-cookbook.github.io/charts/
+    helm : 
+      values: |
+{{ include "helmValues.jellyfin" . | indent 4 }}

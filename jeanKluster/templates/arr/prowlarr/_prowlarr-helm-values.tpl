@@ -1,3 +1,5 @@
+{{- define "helmValues.prowlarr" }}
+
 {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 #
 # IMPORTANT NOTE
@@ -69,3 +71,5 @@ ingress:
 persistence:
   config:
     enabled: false
+
+{{- end }}

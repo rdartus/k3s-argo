@@ -1,3 +1,5 @@
+{{- define "helmValues.radarr" }}
+
 {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 
 configmap:
@@ -211,3 +213,5 @@ metrics:
       additionalMetrics: false
       # -- Set to true to enable gathering unknown queue items
       unknownQueueItems: false
+
+{{- end }}
