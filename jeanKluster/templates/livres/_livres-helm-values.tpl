@@ -1,4 +1,4 @@
-
+{{- define "helmValues.livres" }}
 #
 # IMPORTANT NOTE
 #
@@ -68,3 +68,4 @@ persistence:
     type : pvc
     existingClaim: pvc-livres
     size: 200Mi
+{{- end }}

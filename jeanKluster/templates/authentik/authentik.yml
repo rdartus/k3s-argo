@@ -20,13 +20,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - repoURL: https://charts.goauthentik.io
-      chart: authentik
-      targetRevision: "*"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/authentik/authentik-helm-values.yaml
+  source:
+    repoURL: https://charts.goauthentik.io
+    chart: authentik
+    targetRevision: "*"
+    helm : 
+      values: |
+{{ include "helmValues.authentik" . | indent 4 }}

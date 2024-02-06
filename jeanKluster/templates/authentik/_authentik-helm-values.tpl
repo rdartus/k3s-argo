@@ -1,3 +1,5 @@
+{{- define "helmValues.authentik" }}
+
 {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}} 
 
 # -- Server replicas
@@ -298,3 +300,5 @@ redis:
     enabled: false
   image:
     tag: 6.2.10-debian-11-r13
+    
+{{- end }}
