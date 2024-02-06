@@ -1,3 +1,5 @@
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}} 
+
 # -- Server replicas
 replicas: 1
 # -- Custom priority class for different treatment by the scheduler
