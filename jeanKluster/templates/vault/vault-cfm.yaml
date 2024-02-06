@@ -29,6 +29,14 @@ data:
     path "kv-v2/data/pgadmin/*" {
       capabilities = ["read"]
     }
+  authentik-policy.json: |
+
+    path "kv-v2/data/smtp/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/postgresql/config" {
+      capabilities = ["read"]
+    }
   demo-auth-policy-operator.json: |
 
     path "transit/encrypt/vso-client-cache" {
@@ -98,6 +106,7 @@ data:
         vault kv put kv-v2/arr/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/scripts/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="defaultPassword"
+        vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="defaultPassword"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
@@ -109,7 +118,8 @@ data:
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
         vault policy write plcddns-updater /config/scripts/ddns-updater-policy.json        
         vault policy write plcarr /config/scripts/arr-policy.json        
-        vault policy write plcdefault /config/scripts/default-policy.json        
+        vault policy write plcdefault /config/scripts/default-policy.json     
+        vault policy write plcauthentik /config/scripts/authentik-policy.json     
 
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
@@ -150,6 +160,13 @@ data:
         bound_service_account_names=default \
         bound_service_account_namespaces=default \
         policies=plcdefault \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlauthentik \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=authentik \
+        policies=plcauthentik \
         audience=vault\
         ttl=24h
 
