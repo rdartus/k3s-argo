@@ -40,6 +40,9 @@ spec:
         - ALTER DATABASE "prowlarr-log" OWNER TO "{{ .Values.db.user }}"
         - CREATE DATABASE "prowlarr-main"
         - ALTER DATABASE "prowlarr-main" OWNER TO "{{ .Values.db.user }}"
+        - CREATE USER "authentik"
+        - CREATE DATABASE ""
+        - ALTER DATABASE "authentik" OWNER TO ""
 
   # Require 1Gi of space
   storage:
