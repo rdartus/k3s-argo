@@ -258,7 +258,6 @@ ingress:
   tlsSecret: longhorn.local-tls
 
   ## If ingress is enabled you can set the default ingress path
-  ## then you can access the UI by using the following full path {{host}}+{{path}}
   path: /
 
   ## Ingress annotations done as key:value pairs
@@ -302,4 +301,5 @@ annotations: {}
 serviceAccount:
   # Annotations to add to the service account
   annotations: {}
+
 {{- end }}
