@@ -164,7 +164,7 @@ data:
         ttl=24h
 
         vault write auth/kubernetes/role/rlauthentik \
-        bound_service_account_names=default \
+        bound_service_account_names=authentik \
         bound_service_account_namespaces=authentik \
         policies=plcauthentik \
         audience=vault\
