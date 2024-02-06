@@ -23,7 +23,7 @@ spec:
   source:
     chart: tarefik
     targetRevision: "26.0.0"
-    repoURL: https://helm.traefik.io/traefik
+    repoURL: https://traefik.github.io/charts
     helm : 
       values: |
 {{ include "helmValues.traefik" . | indent 4 }}
