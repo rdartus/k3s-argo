@@ -44,12 +44,12 @@ initContainers: {}
 additionalContainers: {}
 
 ingress:
-  enabled: false
-  ingressClassName: ""
+  enabled: true
+  ingressClassName: "traefik-ingresses"
   annotations: {}
   labels: {}
   hosts:
-    - host: authentik.domain.tld
+    - host: authentik.dartus.fr
       paths:
         - path: "/"
           pathType: Prefix
@@ -63,7 +63,7 @@ podAnnotations: {}
 
 authentik:
   # -- Log level for server and worker
-  log_level: info
+  log_level: debug
   # -- Secret key used for cookie singing and unique user IDs,
   # don't change this after the first install
   secret_key: ""
