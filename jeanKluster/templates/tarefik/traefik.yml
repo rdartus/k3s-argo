@@ -21,7 +21,7 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: tarefik
+    chart: traefik
     targetRevision: "26.0.0"
     repoURL: https://traefik.github.io/charts
     helm : 
