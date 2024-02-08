@@ -400,14 +400,14 @@ longhornUI:
 
 ingress:
   # -- Setting that allows Longhorn to generate ingress records for the Longhorn UI service.
-  enabled: false
+  enabled: true
 
   # -- IngressClass resource that contains ingress configuration, including the name of the Ingress controller.
   # ingressClassName can replace the kubernetes.io/ingress.class annotation used in earlier Kubernetes releases.
   ingressClassName: ~
 
   # -- Hostname of the Layer 7 load balancer.
-  host: sslip.io
+  host: longhorn<dqrtus<fr
 
   # -- Setting that allows you to enable TLS on ingress records.
   tls: false
@@ -418,7 +418,7 @@ ingress:
   # -- TLS secret that contains the private key and certificate to be used for TLS. This setting applies only when TLS is enabled on ingress records.
   tlsSecret: longhorn.local-tls
 
-  # -- Default ingress path. You can access the Longhorn UI by following the full ingress path {{host}}+{{path}}.
+  # -- Default ingress path. You can access the Longhorn UI by following the full ingress path 
   path: /
 
   ## If you're using kube-lego, you will want to add:
