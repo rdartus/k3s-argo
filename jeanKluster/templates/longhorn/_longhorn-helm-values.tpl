@@ -50,26 +50,26 @@ image:
       tag: v1.5.3
     supportBundleKit:
       repository: longhornio/support-bundle-kit
-      tag: v0.0.33
+      tag: v0.0.27
   csi:
     attacher:
       repository: longhornio/csi-attacher
-      tag: v4.4.2
+      tag: v4.2.0
     provisioner:
       repository: longhornio/csi-provisioner
-      tag: v3.6.2
+      tag: v3.4.1
     nodeDriverRegistrar:
       repository: longhornio/csi-node-driver-registrar
-      tag: v2.9.2
+      tag: v2.7.0
     resizer:
       repository: longhornio/csi-resizer
-      tag: v1.9.2
+      tag: v1.7.0
     snapshotter:
       repository: longhornio/csi-snapshotter
-      tag: v6.3.2
+      tag: v6.2.1
     livenessProbe:
       repository: longhornio/livenessprobe
-      tag: v2.11.0
+      tag: v2.9.0
   pullPolicy: IfNotPresent
 
 service:
