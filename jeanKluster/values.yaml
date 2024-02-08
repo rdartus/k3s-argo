@@ -13,4 +13,4 @@ arr:
   userPass : pdpdpd
 
 job: true
-longhorn : false
+longhorn : true
