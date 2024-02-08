@@ -407,7 +407,7 @@ ingress:
   ingressClassName: ~
 
   # -- Hostname of the Layer 7 load balancer.
-  host: longhorn<dqrtus<fr
+  host: longhorn.dartus.fr
 
   # -- Setting that allows you to enable TLS on ingress records.
   tls: false
