@@ -25,4 +25,4 @@ spec:
     repoURL: https://cloudnative-pg.github.io/charts
     helm : 
       values: |
-{{ include "helmValues.livres" . | indent 8 }}
+{{ include "helmValues.cnpg" . | indent 8 }}
