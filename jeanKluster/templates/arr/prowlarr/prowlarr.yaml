@@ -27,4 +27,4 @@ spec:
     repoURL: https://k8s-home-lab.github.io/helm-charts/
     helm : 
       values: |
-{{ include "helmValues.prowlarr" . | indent 4 }}
+{{ include "helmValues.prowlarr" . | indent 8 }}

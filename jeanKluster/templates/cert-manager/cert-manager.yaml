@@ -25,4 +25,4 @@ spec:
     repoURL: https://charts.jetstack.io
     helm : 
       values: |
-{{ include "helmValues.certManager" . | indent 4 }}
+{{ include "helmValues.certManager" . | indent 8 }}

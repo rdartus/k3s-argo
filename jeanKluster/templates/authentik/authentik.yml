@@ -26,4 +26,4 @@ spec:
     targetRevision: "*"
     helm : 
       values: |
-{{ include "helmValues.authentik" . | indent 4 }}
+{{ include "helmValues.authentik" . | indent 8 }}

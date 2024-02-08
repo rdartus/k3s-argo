@@ -26,4 +26,4 @@ spec:
     repoURL: https://geek-cookbook.github.io/charts/
     helm : 
       values: |
-{{ include "helmValues.jellyfin" . | indent 4 }}
+{{ include "helmValues.jellyfin" . | indent 8 }}

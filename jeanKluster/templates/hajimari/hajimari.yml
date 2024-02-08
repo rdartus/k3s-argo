@@ -26,4 +26,4 @@ spec:
     targetRevision: "main"
     helm : 
       values: |
-{{ include "helmValues.hajimari" . | indent 4 }}
+{{ include "helmValues.hajimari" . | indent 8 }}

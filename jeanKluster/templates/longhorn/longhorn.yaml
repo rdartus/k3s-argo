@@ -23,5 +23,5 @@ spec:
     repoURL: https://charts.longhorn.io
     helm : 
       values: |
-{{ include "helmValues.longhorn" . | indent 4 }}
+{{ include "helmValues.longhorn" . | indent 8 }}
 {{end}}

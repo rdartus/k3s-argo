@@ -25,4 +25,4 @@ spec:
     targetRevision: "1.4.2"
     helm : 
       values: |
-{{ include "helmValues.filebrowser" . | indent 4 }}
+{{ include "helmValues.filebrowser" . | indent 8 }}

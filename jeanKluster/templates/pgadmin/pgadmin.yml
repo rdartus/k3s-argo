@@ -26,4 +26,4 @@ spec:
     repoURL: https://helm.runix.net
     helm : 
       values: |
-{{ include "helmValues.pgadmin" . | indent 4 }}
+{{ include "helmValues.pgadmin" . | indent 8 }}

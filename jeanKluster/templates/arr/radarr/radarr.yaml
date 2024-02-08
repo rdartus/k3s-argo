@@ -28,4 +28,4 @@ spec:
     targetRevision: "*"
     helm : 
       values: |
-{{ include "helmValues.radarr" . | indent 4 }}
+{{ include "helmValues.radarr" . | indent 8 }}

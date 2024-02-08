@@ -25,4 +25,4 @@ spec:
     targetRevision: "*"
     helm : 
       values: |
-{{ include "helmValues.books" . | indent 4 }}
+{{ include "helmValues.books" . | indent 8 }}
