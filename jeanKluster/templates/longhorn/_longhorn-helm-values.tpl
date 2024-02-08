@@ -1,5 +1,4 @@
 {{- define "helmValues.longhorn" }}
-
 # Default values for longhorn.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
@@ -23,53 +22,48 @@ global:
         taintToleration: cattle.io/os=linux:NoSchedule
         systemManagedComponentsNodeSelector: kubernetes.io/os:linux
 
-networkPolicies:
-  enabled: false
-  # Available types: k3s, rke2, rke1
-  type: "k3s"
-
 image:
   longhorn:
     engine:
       repository: longhornio/longhorn-engine
-      tag: v1.5.3
+      tag: v1.4.0
     manager:
       repository: longhornio/longhorn-manager
-      tag: v1.5.3
+      tag: v1.4.0
     ui:
       repository: longhornio/longhorn-ui
-      tag: v1.5.3
+      tag: v1.4.0
     instanceManager:
       repository: longhornio/longhorn-instance-manager
-      tag: v1.5.3
+      tag: v1.4.0
     shareManager:
       repository: longhornio/longhorn-share-manager
-      tag: v1.5.3
+      tag: v1.4.0
     backingImageManager:
       repository: longhornio/backing-image-manager
-      tag: v1.5.3
+      tag: v1.4.0
     supportBundleKit:
       repository: longhornio/support-bundle-kit
-      tag: v0.0.27
+      tag: v0.0.17
   csi:
     attacher:
       repository: longhornio/csi-attacher
-      tag: v4.2.0
+      tag: v3.4.0
     provisioner:
       repository: longhornio/csi-provisioner
-      tag: v3.4.1
+      tag: v2.1.2
     nodeDriverRegistrar:
       repository: longhornio/csi-node-driver-registrar
-      tag: v2.7.0
+      tag: v2.5.0
     resizer:
       repository: longhornio/csi-resizer
-      tag: v1.7.0
+      tag: v1.3.0
     snapshotter:
       repository: longhornio/csi-snapshotter
-      tag: v6.2.1
+      tag: v5.0.1
     livenessProbe:
       repository: longhornio/livenessprobe
-      tag: v2.9.0
+      tag: v2.8.0
   pullPolicy: IfNotPresent
 
 service:
@@ -88,10 +82,9 @@ persistence:
   defaultMkfsParams: ""
   defaultClassReplicaCount: 3
   defaultDataLocality: disabled # best-effort otherwise
+  defaultReplicaAutoBalance: ignored # "disabled", "least-effort" or "best-effort" otherwise
   reclaimPolicy: Delete
   migratable: false
-  # -- Set NFS mount options for Longhorn StorageClass for RWX volumes
-  nfsOptions: ""
   recurringJobSelector:
     enable: false
     jobList: []
@@ -103,11 +96,8 @@ persistence:
     expectedChecksum: ~
   defaultNodeSelector:
     enable: false # disable by default
-    selector: ""
+    selector: []
   removeSnapshotsDuringFilesystemTrim: ignored # "enabled" or "disabled" otherwise
-
-helmPreUpgradeCheckerJob:
-  enabled: false
 
 csi:
   kubeletRootDir: ~
@@ -123,13 +113,12 @@ defaultSettings:
   createDefaultDiskLabeledNodes: ~
   defaultDataPath: ~
   defaultDataLocality: ~
-  replicaSoftAntiAffinity: true
+  replicaSoftAntiAffinity: ~
   replicaAutoBalance: ~
   storageOverProvisioningPercentage: ~
   storageMinimalAvailablePercentage: ~
-  storageReservedPercentageForDefaultDisk: ~
   upgradeChecker: ~
-  defaultReplicaCount: 2
+  defaultReplicaCount: ~
   defaultLonghornStaticStorageClass: ~
   backupstorePollInterval: ~
   failedBackupTTL: ~
@@ -139,13 +128,15 @@ defaultSettings:
   supportBundleFailedHistoryLimit: ~
   taintToleration: ~
   systemManagedComponentsNodeSelector: ~
-  priorityClass: longhorn-critical
+  priorityClass: ~
   autoSalvage: ~
   autoDeletePodWhenVolumeDetachedUnexpectedly: ~
   disableSchedulingOnCordonedNode: ~
   replicaZoneSoftAntiAffinity: ~
   nodeDownPodDeletionPolicy: ~
-  nodeDrainPolicy: ~
+  allowNodeDrainWithLastHealthyReplica: ~
+  mkfsExt4Parameters: ~
+  disableReplicaRebuild: ~
   replicaReplenishmentWaitInterval: ~
   concurrentReplicaRebuildPerNodeLimit: ~
   concurrentVolumeBackupRestorePerNodeLimit: ~
@@ -156,7 +147,8 @@ defaultSettings:
   concurrentAutomaticEngineUpgradePerNodeLimit: ~
   backingImageCleanupWaitInterval: ~
   backingImageRecoveryWaitInterval: ~
-  guaranteedInstanceManagerCPU: ~
+  guaranteedEngineManagerCPU: ~
+  guaranteedReplicaManagerCPU: ~
   kubernetesClusterAutoscalerEnabled: ~
   orphanAutoDeletion: ~
   storageNetwork: ~
@@ -168,15 +160,6 @@ defaultSettings:
   removeSnapshotsDuringFilesystemTrim: ~
   fastReplicaRebuildEnabled: ~
   replicaFileSyncHttpClientTimeout: ~
-  logLevel: ~
-  backupCompressionMethod: ~
-  backupConcurrentLimit: ~
-  restoreConcurrentLimit: ~
-  v2DataEngine: ~
-  offlineReplicaRebuilding: ~
-  disableSnapshotPurge: ~
-  allowCollectingLonghornUsageMetrics: ~
-
 privateRegistry:
   createSecret: ~
   registryUrl: ~
@@ -238,15 +221,63 @@ longhornUI:
   #  label-key1: "label-value1"
   #  label-key2: "label-value2"
 
+longhornConversionWebhook:
+  replicas: 2
+  priorityClass: ~
+  tolerations: []
+  ## If you want to set tolerations for Longhorn conversion webhook Deployment, delete the `[]` in the line above
+  ## and uncomment this example block
+  # - key: "key"
+  #   operator: "Equal"
+  #   value: "value"
+  #   effect: "NoSchedule"
+  nodeSelector: {}
+  ## If you want to set node selector for Longhorn conversion webhook Deployment, delete the `{}` in the line above
+  ## and uncomment this example block
+  #  label-key1: "label-value1"
+  #  label-key2: "label-value2"
+
+longhornAdmissionWebhook:
+  replicas: 2
+  priorityClass: ~
+  tolerations: []
+  ## If you want to set tolerations for Longhorn admission webhook Deployment, delete the `[]` in the line above
+  ## and uncomment this example block
+  # - key: "key"
+  #   operator: "Equal"
+  #   value: "value"
+  #   effect: "NoSchedule"
+  nodeSelector: {}
+  ## If you want to set node selector for Longhorn admission webhook Deployment, delete the `{}` in the line above
+  ## and uncomment this example block
+  #  label-key1: "label-value1"
+  #  label-key2: "label-value2"
+
+longhornRecoveryBackend:
+  replicas: 2
+  priorityClass: ~
+  tolerations: []
+  ## If you want to set tolerations for Longhorn recovery backend Deployment, delete the `[]` in the line above
+  ## and uncomment this example block
+  # - key: "key"
+  #   operator: "Equal"
+  #   value: "value"
+  #   effect: "NoSchedule"
+  nodeSelector: {}
+  ## If you want to set node selector for Longhorn recovery backend Deployment, delete the `{}` in the line above
+  ## and uncomment this example block
+  #  label-key1: "label-value1"
+  #  label-key2: "label-value2"
+
 ingress:
   ## Set to true to enable ingress record generation
-  enabled: true
+  enabled: false
 
   ## Add ingressClassName to the Ingress
   ## Can replace the kubernetes.io/ingress.class annotation on v1.18+
   ingressClassName: ~
 
-  host: longhorn.dartus.fr
+  host: sslip.io
 
   ## Set this to true in order to enable TLS on the ingress record
   tls: false
@@ -258,6 +289,7 @@ ingress:
   tlsSecret: longhorn.local-tls
 
   ## If ingress is enabled you can set the default ingress path
+  ## then you can access the UI by using the following full path {{host}}+{{path}}
   path: /
 
   ## Ingress annotations done as key:value pairs
@@ -269,9 +301,8 @@ ingress:
   ##
   ## If tls is set to true, annotation ingress.kubernetes.io/secure-backends: "true" will automatically be set
   annotations:
-    hajimari.io/enable: "true"
-    hajimari.io/group: "Management"
-    hajimari.io/icon: "cow"
+  #  kubernetes.io/ingress.class: nginx
+  #  kubernetes.io/tls-acme: true
 
   secrets:
   ## If you're providing your own certificates, please use this to add the certificates as secrets
