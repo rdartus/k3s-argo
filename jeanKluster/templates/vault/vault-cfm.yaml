@@ -98,10 +98,10 @@ data:
         vault login $ROOT_TOKEN
         vault secrets enable kv-v2
         vault kv put kv-v2/ddns-updater/config CONFIG='{"settings":[{"provider":"ddnss","provider_ip":true,"domain":"YOUR-DOMAIN","host":"@","username":"YOUR-USERNAME","password":"YOUR-PASSWORD","ip_version":"ipv4"}]}'
-        vault kv put kv-v2/postgresql/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
+        vault kv put kv-v2/postgresql/config username="{{ .Values.db.arr_user }}" password="{{ .Values.db.arr_userPass }}"
         vault kv put kv-v2/postgresql/superuser username="postgres" password="{{ .Values.db.superuserPass }}"
-        vault kv put kv-v2/pgadmin/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
-        vault kv put kv-v2/arr/config username="{{ .Values.db.user }}" password="{{ .Values.db.userPass }}"
+        vault kv put kv-v2/pgadmin/config username="{{ .Values.db.arr_user }}" password="{{ .Values.db.arr_userPass }}"
+        vault kv put kv-v2/arr/config username="{{ .Values.db.arr_user }}" password="{{ .Values.db.arr_userPass }}"
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/scripts/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="defaultPassword"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="defaultPassword"

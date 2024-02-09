@@ -35,8 +35,8 @@ spec:
         db :
           appName: {{ .Values.db.appName }} 
           namespace: {{ .Values.db.namespace }} 
-          user: {{ .Values.db.user }} 
-          userPass: {{ .Values.db.userPass }} 
+          user: {{ .Values.db.arr_user }} 
+          userPass: {{ .Values.db.arr_userPass }} 
 
         arr:
           user : {{ .Values.arr.user }} 

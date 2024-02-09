@@ -4,8 +4,10 @@ default_folder_app : localApps
 db :
   appName: cnpg-cluster-rw
   namespace: cnpg
-  user: jeank
-  userPass: pdpdpd
+  arr_user: jeank
+  arr_userPass: pdpdpd
+  auth_user: auth
+  auth_userPass: pdpdpd
   superuserPass: postgres
 
 arr:
