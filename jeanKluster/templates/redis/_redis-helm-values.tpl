@@ -1,4 +1,4 @@
-{{- define "helmValues.redis" }}
+*-- define "helmValues.redis" -*
 # Copyright VMware, Inc.
 # SPDX-License-Identifier: APACHE-2.0
 
@@ -1873,36 +1873,36 @@ metrics:
     ## e.g:
     ## rules:
     ##   - alert: RedisDown
-    ##     expr: redis_up{service="{{ template "common.names.fullname" . }}-metrics"} == 0
+    ##     expr: redis_up{service="*- template "common.names.fullname" . -*-metrics"} == 0
     ##     for: 2m
     ##     labels:
     ##       severity: error
     ##     annotations:
-    ##       summary: Redis&reg; instance {{ "{{ $labels.instance }}" }} down
-    ##       description: Redis&reg; instance {{ "{{ $labels.instance }}" }} is down
+    ##       summary: Redis&reg; instance *- "*- $labels.instance -*" -* down
+    ##       description: Redis&reg; instance *- "*- $labels.instance -*" -* is down
     ##    - alert: RedisMemoryHigh
     ##      expr: >
-    ##        redis_memory_used_bytes{service="{{ template "common.names.fullname" . }}-metrics"} * 100
+    ##        redis_memory_used_bytes{service="*- template "common.names.fullname" . -*-metrics"} * 100
     ##        /
-    ##        redis_memory_max_bytes{service="{{ template "common.names.fullname" . }}-metrics"}
+    ##        redis_memory_max_bytes{service="*- template "common.names.fullname" . -*-metrics"}
     ##        > 90
     ##      for: 2m
     ##      labels:
     ##        severity: error
     ##      annotations:
-    ##        summary: Redis&reg; instance {{ "{{ $labels.instance }}" }} is using too much memory
+    ##        summary: Redis&reg; instance *- "*- $labels.instance -*" -* is using too much memory
     ##        description: |
-    ##          Redis&reg; instance {{ "{{ $labels.instance }}" }} is using {{ "{{ $value }}" }}% of its available memory.
+    ##          Redis&reg; instance *- "*- $labels.instance -*" -* is using *- "*- $value -*" -*% of its available memory.
     ##    - alert: RedisKeyEviction
     ##      expr: |
-    ##        increase(redis_evicted_keys_total{service="{{ template "common.names.fullname" . }}-metrics"}[5m]) > 0
+    ##        increase(redis_evicted_keys_total{service="*- template "common.names.fullname" . -*-metrics"}[5m]) > 0
     ##      for: 1s
     ##      labels:
     ##        severity: error
     ##      annotations:
-    ##        summary: Redis&reg; instance {{ "{{ $labels.instance }}" }} has evicted keys
+    ##        summary: Redis&reg; instance *- "*- $labels.instance -*" -* has evicted keys
     ##        description: |
-    ##          Redis&reg; instance {{ "{{ $labels.instance }}" }} has evicted {{ "{{ $value }}" }} keys in the last 5 minutes.
+    ##          Redis&reg; instance *- "*- $labels.instance -*" -* has evicted *- "*- $value -*" -* keys in the last 5 minutes.
     ##
     rules: []
 
@@ -2018,4 +2018,4 @@ useExternalDNS:
   annotationKey: external-dns.alpha.kubernetes.io/
   additionalAnnotations: {}
 
-{{- end }}
+*-- end -*
