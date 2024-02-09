@@ -1,4 +1,4 @@
-*-- define "helmValues.redis" -*
+{{- define "helmValues.redis"}} 
 # Copyright VMware, Inc.
 # SPDX-License-Identifier: APACHE-2.0
 
@@ -2018,4 +2018,4 @@ useExternalDNS:
   annotationKey: external-dns.alpha.kubernetes.io/
   additionalAnnotations: {}
 
-*-- end -*
+{{- end}}
