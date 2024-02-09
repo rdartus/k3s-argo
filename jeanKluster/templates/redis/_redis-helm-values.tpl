@@ -95,8 +95,8 @@ diagnosticMode:
 ##
 image:
   registry: docker.io
-  repository: bitnami/redis
-  tag: 7.2.4-debian-11-r5
+  repository: redis
+  tag: latest
   digest: ""
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
