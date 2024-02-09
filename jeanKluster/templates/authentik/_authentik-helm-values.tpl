@@ -129,6 +129,9 @@ blueprints: []
 # -- see configuration options at https://goauthentik.io/docs/installation/configuration/
 env:
   AUTHENTIK_POSTGRESQL__NAME: "authentik"
+  AUTHENTIK_POSTGRESQL__HOST: "{{ $dbServiceName }}"
+  AUTHENTIK_POSTGRESQL__USER: "{{ .Values.db.auth_user }}"
+  AUTHENTIK_POSTGRESQL__PASSWORD: "{{ .Values.db.auth_userPass }}"
   AUTHENTIK_EMAIL__HOST: smtp.gmail.com
   AUTHENTIK_EMAIL__PORT: 587
   AUTHENTIK_EMAIL__USE_TLS: true
