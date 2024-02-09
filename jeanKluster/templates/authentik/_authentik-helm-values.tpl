@@ -297,7 +297,7 @@ postgresql:
     tag: 15.4.0-debian-11-r0
 redis:
   # -- enable the bundled bitnami redis chart
-  enabled: true
+  enabled: false
   architecture: standalone
   auth:
     enabled: false
