@@ -1,4 +1,5 @@
 {{- define "helmValues.redis"}} 
+
 # Copyright VMware, Inc.
 # SPDX-License-Identifier: APACHE-2.0
 
