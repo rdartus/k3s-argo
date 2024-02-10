@@ -23,7 +23,7 @@ global:
   imagePullSecrets: []
   storageClass: ""
   redis:
-    password: ""
+    password: "testredis"
 
 ## @section Common parameters
 ##

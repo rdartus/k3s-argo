@@ -134,6 +134,7 @@ env:
   AUTHENTIK_POSTGRESQL__PASSWORD: "{{ .Values.db.auth_userPass }}"
   AUTHENTIK_REDIS__HOST: "redis-headless.default.svc.cluster.local"
   AUTHENTIK_REDIS__PORT: 6379
+  AUTHENTIK_REDIS__PASSWORD: "testredis"
   AUTHENTIK_EMAIL__HOST: smtp.gmail.com
   AUTHENTIK_EMAIL__PORT: 587
   AUTHENTIK_EMAIL__USE_TLS: true
