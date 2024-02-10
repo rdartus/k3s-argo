@@ -49,6 +49,8 @@ data:
       capabilities = ["read"]
     }
 
+  default-passwordPBKDF2.txt: "@ByteArray(vnme7peVfBJSYGcSqw2gsg==:LZ7O20uoSkFZ3gpUB2KIRom2abH6dXVhSN4LrXqDBKWLGJbm27Nu7a6klnIJMq3Cu1GcUMmhsQATBJthEnF4cg==)"
+
   initScript.sh: |
 
     #!/bin/sh
