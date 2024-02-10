@@ -216,7 +216,7 @@ persistentVolume:
 
   ## pgAdmin4 Persistent Volume Size
   ##
-  size: 1Gi
+  size: 200Mi
 
   ## pgAdmin4 Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
