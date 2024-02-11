@@ -58,13 +58,13 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: true
+    enabled: false
     type : pvc
     existingClaim: pvc-livres-conf
     size: 200Mi
 
   books:
-    enabled: true
+    enabled: false
     type : pvc
     existingClaim: pvc-livres
     size: 200Mi

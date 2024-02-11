@@ -43,7 +43,7 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Media"
       hajimari.io/icon: "bookshelf"
-      hajimari.io/appName: "livres"
+      hajimari.io/appName: "books"
     hosts:
       -  # -- Host address. Helm template can be passed.
         host: books.dartus.fr
