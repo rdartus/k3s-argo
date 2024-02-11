@@ -6,6 +6,8 @@ uid: 1001
 tz: UTC
 
 db :
+  appName: cnpg-cluster-rw
+  namespace: cnpg
   arr_user: jeank
   arr_userPass: pdpdpd
   auth_user: auth
