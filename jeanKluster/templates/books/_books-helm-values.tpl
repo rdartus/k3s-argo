@@ -21,9 +21,9 @@ env:
   # -- Set the container timezone
   TZ: UTC
   # -- Specify the user ID the application will run as
-  PUID: "568"
+  PUID: {{ .Values.pgid}}
   # -- Specify the group ID the application will run as
-  PGID: "568"
+  PGID: {{ .Values.uid}}
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
