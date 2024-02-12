@@ -324,7 +324,7 @@ configuration:
   backupStorageLocation:
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
-  - name: Amazon S3
+  - name: amazon-s3
     # provider is the name for the backup storage location provider.
     provider: aws
     # bucket is the name of the bucket to store backups in. Required.
