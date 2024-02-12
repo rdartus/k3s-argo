@@ -369,6 +369,16 @@ configuration:
   volumeSnapshotLocation:
     # name is the name of the volume snapshot location where snapshots are being taken. Required.
   - name: default
+    provider: aws
+    credential:
+      # name of the secret used by this backupStorageLocation.
+      name: s3-secret
+      # name of key that contains the secret data to be used.
+      key: access_key
+    # Additional provider-specific configuration. See link above
+    # for details of required/optional fields for your provider.
+    config:
+     region: eu-west-3
     # provider is the name for the volume snapshot provider.
   #    region:
   #    apiTimeout:
