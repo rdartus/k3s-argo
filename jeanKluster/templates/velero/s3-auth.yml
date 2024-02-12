@@ -1,7 +1,7 @@
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
-  name: S3-auth
+  name: s3-auth
   namespace: velero
   annotations:
     argocd.argoproj.io/sync-wave: "4"

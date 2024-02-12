@@ -342,7 +342,7 @@ configuration:
     accessMode: ReadWrite
     credential:
       # name of the secret used by this backupStorageLocation.
-      name: S3-secret
+      name: s3-secret
       # name of key that contains the secret data to be used.
       key: access_key
     # Additional provider-specific configuration. See link above
