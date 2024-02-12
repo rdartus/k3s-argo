@@ -407,11 +407,11 @@ configuration:
   # `velero server` default: 20.0
   clientQPS:
   # Name of the default backup storage location. Default: default
-  defaultBackupStorageLocation:
+  defaultBackupStorageLocation: amazon-s3-storagelocation
   # How long to wait by default before backups can be garbage collected. Default: 72h
   defaultBackupTTL:
   # Name of the default volume snapshot location.
-  defaultVolumeSnapshotLocations:
+  defaultVolumeSnapshotLocations: amazon-s3-snapshotlocation
   # `velero server` default: empty
   disableControllers:
   # `velero server` default: 1h
