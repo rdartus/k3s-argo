@@ -22,7 +22,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: velero
-    targetRevision: "1.13"
+    targetRevision: "5.3.0"
     repoURL: https://vmware-tanzu.github.io/helm-charts
     helm : 
       values: |
