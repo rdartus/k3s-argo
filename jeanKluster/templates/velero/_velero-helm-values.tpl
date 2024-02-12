@@ -419,7 +419,7 @@ configuration:
   # Set log-format for Velero pod. Default: text. Other option: json.
   logFormat:
   # Set log-level for Velero pod. Default: info. Other options: debug, warning, error, fatal, panic.
-  logLevel:
+  logLevel: debug
   # The address to expose prometheus metrics. Default: :8085
   metricsAddress:
   # Directory containing Velero plugins. Default: /plugins
