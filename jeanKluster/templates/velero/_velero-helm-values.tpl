@@ -324,7 +324,7 @@ configuration:
   backupStorageLocation:
     # name is the name of the backup storage location where backups should be stored. If a name is not provided,
     # a backup storage location will be created with the name "default". Optional.
-  - name: amazon-s3
+  - name: amazon-s3-storagelocation
     # provider is the name for the backup storage location provider.
     provider: aws
     # bucket is the name of the bucket to store backups in. Required.
@@ -368,17 +368,18 @@ configuration:
   # See https://velero.io/docs/v1.6/api-types/volumesnapshotlocation/
   volumeSnapshotLocation:
     # name is the name of the volume snapshot location where snapshots are being taken. Required.
-  - name:
+  - name: amazon-s3-snapshotlocation
     # provider is the name for the volume snapshot provider.
-    provider:
+    provider: aws
     credential:
-      # name of the secret used by this volumeSnapshotLocation.
-      name:
+      # name of the secret used by this backupStorageLocation.
+      name: s3-secret
       # name of key that contains the secret data to be used.
-      key:
+      key: access_key
     # Additional provider-specific configuration. See link above
     # for details of required/optional fields for your provider.
-    config: {}
+    config:
+     region: eu-west-3
   #    region:
   #    apiTimeout:
   #    resourceGroup:
