@@ -334,7 +334,7 @@ configuration:
     # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
     prefix:
     # default indicates this location is the default backup storage location. Optional.
-    default:
+    default: true
     # validationFrequency defines how frequently Velero should validate the object storage. Optional.
     validationFrequency:
     # accessMode determines if velero can write to this backup storage location. Optional.
