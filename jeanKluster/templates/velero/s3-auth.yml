@@ -11,6 +11,6 @@ spec:
   mount: kubernetes
   kubernetes:
     role: rlS3
-    serviceAccount: velero
+    serviceAccount: velero-server
     audiences:
       - vault

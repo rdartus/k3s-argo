@@ -182,7 +182,7 @@ data:
         ttl=24h
 
         vault write auth/kubernetes/role/rls3 \
-        bound_service_account_names=velero \
+        bound_service_account_names=velero-server \
         bound_service_account_namespaces=velero \
         policies=plcs3 \
         audience=vault\
