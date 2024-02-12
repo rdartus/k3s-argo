@@ -371,6 +371,7 @@ configuration:
   - name: amazon-s3-snapshotlocation
     # provider is the name for the volume snapshot provider.
     provider: aws
+    bucket: jeanstore
     credential:
       # name of the secret used by this backupStorageLocation.
       name: s3-secret
