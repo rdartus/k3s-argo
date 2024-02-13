@@ -24,11 +24,6 @@ data:
     path "kv-v2/data/postgresql/*" {
       capabilities = ["read"]
     }
-  s3-policy.json: |
-
-    path "kv-v2/data/s3/*" {
-      capabilities = ["read"]
-    }
   pgadmin-policy.json: |
 
     path "kv-v2/data/pgadmin/*" {
@@ -112,7 +107,6 @@ data:
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/scripts/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="defaultPassword"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="defaultPassword"
-        vault kv put kv-v2/s3/config velero-conf="@/config/scripts/default-velero.txt"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
@@ -126,7 +120,6 @@ data:
         vault policy write plcarr /config/scripts/arr-policy.json        
         vault policy write plcdefault /config/scripts/default-policy.json     
         vault policy write plcauthentik /config/scripts/authentik-policy.json     
-        vault policy write plcs3 /config/scripts/s3-policy.json     
 
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
@@ -174,13 +167,6 @@ data:
         bound_service_account_names=authentik \
         bound_service_account_namespaces=authentik \
         policies=plcauthentik \
-        audience=vault\
-        ttl=24h
-
-        vault write auth/kubernetes/role/rls3 \
-        bound_service_account_names=velero-server \
-        bound_service_account_namespaces=velero \
-        policies=plcs3 \
         audience=vault\
         ttl=24h
 
