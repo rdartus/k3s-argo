@@ -1,4 +1,4 @@
-{{- if .Values.longhorn }}
+{{- if .Values.velero }}
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
