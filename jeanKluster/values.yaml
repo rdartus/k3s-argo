@@ -20,3 +20,4 @@ arr:
 
 job: true
 longhorn : true
+velero : false

@@ -1,4 +1,6 @@
+{{- if .Values.longhorn }}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: velero
+{{end}}
