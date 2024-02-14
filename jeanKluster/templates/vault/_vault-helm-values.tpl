@@ -759,7 +759,7 @@ server:
   # /vault/audit
   # See https://developer.hashicorp.com/vault/docs/audit to know more
   auditStorage:
-    enabled: false
+    enabled: true
     # Size of the PVC created
     size: 1Gi
     # Location where the PVC will be mounted.
