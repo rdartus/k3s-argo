@@ -3,7 +3,7 @@ WSL Conf
 ``` zsh
 cd ~/code/jeanpi/ && sudo docker compose down && cp ~/config/radarr/radarr.db ~/tmp/radarr.db && cp ~/config/sonarr/sonarr.db ~/tmp/sonarr.db && cp ~/config/prowlarr/prowlarr.db ~/tmp/prowlarr.db && cd ~/code/jeanpi/ && sudo docker compose up -d
 
-scp jeank@192.168.1.32:/home/jeank/.kube/config /home/jeank/.kube/config
+scp -P 22022 jeank@192.168.1.32:/home/jeank/.kube/config /home/jeank/.kube/config
 scp -P 22022 jeank@192.168.1.16:/home/jeank/tmp/prowlarr.db /home/jeank/k3s-argo/db/prowlarr.db
 scp -P 22022 jeank@192.168.1.16:/home/jeank/tmp/radarr.db /home/jeank/k3s-argo/db/radarr.db
 scp -P 22022 jeank@192.168.1.16:/home/jeank/tmp/sonarr.db /home/jeank/k3s-argo/db/sonarr.db

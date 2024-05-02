@@ -1,6 +1,0 @@
-DELETE FROM "ScheduledTasks";
-DELETE FROM "AppSyncProfiles";
-DELETE FROM "VersionInfo";
-DELETE FROM "Commands";
-DELETE FROM "Indexers";
-DELETE FROM "IndexerStatus";

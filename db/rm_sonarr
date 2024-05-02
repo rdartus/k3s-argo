@@ -1,9 +1,0 @@
-DELETE FROM "DelayProfiles";
-DELETE FROM "Metadata";
-DELETE FROM "QualityProfiles";
-DELETE FROM "QualityDefinitions";
-DELETE FROM "NamingConfig";
-DELETE FROM "ScheduledTasks";
-DELETE FROM "Config";
-DELETE FROM "VersionInfo";
-
