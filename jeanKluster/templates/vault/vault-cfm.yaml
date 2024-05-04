@@ -66,10 +66,11 @@ data:
     LIMIT=60
     while [ 1 ]
     do
-      echo "Checking if Vault is up and running (try $COUNT)..." &> /proc/1/fd/1
+      echo "Checking if Vault is up and running (try $COUNT)..."
       VAULT_STATUS=$(vault status $1 2>&1)
       EXIT_STATUS=$?
-      echo "Initialize Vault"
+      STATUS = $(vault status)
+      echo "Vault status $STATUS"
       export STATUS=$(vault status | grep 'Initialized' | awk '{print $2}')
       echo "status vault $STATUS"
       if [ $STATUS = "false" ]; then
