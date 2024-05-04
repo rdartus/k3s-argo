@@ -268,3 +268,4 @@ metrics:
       port: 9022
       # -- log level [DEBUG|INFO|WARNING|ERROR|CRITICAL]
       logLevel: INFO
+{{- end }}
