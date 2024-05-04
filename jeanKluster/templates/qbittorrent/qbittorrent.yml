@@ -20,13 +20,10 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
-  sources:
-    - repoURL: 'https://github.com/rdartus/k3s-argo.git'
-      targetRevision: main
-      ref: values
-    - repoURL: https://k8s-home-lab.github.io/helm-charts/
-      chart: qbittorrent
-      targetRevision: "*"
-      helm : 
-        valueFiles:
-        - $values/jeanKluster/templates/qbittorrent/qbittorrent-helm-values.yaml
+  source:
+    chart: qbittorrent
+    targetRevision: "*"
+    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    helm : 
+      values: |
+{{ include "helmValues.traefik" . | indent 8 }}

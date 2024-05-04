@@ -1,3 +1,4 @@
+{{- define "helmValues.traefik" }}
 #
 # IMPORTANT NOTE
 #
