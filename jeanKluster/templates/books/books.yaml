@@ -21,7 +21,7 @@ spec:
       - CreateNamespace=true
   source:
     repoURL: https://k8s-home-lab.github.io/helm-charts/
-    chart: books
+    chart: calibre-web
     targetRevision: "*"
     helm : 
       values: |
