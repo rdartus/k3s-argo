@@ -519,7 +519,7 @@ metrics:
   #          severity: warning
   #        annotations:
   #          summary: "Traefik Down"
-  #          description: "{{ $labels.pod }} on {{ $labels.nodename }} is down"
+  #          description: "{{`{{ $labels.pod }}`}} on {{`{{ $labels.nodename }}`}} is down"
 
 ## Tracing
 # -- https://doc.traefik.io/traefik/observability/tracing/overview/
@@ -967,7 +967,7 @@ topologySpreadConstraints: []
 # on nodes where no other traefik pods are scheduled.
 #  - labelSelector:
 #      matchLabels:
-#        app: '{{ template "traefik.name" . }}'
+#        app: {{`'{{ template "traefik.name" . }}'`}}
 #    maxSkew: 1
 #    topologyKey: kubernetes.io/hostname
 #    whenUnsatisfiable: DoNotSchedule
