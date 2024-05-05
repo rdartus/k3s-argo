@@ -30,10 +30,7 @@ kubectl exec -it vault-0 -- /bin/sh vault operator
 
 Get logs
 ```zsh
-kubectl logs svc/argocd-server -n argocd  > argo.log
-kubectl logs svc/argocd-repo-server -n argocd  > argorepo.log
-kubectl logs svc/webhook-service -n metallb > metallb.log
-kubectl logs pod/speaker-stlm6 -n metallb > speaker.log
+kubectl logs svc/argocd-server -n argocd  > argo.log && kubectl logs svc/argocd-repo-server -n argocd  > argorepo.log && kubectl logs svc/webhook-service -n metallb > metallb.log && kubectl logs pod/speaker-stlm6 -n metallb > speaker.log
 ```
 
 Delete :
