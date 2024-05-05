@@ -26,4 +26,4 @@ spec:
     repoURL: https://k8s-home-lab.github.io/helm-charts/
     helm : 
       values: |
-{{ include "helmValues.traefik" . | indent 8 }}
+{{ include "helmValues.qbittorent" . | indent 8 }}

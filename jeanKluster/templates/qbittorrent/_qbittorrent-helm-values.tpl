@@ -1,4 +1,4 @@
-{{- define "helmValues.traefik" }}
+{{- define "helmValues.qbittorent" }}
 #
 # IMPORTANT NOTE
 #
