@@ -23,7 +23,7 @@ spec:
   source:
     chart: jellyfin
     targetRevision: "2.0.2"
-    repoURL: https://kfirfer.github.io/helm/
+    repoURL: https://kfirfer.github.io/charts/
     helm : 
       values: |
 {{ include "helmValues.jellyfin2" . | indent 8 }}
