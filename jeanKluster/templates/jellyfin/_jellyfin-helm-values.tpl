@@ -38,7 +38,7 @@ spec:
 
         image:
           # -- image repository
-          repository: jellyfin/jellyfin
+          repository: lscr.io/linuxserver/jellyfin
           # -- image tag
           # @default -- chart.appVersion
           tag: latest
