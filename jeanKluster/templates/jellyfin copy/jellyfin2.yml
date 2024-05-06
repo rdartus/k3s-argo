@@ -22,8 +22,8 @@ spec:
       - CreateNamespace=true
   source:
     chart: jellyfin
-    targetRevision: "9.5.3"
-    repoURL: https://geek-cookbook.github.io/charts/
+    targetRevision: "2.0.2"
+    repoURL: https://kfirfer.github.io/helm/
     helm : 
       values: |
 {{ include "helmValues.jellyfin2" . | indent 8 }}
