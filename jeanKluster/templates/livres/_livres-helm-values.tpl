@@ -57,11 +57,17 @@ ingress:
 # -- Configure persistence settings for the chart under this key.
 # @default -- See values.yaml
 persistence:
+  # config:
+  #   enabled: true
+  #   type : pvc
+  #   size: 200Mi
   config:
     enabled: true
     type : pvc
+    existingClaim: pvc-livres-conf
     size: 200Mi
 
+  
   books:
     enabled: true
     type : pvc
