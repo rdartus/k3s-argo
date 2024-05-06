@@ -50,6 +50,7 @@ spec:
         env:
           # -- Set the container timezone
           TZ: UTC
+          DOTNET_HOSTBUILDER__RELOADCONFIGONCHANGE: false
 
         # -- Configures service settings for the chart.
         # @default -- See values.yaml
