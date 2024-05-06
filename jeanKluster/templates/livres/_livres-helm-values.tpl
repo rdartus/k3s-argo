@@ -61,7 +61,7 @@ persistence:
   #   enabled: true
   #   type : pvc
   #   size: 200Mi
-  test:
+  config:
     enabled: true
     type : pvc
     existingClaim: pvc-livres-conf
