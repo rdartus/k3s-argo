@@ -12,4 +12,4 @@ spec:
       storage: 200Mi
   accessModes:
     - ReadWriteMany
-  storageClassName: livres-conf-storageClass
+  storageClassName: livres-conf
