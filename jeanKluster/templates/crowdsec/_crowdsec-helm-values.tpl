@@ -1,0 +1,404 @@
+{{- define "helmValues.crowdsec" }}
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/crowdsecurity/helm-charts/main/charts/crowdsec/values.schema.json
+
+# Default values for crowdsec-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- for raw logs format: json or cri (docker|containerd)
+container_runtime: containerd
+
+image:
+  # -- docker image repository name
+  repository: crowdsecurity/crowdsec
+  # -- pullPolicy
+  pullPolicy: IfNotPresent
+  # -- pullSecrets
+  pullSecrets: []
+    # - name: ""
+  # -- docker image tag
+  tag: ""
+
+# -- Annotations to be added to pods
+podAnnotations: {}
+
+# -- Labels to be added to pods
+podLabels: {}
+
+# Here you can specify your own custom configuration to be loaded in crowdsec agent or lapi
+# Each config needs to be a multi-line using '|' in YAML specs
+# for the agent those configs will be loaded : parsers, scenarios, postoverflows, simulation.yaml
+# for the lapi those configs will be loaded : profiles.yaml, notifications, console.yaml
+config:
+  # -- To better understand stages in parsers, you can take a look at https://docs.crowdsec.net/docs/next/parsers/intro/
+  parsers:
+    s00-raw: {}
+    s01-parse: {}
+      # example-parser.yaml: |
+      #   filter: "evt.Line.Labels.type == 'myProgram'"
+      #   onsuccess: next_stage
+      #   ....
+    s02-enrich: {}
+  # -- to better understand how to write a scenario, you can take a look at https://docs.crowdsec.net/docs/next/scenarios/intro
+  scenarios: {}
+    # myScenario.yaml: |
+    #   type: trigger
+    #    name: myName/MyScenario
+    #    description: "Detect bruteforce on myService"
+    #    filter: "evt.Meta.log_type == 'auth_bf_log'"
+    #    ...
+  # -- to better understand how to write a postoverflow, you can take a look at (https://docs.crowdsec.net/docs/next/whitelist/create/#whitelist-in-postoverflows)
+  postoverflows:
+    s00-enrich: {}
+      # rdnsEnricher.yaml: |
+      #   ...
+    s01-whitelist: {}
+      # myRdnsWhitelist.yaml: |
+      #   ...
+  # -- Simulation configuration (https://docs.crowdsec.net/docs/next/scenarios/simulation/)
+  simulation.yaml: ""
+    #  |
+    # simulation: false
+    # exclusions:
+    #  - crowdsecurity/ssh-bf
+  console.yaml: ""
+    #   |
+    # share_manual_decisions: true
+    # share_tainted: true
+    # share_custom: true
+  capi_whitelists.yaml: ""
+    #   |
+    # ips:
+    # - 1.2.3.4
+    # - 2.3.4.5
+    # cidrs:
+    # - 1.2.3.0/24
+  # -- Profiles configuration (https://docs.crowdsec.net/docs/next/profiles/format/#profile-configuration-example)
+  profiles.yaml: ""
+    #   |
+    #  name: default_ip_remediation
+    #  debug: true
+    #  filters:
+    #    - Alert.Remediation == true && Alert.GetScope() == "Ip"
+    #  ...
+  # -- General configuration (https://docs.crowdsec.net/docs/configuration/crowdsec_configuration/#configuration-example)
+  config.yaml.local: ""
+    #   |
+    # db_config:
+    #   type:     postgresql
+    #   user:     crowdsec
+    #   password: ${DB_PASSWORD}
+    #   db_name:  crowdsec
+    #   host:     192.168.0.2
+    #   port:     5432
+    #   sslmode:  require
+  # -- notifications configuration (https://docs.crowdsec.net/docs/next/notification_plugins/intro)
+  notifications: {}
+    # email.yaml: |
+    #   type: email
+    #   name: email_default
+    #   One of "trace", "debug", "info", "warn", "error", "off"
+    #   log_level: info
+    #   ...
+    # slack.yaml: ""
+    # http.yaml: ""
+    # splunk.yaml: ""
+
+tls:
+  enabled: false
+  caBundle: true
+  insecureSkipVerify: false
+  certManager:
+    enabled: true
+    # -- Use existing issuer to sign certificates. Leave empty to generate a self-signed issuer
+    issuerRef: {}
+      # name: ""
+      # kind: "ClusterIssuer"
+  bouncer:
+    secret: "{{ .Release.Name }}-bouncer-tls"
+    reflector:
+      namespaces: []
+  agent:
+    tlsClientAuth: true
+    secret: "{{ .Release.Name }}-agent-tls"
+    reflector:
+      namespaces: []
+  lapi:
+    secret: "{{ .Release.Name }}-lapi-tls"
+
+# If you want to specify secrets that will be used for all your crowdsec-agents
+# secrets can be provided as env variables
+secrets:
+  # -- agent username (default is generated randomly)
+  username: ""
+  # -- agent password (default is generated randomly)
+  password: ""
+
+# lapi will deploy pod with crowdsec lapi and dashboard as deployment
+lapi:
+  # -- replicas for local API
+  replicas: 1
+  # -- environment variables from crowdsecurity/crowdsec docker image
+  env:
+    ENROLL_KEY:
+      valueFrom:
+        secretKeyRef:
+          name: crowdsec-secret
+          key: username
+    # by default disable the agent because it only needs the local API.
+    #- name: DISABLE_AGENT
+    #  value: "true"
+  # Allows you to load environment variables from kubernetes secret or config map
+  envFrom: []
+    # - secretRef:
+    #     name: env-secret
+    # - configMapRef:
+    #     name: config-map
+  # -- Enable ingress lapi object
+  ingress:
+    enabled: false
+    annotations:
+      # we only want http to the backend so we need this annotation
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    # labels: {}
+    ingressClassName: "" # nginx
+    host: "" # crowdsec-api.example.com
+    # tls: {}
+
+  # -- pod priority class name
+  priorityClassName: ""
+
+  # -- Annotations to be added to lapi pods, if global podAnnotations are not set
+  podAnnotations: {}
+
+  # -- Labels to be added to lapi pods, if global podLabels are not set
+  podLabels: {}
+
+  dashboard:
+    # -- Enable Metabase Dashboard (by default disabled)
+    enabled: false
+    # -- environment variables from metabase/metabase docker image
+    # -- see https://www.metabase.com/docs/latest/configuring-metabase/environment-variables
+    env: []
+    image:
+      # -- docker image repository name
+      repository: metabase/metabase
+      # -- pullPolicy
+      pullPolicy: IfNotPresent
+      # -- docker image tag
+      tag: "v0.46.6.1"
+    # -- Metabase SQLite static DB containing Dashboards
+    assetURL: https://crowdsec-statics-assets.s3-eu-west-1.amazonaws.com/metabase_sqlite.zip
+
+    ## Ref: http://kubernetes.io/docs/user-guide/compute-resources/
+    ##
+    resources: {}
+      # limits:
+      #   memory: 2Gi
+      # requests:
+      #   cpu: 150m
+      #   memory: 1700Mi
+
+    # -- Enable ingress object
+    ingress:
+      enabled: false
+      annotations:
+        # metabase only supports http so we need this annotation
+        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      # labels: {}
+      ingressClassName: "" # nginx
+      host: "" # metabase.example.com
+      # tls: {}
+
+  resources:
+    limits:
+      memory: 100Mi
+    requests:
+      cpu: 150m
+      memory: 100Mi
+  # -- Enable persistent volumes
+  persistentVolume:
+    # -- Persistent volume for data folder. Stores e.g. registered bouncer api keys
+    data:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: ""
+      existingClaim: ""
+      size: 1Gi
+    # -- Persistent volume for config folder. Stores e.g. online api credentials
+    config:
+      enabled: true
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: ""
+      existingClaim: ""
+      size: 100Mi
+
+  service:
+    type: ClusterIP
+    labels: {}
+    annotations: {}
+    externalIPs: []
+    loadBalancerIP: null
+    loadBalancerClass: null
+    externalTrafficPolicy: Cluster
+
+  # -- nodeSelector for lapi
+  nodeSelector: {}
+  # -- tolerations for lapi
+  tolerations: []
+  # -- dnsConfig for lapi
+  dnsConfig: {}
+  # -- affinity for lapi
+  affinity: {}
+  # -- topologySpreadConstraints for lapi
+  topologySpreadConstraints: []
+
+  # -- Enable service monitoring (exposes "metrics" port "6060" for Prometheus)
+  metrics:
+    enabled: false
+    # -- Creates a ServiceMonitor so Prometheus will monitor this service
+    # -- Prometheus needs to be configured to watch on all namespaces for ServiceMonitors
+    # -- See the documentation: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#prometheusioscrape
+    # -- See also: https://github.com/prometheus-community/helm-charts/issues/106#issuecomment-700847774
+    serviceMonitor:
+      enabled: false
+
+  strategy:
+    type: Recreate
+
+  secrets:
+    # -- Shared LAPI secret. Will be generated randomly if not specified. Size must be > 64 characters
+    csLapiSecret: ""
+  # -- Any extra secrets you may need (for example, external DB password)
+  extraSecrets: {}
+    # dbPassword: randomPass
+  lifecycle: {}
+    # preStop:
+    #   exec:
+    #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+    # postStart:
+    #   exec:
+    #     command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+
+# agent will deploy pod on every node as daemonSet to read wanted pods logs
+agent:
+  # -- To add custom acquisitions using available datasources (https://docs.crowdsec.net/docs/next/data_sources/intro)
+  additionalAcquisition: []
+    # - source: kinesis
+    #   stream_name: my-stream
+    #   labels:
+    #     type: mytype
+    # - source: syslog
+    #   listen_addr: 127.0.0.1
+    #   listen_port: 4242
+    #   labels:
+    #     type: syslog
+  acquisition:
+    # -- Specify each pod you want to process it logs (namespace, podName and program)
+    - namespace: "traefik" #ingress-nginx
+      # -- to select pod logs to process
+      podName: "traefik-*" #ingress-nginx-controller-*
+      # -- program name related to specific parser you will use (see https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs)
+      program: "traefik" #nginx
+      # -- If set to true, will poll the files using os.Stat instead of using inotify
+      poll_without_inotify: false
+
+  # -- pod priority class name
+  priorityClassName: ""
+
+  # -- Annotations to be added to agent pods, if global podAnnotations are not set
+  podAnnotations: {}
+
+  # -- Labels to be added to agent pods, if global podLabels are not set
+  podLabels: {}
+
+  resources:
+    limits:
+      memory: 100Mi
+    requests:
+      cpu: 150m
+      memory: 100Mi
+  # -- Enable persistent volumes
+  persistentVolume:
+    # -- Persistent volume for config folder. Stores local config (parsers, scenarios etc.)
+    config:
+      enabled: false
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: ""
+      existingClaim: ""
+      size: 100Mi
+  # -- environment variables from crowdsecurity/crowdsec docker image
+  env: []
+    # by default we configure the docker-logs parser to be able to parse docker logs in k8s
+    # by default we disable local API on the agent pod
+    - name: COLLECTIONS
+      value: "crowdsecurity/traefik"
+    # - name: SCENARIOS
+    #   value: "scenario/name otherScenario/name"
+    # - name: PARSERS
+    #   value: "parser/name otherParser/name"
+    # - name: POSTOVERFLOWS
+    #   value: "postoverflow/name otherPostoverflow/name"
+    # - name: CONFIG_FILE
+    #   value: "/etc/crowdsec/config.yaml"
+    # - name: DSN
+    #   value: "file:///var/log/toto.log"
+    # - name: TYPE
+    #   value: "Labels.type_for_time-machine_mode"
+    # - name: TEST_MODE
+    #   value: "false"
+    # - name: TZ
+    #   value: ""
+    # - name: DISABLE_AGENT
+    #   value: "false"
+    # - name: DISABLE_ONLINE_API
+    #   value: "false"
+    # - name: LEVEL_TRACE
+    #   value: "false"
+    # - name: LEVEL_DEBUG
+    #   value: "false"
+    # - name: LEVEL_INFO
+    #   value: "false"
+
+  # -- nodeSelector for agent
+  nodeSelector: {}
+  # -- tolerations for agent
+  tolerations: []
+  # -- affinity for agent
+  affinity: {}
+
+  # -- Enable service monitoring (exposes "metrics" port "6060" for Prometheus)
+  metrics:
+    enabled: false
+    # -- Creates a ServiceMonitor so Prometheus will monitor this service
+    # -- Prometheus needs to be configured to watch on all namespaces for ServiceMonitors
+    # -- See the documentation: https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack#prometheusioscrape
+    # -- See also: https://github.com/prometheus-community/helm-charts/issues/106#issuecomment-700847774
+    serviceMonitor:
+      enabled: false
+
+  service:
+    type: ClusterIP
+    labels: {}
+    annotations: {}
+    externalIPs: []
+    loadBalancerIP: null
+    loadBalancerClass: null
+    externalTrafficPolicy: Cluster
+
+  # -- wait-for-lapi init container
+  wait_for_lapi:
+    image:
+      # -- docker image repository name
+      repository: busybox
+      # -- pullPolicy
+      pullPolicy: IfNotPresent
+      # -- docker image tag
+      tag: "1.28"
+
+#service: {}
+{{- end }}

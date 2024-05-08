@@ -24,6 +24,11 @@ data:
     path "kv-v2/data/postgresql/*" {
       capabilities = ["read"]
     }
+  crowdsec-policy.json: |
+
+    path "kv-v2/data/crowdsec/*" {
+      capabilities = ["read"]
+    }
   pgadmin-policy.json: |
 
     path "kv-v2/data/pgadmin/*" {
@@ -105,6 +110,7 @@ data:
         vault kv put kv-v2/arr/config username="{{ .Values.db.arr_user }}" password="{{ .Values.db.arr_userPass }}"
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="defaultPassword"
+        vault kv put kv-v2/default/crowdsec enroll-key="@/config/cred/crowdsec-enroll-key.txt"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="defaultPassword"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
@@ -115,6 +121,7 @@ data:
         vault policy write demo-auth-policy-operator /config/scripts/demo-auth-policy-operator.json
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
+        vault policy write plccrowdsec /config/scripts/crowdsec-policy.json        
         vault policy write plcddns-updater /config/scripts/ddns-updater-policy.json        
         vault policy write plcarr /config/scripts/arr-policy.json        
         vault policy write plcdefault /config/scripts/default-policy.json     
@@ -131,6 +138,13 @@ data:
         bound_service_account_names=cnpg-cluster \
         bound_service_account_namespaces=cnpg \
         policies=plcpgsql \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlcrowdsec \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plccrowdsec \
         audience=vault\
         ttl=24h
 

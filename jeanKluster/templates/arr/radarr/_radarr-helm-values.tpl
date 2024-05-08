@@ -170,8 +170,9 @@ persistence:
     name: radarr-test2
 
   media:
-    enabled: false
-    mountPath: /media
+    type : pvc
+    existingClaim: pvc-films
+    size: 200Mi
 
 metrics:
   # -- Enable and configure Exportarr sidecar and Prometheus serviceMonitor.

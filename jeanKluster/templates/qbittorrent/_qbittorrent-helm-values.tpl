@@ -221,8 +221,10 @@ persistence:
     mountPath: /media
 
   downloads:
-    enabled: false
-    mountPath: /downloads
+    enabled: true
+    type : pvc
+    existingClaim: pvc-dl
+    size: 200Mi
 
 metrics:
   # -- Enable and configure prometheus-qbittorrent-exporter sidecar and Prometheus podMonitor.

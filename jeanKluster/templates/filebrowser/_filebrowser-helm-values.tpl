@@ -48,9 +48,12 @@ config: |
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
-    mountpath: /config
+    type : pvc
+    existingClaim: pvc-filebrowser-conf
+    size: 200Mi
   data:
-    enabled: false
-    mountPath: /srv
+    enabled: true
+    type : pvc
+    existingClaim: pvc-drive
+    size: 200Mi
 {{- end }}

@@ -97,8 +97,9 @@ persistence:
     enabled: false
 
   media:
-    enabled: false
-    mountPath: /media
+    type : pvc
+    existingClaim: pvc-series
+    size: 200Mi
 
 metrics:
   # -- Enable and configure Exportarr sidecar and Prometheus serviceMonitor.

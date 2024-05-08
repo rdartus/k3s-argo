@@ -21,9 +21,9 @@ env:
   # -- Set the container timezone
   TZ: UTC
   # -- Specify the user ID the application will run as
-  PUID: "568"
+  PUID: "1001"
   # -- Specify the group ID the application will run as
-  PGID: "568"
+  PGID: "1001"
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
@@ -59,9 +59,12 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
-    mountPath: /config
+    type : pvc
+    existingClaim: pvc-books-conf
+    size: 200Mi
   books:
-    enabled: false
-    mountPath: /books
+    enabled: true
+    type : pvc
+    existingClaim: pvc-books
+    size: 200Mi
 {{- end }}

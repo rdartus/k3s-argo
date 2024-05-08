@@ -274,20 +274,43 @@ providers:
 
   file:
     # -- Create a file provider
-    enabled: false
+    enabled: true
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
-    content: ""
-      # http:
-      #   routers:
-      #     router0:
-      #       entryPoints:
-      #       - web
-      #       middlewares:
-      #       - my-basic-auth
-      #       service: service-foo
-      #       rule: Path(`/foo`)
+    content: 
+      http:
+        middlewares:
+          crowdsec:
+            plugin:
+              bouncer:
+                Enabled: "true"
+                logLevel: DEBUG
+                crowdsecMode: stream
+                crowdsecLapiScheme: https
+                crowdsecLapiHost: crowdsec-service.crowdsec:8080
+                crowdsecLapiKey: mysecretkey12345
+                clientTrustedIPs:
+                  - 192.168.1.0/24
+                  - 10.13.13.0/16
+          # auth:
+          #   basicAuth:
+          #   usersFile: "/etc/traefik/users"
+
+        # routers:
+        #   traefic-api:
+        #     rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/api`))"
+        #     service: "api@internal"
+        #     middlewares:
+        #     - crowdsec-test@docker
+        #     - authelia@docker
+        #   traefic-dash:
+        #     rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/dashboard`))"
+        #     service: "api@internal"
+        #     middlewares:
+        #     - crowdsec-test@docker
+        #     - authelia@docker
+
 
 #
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.

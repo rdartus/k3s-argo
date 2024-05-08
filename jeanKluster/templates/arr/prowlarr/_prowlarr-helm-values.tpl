@@ -71,5 +71,9 @@ ingress:
 persistence:
   config:
     enabled: false
+  media:
+    type : pvc
+    existingClaim: pvc-dl
+    size: 200Mi
 
 {{- end }}
