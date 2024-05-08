@@ -274,7 +274,7 @@ providers:
 
   file:
     # -- Create a file provider
-    enabled: true
+    enabled: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
