@@ -218,7 +218,7 @@ controllers:
           # -- image repository
           repository: qmcgaw/ddns-updater
           # -- image tag
-          tag: latest
+          tag: "v2.5.0"
           # -- image pull policy
           pullPolicy: IfNotPresent
 
