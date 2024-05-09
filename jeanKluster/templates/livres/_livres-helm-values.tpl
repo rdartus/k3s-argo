@@ -45,7 +45,7 @@ ingress:
       hajimari.io/appName: "livres"
     hosts:
       -  # -- Host address. Helm template can be passed.
-        host: livres2\.dartus\.fr
+        host: livres2.dartus.fr
         ## Configure the paths for the host
         paths:
           -  # -- Path.  Helm template can be passed.

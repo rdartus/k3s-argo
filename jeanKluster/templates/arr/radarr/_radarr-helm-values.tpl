@@ -125,7 +125,7 @@ ingress:
       hajimari.io/icon: "cog-play-outline"
     hosts:
       -  # -- Host address. Helm template can be passed.
-        host: radarr2\.dartus\.fr
+        host: radarr2.dartus.fr
         ## Configure the paths for the host
         paths:
           -  # -- Path.  Helm template can be passed.

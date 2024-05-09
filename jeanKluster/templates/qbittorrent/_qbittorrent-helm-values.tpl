@@ -197,7 +197,7 @@ ingress:
       hajimari.io/icon: "cart-arrow-down"
     hosts:
       -  # -- Host address. Helm template can be passed.
-        host: tor2\.dartus\.fr
+        host: tor2.dartus.fr
         ## Configure the paths for the host
         paths:
           -  # -- Path.  Helm template can be passed.
