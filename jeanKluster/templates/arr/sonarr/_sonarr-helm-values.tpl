@@ -57,7 +57,7 @@ ingress:
     enabled: true
     hosts:
       -  # -- Host address. Helm template can be passed.
-        host: sonarr.dartus.fr
+        host: sonarr2\.dartus\.fr
         ## Configure the paths for the host
         paths:
           -  # -- Path.  Helm template can be passed.
