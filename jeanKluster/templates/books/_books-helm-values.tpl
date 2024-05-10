@@ -61,7 +61,7 @@ persistence:
   config:
     enabled: true
     type : pvc
-    existingClaim: pvc-books-conf2
+    existingClaim: pvc-books-conf
     size: 200Mi
   books:
     enabled: true
