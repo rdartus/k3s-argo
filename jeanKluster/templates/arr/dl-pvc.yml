@@ -4,7 +4,7 @@ metadata:
   name: pvc-dl
   namespace: default
   annotations:
-    pv.kubernetes.io/provisioned-by: nfs.csi.k8s.io
+    pv.kubernetes.io/provisioned-by: smb.csi.k8s.io
     argocd.argoproj.io/sync-wave: "10"
 spec:
   resources:
