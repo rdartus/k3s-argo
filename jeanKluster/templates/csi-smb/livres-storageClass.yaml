@@ -22,4 +22,5 @@ mountOptions:
   - noperm
   - mfsymlinks
   - cache=strict
+  - nobrl
   - noserverino  # required to prevent data corruption
