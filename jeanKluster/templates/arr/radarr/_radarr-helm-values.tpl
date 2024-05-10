@@ -170,6 +170,7 @@ persistence:
     name: radarr-test2
 
   media:
+    enabled: true
     type : pvc
     existingClaim: pvc-films
     size: 200Mi

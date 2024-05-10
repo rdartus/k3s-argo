@@ -97,6 +97,7 @@ persistence:
     enabled: false
 
   media:
+    enabled: true
     type : pvc
     existingClaim: pvc-series
     size: 200Mi

@@ -72,6 +72,7 @@ persistence:
   config:
     enabled: false
   media:
+    enabled: true
     type : pvc
     existingClaim: pvc-dl
     size: 200Mi

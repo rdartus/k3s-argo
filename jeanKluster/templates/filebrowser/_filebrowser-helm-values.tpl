@@ -48,6 +48,7 @@ config: |
 # @default -- See values.yaml
 persistence:
   config:
+    enabled: true
     type : pvc
     existingClaim: pvc-filebrowser-conf
     size: 200Mi

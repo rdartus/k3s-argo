@@ -59,6 +59,7 @@ ingress:
 # @default -- See values.yaml
 persistence:
   config:
+    enabled: true
     type : pvc
     existingClaim: pvc-books-conf
     size: 200Mi
