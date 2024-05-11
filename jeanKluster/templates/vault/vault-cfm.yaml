@@ -39,6 +39,9 @@ data:
     path "kv-v2/data/smtp/*" {
       capabilities = ["read"]
     }
+    path "kv-v2/data/authentik/config" {
+      capabilities = ["read"]
+    }
     path "kv-v2/data/postgresql/config" {
       capabilities = ["read"]
     }
@@ -111,6 +114,7 @@ data:
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="@/config/cred/jeank-smb.txt"
         vault kv put kv-v2/default/crowdsec enroll-key="@/config/cred/crowdsec-enroll-key.txt"
+        vault kv put kv-v2/authentik/config key="@/config/cred/authentik-key.txt"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"

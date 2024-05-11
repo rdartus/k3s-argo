@@ -145,7 +145,7 @@ lapi:
       valueFrom:
         secretKeyRef:
           name: crowdsec-secret
-          key: username
+          key: enroll-key
     # by default disable the agent because it only needs the local API.
     #- name: DISABLE_AGENT
     #  value: "true"

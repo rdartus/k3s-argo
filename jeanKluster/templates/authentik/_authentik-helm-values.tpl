@@ -106,18 +106,32 @@ global:
   # See configuration options at https://goauthentik.io/docs/installation/configuration/
   # @default -- `[]` (See [values.yaml])
   env:
-    AUTHENTIK_POSTGRESQL__NAME: "authentik"
-    AUTHENTIK_POSTGRESQL__HOST: "{{ $dbServiceName }}"
-    AUTHENTIK_POSTGRESQL__USER: "{{ .Values.db.auth_user }}"
-    AUTHENTIK_POSTGRESQL__PASSWORD: "{{ .Values.db.auth_userPass }}"
-    AUTHENTIK_EMAIL__HOST: smtp.gmail.com
-    AUTHENTIK_REDIS__PORT: 6379
-    AUTHENTIK_REDIS__PASSWORD: "testredis"
-    AUTHENTIK_EMAIL__PORT: 587
-    AUTHENTIK_EMAIL__USE_TLS: true
-    AUTHENTIK_EMAIL__TIMEOUT: 10
-    AUTHENTIK_SECRET_KEY: "PleaseGenerateA50CharKey"
-  env: []
+    - name: AUTHENTIK_POSTGRESQL__NAME
+      valiue : "authentik"
+    - name: AUTHENTIK_POSTGRESQL__HOST
+      valiue : "{{ $dbServiceName }}"
+    - name: AUTHENTIK_POSTGRESQL__USER
+      valiue : "{{ .Values.db.auth_user }}"
+    - name: AUTHENTIK_POSTGRESQL__PASSWORD
+      valiue : "{{ .Values.db.auth_userPass }}"
+    - name: AUTHENTIK_EMAIL__HOST
+      valiue : smtp.gmail.com
+    - name: AUTHENTIK_REDIS__PORT
+      valiue : 6379
+    - name: AUTHENTIK_REDIS__PASSWORD
+      valiue : "testredis"
+    - name: AUTHENTIK_EMAIL__PORT
+      valiue : 587
+    - name: AUTHENTIK_EMAIL__USE_TLS
+      valiue : true
+    - name: AUTHENTIK_EMAIL__TIMEOUT
+      valiue : 10
+    - name: AUTHENTIK_SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: authentik-key-secret
+          key: key
+  # env: []
     # - name: AUTHENTIK_VAR_NAME
     #   value: VALUE
     # - name: AUTHENTIK_VAR_OTHER
@@ -574,15 +588,19 @@ server:
 
   ingress:
     # -- enable an ingress resource for the authentik server
-    enabled: false
+    enabled: true
     # -- additional ingress annotations
-    annotations: {}
+    annotations: 
+      hajimari.io/enable: "true"
+      hajimari.io/group: "Management"
+      hajimari.io/icon: "safe-square"
     # -- additional ingress labels
     labels: {}
     # -- defines which ingress controller will implement the resource
-    ingressClassName: ""
+    ingressClassName: traefik-ingresses
     # -- List of ingress hosts
-    hosts: []
+    hosts: 
+      - host: authentik.dartus.fr
       # - authentik.domain.tld
 
     # -- List of ingress paths
