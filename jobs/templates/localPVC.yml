@@ -9,7 +9,7 @@ spec:
   resources:
     requests:
       storage: 500Mi
-  storageClassName: local-storage
+  storageClassName: local-path
   # selector:
   #   matchExpressions:
   #     - key: kubernetes.io/hostname
