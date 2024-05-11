@@ -23,7 +23,7 @@ spec:
   source:
     repoURL: https://charts.goauthentik.io
     chart: authentik
-    targetRevision: "*"
+    targetRevision: "2024.4.2"
     helm : 
       values: |
 {{ include "helmValues.authentik" . | indent 8 }}

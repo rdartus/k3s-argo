@@ -332,7 +332,7 @@ agent:
       existingClaim: ""
       size: 100Mi
   # -- environment variables from crowdsecurity/crowdsec docker image
-  env: []
+  env:
     # by default we configure the docker-logs parser to be able to parse docker logs in k8s
     # by default we disable local API on the agent pod
     - name: COLLECTIONS
