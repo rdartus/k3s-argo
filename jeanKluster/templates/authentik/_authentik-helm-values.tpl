@@ -996,7 +996,7 @@ postgresql:
 
 redis:
   # -- enable the Bitnami Redis chart. Refer to https://github.com/bitnami/charts/blob/main/bitnami/redis/ for possible values.
-  enabled: false
+  enabled: true
   architecture: standalone
   auth:
     enabled: false
