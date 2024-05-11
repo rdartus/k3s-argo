@@ -111,6 +111,8 @@ global:
     AUTHENTIK_POSTGRESQL__USER: "{{ .Values.db.auth_user }}"
     AUTHENTIK_POSTGRESQL__PASSWORD: "{{ .Values.db.auth_userPass }}"
     AUTHENTIK_EMAIL__HOST: smtp.gmail.com
+    AUTHENTIK_REDIS__PORT: 6379
+    AUTHENTIK_REDIS__PASSWORD: "testredis"
     AUTHENTIK_EMAIL__PORT: 587
     AUTHENTIK_EMAIL__USE_TLS: true
     AUTHENTIK_EMAIL__TIMEOUT: 10
