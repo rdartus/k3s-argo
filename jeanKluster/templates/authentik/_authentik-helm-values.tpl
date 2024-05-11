@@ -1001,8 +1001,8 @@ redis:
   auth:
     enabled: false
 
-  # image:
-  #   tag: 6.2.10-debian-11-r13
+  image:
+    tag: 6.2.10-debian-11-r13
     
 # -- additional resources to deploy. Those objects are templated.
 additionalObjects: []
