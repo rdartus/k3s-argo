@@ -600,7 +600,7 @@ server:
     ingressClassName: traefik-ingresses
     # -- List of ingress hosts
     hosts: 
-      - host: authentik.dartus.fr
+      - authentik.dartus.fr
       # - authentik.domain.tld
 
     # -- List of ingress paths
