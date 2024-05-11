@@ -140,8 +140,8 @@ lapi:
   # -- replicas for local API
   replicas: 1
   # -- environment variables from crowdsecurity/crowdsec docker image
-  env:
-    ENROLL_KEY:
+  env: []
+    - ENROLL_KEY:
       valueFrom:
         secretKeyRef:
           name: crowdsec-secret
@@ -150,7 +150,9 @@ lapi:
     #- name: DISABLE_AGENT
     #  value: "true"
   # Allows you to load environment variables from kubernetes secret or config map
-  envFrom: []
+  envFrom: 
+    # - secretRef:
+    #   name: crowdsec-secret
     # - secretRef:
     #     name: env-secret
     # - configMapRef:
