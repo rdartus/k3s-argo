@@ -121,17 +121,17 @@ global:
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       value : "{{ .Values.db.auth_userPass }}"
     - name: AUTHENTIK_EMAIL__HOST
-      value : smtp.gmail.com
+      value : "smtp.gmail.com"
     - name: AUTHENTIK_REDIS__PORT
-      value : 6379
+      value : "6379"
     - name: AUTHENTIK_REDIS__PASSWORD
       value : "testredis"
     - name: AUTHENTIK_EMAIL__PORT
-      value : 587
+      value : "587"
     - name: AUTHENTIK_EMAIL__USE_TLS
-      value : true
+      value : "true"
     - name: AUTHENTIK_EMAIL__TIMEOUT
-      value : 10
+      value : "10"
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
         secretKeyRef:
