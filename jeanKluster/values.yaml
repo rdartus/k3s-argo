@@ -5,6 +5,7 @@ db :
   appName: cnpg-cluster-rw
   namespace: cnpg
   arr_user: jeank
+  # TODO send this to vault
   arr_userPass: pdpdpd
   auth_user: auth
   auth_userPass: pdpdpd
