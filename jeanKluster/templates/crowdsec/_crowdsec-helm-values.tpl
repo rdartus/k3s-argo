@@ -106,7 +106,7 @@ config:
     # splunk.yaml: ""
 
 tls:
-  enabled: false
+  enabled: true
   caBundle: true
   insecureSkipVerify: false
   certManager:
@@ -118,7 +118,7 @@ tls:
   bouncer:
     secret: "{{ .Release.Name }}-bouncer-tls"
     reflector:
-      namespaces: []
+      namespaces: ["traefik"]
   agent:
     tlsClientAuth: true
     secret: "{{ .Release.Name }}-agent-tls"

@@ -136,7 +136,10 @@ core:
 # Traefik experimental features
 experimental:
   # -- Enable traefik experimental plugins
-  plugins: {}
+  plugins: 
+    bouncer:
+      moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
+      version: "v1.1.13"
   # demo:
   #   moduleName: github.com/traefik/plugindemo
   #   version: v0.2.1
