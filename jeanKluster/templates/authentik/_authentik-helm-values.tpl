@@ -106,26 +106,32 @@ global:
   # See configuration options at https://goauthentik.io/docs/installation/configuration/
   # @default -- `[]` (See [values.yaml])
   env:
+    # - name: AUTHENTIK_BOOTSTRAP_PASSWORD
+    #   value : ""
+    # - name: AUTHENTIK_BOOTSTRAP_TOKEN
+    #   value : ""
+    # - name: AUTHENTIK_BOOTSTRAP_EMAIL
+    #   value : ""
     - name: AUTHENTIK_POSTGRESQL__NAME
-      valiue : "authentik"
+      value : "authentik"
     - name: AUTHENTIK_POSTGRESQL__HOST
-      valiue : "{{ $dbServiceName }}"
+      value : "{{ $dbServiceName }}"
     - name: AUTHENTIK_POSTGRESQL__USER
-      valiue : "{{ .Values.db.auth_user }}"
+      value : "{{ .Values.db.auth_user }}"
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
-      valiue : "{{ .Values.db.auth_userPass }}"
+      value : "{{ .Values.db.auth_userPass }}"
     - name: AUTHENTIK_EMAIL__HOST
-      valiue : smtp.gmail.com
+      value : smtp.gmail.com
     - name: AUTHENTIK_REDIS__PORT
-      valiue : 6379
+      value : 6379
     - name: AUTHENTIK_REDIS__PASSWORD
-      valiue : "testredis"
+      value : "testredis"
     - name: AUTHENTIK_EMAIL__PORT
-      valiue : 587
+      value : 587
     - name: AUTHENTIK_EMAIL__USE_TLS
-      valiue : true
+      value : true
     - name: AUTHENTIK_EMAIL__TIMEOUT
-      valiue : 10
+      value : 10
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
         secretKeyRef:

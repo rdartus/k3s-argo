@@ -11,6 +11,6 @@ spec:
   mount: kubernetes
   kubernetes:
     role: rlcrowdsec
-    serviceAccount: crowdsec
+    serviceAccount: default
     audiences:
       - vault
