@@ -117,9 +117,15 @@ global:
     - name: AUTHENTIK_POSTGRESQL__HOST
       value : "{{ $dbServiceName }}"
     - name: AUTHENTIK_POSTGRESQL__USER
-      value : "{{ .Values.db.auth_user }}"
+      valueFrom:
+        secretKeyRef:
+          name: authentik-key-secret
+          key: user
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
-      value : "{{ .Values.db.auth_userPass }}"
+      valueFrom:
+        secretKeyRef:
+          name: authentik-key-secret
+          key: password
     - name: AUTHENTIK_EMAIL__HOST
       value : "smtp.gmail.com"
     - name: AUTHENTIK_REDIS__HOST
@@ -128,6 +134,16 @@ global:
       value : "6379"
     - name: AUTHENTIK_REDIS__PASSWORD
       value : "testredis"
+    - name: AUTHENTIK_EMAIL__USERNAME
+      valueFrom:
+        secretKeyRef:
+          name: smtp-secret
+          key: gmail_username
+    - name: AUTHENTIK_EMAIL__PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: smtp-secret
+          key: gmail_password
     - name: AUTHENTIK_EMAIL__PORT
       value : "587"
     - name: AUTHENTIK_EMAIL__USE_TLS
