@@ -27,22 +27,26 @@ spec:
       owner: {{ .Values.db.arr_user }}
       secret:
         name: pgsql-secret
-      postInitSQL:
-        - CREATE DATABASE "sonarr-log"
-        - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.arr_user }}"
-        - CREATE DATABASE "sonarr-main"
-        - ALTER DATABASE "sonarr-main" OWNER TO "{{ .Values.db.arr_user }}"
-        - CREATE DATABASE "radarr-log"
-        - ALTER DATABASE "radarr-log" OWNER TO "{{ .Values.db.arr_user }}"
-        - CREATE DATABASE "radarr-main"
-        - ALTER DATABASE "radarr-main" OWNER TO "{{ .Values.db.arr_user }}"
-        - CREATE DATABASE "prowlarr-log"
-        - ALTER DATABASE "prowlarr-log" OWNER TO "{{ .Values.db.arr_user }}"
-        - CREATE DATABASE "prowlarr-main"
-        - ALTER DATABASE "prowlarr-main" OWNER TO "{{ .Values.db.arr_user }}"
-        - CREATE USER "{{ .Values.db.auth_user }}" with password '{{ .Values.db.auth_userPass }}'
-        - CREATE DATABASE "authentik"
-        - ALTER DATABASE "authentik" OWNER TO "{{ .Values.db.auth_user }}"
+      postInitApplicationSQLRefs:
+        secretRefs:
+        - name: pgsql-secret
+          key: init-sql
+      # postInitSQL:
+      #   - CREATE DATABASE "sonarr-log"
+      #   - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.arr_user }}"
+      #   - CREATE DATABASE "sonarr-main"
+      #   - ALTER DATABASE "sonarr-main" OWNER TO "{{ .Values.db.arr_user }}"
+      #   - CREATE DATABASE "radarr-log"
+      #   - ALTER DATABASE "radarr-log" OWNER TO "{{ .Values.db.arr_user }}"
+      #   - CREATE DATABASE "radarr-main"
+      #   - ALTER DATABASE "radarr-main" OWNER TO "{{ .Values.db.arr_user }}"
+      #   - CREATE DATABASE "prowlarr-log"
+      #   - ALTER DATABASE "prowlarr-log" OWNER TO "{{ .Values.db.arr_user }}"
+      #   - CREATE DATABASE "prowlarr-main"
+      #   - ALTER DATABASE "prowlarr-main" OWNER TO "{{ .Values.db.arr_user }}"
+      #   - CREATE USER "{{ .Values.db.auth_user }}" with password '{{ .Values.db.auth_userPass }}'
+      #   - CREATE DATABASE "authentik"
+      #   - ALTER DATABASE "authentik" OWNER TO "{{ .Values.db.auth_user }}"
 
   # Require 1Gi of space
   storage:
