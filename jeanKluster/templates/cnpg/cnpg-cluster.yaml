@@ -30,7 +30,17 @@ spec:
       postInitApplicationSQLRefs:
         secretRefs:
         - name: pgsql-secret
-          key: init-sql
+          key: init-user-auth
+        - name: pgsql-secret
+          key: init-authentik
+        - name: pgsql-secret
+          key: init-radarr-log 
+        - name: pgsql-secret
+          key: init-radarr-main
+        - name: pgsql-secret
+          key: init-sonarr-log 
+        - name: pgsql-secret
+          key: init-sonarr-main
       # postInitSQL:
       #   - CREATE DATABASE "sonarr-log"
       #   - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.arr_user }}"

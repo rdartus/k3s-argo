@@ -107,7 +107,7 @@ data:
         vault login $ROOT_TOKEN
         vault secrets enable kv-v2
         vault kv put kv-v2/ddns-updater/config CONFIG='@/config/cred/ddns-config.json'
-        vault kv put kv-v2/postgresql/config username="{{ .Values.db.arr_user }}" password="@/config/cred/DB-arr-password.txt" init-sql="@/config/cred/init-sql.sql"
+        vault kv put kv-v2/postgresql/config username="{{ .Values.db.arr_user }}" password="@/config/cred/DB-arr-password.txt" init-authentik="@/config/cred/init-authentik.sql" init-radarr-log="@/config/cred/init-radarr-log.sql" init-radarr-main="@/config/cred/init-radarr-main.sql" init-sonarr-log="@/config/cred/init-sonarr-log.sql" init-sonarr-main="@/config/cred/init-sonarr-main.sql" init-user-auth="@/config/cred/init-user-auth.sql"
         vault kv put kv-v2/postgresql/superuser username="postgres" password="{{ .Values.db.superuserPass }}"
         vault kv put kv-v2/pgadmin/config username="{{ .Values.db.arr_user }}" password="@/config/cred/DB-arr-password.txt"
         vault kv put kv-v2/arr/config username="{{ .Values.db.arr_user }}" password="@/config/cred/DB-arr-password.txt"
