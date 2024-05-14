@@ -58,16 +58,12 @@ data:
         hs.message = ""
 
         if obj.status ~= nil then
-          if obj.status.instances ~= nil then
+          if obj.spec.instances ~= nil then
             local numberInstance = obj.status.instances
-            if obj.status.instancesStatus ~= nil then
-              if obj.status.instancesStatus.healthy ~= nil then
-                for i, instance in ipairs(obj.status.instancesStatus.healthy) do
-                  if i == numberInstance then
-                    hs.status = "Healthy"
-                    hs.message = obj.status.phase
-                  end
-                end 
+            if obj.status.readyInstances ~= nil then
+              if obj.status.readyInstances = obj.spec.instances then
+                hs.status = "Healthy"
+                hs.message = obj.status.phase
               end
             end
           end
