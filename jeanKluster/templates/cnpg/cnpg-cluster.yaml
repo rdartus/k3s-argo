@@ -41,6 +41,10 @@ spec:
           key: init-sonarr-log 
         - name: pgsql-secret
           key: init-sonarr-main
+        - name: pgsql-secret
+          key: init-prowlarr-log 
+        - name: pgsql-secret
+          key: init-prowlarr-main
       # postInitSQL:
       #   - CREATE DATABASE "sonarr-log"
       #   - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.arr_user }}"
