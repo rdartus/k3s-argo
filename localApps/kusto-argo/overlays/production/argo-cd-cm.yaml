@@ -61,7 +61,7 @@ data:
           if obj.spec.instances ~= nil then
             local numberInstance = obj.status.instances
             if obj.status.readyInstances ~= nil then
-              if obj.status.readyInstances = obj.spec.instances then
+              if obj.status.readyInstances == obj.spec.instances then
                 hs.status = "Healthy"
                 hs.message = obj.status.phase
               end
