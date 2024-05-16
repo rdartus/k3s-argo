@@ -147,7 +147,7 @@ data:
 
         vault write auth/kubernetes/role/rlcrowdsec \
         bound_service_account_names=default \
-        bound_service_account_namespaces=default \
+        bound_service_account_namespaces=crowdsec \
         policies=plccrowdsec \
         audience=vault\
         ttl=24h
