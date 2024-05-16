@@ -24,6 +24,11 @@ data:
     path "kv-v2/data/postgresql/*" {
       capabilities = ["read"]
     }
+  redis-policy.json: |
+
+    path "kv-v2/data/redis/*" {
+      capabilities = ["read"]
+    }
   crowdsec-policy.json: |
 
     path "kv-v2/data/crowdsec/*" {
@@ -43,6 +48,9 @@ data:
       capabilities = ["read"]
     }
     path "kv-v2/data/postgresql/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/redis/*" {
       capabilities = ["read"]
     }
   demo-auth-policy-operator.json: |
@@ -114,6 +122,7 @@ data:
         vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="@/config/cred/jeank-smb.txt"
         vault kv put kv-v2/crowdsec/config enroll-key="@/config/cred/crowdsec-enroll-key.txt"
+        vault kv put kv-v2/redis/config password="@/config/cred/redis-password.txt"
         vault kv put kv-v2/authentik/config key="@/config/cred/authentik-key.txt" user="@/config/cred/DB-auth-user.txt" password="@/config/cred/DB-auth-password.txt"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
         vault auth enable kubernetes
@@ -126,6 +135,7 @@ data:
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
         vault policy write plccrowdsec /config/scripts/crowdsec-policy.json        
+        vault policy write plcredis /config/scripts/redis-policy.json        
         vault policy write plcddns-updater /config/scripts/ddns-updater-policy.json        
         vault policy write plcarr /config/scripts/arr-policy.json        
         vault policy write plcdefault /config/scripts/default-policy.json     
@@ -149,6 +159,13 @@ data:
         bound_service_account_names=default \
         bound_service_account_namespaces=crowdsec \
         policies=plccrowdsec \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlredis \
+        bound_service_account_names=redis \
+        bound_service_account_namespaces=default \
+        policies=plcredis \
         audience=vault\
         ttl=24h
 
