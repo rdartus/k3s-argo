@@ -11,6 +11,6 @@ spec:
   mount: kubernetes
   kubernetes:
     role: rlredis
-    serviceAccount: default
+    serviceAccount: redis-master
     audiences:
       - vault
