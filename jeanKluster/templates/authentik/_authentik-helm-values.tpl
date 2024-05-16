@@ -127,7 +127,10 @@ global:
           name: authentik-key-secret
           key: password
     - name: AUTHENTIK_EMAIL__HOST
-      value : "smtp.gmail.com"
+      valueFrom:
+        secretKeyRef:
+          name: authentik-redis-secret
+          key: password
     - name: AUTHENTIK_REDIS__HOST
       value : "redis-master.default.svc.cluster.local"
     - name: AUTHENTIK_REDIS__PORT
