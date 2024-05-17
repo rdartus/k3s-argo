@@ -106,12 +106,18 @@ global:
   # See configuration options at https://goauthentik.io/docs/installation/configuration/
   # @default -- `[]` (See [values.yaml])
   env:
-    # - name: AUTHENTIK_BOOTSTRAP_PASSWORD
-    #   value : ""
+    - name: AUTHENTIK_BOOTSTRAP_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: default-secret
+          key: password
     # - name: AUTHENTIK_BOOTSTRAP_TOKEN
     #   value : ""
-    # - name: AUTHENTIK_BOOTSTRAP_EMAIL
-    #   value : ""
+    - name: AUTHENTIK_BOOTSTRAP_EMAIL
+      valueFrom:
+        secretKeyRef:
+          name: smtp-secret
+          key: gmail_username
     - name: AUTHENTIK_POSTGRESQL__NAME
       value : "authentik"
     - name: AUTHENTIK_POSTGRESQL__HOST

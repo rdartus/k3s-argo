@@ -119,7 +119,7 @@ data:
         vault kv put kv-v2/postgresql/superuser username="postgres" password="{{ .Values.db.superuserPass }}"
         vault kv put kv-v2/pgadmin/config username="@/config/cred/DB-arr-user.txt" password="@/config/cred/DB-arr-password.txt"
         vault kv put kv-v2/arr/config username="@/config/cred/DB-arr-user.txt" password="@/config/cred/DB-arr-password.txt"
-        vault kv put kv-v2/default/config username="admin" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
+        vault kv put kv-v2/default/config username="admin" password="@/config/cred/default-password.txt" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="@/config/cred/jeank-smb.txt"
         vault kv put kv-v2/crowdsec/config enroll-key="@/config/cred/crowdsec-enroll-key.txt"
         vault kv put kv-v2/redis/config password="@/config/cred/redis-password.txt"
