@@ -132,6 +132,11 @@ global:
       value : "redis-master.default.svc.cluster.local"
     - name: AUTHENTIK_REDIS__PORT
       value : "6379"
+    # - name: AUTHENTIK_REDIS__USERNAME
+    #   valueFrom:
+    #     secretKeyRef:
+    #       name: authentik-redis-secret
+    #       key: password
     - name: AUTHENTIK_REDIS__PASSWORD
       valueFrom:
         secretKeyRef:
