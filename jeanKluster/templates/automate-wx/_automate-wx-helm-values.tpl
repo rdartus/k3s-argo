@@ -15,7 +15,8 @@ controllers:
     # -- Set the controller type.
     # Valid options are deployment, daemonset, statefulset, cronjob or job
     type: cronjob
-        annotations: {}
+    
+    annotations: {}
     # -- Set labels on the deployment/statefulset/daemonset/cronjob/job
     labels: {}
     # -- Number of desired pods. When using a HorizontalPodAutoscaler, set this to `null`.
