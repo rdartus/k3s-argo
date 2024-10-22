@@ -53,6 +53,9 @@ data:
     path "kv-v2/data/redis/*" {
       capabilities = ["read"]
     }
+    path "kv-v2/data/default/*" {
+      capabilities = ["read"]
+    }
 
   wx-policy.json: |
     path "kv-v2/data/wx/*" {
