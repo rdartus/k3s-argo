@@ -24,6 +24,3 @@ spec:
     repoURL: https://github.com/rdartus/k3s-argo.git
     path: localApps/automate-wx
     targetRevision: "main"
-    helm : 
-      values: |
-{{ include "helmValues.automate-wx" . | indent 8 }}
