@@ -281,7 +281,17 @@ controllers:
 #         #      value: UTC
 #         # G) - name: TZ
 #         #      value: '{{ .Release.Name }}'
-#         env:
+        env:
+          USER_WX:
+            valueFrom:
+              secretKeyRef:
+                name: wx-secret
+                key: username
+          PASSWORD_WX:
+            valueFrom:
+              secretKeyRef:
+                name: wx-secret
+                key: password
 
 #         # -- Secrets and/or ConfigMaps that will be loaded as environment variables.
 #         # Syntax options:
