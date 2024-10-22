@@ -53,6 +53,12 @@ data:
     path "kv-v2/data/redis/*" {
       capabilities = ["read"]
     }
+
+  wx-policy.json: |
+    path "kv-v2/data/wx/*" {
+      capabilities = ["read"]
+    }
+
   demo-auth-policy-operator.json: |
 
     path "transit/encrypt/vso-client-cache" {
@@ -125,6 +131,7 @@ data:
         vault kv put kv-v2/redis/config password="@/config/cred/redis-password.txt"
         vault kv put kv-v2/authentik/config key="@/config/cred/authentik-key.txt" user="@/config/cred/DB-auth-user.txt" password="@/config/cred/DB-auth-password.txt"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
+        vault kv put kv-v2/wx/config username="@/config/cred/DB-arr-user.txt" password="@/config/cred/DB-arr-password.txt"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
@@ -140,6 +147,7 @@ data:
         vault policy write plcarr /config/scripts/arr-policy.json        
         vault policy write plcdefault /config/scripts/default-policy.json     
         vault policy write plcauthentik /config/scripts/authentik-policy.json     
+        vault policy write plcwx /config/scripts/wx-policy.json        
 
         vault write auth/kubernetes/role/auth-role-operator \
         bound_service_account_names=demo-operator \
@@ -201,6 +209,13 @@ data:
         bound_service_account_names=authentik \
         bound_service_account_namespaces=authentik \
         policies=plcauthentik \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlwx \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcwx \
         audience=vault\
         ttl=24h
 
