@@ -1,0 +1,15 @@
+apiVersion: v2
+description: |
+    cloudbeaver : 
+name: cloudbeaver
+version: 1.0.0
+kubeVersion: ">=1.22.0-0"
+keywords:
+- cloudbeaver
+
+maintainers:
+- name: rdartus
+dependencies:
+- name: common
+  version: 3.5.1
+  repository: https://bjw-s.github.io/helm-charts/
