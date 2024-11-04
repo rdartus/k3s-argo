@@ -825,7 +825,8 @@ service:
   single: true
   type: LoadBalancer
   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
-  annotations: {}
+  annotations: 
+    - metallb.universe.tf/loadBalancerIPs: 192.168.1.4
   # -- Additional annotations for TCP service only
   annotationsTCP: {}
   # -- Additional annotations for UDP service only
