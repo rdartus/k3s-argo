@@ -826,7 +826,7 @@ service:
   type: LoadBalancer
   # -- Additional annotations applied to both TCP and UDP services (e.g. for cloud provider specific config)
   annotations: 
-    - metallb.universe.tf/loadBalancerIPs: 192.168.1.4
+    metallb.universe.tf/loadBalancerIPs: 192.168.1.4
   # -- Additional annotations for TCP service only
   annotationsTCP: {}
   # -- Additional annotations for UDP service only
@@ -979,7 +979,7 @@ affinity: {}
 #    requiredDuringSchedulingIgnoredDuringExecution:
 #      - labelSelector:
 #          matchLabels:
-#            app.kubernetes.io/name: {{`'{{ template "traefik.name" . }}'`}}
+#            app.kubernetes.io/name: {{/*`'{{ template "traefik.name" . }}'`*/}}
 #            app.kubernetes.io/instance: {{`'{{ .Release.Name }}-{{ .Release.Namespace }}'`}}
 #        topologyKey: kubernetes.io/hostname
 
