@@ -8,4 +8,4 @@ metadata:
   namespace: metallb
 spec:
   addresses:
-  - "192.168.1.4-192.168.1.5"
+  - "192.168.1.4-192.168.1.7"

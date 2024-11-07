@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "https://json.schemastore.org/helmfile.json": "file:///home/jeank/k3s-argo/jeanKluster/templates/traefik/_traefik-helm-values.tpl"
+    }
+}

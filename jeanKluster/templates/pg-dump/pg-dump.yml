@@ -1,15 +1,16 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cnpg
+  name: pg-dump
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
+    argocd.argoproj.io/sync-wave: "100"
+
 spec:
   destination:
-    namespace: cnpg
+    namespace: default
     server: {{ .Values.dest_server }}
   project: default
   syncPolicy:
@@ -20,9 +21,6 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: cloudnative-pg
-    targetRevision: "0.22.1"
-    repoURL: https://cloudnative-pg.github.io/charts
-    helm : 
-      values: |
-{{ include "helmValues.cnpg" . | indent 8 }}
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    path: localApps/pg-dump
+    targetRevision: "main"
