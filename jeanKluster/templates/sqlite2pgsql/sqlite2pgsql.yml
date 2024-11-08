@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: jobs
+  name: sqlite2pgsql
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
