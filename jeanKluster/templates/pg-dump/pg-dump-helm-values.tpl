@@ -646,7 +646,6 @@ serviceMonitor:
   #   selector: {}
 
   #   # -- Configures the target Service for the serviceMonitor. Helm templates can be used.
-  #   serviceName: '{{ include "bjw-s.common.lib.chart.names.fullname" $ }}'
 
   #   # -- Configures the endpoints for the serviceMonitor.
   #   # @default -- See values.yaml
@@ -866,6 +865,5 @@ rbac:
   #       - identifier: default
   #       - kind: ServiceAccount
   #         name: test
-  #         namespace: "{{ .Release.Namespace }}"
 
 {{- end }}
