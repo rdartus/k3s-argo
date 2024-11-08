@@ -257,7 +257,7 @@ controllers:
         - /bin/sh
         - -c
         - |
-          PGPASSWORD={{.Values.db.userPass}} psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U {{.Values.db.user}} -d prowlarr-main -f /dump/
+          PGPASSWORD={{.Values.arr.userPass}} psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U {{.Values.db.user}} -d prowlarr-main -f /dump/
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
