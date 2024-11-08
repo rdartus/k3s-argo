@@ -19,11 +19,23 @@ data:
     path "kv-v2/data/ddns-updater/*" {
       capabilities = ["read"]
     }
+  cnpg-policy.json: |
+
+    path "kv-v2/data/postgresql/*" {
+      capabilities = ["read"]
+    }
   pgsql-policy.json: |
 
     path "kv-v2/data/postgresql/*" {
       capabilities = ["read"]
     }
+    path "kv-v2/data/arr/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/pgadmin/*" {
+      capabilities = ["read"]
+    }
+
   redis-policy.json: |
 
     path "kv-v2/data/redis/*" {
@@ -143,6 +155,7 @@ data:
         vault write -force transit/keys/vso-client-cache
 
         vault policy write demo-auth-policy-operator /config/scripts/demo-auth-policy-operator.json
+        vault policy write plccnpg /config/scripts/cnpg-policy.json
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
         vault policy write plccrowdsec /config/scripts/crowdsec-policy.json        
@@ -160,9 +173,16 @@ data:
         audience=vault\
         ttl=24h
 
-        vault write auth/kubernetes/role/rlpgsql \
+        vault write auth/kubernetes/role/rlcnpg \
         bound_service_account_names=cnpg-cluster \
         bound_service_account_namespaces=cnpg \
+        policies=plccnpg \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlpgsql \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
         policies=plcpgsql \
         audience=vault\
         ttl=24h

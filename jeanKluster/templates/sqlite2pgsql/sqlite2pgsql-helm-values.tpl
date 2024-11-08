@@ -1,4 +1,4 @@
-{{- define "helmValues.pgdump" }}
+{{- define "helmValues.sqlite2pgsql" }}
 
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
@@ -96,7 +96,7 @@ controllers:
 
     # -- Set the controller type.
     # Valid options are deployment, daemonset, statefulset, cronjob or job
-    type: cronjob
+    type: job
     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
 #     # -- Set labels on the deployment/statefulset/daemonset/cronjob/job
@@ -129,31 +129,31 @@ controllers:
 #       name:
 #     # -- CronJob configuration. Required only when using `controller.type: cronjob`.
 #     # @default -- See below
-    cronjob:
-      # -- Suspends the CronJob
-      # [[ref]](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-suspension)
-      # @default -- false
-      # suspend: 
-      # -- Specifies how to treat concurrent executions of a job that is created by this cron job
-      # valid values are Allow, Forbid or Replace
-      concurrencyPolicy: Replace
-      # -- Sets the CronJob timezone (only works in Kubernetes >= 1.27)
-      # timeZone: 
-      # -- Sets the CronJob time when to execute your jobs
-      schedule: "*/5 * * * *"
-      # -- The deadline in seconds for starting the job if it misses its scheduled time for any reason
-      startingDeadlineSeconds: 30
-      # -- The number of succesful Jobs to keep
-      successfulJobsHistory: 1
-      # -- The number of failed Jobs to keep
-      failedJobsHistory: 1
-      # -- If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to
-      # be automatically deleted.
-      # ttlSecondsAfterFinished:
-      # -- Limits the number of times a failed job will be retried
-      backoffLimit: 6
-      # -- Specify the number of parallel jobs
-      # parallelism: 0
+    # cronjob:
+    #   # -- Suspends the CronJob
+    #   # [[ref]](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-suspension)
+    #   # @default -- false
+    #   # suspend: 
+    #   # -- Specifies how to treat concurrent executions of a job that is created by this cron job
+    #   # valid values are Allow, Forbid or Replace
+    #   concurrencyPolicy: Replace
+    #   # -- Sets the CronJob timezone (only works in Kubernetes >= 1.27)
+    #   # timeZone: 
+    #   # -- Sets the CronJob time when to execute your jobs
+    #   schedule: "0 5 * * *"
+    #   # -- The deadline in seconds for starting the job if it misses its scheduled time for any reason
+    #   startingDeadlineSeconds: 30
+    #   # -- The number of succesful Jobs to keep
+    #   successfulJobsHistory: 1
+    #   # -- The number of failed Jobs to keep
+    #   failedJobsHistory: 1
+    #   # -- If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to
+    #   # be automatically deleted.
+    #   # ttlSecondsAfterFinished:
+    #   # -- Limits the number of times a failed job will be retried
+    #   backoffLimit: 6
+    #   # -- Specify the number of parallel jobs
+    #   # parallelism: 0
 
 #     # -- Job configuration. Required only when using `controller.type: job`.
 #     # @default -- See below
@@ -246,19 +246,23 @@ controllers:
 
         image:
           # -- image repository
-          repository: postgres
+          repository: ghcr.io/rdartus/pgloader
           # -- image tag
           tag: latest
           # -- image pull policy
           pullPolicy: IfNotPresent
 
-        # -- Override the command(s) for the container
+#         # -- Override the command(s) for the container
         command: 
-        - /bin/sh
-        - -c
-        - |
-          PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /dump/
-          PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /dump/
+          - /bin/sh
+          - -c
+          - |
+            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /db/rm_prowlarr 
+            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d radarr-main -f /db/rm_radarr
+            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /db/rm_sonarr
+            pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /db/radarr.db 'postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main' || true
+            pgloader --with "quote identifiers" --with "data only" /db/prowlarr.db 'postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main' || true
+            pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /db/sonarr.db 'postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main' || true
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
@@ -647,6 +651,7 @@ serviceMonitor:
   #   selector: {}
 
   #   # -- Configures the target Service for the serviceMonitor. Helm templates can be used.
+  #   serviceName: '{{ include "bjw-s.common.lib.chart.names.fullname" $ }}'
 
   #   # -- Configures the endpoints for the serviceMonitor.
   #   # @default -- See values.yaml
@@ -720,14 +725,14 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-  dump:
+  db:
   #   # -- Enables or disables the persistence item. Defaults to true
     enabled: true
 
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
     type: hostPath
-    hostPath: "/home/jeank/dump"
+    hostPath: /home/jeank/k3s-argo/db
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
@@ -866,5 +871,6 @@ rbac:
   #       - identifier: default
   #       - kind: ServiceAccount
   #         name: test
+  #         namespace: "{{ .Release.Namespace }}"
 
 {{- end }}
