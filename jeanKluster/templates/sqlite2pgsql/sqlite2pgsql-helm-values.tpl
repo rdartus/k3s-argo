@@ -731,7 +731,7 @@ persistence:
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
     type: hostPath
-    Path: /home/jeank/k3s-argo/db
+    hostPath: /home/jeank/k3s-argo/db
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
