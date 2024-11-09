@@ -24,3 +24,6 @@ spec:
     repoURL: https://github.com/rdartus/k3s-argo.git
     path: localApps/cloudbeaver
     targetRevision: "main"
+    helm : 
+      values: |
+{{ include "helmValues.cloudbeaver" . | indent 8 }}
