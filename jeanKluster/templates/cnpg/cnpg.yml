@@ -21,7 +21,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: cloudnative-pg
-    targetRevision: "0.22.1"
+    targetRevision: "0.22.0"
     repoURL: https://cloudnative-pg.github.io/charts
     helm : 
       values: |
