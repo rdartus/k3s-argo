@@ -296,12 +296,12 @@ controllers:
           USER_ARR:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arrpsql-secret
                 key: username
           PASSWORD_ARR:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arrpsql-secret
                 key: password
 
 #         # -- Secrets and/or ConfigMaps that will be loaded as environment variables.
