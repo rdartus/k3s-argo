@@ -263,8 +263,8 @@ controllers:
           ls -la /dump
           ls -la /home/jeank
           printenv
-          PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /dump/dump_prowlarr
-          PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /dump/dump_sonarr
+          PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /home/jeank/dump/dump_prowlarr
+          PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /home/jeank/dump/dump_sonarr
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
@@ -733,7 +733,7 @@ persistence:
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
     type: hostPath
-    hostPath: "/tmp"
+    hostPath: "/home/jeank/dump"
     
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
