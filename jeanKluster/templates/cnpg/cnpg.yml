@@ -19,6 +19,7 @@ spec:
       allowEmpty: true
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
   source:
     chart: cloudnative-pg
     targetRevision: "0.22.0"
