@@ -593,7 +593,7 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
-            service:
+            # service:
               # -- Overrides the service name reference for this path
               # The service name to reference.
               # name: main
