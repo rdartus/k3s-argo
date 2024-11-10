@@ -559,7 +559,7 @@ service:
 
 # -- Configure the ingresses for the chart here.
 ingress:
-  # -- An example is shown below
+    # -- An example is shown below
   main:
     # -- Enables or disables the ingress
     enabled: true
@@ -577,36 +577,30 @@ ingress:
     # -- defines which ingress controller will implement the resource
     ClassName: traefik-ingresses
 
-    # # -- Provide additional labels which may be required. Helm templates can be used.
-    # labels: {}
-
-    # # -- Set the ingressClass that is used for this ingress.
-    # className:
-
-    # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-    # defaultBackend:
-
     ## Configure the hosts for the ingress
     hosts:
-      - host: cloudbeaver.dartus.fr
+      - 
+        # -- Host address. Helm template can be passed.
+        host: cloudbeaver.dartus.fr
         ## Configure the paths for the host
         paths:
-          - path: /
+          - # -- Path.  Helm template can be passed.
+            path: /
             pathType: Prefix
             # service:
-              # -- Overrides the service name reference for this path
-              # The service name to reference.
-              # name: main
-              # # # -- Reference a service identifier from this values.yaml
-              # identifier: main
-              # -- Overrides the service port number reference for this path
-              # port: 8978
+            #   # -- Overrides the service name reference for this path
+            #   # The service name to reference.
+            #   name: main
+            #   # -- Reference a service identifier from this values.yaml
+            #   identifier: main
+            #   # -- Overrides the service port number reference for this path
+            #   port:
 
-    # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+  #   # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+  #   tls: []
+  #   #  - secretName: chart-example-tls
+  #   #    hosts:
+  #   #      - chart-example.local
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.
