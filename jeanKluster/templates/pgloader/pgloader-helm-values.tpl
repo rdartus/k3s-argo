@@ -258,12 +258,12 @@ controllers:
           - -c
           - |
             printenv
-            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /home/jeank/k3s-argo/db/rm_prowlarr.sql
-            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d radarr-main -f /home/jeank/k3s-argo/db/rm_radarr.sql
-            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /home/jeank/k3s-argo/db/rm_sonarr.sql
-            pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /home/jeank/k3s-argo/db/radarr.db postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main || true
-            pgloader --with "quote identifiers" --with "data only" /home/jeank/k3s-argo/db/prowlarr.db postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main || true
-            pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /home/jeank/k3s-argo/db/sonarr.db postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main || true
+            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /home/jeank/db/rm_prowlarr.sql
+            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d radarr-main -f /home/jeank/db/rm_radarr.sql
+            PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /home/jeank/db/rm_sonarr.sql
+            pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /home/jeank/db/radarr.db postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main || true
+            pgloader --with "quote identifiers" --with "data only" /home/jeank/db/prowlarr.db postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main || true
+            pgloader --with "quote identifiers" --with "data only" --with "prefetch rows = 100" --with "batch size = 1MB" /home/jeank/db/sonarr.db postgresql://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main || true
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
@@ -732,7 +732,7 @@ persistence:
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
     type: hostPath
-    hostPath: /home/jeank/k3s-argo/db
+    hostPath: /home/jeank/db
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
