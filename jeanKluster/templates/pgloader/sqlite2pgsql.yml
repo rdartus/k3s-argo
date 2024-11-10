@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: sqlite2pgsql
+  name: pgloader
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
@@ -23,10 +23,10 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    path: jobs
+    path: localApps/pgloader
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
     helm : 
       values: |
-{{ include "helmValues.sqlite2pgsql" . | indent 8 }}
+{{ include "helmValues.pgloader" . | indent 8 }}
 {{- end}}

@@ -1,4 +1,4 @@
-{{- define "helmValues.sqlite2pgsql" }}
+{{- define "helmValues.pgloader" }}
 
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
