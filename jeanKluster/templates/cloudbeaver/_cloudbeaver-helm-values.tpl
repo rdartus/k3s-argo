@@ -591,14 +591,7 @@ ingress:
             service:
               identifier: main
               port: http
-            # service:
-            #   # -- Overrides the service name reference for this path
-            #   # The service name to reference.
-            #   name: main
-            #   # -- Reference a service identifier from this values.yaml
-            #   identifier: main
-            #   # -- Overrides the service port number reference for this path
-            #   port:
+
 
   #   # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
   #   tls: []
@@ -706,10 +699,10 @@ persistence:
   config:
   #   # -- Enables or disables the persistence item. Defaults to true
     enabled: false
-
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-
+    type: hostPath
+    hostPath: "/workspace"
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
