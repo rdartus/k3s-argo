@@ -596,11 +596,11 @@ ingress:
             service:
               # -- Overrides the service name reference for this path
               # The service name to reference.
-              name: main
-              # # -- Reference a service identifier from this values.yaml
-              identifier: main
+              # name: main
+              # # # -- Reference a service identifier from this values.yaml
+              # identifier: main
               # -- Overrides the service port number reference for this path
-              port: 8978
+              # port: 8978
 
     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
     tls: []
