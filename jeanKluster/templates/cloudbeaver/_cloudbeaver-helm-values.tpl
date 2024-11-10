@@ -581,11 +581,9 @@ ingress:
 
     ## Configure the hosts for the ingress
     hosts:
-      - # -- Host address. Helm template can be passed.
         host: cloudbeaver.dartus.fr
         ## Configure the paths for the host
         paths:
-          - # -- Path.  Helm template can be passed.
             path: /
             pathType: Prefix
             service:

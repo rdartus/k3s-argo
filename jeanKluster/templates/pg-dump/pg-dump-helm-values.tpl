@@ -257,14 +257,11 @@ controllers:
         - /bin/sh
         - -c
         - |
-          ls -la /
-          ls -la /home
-          ls -la /tmp
-          ls -la /dump
-          ls -la /home/jeank
+          ls -la /home/jeank/dump/
           printenv
           pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /home/jeank/dump/dump_prowlarr
           pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_sonarr
+          pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_radarr
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
