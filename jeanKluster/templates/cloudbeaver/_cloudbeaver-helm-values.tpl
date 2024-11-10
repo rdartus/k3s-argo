@@ -584,9 +584,13 @@ ingress:
         host: cloudbeaver.dartus.fr
         ## Configure the paths for the host
         paths:
-          - # -- Path.  Helm template can be passed.
+          - 
+            # -- Path.  Helm template can be passed.
             path: /
             pathType: Prefix
+            service:
+              identifier: main
+              port: http
             # service:
             #   # -- Overrides the service name reference for this path
             #   # The service name to reference.
