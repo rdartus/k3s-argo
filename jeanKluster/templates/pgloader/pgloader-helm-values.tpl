@@ -257,6 +257,7 @@ controllers:
           - /bin/sh
           - -c
           - |
+            printenv
             PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d prowlarr-main -f /home/jeank/k3s-argo/db/rm_prowlarr 
             PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d radarr-main -f /home/jeank/k3s-argo/db/rm_radarr
             PGPASSWORD=$PASSWORD_ARR psql -h {{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local -U $USER_ARR -d sonarr-main -f /home/jeank/k3s-argo/db/rm_sonarr
