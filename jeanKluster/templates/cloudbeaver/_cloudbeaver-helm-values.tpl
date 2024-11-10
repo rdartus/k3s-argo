@@ -568,7 +568,14 @@ ingress:
     # nameOverride:
 
     # # -- Provide additional annotations which may be required. Helm templates can be used.
-    # annotations: {}
+    annotations: 
+      hajimari.io/enable: "true"
+      hajimari.io/group: "Management"
+      hajimari.io/icon: "database-edit"
+    # -- additional ingress labels
+    labels: {}
+    # -- defines which ingress controller will implement the resource
+    ClassName: traefik-ingresses
 
     # # -- Provide additional labels which may be required. Helm templates can be used.
     # labels: {}
