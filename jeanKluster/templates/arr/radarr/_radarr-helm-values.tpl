@@ -83,22 +83,22 @@ env:
   TZ: UTC
   # RADARR__ANALYTICS_ENABLED: 'False'
   # RADARR__API_KEY: ''
-  RADARR__AUTHENTICATION_METHOD: "External"
+  RADARR__AUTHENTICATION__METHOD: "External"
   # RADARR__AUTHENTICATION_REQUIRED: ''
   # RADARR__BRANCH: '(current channel)'
   # RADARR__INSTANCE_NAME: 'Radarr'
   # RADARR__LOG_LEVEL: 'info'
   # RADARR__PORT: '7878'
   
-  RADARR__POSTGRES_HOST: {{ $dbServiceName }}
-  RADARR__POSTGRES_MAIN_DB: 'radarr-main'
-  RADARR__POSTGRES_LOG_DB: 'radarr-log'
-  RADARR__POSTGRES_USER:
+  RADARR__POSTGRES__HOST: {{ $dbServiceName }}
+  RADARR__POSTGRES__MAINDB: 'radarr-main'
+  RADARR__POSTGRES__LOGDB: 'radarr-log'
+  RADARR__POSTGRES__USER:
     valueFrom:
       secretKeyRef:
         name: arr-secret
         key: username
-  RADARR__POSTGRES_PASSWORD:
+  RADARR__POSTGRES__PASSWORD:
     valueFrom:
       secretKeyRef:
         name: arr-secret
