@@ -20,9 +20,10 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    path: localApps/sonarr
+    repoURL: https://github.com/rdartus/k3s-argo.git
     chart: sonarr
     targetRevision: "*"
-    helm : 
-      values: |
-{{ include "helmValues.sonarr" . | indent 8 }}
+#     helm : 
+#       values: |
+# {{ include "helmValues.sonarr" . | indent 8 }}
