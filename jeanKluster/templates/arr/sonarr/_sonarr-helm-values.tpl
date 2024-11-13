@@ -747,7 +747,8 @@ route:
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
-# persistence:
+persistence: 
+  {}
 #   config:
 #   #   # -- Enables or disables the persistence item. Defaults to true
 #     enabled: true
@@ -896,4 +897,3 @@ rbac:
   #       - kind: ServiceAccount
   #         name: test
   #         namespace: "{{ .Release.Namespace }}"
-  
