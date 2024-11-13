@@ -257,6 +257,28 @@ controllers:
 #         # -- Override the working directory for the container
 #         workingDir:
 
+
+        env:
+          SONARR__AUTH__APIKEY:
+            valueFrom:
+              secretKeyRef:
+                name: arr-secret
+                key: sonarrKey
+          SONARR__POSTGRES__PORT: "5432"
+          SONARR__POSTGRES__HOST: {{ $dbServiceName }}
+          SONARR__AUTH__METHOD: "External"
+          SONARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          SONARR__POSTGRES__USER:
+            valueFrom:
+              secretKeyRef:
+                name: arr-secret
+                key: username
+          SONARR__POSTGRES__PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: arr-secret
+                key: password
+          SONARR__POSTGRES__MAINDB: 'sonarr-main'
 #         # -- Environment variables. Template enabled.
 #         # Syntax options:
 #         # A) TZ: UTC
@@ -722,15 +744,16 @@ route:
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
-persistence:
-  config:
-  #   # -- Enables or disables the persistence item. Defaults to true
-    enabled: true
+# persistence:
+#   config:
+#   #   # -- Enables or disables the persistence item. Defaults to true
+#     enabled: true
 
-  #   # -- Sets the persistence type
-  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-    type: secret
-    name: list.json
+#   #   # -- Sets the persistence type
+#   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
+#     type: secret
+#     name: sonarrConfig
+
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
