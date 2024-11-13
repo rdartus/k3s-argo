@@ -23,3 +23,6 @@ spec:
     path: localApps/sonarr
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: "main"
+    helm : 
+      values: |
+{{ include "helmValues.sonarr" . | indent 8 }}

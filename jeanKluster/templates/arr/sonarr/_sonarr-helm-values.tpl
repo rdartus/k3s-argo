@@ -1,3 +1,7 @@
+{{- define "helmValues.sonarr" }}
+
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
+
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
 global:
