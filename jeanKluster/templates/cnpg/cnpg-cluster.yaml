@@ -11,6 +11,8 @@ metadata:
 spec:
   instances: 2
 
+  imageName: ghcr.io/cloudnative-pg/postgresql:17.0
+
   # Example of rolling update strategy:
   # - unsupervised: automated update of the primary once all
   #                 replicas have been upgraded (default)
@@ -21,6 +23,19 @@ spec:
   superuserSecret:
     name: superuser-secret
 
+  managed:
+    roles:
+    - name: arr
+      ensure: present
+      comment: "*arr user"
+      login: true
+      superuser: false
+    - name: auth
+      ensure: present
+      comment: authentik user 
+      login: true
+      superuser: false
+
   bootstrap:
     initdb:
       database: default
@@ -29,8 +44,8 @@ spec:
         name: pgsql-secret
       postInitApplicationSQLRefs:
         secretRefs:
-        - name: pgsql-secret
-          key: init-user-auth
+        # - name: pgsql-secret
+        #   key: init-user-auth
         - name: pgsql-secret
           key: init-authentik
         - name: pgsql-secret
