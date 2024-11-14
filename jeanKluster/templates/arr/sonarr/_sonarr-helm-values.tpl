@@ -897,3 +897,4 @@ rbac:
   #       - kind: ServiceAccount
   #         name: test
   #         namespace: "{{ .Release.Namespace }}"
+{{- end }}
