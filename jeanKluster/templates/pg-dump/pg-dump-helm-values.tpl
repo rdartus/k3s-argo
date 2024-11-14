@@ -140,7 +140,7 @@ controllers:
       # -- Sets the CronJob timezone (only works in Kubernetes >= 1.27)
       # timeZone: 
       # -- Sets the CronJob time when to execute your jobs
-      schedule: "*/5 * * * *"
+      schedule: "*/30 * * * *"
       # -- The deadline in seconds for starting the job if it misses its scheduled time for any reason
       startingDeadlineSeconds: 30
       # -- The number of succesful Jobs to keep
