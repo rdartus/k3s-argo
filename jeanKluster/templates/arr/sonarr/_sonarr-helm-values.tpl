@@ -249,7 +249,7 @@ controllers:
           # -- image repository
           repository: ghcr.io/onedr0p/sonarr
           # -- image tag
-          tag: latest
+          tag: rolling
           # -- image pull policy
           pullPolicy: IfNotPresent
 
