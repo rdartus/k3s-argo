@@ -23,9 +23,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    repoURL: https://k8s-home-lab.github.io/helm-charts/
-    chart: radarr
-    targetRevision: "*"
+    path: localApps/radarr
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    targetRevision: "main"
     helm : 
       values: |
 {{ include "helmValues.radarr" . | indent 8 }}

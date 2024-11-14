@@ -1,7 +1,5 @@
-{{- define "helmValues.prowlarr" }}
-
-{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
+---
 global:
   # -- Set an override for the prefix of the fullname
   nameOverride:
@@ -246,7 +244,7 @@ controllers:
 
         image:
           # -- image repository
-          repository: ghcr.io/onedr0p/prowlarr
+          repository: ghcr.io/onedr0p/radarr
           # -- image tag
           tag: rolling
           # -- image pull policy
@@ -261,26 +259,26 @@ controllers:
 
 
         env:
-          PROWLARR__AUTH__APIKEY:
+          RADARR__AUTH__APIKEY:
             valueFrom:
               secretKeyRef:
                 name: arr-secret
-                key: prowlarrKey
-          PROWLARR__POSTGRES__PORT: "5432"
-          PROWLARR__POSTGRES__HOST: {{ $dbServiceName }}
-          PROWLARR__AUTH__METHOD: "External"
-          PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
-          PROWLARR__POSTGRES__USER:
+                key: radarrKey
+          RADARR__POSTGRES__PORT: "5432"
+          RADARR__POSTGRES__HOST: TBD
+          RADARR__AUTH__METHOD: "External"
+          RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
+          RADARR__POSTGRES__USER:
             valueFrom:
               secretKeyRef:
                 name: arr-secret
                 key: username
-          PROWLARR__POSTGRES__PASSWORD:
+          RADARR__POSTGRES__PASSWORD:
             valueFrom:
               secretKeyRef:
                 name: arr-secret
                 key: password
-          PROWLARR__POSTGRES__MAINDB: 'prowlarr-main'
+          RADARR__POSTGRES__MAINDB: 'radarr-main'
 #         # -- Environment variables. Template enabled.
 #         # Syntax options:
 #         # A) TZ: UTC
@@ -628,7 +626,7 @@ ingress:
     ## Configure the hosts for the ingress
     hosts:
       - # -- Host address. Helm template can be passed.
-        host: prowlarr2.dartus.fr
+        host: radarr2.dartus.fr
         ## Configure the paths for the host
         paths:
           - # -- Path.  Helm template can be passed.
@@ -673,7 +671,7 @@ serviceMonitor:
   #   selector: {}
 
   #   # -- Configures the target Service for the serviceMonitor. Helm templates can be used.
-  #   serviceName: ''
+  #   serviceName: '{{ include "bjw-s.common.lib.chart.names.fullname" $ }}'
 
   #   # -- Configures the endpoints for the serviceMonitor.
   #   # @default -- See values.yaml
@@ -746,8 +744,7 @@ route:
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
-persistence: 
-  {}
+# persistence:
 #   config:
 #   #   # -- Enables or disables the persistence item. Defaults to true
 #     enabled: true
@@ -755,7 +752,7 @@ persistence:
 #   #   # -- Sets the persistence type
 #   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
 #     type: secret
-#     name: prowlarrConfig
+#     name: radarrConfig
 
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
@@ -896,5 +893,3 @@ rbac:
   #       - kind: ServiceAccount
   #         name: test
   #         namespace: "{{ .Release.Namespace }}"
-
-{{- end }}

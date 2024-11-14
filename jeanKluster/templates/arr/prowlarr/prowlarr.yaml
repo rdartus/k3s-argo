@@ -22,9 +22,9 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    chart: prowlarr
-    targetRevision: "*"
-    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    path: localApps/prowlarr
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    targetRevision: "main"
     helm : 
       values: |
 {{ include "helmValues.prowlarr" . | indent 8 }}
