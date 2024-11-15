@@ -31,14 +31,12 @@ spec:
       ensure: present
       comment: "*arr user"
       login: true
-      superuser: false
     - name: auth
       connectionLimit: -1
       inherit: true
       ensure: present
       comment: authentik user 
       login: true
-      superuser: false
 
   bootstrap:
     initdb:
