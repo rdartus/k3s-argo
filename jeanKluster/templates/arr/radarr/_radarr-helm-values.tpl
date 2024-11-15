@@ -345,7 +345,7 @@ controllers:
                 - /usr/bin/env
                 - bash
                 - -c
-                - curl --fail localhost:8989/api/v3/system/status?apiKey=`IFS=\> && while
+                - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
                   read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
               failureThreshold: 5
               initialDelaySeconds: 60
@@ -581,7 +581,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 9794
+        port: 7878
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
@@ -642,7 +642,7 @@ ingress:
               # # -- Reference a service identifier from this values.yaml
               # identifier: main
               # -- Overrides the service port number reference for this path
-              port: 9794
+              port: 7878
 
     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
     tls: []

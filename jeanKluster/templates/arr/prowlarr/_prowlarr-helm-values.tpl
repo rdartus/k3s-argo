@@ -580,7 +580,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 9794
+        port: 8989
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
@@ -641,7 +641,7 @@ ingress:
               # # -- Reference a service identifier from this values.yaml
               # identifier: main
               # -- Overrides the service port number reference for this path
-              port: 9794
+              port: 8989
 
     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
     tls: []
