@@ -333,7 +333,7 @@ controllers:
 #         # -- [[ref]](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)
         probes:
           liveness:
-            enabled: true
+            enabled: false
             ## Set this to true if you wish to specify your own livenessProbe
             custom: true
             ## The spec field contains the values for the default livenessProbe.
