@@ -703,6 +703,10 @@ persistence:
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
     type: hostPath
     hostPath: "/workspace"
+    advancedMounts:
+      controller:
+        container:
+          - path: /dev
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
