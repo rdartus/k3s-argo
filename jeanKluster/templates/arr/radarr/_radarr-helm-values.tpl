@@ -345,8 +345,7 @@ controllers:
                 - /usr/bin/env
                 - bash
                 - -c
-                - curl --fail localhost:7878/api/v3/system/status?apiKey=`IFS=\> && while
-                  read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml`
+                - curl --fail localhost:7878/api/v3/system/status?apiKey=$RADARR__AUTH__APIKEY
               failureThreshold: 5
               initialDelaySeconds: 60
               periodSeconds: 10
