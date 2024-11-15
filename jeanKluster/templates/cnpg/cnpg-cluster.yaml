@@ -44,8 +44,8 @@ spec:
         name: pgsql-secret
       postInitApplicationSQLRefs:
         secretRefs:
-        # - name: pgsql-secret
-        #   key: init-user-auth
+        - name: pgsql-secret
+          key: init-user-auth
         - name: pgsql-secret
           key: init-authentik
         - name: pgsql-secret
