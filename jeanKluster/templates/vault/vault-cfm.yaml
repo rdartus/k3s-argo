@@ -14,7 +14,7 @@ data:
     path "kv-v2/data/arr/*" {
       capabilities = ["read"]
     }
-    path "kv-v2/data/postgresql/arr/*" {
+    path "kv-v2/data/postgresql/arr" {
       capabilities = ["read"]
     }
   ddns-updater-policy.json: |
@@ -62,7 +62,7 @@ data:
     path "kv-v2/data/authentik/*" {
       capabilities = ["read"]
     }
-    path "kv-v2/data/postgresql/auth/*" {
+    path "kv-v2/data/postgresql/auth" {
       capabilities = ["read"]
     }
     path "kv-v2/data/redis/*" {
