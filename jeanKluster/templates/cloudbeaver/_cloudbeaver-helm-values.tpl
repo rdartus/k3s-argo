@@ -704,7 +704,7 @@ persistence:
     type: hostPath
     hostPath: "/workspace"
     advancedMounts:
-      controller:
+      main:
         container:
           - path: /dev
   #   # -- Storage Class for the config volume.
