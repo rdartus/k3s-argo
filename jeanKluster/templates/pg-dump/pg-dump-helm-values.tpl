@@ -259,7 +259,8 @@ controllers:
         - |
           pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /home/jeank/dump/dump_prowlarr
           pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_sonarr
-          pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_radarr
+          pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /home/jeank/dump/dump_radarr
+          pg_dump  postgres://$USER_AUTH:$PASSWORD_AUTH@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /home/jeank/dump/dump_authentik
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
@@ -299,6 +300,16 @@ controllers:
             valueFrom:
               secretKeyRef:
                 name: arrpsql-secret
+                key: password
+          USER_AUTH:
+            valueFrom:
+              secretKeyRef:
+                name: authpsql-secret
+                key: username
+          PASSWORD_AUTH:
+            valueFrom:
+              secretKeyRef:
+                name: authpsql-secret
                 key: password
 
 #         # -- Secrets and/or ConfigMaps that will be loaded as environment variables.

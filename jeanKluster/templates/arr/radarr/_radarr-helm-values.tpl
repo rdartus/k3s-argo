@@ -265,7 +265,7 @@ controllers:
           RADARR__AUTH__APIKEY:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-conf-secret
                 key: radarrKey
           RADARR__POSTGRES__PORT: "5432"
           RADARR__POSTGRES__HOST: {{ $dbServiceName }}
@@ -274,12 +274,12 @@ controllers:
           RADARR__POSTGRES__USER:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-db-secret
                 key: username
           RADARR__POSTGRES__PASSWORD:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-db-secret
                 key: password
           RADARR__POSTGRES__MAINDB: 'radarr-main'
 #         # -- Environment variables. Template enabled.

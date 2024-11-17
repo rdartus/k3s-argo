@@ -265,7 +265,7 @@ controllers:
           SONARR__AUTH__APIKEY:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-conf-secret
                 key: sonarrKey
           SONARR__POSTGRES__PORT: "5432"
           SONARR__POSTGRES__HOST: {{ $dbServiceName }}
@@ -274,12 +274,12 @@ controllers:
           SONARR__POSTGRES__USER:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-db-secret
                 key: username
           SONARR__POSTGRES__PASSWORD:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-db-secret
                 key: password
           SONARR__POSTGRES__MAINDB: 'sonarr-main'
 #         # -- Environment variables. Template enabled.

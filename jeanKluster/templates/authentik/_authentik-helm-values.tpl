@@ -125,12 +125,12 @@ global:
     - name: AUTHENTIK_POSTGRESQL__USER
       valueFrom:
         secretKeyRef:
-          name: authentik-key-secret
+          name: authentik-db-secret
           key: user
     - name: AUTHENTIK_POSTGRESQL__PASSWORD
       valueFrom:
         secretKeyRef:
-          name: authentik-key-secret
+          name: authentik-db-secret
           key: password
     - name: AUTHENTIK_EMAIL__HOST
       value : "smtp.gmail.com"

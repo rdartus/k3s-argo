@@ -264,7 +264,7 @@ controllers:
           PROWLARR__AUTH__APIKEY:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-conf-secret
                 key: prowlarrKey
           PROWLARR__POSTGRES__PORT: "5432"
           PROWLARR__POSTGRES__HOST: {{ $dbServiceName }}
@@ -273,12 +273,12 @@ controllers:
           PROWLARR__POSTGRES__USER:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-db-secret
                 key: username
           PROWLARR__POSTGRES__PASSWORD:
             valueFrom:
               secretKeyRef:
-                name: arr-secret
+                name: arr-db-secret
                 key: password
           PROWLARR__POSTGRES__MAINDB: 'prowlarr-main'
 #         # -- Environment variables. Template enabled.
