@@ -345,7 +345,7 @@ controllers:
                 - /usr/bin/env
                 - bash
                 - -c
-                - curl --fail localhost:7878/api/v3/system/status?apiKey=$RADARR__AUTH__APIKEY
+                - apikey=$(printenv RADARR__AUTH__APIKEY); if [ -z "$apikey" ]; then apikey=$(IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml); fi; curl --fail "localhost:7878/api/v3/system/status?apiKey=$apikey"
               failureThreshold: 5
               initialDelaySeconds: 60
               periodSeconds: 10
