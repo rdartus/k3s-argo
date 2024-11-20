@@ -570,6 +570,7 @@ server:
       hostPath:
         path: /home/jeank/cred
         type: Directory
+
     - name: dump
       hostPath:
         path: /home/jeank/dump
@@ -585,6 +586,7 @@ server:
   volumeMounts:
     - mountPath: /config/cred
       name: cred
+
     - mountPath: /config/dump
       name: dump
 
