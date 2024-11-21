@@ -8,13 +8,13 @@ spec:
   templates:
     - name: dump-sonarr
       data: |
-        b64dump_sonarr: {{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_sonarr")) | quote -}}
+        b64dump_sonarr: {{ .Values.template_transfo_sonarr }}
     - name: dump-radarr
       data: |
-        b64dump_radarr: {{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_radarr")) | quote -}}
+        b64dump_radarr: {{ .Values.template_transfo_radarr }}
     - name: dump-prowlarr
       data: |
-        b64dump_prowlarr: {{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_prowlarr")) | quote -}}
+        b64dump_prowlarr: {{ .Values.template_transfo_prowlarr }}
   filters:
     includes:
       - "b64dump_sonarr"

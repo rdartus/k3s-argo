@@ -1,5 +1,9 @@
 dest_server : https://kubernetes.default.svc
 default_folder_app : localApps
+template_transfo_sonarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_sonarr")) | quote -}}'
+template_transfo_prowlarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_prowlarr")) | quote -}}'
+template_transfo_radarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_radarr")) | quote -}}'
+
 
 db :
   appName: cnpg-cluster-rw
