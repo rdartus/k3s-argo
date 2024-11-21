@@ -4,9 +4,9 @@ kind: SecretTransformation
 metadata:
   name: decode-secrets
   namespace: default
-annotations:
-  argocd.argoproj.io/sync-wave: "10"
-  argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  annotations:
+    argocd.argoproj.io/sync-wave: "10"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 spec:
   templates:
