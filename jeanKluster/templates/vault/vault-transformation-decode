@@ -1,18 +1,20 @@
+---
 apiVersion: vault.hashicorp.com/v1alpha1
 kind: SecretTransformation
 metadata:
   name: decode-secrets
+  namespace: cnpg
 spec:
   templates:
     - name: dump-sonarr
       data: |
-        b64dump_sonarr: {{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_sonarr")) | quote -}}
+        b64dump_sonarr: {{ printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_sonarr")) | quote }}
     - name: dump-radarr
       data: |
-        b64dump_radarr: {{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_radarr")) | quote -}}
+        b64dump_radarr: {{ printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_radarr")) | quote }}
     - name: dump-prowlarr
       data: |
-        b64dump_prowlarr: {{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_prowlarr")) | quote -}}
+        b64dump_prowlarr: {{ printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_prowlarr")) | quote }}
   filters:
     includes:
       - "b64dump_sonarr"
