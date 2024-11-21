@@ -329,7 +329,7 @@ controllers:
                 - /usr/bin/env
                 - bash
                 - -c
-                - apikey=$(printenv SONARR__AUTH__APIKEY); if [ -z "$apikey" ]; then apikey=$(IFS=\> && while read -d \< E C; do if [[ $E = "ApiKey" ]]; then echo $C; fi; done < /config/config.xml); fi; curl --fail "localhost:8989/api/v3/system/status?apiKey=$apikey"
+                - curl --fail "localhost:8191/"
               failureThreshold: 5
               initialDelaySeconds: 60
               periodSeconds: 10
