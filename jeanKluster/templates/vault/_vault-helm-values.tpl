@@ -571,9 +571,9 @@ server:
         path: /home/jeank/cred
         type: Directory
 
-    - name: dump
+    - name: b64dump
       hostPath:
-        path: /home/jeank/dump
+        path: /home/jeank/b64dump
         type: Directory
 
     - name: scripts
@@ -587,8 +587,8 @@ server:
     - mountPath: /config/cred
       name: cred
 
-    - mountPath: /config/dump
-      name: dump
+    - mountPath: /config/b64dump
+      name: b64dump
 
     - mountPath: /config/scripts
       name: scripts
