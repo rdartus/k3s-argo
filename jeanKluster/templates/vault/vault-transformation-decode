@@ -1,5 +1,5 @@
 ---
-apiVersion: vault.hashicorp.com/v1beta1
+apiVersion: secrets.hashicorp.com/v1beta1
 kind: SecretTransformation
 metadata:
   name: decode-secrets
