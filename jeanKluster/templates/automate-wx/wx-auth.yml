@@ -8,6 +8,7 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   method: kubernetes
+  vaultConnectionRef: vault-connection
   mount: kubernetes
   kubernetes:
     role: rlwx
