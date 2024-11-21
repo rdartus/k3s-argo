@@ -77,17 +77,6 @@ data:
       capabilities = ["read"]
     }
 
-  demo-auth-policy-operator.json: |
-
-    path "transit/encrypt/vso-client-cache" {
-      capabilities = ["create", "update"]
-    }
-    path "transit/decrypt/vso-client-cache" {
-      capabilities = ["create", "update"]
-    }
-    path "kv-v2/*" {
-      capabilities = ["read"]
-    }
 
   initScript.sh: |
 
@@ -139,8 +128,7 @@ data:
         vault login $ROOT_TOKEN
         vault secrets enable kv-v2
         vault kv put kv-v2/ddns-updater/config CONFIG='@/config/cred/ddns-config.json'
-        vault kv put kv-v2/postgresql/config init-authentik="@/config/cred/init-authentik.sql" init-radarr-log="@/config/cred/init-radarr-log.sql" init-radarr-main="@/config/cred/init-radarr-main.sql" init-sonarr-log="@/config/cred/init-sonarr-log.sql" init-sonarr-main="@/config/cred/init-sonarr-main.sql" init-prowlarr-log="@/config/cred/init-prowlarr-log.sql" init-prowlarr-main="@/config/cred/init-prowlarr-main.sql" init-user-auth="@/config/cred/init-user-auth.sql"
-        vault kv put kv-v2/postgresql/config dump_authentik="@/config/dump/dump_authentik" dump_radarr="@/config/dump/dump_radarr" dump_sonarr="@/config/dump/dump_sonarr" dump_prowlarr="@/config/dump/dump_prowlarr"
+        vault kv put kv-v2/postgresql/config init-authentik="@/config/cred/init-authentik.sql" init-radarr-log="@/config/cred/init-radarr-log.sql" init-radarr-main="@/config/cred/init-radarr-main.sql" init-sonarr-log="@/config/cred/init-sonarr-log.sql" init-sonarr-main="@/config/cred/init-sonarr-main.sql" init-prowlarr-log="@/config/cred/init-prowlarr-log.sql" init-prowlarr-main="@/config/cred/init-prowlarr-main.sql" init-user-auth="@/config/cred/init-user-auth.sql" dump_authentik="@/config/dump/dump_authentik" dump_radarr="@/config/dump/dump_radarr" dump_prowlarr="@/config/dump/dump_prowlarr" dump_sonarr="@/config/dump/dump_sonarr"
         vault kv put kv-v2/postgresql/superuser username="postgres" password="@/config/cred/DB-superuser-password.txt"
         vault kv put kv-v2/postgresql/arr username="@/config/cred/DB-arr-user.txt" password="@/config/cred/DB-arr-password.txt"
         vault kv put kv-v2/postgresql/auth username="@/config/cred/DB-auth-user.txt" password="@/config/cred/DB-auth-password.txt"
@@ -156,10 +144,6 @@ data:
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
-        vault secrets enable -path=transit transit
-        vault write -force transit/keys/vso-client-cache
-
-        vault policy write demo-auth-policy-operator /config/scripts/demo-auth-policy-operator.json
         vault policy write plccnpg /config/scripts/cnpg-policy.json
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
@@ -170,13 +154,6 @@ data:
         vault policy write plcdefault /config/scripts/default-policy.json     
         vault policy write plcauthentik /config/scripts/authentik-policy.json     
         vault policy write plcwx /config/scripts/wx-policy.json        
-
-        vault write auth/kubernetes/role/auth-role-operator \
-        bound_service_account_names=demo-operator \
-        bound_service_account_namespaces=default \
-        policies=demo-auth-policy-operator \
-        audience=vault\
-        ttl=24h
 
         vault write auth/kubernetes/role/rlcnpg \
         bound_service_account_names=cnpg-cluster \
