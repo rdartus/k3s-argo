@@ -196,7 +196,7 @@ injector:
       - key: app.kubernetes.io/name
         operator: NotIn
         values:
-        - {{ template "vault.name" . }}-agent-injector
+        - vault-agent-injector
 
     # Extra annotations to attach to the webhook
     annotations: {}
@@ -292,7 +292,7 @@ injector:
       requiredDuringSchedulingIgnoredDuringExecution:
         - labelSelector:
             matchLabels:
-              app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
+              app.kubernetes.io/name: vault-agent-injector
               app.kubernetes.io/instance: "{{ .Release.Name }}"
               component: webhook
           topologyKey: kubernetes.io/hostname
@@ -890,7 +890,7 @@ server:
 
     # Set the cluster_addr configuration for Vault HA
     # See https://developer.hashicorp.com/vault/docs/configuration#cluster_addr
-    # If set to null, this will be set to https://$(HOSTNAME).{{ template "vault.fullname" . }}-internal:8201
+    # If set to null, this will be set to https://$(HOSTNAME). template "vault.fullname" . -internal:8201
     clusterAddr: null
 
     # Enables Vault's integrated Raft storage.  Unlike the typical HA modes where
