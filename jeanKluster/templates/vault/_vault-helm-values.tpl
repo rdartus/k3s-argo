@@ -768,7 +768,7 @@ server:
   dataStorage:
     enabled: true
     # Size of the PVC created
-    size: 1Gi
+    size: 2Gi
     # Location where the PVC will be mounted.
     mountPath: "/vault/data"
     # Name of the storage class to use.  If null it will use the
