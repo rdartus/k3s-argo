@@ -11,7 +11,7 @@ metadata:
 spec:
   templates:
     - name: dump-sonarr
-      data: |
+      text: |
         b64dump_sonarr: {{ .Values.template_transfo_sonarr }}
     - name: dump-radarr
       data: |
@@ -19,8 +19,7 @@ spec:
     - name: dump-prowlarr
       data: |
         b64dump_prowlarr: {{ .Values.template_transfo_prowlarr }}
-  filters:
-    includes:
-      - "b64dump_sonarr"
-      - "b64dump_radarr"
-      - "b64dump_prowlarr"
+  includes:
+    - "b64dump_sonarr"
+    - "b64dump_radarr"
+    - "b64dump_prowlarr"
