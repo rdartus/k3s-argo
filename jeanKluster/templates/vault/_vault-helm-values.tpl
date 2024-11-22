@@ -257,9 +257,6 @@ injector:
   # Security context for the pod template and the injector container
   # The default pod securityContext is:
   #   runAsNonRoot: true
-  #   runAsGroup: {{ .Values.injector.gid | default 1000 }}
-  #   runAsUser: {{ .Values.injector.uid | default 100 }}
-  #   fsGroup: {{ .Values.injector.gid | default 1000 }}
   # and for container is
   #    allowPrivilegeEscalation: false
   #    capabilities:
@@ -1017,9 +1014,7 @@ server:
     # If not set, these will default to, and for *not* OpenShift:
     # pod:
     #   runAsNonRoot: true
-    #   runAsGroup: {{ .Values.server.gid | default 1000 }}
-    #   runAsUser: {{ .Values.server.uid | default 100 }}
-    #   fsGroup: {{ .Values.server.gid | default 1000 }}
+
     # container:
     #   allowPrivilegeEscalation: false
     #
