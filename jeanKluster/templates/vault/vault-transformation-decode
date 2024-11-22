@@ -1,4 +1,3 @@
----
 apiVersion: secrets.hashicorp.com/v1beta1
 kind: SecretTransformation
 metadata:
@@ -14,10 +13,10 @@ spec:
       text: |
         b64dump_sonarr: {{ .Values.template_transfo_sonarr }}
     - name: dump-radarr
-      data: |
+      text: |
         b64dump_radarr: {{ .Values.template_transfo_radarr }}
     - name: dump-prowlarr
-      data: |
+      text: |
         b64dump_prowlarr: {{ .Values.template_transfo_prowlarr }}
   includes:
     - "b64dump_sonarr"
