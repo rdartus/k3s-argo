@@ -70,7 +70,7 @@ injector:
   # image sets the repo and tag of the vault-k8s image to use for the injector.
   image:
     repository: "hashicorp/vault-k8s"
-    tag: "1.3.1"
+    tag: "1.5.0"
     pullPolicy: IfNotPresent
 
   # agentImage sets the repo and tag of the Vault image to use for the Vault Agent
@@ -78,7 +78,7 @@ injector:
   # required.
   agentImage:
     repository: "hashicorp/vault"
-    tag: "1.15.2"
+    tag: "1.18.1"
 
   # The default values for the injected Vault Agent containers.
   agentDefaults:
@@ -191,6 +191,12 @@ injector:
     # objectSelector:
     #    matchLabels:
     #      vault-sidecar-injector: enabled
+    objectSelector: |
+      matchExpressions:
+      - key: app.kubernetes.io/name
+        operator: NotIn
+        values:
+        - {{ template "vault.name" . }}-agent-injector
 
     # Extra annotations to attach to the webhook
     annotations: {}
@@ -248,6 +254,17 @@ injector:
     certName: tls.crt
     keyName: tls.key
 
+  # Security context for the pod template and the injector container
+  # The default pod securityContext is:
+  #   runAsNonRoot: true
+  #   runAsGroup: {{ .Values.injector.gid | default 1000 }}
+  #   runAsUser: {{ .Values.injector.uid | default 100 }}
+  #   fsGroup: {{ .Values.injector.gid | default 1000 }}
+  # and for container is
+  #    allowPrivilegeEscalation: false
+  #    capabilities:
+  #      drop:
+  #        - ALL
   securityContext:
     pod: {}
     container: {}
@@ -270,6 +287,15 @@ injector:
   # This can either be a multi-line string or YAML matching the PodSpec's affinity field.
   # Commenting out or setting as empty the affinity variable, will allow
   # deployment of multiple replicas to single node services such as Minikube.
+  affinity: |
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "vault.name" . }}-agent-injector
+              app.kubernetes.io/instance: "{{ .Release.Name }}"
+              component: webhook
+          topologyKey: kubernetes.io/hostname
 
   # Topology settings for injector pods
   # ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-topology-spread-constraints/
@@ -353,7 +379,7 @@ server:
 
   image:
     repository: "hashicorp/vault"
-    tag: "1.15.2"
+    tag: "1.18.1"
     # Overrides the default Image Pull Policy
     pullPolicy: IfNotPresent
 
@@ -647,6 +673,13 @@ server:
   # of the annotations to apply to the server pods
   annotations: {}
 
+  # Add an annotation to the server configmap and the statefulset pods,
+  # vaultproject.io/config-checksum, that is a hash of the Vault configuration.
+  # This can be used together with an OnDelete deployment strategy to help
+  # identify which pods still need to be deleted during a deployment to pick up
+  # any configuration changes.
+  includeConfigAnnotation: false
+
   # Enables a headless service to be used by the Vault Statefulset
   service:
     enabled: true
@@ -666,6 +699,7 @@ server:
       # YAML-formatted multi-line templated string map of the annotations to apply
       # to the standby service.
       annotations: {}
+    # If enabled, the service selectors will include `app.kubernetes.io/instance: {{ .Release.Name }}`
     # When disabled, services may select Vault pods not deployed from the chart.
     # Does not affect the headless vault-internal service with `ClusterIP: None`
     instanceSelector:
@@ -802,13 +836,13 @@ server:
     # config is a raw string of default configuration when using a Stateful
     # deployment. Default is to use a PersistentVolumeClaim mounted at /vault/data
     # and store data there. This is only used when using a Replica count of 1, and
-    # using a stateful set. This should be HCL.
+    # using a stateful set. Supported formats are HCL and JSON.
 
     # Note: Configuration files are stored in ConfigMaps so sensitive data
     # such as passwords should be either mounted through extraSecretEnvironmentVars
-    # or through a Kube secret.  For more information see:
+    # or through a Kube secret. For more information see:
     # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
-    config: |
+    config: |-
       ui = true
 
       listener "tcp" {
@@ -854,8 +888,9 @@ server:
     # If set to null, this will be set to the Pod IP Address
     apiAddr: null
 
-    # Set the cluster_addr confuguration for Vault HA
+    # Set the cluster_addr configuration for Vault HA
     # See https://developer.hashicorp.com/vault/docs/configuration#cluster_addr
+    # If set to null, this will be set to https://$(HOSTNAME).{{ template "vault.fullname" . }}-internal:8201
     clusterAddr: null
 
     # Enables Vault's integrated Raft storage.  Unlike the typical HA modes where
@@ -873,6 +908,7 @@ server:
       # such as passwords should be either mounted through extraSecretEnvironmentVars
       # or through a Kube secret.  For more information see:
       # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
+      # Supported formats are HCL and JSON.
       config: |
         ui = true
 
@@ -894,11 +930,11 @@ server:
 
     # config is a raw string of default configuration when using a Stateful
     # deployment. Default is to use a Consul for its HA storage backend.
-    # This should be HCL.
+    # Supported formats are HCL and JSON.
 
     # Note: Configuration files are stored in ConfigMaps so sensitive data
     # such as passwords should be either mounted through extraSecretEnvironmentVars
-    # or through a Kube secret.  For more information see:
+    # or through a Kube secret. For more information see:
     # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
     config: |
       ui = true
@@ -977,6 +1013,19 @@ server:
     # to the statefulSet.
     annotations: {}
 
+    # Set the pod and container security contexts.
+    # If not set, these will default to, and for *not* OpenShift:
+    # pod:
+    #   runAsNonRoot: true
+    #   runAsGroup: {{ .Values.server.gid | default 1000 }}
+    #   runAsUser: {{ .Values.server.uid | default 100 }}
+    #   fsGroup: {{ .Values.server.gid | default 1000 }}
+    # container:
+    #   allowPrivilegeEscalation: false
+    #
+    # If not set, these will default to, and for OpenShift:
+    # pod: {}
+    # container: {}
     securityContext:
       pod: {}
       container: {}
@@ -1046,7 +1095,7 @@ csi:
 
   image:
     repository: "hashicorp/vault-csi-provider"
-    tag: "1.4.1"
+    tag: "1.5.0"
     pullPolicy: IfNotPresent
 
   # volumes is a list of volumes made available to all containers. These are rendered
@@ -1077,6 +1126,10 @@ csi:
   # Override the default secret name for the CSI Provider's HMAC key used for
   # generating secret versions.
   hmacSecretName: ""
+
+  # Allow modification of the hostNetwork parameter to avoid the need of a
+  # dedicated pod ip
+  hostNetwork: false
 
   # Settings for the daemonSet used to run the provider.
   daemonSet:
@@ -1131,7 +1184,7 @@ csi:
 
     image:
       repository: "hashicorp/vault"
-      tag: "1.15.2"
+      tag: "1.18.1"
       pullPolicy: IfNotPresent
 
     logFormat: standard
@@ -1184,7 +1237,12 @@ csi:
     # Number of seconds after which the probe times out.
     timeoutSeconds: 3
 
-  # Enables debug logging.
+  # Configures the log level for the Vault CSI provider.
+  # Supported log levels include: trace, debug, info, warn, error, and off
+  logLevel: "info"
+
+  # Deprecated, set logLevel to debug instead.
+  # If set to true, the logLevel will be set to debug.
   debug: false
 
   # Pass arbitrary additional arguments to vault-csi-provider.
@@ -1200,8 +1258,8 @@ csi:
 # https://developer.hashicorp.com/vault/docs/configuration/telemetry
 # https://developer.hashicorp.com/vault/docs/internals/telemetry
 serverTelemetry:
-  # Enable support for the Prometheus Operator. Currently, this chart does not support
-  # authenticating to Vault's metrics endpoint, so the following `telemetry{}` must be included
+  # Enable support for the Prometheus Operator. If authorization is not set for authenticating
+  # to Vault's metrics endpoint, the following Vault server `telemetry{}` config must be included
   # in the `listener "tcp"{}` stanza
   #  telemetry {
   #    unauthenticated_metrics_access = "true"
@@ -1242,6 +1300,25 @@ serverTelemetry:
 
     # Timeout for Prometheus scrapes
     scrapeTimeout: 10s
+
+    # tlsConfig used for scraping the Vault metrics API.
+    # See API reference: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.TLSConfig
+    # example:
+    # tlsConfig:
+    #   ca:
+    #     secret:
+    #       name: vault-metrics-client
+    #       key: ca.crt
+    tlsConfig: {}
+
+    # authorization used for scraping the Vault metrics API.
+    # See API reference: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.SafeAuthorization
+    # example:
+    # authorization:
+    #   credentials:
+    #     name: vault-metrics-client
+    #     key: token
+    authorization: {}
 
   prometheusRules:
       # The Prometheus operator *must* be installed before enabling this feature,
