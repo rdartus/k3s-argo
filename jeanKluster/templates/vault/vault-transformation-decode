@@ -9,15 +9,12 @@ metadata:
 
 spec:
   templates:
-    - name: dump-sonarr
-      text: |
-        b64dump_sonarr: {{ .Values.template_transfo_sonarr }}
-    - name: dump-radarr
-      text: |
-        b64dump_radarr: {{ .Values.template_transfo_radarr }}
-    - name: dump-prowlarr
-      text: |
-        b64dump_prowlarr: {{ .Values.template_transfo_prowlarr }}
+    - dump-sonarr :
+        text: {{ .Values.template_transfo_sonarr }}
+    - dump-radarr :
+        text: {{ .Values.template_transfo_radarr }}
+    - dump-prowlarr :
+        text: {{ .Values.template_transfo_prowlarr }}
   includes:
     - "b64dump_sonarr"
     - "b64dump_radarr"
