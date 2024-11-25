@@ -847,7 +847,7 @@ server:
         address = "[::]:8200"
         cluster_address = "[::]:8201"
         max_request_size = 400000000
-        max_request_duration = "120s"
+        max_request_duration = "300s"
         # Enable unauthenticated metrics access (necessary for Prometheus Operator)
         #telemetry {
         #  unauthenticated_metrics_access = "true"
