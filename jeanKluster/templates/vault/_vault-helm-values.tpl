@@ -1215,13 +1215,13 @@ csi:
     # When a probe fails, Kubernetes will try failureThreshold times before giving up
     failureThreshold: 2
     # Number of seconds after the container has started before probe initiates
-    initialDelaySeconds: 5
+    initialDelaySeconds: 600
     # How often (in seconds) to perform the probe
-    periodSeconds: 5
+    periodSeconds: 15
     # Minimum consecutive successes for the probe to be considered successful after having failed
     successThreshold: 1
     # Number of seconds after which the probe times out.
-    timeoutSeconds: 3
+    timeoutSeconds: 10
   # Used to configure livenessProbe for the pods.
   livenessProbe:
     # When a probe fails, Kubernetes will try failureThreshold times before giving up
