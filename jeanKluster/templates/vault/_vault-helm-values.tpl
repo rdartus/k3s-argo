@@ -841,7 +841,7 @@ server:
     # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
     config: |-
       ui = true
-
+      default_max_request_duration = "1800s"
       listener "tcp" {
         tls_disable = 1
         address = "[::]:8200"
