@@ -853,6 +853,7 @@ server:
       }
       storage "file" {
         path = "/vault/data"
+        max_entry_size= 400000000
       }
 
       # Example configuration for using auto-unseal, using Google Cloud KMS. The
