@@ -847,7 +847,7 @@ server:
         address = "[::]:8200"
         cluster_address = "[::]:8201"
         max_request_size = 400000000
-        max_request_duration = "300s"
+        max_request_duration = "720s"
         # Enable unauthenticated metrics access (necessary for Prometheus Operator)
         #telemetry {
         #  unauthenticated_metrics_access = "true"
@@ -1215,7 +1215,7 @@ csi:
     # When a probe fails, Kubernetes will try failureThreshold times before giving up
     failureThreshold: 2
     # Number of seconds after the container has started before probe initiates
-    initialDelaySeconds: 600
+    initialDelaySeconds: 900
     # How often (in seconds) to perform the probe
     periodSeconds: 15
     # Minimum consecutive successes for the probe to be considered successful after having failed
