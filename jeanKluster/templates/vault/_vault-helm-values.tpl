@@ -846,6 +846,7 @@ server:
         tls_disable = 1
         address = "[::]:8200"
         cluster_address = "[::]:8201"
+        max_request_size = 400000000
         # Enable unauthenticated metrics access (necessary for Prometheus Operator)
         #telemetry {
         #  unauthenticated_metrics_access = "true"
