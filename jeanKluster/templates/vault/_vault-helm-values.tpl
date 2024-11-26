@@ -849,6 +849,10 @@ server:
         max_request_size = 400000000
         max_request_duration = "1800s"
         read_timeout = "1800s"
+        http_idle_timeout = "1800s"
+        http_read_header_timeout = "1800s"
+        http_read_timeout = "1800s"
+        http_write_timeout = "1800s"
         # Enable unauthenticated metrics access (necessary for Prometheus Operator)
         #telemetry {
         #  unauthenticated_metrics_access = "true"
