@@ -517,13 +517,13 @@ server:
     # When a probe fails, Kubernetes will try failureThreshold times before giving up
     failureThreshold: 2
     # Number of seconds after the container has started before probe initiates
-    initialDelaySeconds: 1860
+    initialDelaySeconds: 5
     # How often (in seconds) to perform the probe
-    periodSeconds: 15
+    periodSeconds: 5
     # Minimum consecutive successes for the probe to be considered successful after having failed
     successThreshold: 1
     # Number of seconds after which the probe times out.
-    timeoutSeconds: 10
+    timeoutSeconds: 3
   # Used to enable a livenessProbe for the pods
   livenessProbe:
     enabled: false
@@ -768,7 +768,7 @@ server:
   dataStorage:
     enabled: true
     # Size of the PVC created
-    size: 2Gi
+    size: 1Gi
     # Location where the PVC will be mounted.
     mountPath: "/vault/data"
     # Name of the storage class to use.  If null it will use the
@@ -828,7 +828,7 @@ server:
   # the "file" backend.  This mode is not highly available and should not be scaled
   # past a single replica.
   standalone:
-    enabled: "true"
+    enabled: "-"
 
     # config is a raw string of default configuration when using a Stateful
     # deployment. Default is to use a PersistentVolumeClaim mounted at /vault/data
@@ -841,18 +841,11 @@ server:
     # https://developer.hashicorp.com/vault/docs/platform/k8s/helm/run#protecting-sensitive-vault-configurations
     config: |-
       ui = true
-      default_max_request_duration = "1800s"
+
       listener "tcp" {
         tls_disable = 1
         address = "[::]:8200"
         cluster_address = "[::]:8201"
-        max_request_size = 400000000
-        max_request_duration = "1800s"
-        read_timeout = "1800s"
-        http_idle_timeout = "1800s"
-        http_read_header_timeout = "1800s"
-        http_read_timeout = "1800s"
-        http_write_timeout = "1800s"
         # Enable unauthenticated metrics access (necessary for Prometheus Operator)
         #telemetry {
         #  unauthenticated_metrics_access = "true"
@@ -860,7 +853,6 @@ server:
       }
       storage "file" {
         path = "/vault/data"
-        max_entry_size= 400000000
       }
 
       # Example configuration for using auto-unseal, using Google Cloud KMS. The
@@ -1220,13 +1212,13 @@ csi:
     # When a probe fails, Kubernetes will try failureThreshold times before giving up
     failureThreshold: 2
     # Number of seconds after the container has started before probe initiates
-    initialDelaySeconds: 1860
+    initialDelaySeconds: 5
     # How often (in seconds) to perform the probe
-    periodSeconds: 15
+    periodSeconds: 5
     # Minimum consecutive successes for the probe to be considered successful after having failed
     successThreshold: 1
     # Number of seconds after which the probe times out.
-    timeoutSeconds: 10
+    timeoutSeconds: 3
   # Used to configure livenessProbe for the pods.
   livenessProbe:
     # When a probe fails, Kubernetes will try failureThreshold times before giving up

@@ -1,6 +1,5 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
-{{- define "helmValues.pgdump" }}
----
+{{- define "helmValues.pgrestore" }}
+
 global:
   # -- Set an override for the prefix of the fullname
   nameOverride:
@@ -291,7 +290,7 @@ controllers:
 
         # -- Override the command(s) for the container
         args: 
-          - --repo=https://gitlab.com/k3s-pi1/dump-k3s#
+          - --repo=https://gitlab.com/k3s-pi1/dump-k3s
           - --depth=1
           - --period=300s
           - --link=current
@@ -301,7 +300,7 @@ controllers:
             valueFrom:
               secretKeyRef:
                 name: ssh-secret
-                key: ssh-kubernetes
+                key: key
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container

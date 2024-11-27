@@ -20,4 +20,5 @@ arr:
   userPass : pdpdpd
 
 job: false
+init: true
 longhorn : false

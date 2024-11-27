@@ -76,6 +76,10 @@ data:
     path "kv-v2/data/wx/*" {
       capabilities = ["read"]
     }
+  ssh-policy.json: |
+    path "kv-v2/data/ssh/*" {
+      capabilities = ["read"]
+    }
 
 
   initScript.sh: |
@@ -129,13 +133,10 @@ data:
         vault secrets enable kv-v2
         vault kv put kv-v2/ddns-updater/config CONFIG='@/config/cred/ddns-config.json'
         vault kv put kv-v2/postgresql/config init-authentik="@/config/cred/init-authentik.sql" init-radarr-log="@/config/cred/init-radarr-log.sql" init-radarr-main="@/config/cred/init-radarr-main.sql" init-sonarr-log="@/config/cred/init-sonarr-log.sql" init-sonarr-main="@/config/cred/init-sonarr-main.sql" init-prowlarr-log="@/config/cred/init-prowlarr-log.sql" init-prowlarr-main="@/config/cred/init-prowlarr-main.sql" init-user-auth="@/config/cred/init-user-auth.sql"
-        vault kv put kv-v2/postgresql/dump_authentik dump_authentik="@/config/b64dump/dump_authentik"
-        vault kv put kv-v2/postgresql/dump_radarr dump_radarr="@/config/b64dump/dump_radarr"
-        vault kv put kv-v2/postgresql/dump_prowlarr dump_prowlarr="@/config/b64dump/dump_prowlarr"
-        vault kv put kv-v2/postgresql/dump_sonarr dump_sonarr="@/config/b64dump/dump_sonarr"
         vault kv put kv-v2/postgresql/superuser username="postgres" password="@/config/cred/DB-superuser-password.txt"
         vault kv put kv-v2/postgresql/arr username="@/config/cred/DB-arr-user.txt" password="@/config/cred/DB-arr-password.txt"
         vault kv put kv-v2/postgresql/auth username="@/config/cred/DB-auth-user.txt" password="@/config/cred/DB-auth-password.txt"
+        vault kv put kv-v2/ssh key="@/config/cred/key.txt"
         vault kv put kv-v2/arr/config sonarrKey="@/config/cred/sonarrKey.txt" prowlarrKey="@/config/cred/prowlarrKey.txt" radarrKey="@/config/cred/radarrKey.txt"
         vault kv put kv-v2/default/config username="admin" password="@/config/cred/default-password.txt" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
         vault kv put kv-v2/default/smb username="jeank" password="@/config/cred/jeank-smb.txt"
@@ -150,6 +151,7 @@ data:
 
         vault policy write plccnpg /config/scripts/cnpg-policy.json
         vault policy write plcpgsql /config/scripts/pgsql-policy.json
+        vault policy write plcssh /config/scripts/ssh-policy.json        
         vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
         vault policy write plccrowdsec /config/scripts/crowdsec-policy.json        
         vault policy write plcredis /config/scripts/redis-policy.json        
@@ -170,6 +172,13 @@ data:
         bound_service_account_names=default \
         bound_service_account_namespaces=default \
         policies=plcpgsql \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlssh \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcssh \
         audience=vault\
         ttl=24h
 
