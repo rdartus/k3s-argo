@@ -137,7 +137,13 @@ controllers:
           - --period=300s
           - --link=current
           - --root=/git
+          - --ssh-known-hosts=false
         env:
+          GITSYNC_SSH_KEY_FILE:
+            valueFrom:
+              secretKeyRef:
+                name: ssh-secret
+                key: key
           GITSYNC_SSH_KEY_FILE:
             valueFrom:
               secretKeyRef:
