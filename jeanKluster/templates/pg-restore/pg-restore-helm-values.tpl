@@ -74,7 +74,7 @@ defaultPodOptions:
 
   # -- Configure the Security Context for the Pod
   securityContext:
-    runAsUser: 65533
+    fsGroup: 65533
 
   # -- Duration in seconds the pod needs to terminate gracefully
   # -- [[ref](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#lifecycle)]
@@ -150,6 +150,9 @@ controllers:
               secretKeyRef:
                 name: ssh-secret
                 key: key
+        securityContext:
+          runAsUser: 65533
+
 # @default -- See below
 secrets:
   {}
