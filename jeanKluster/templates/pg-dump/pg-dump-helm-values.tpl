@@ -1,5 +1,6 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 {{- define "helmValues.pgdump" }}
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
 global:
   # -- Set an override for the prefix of the fullname
@@ -95,7 +96,7 @@ controllers:
 
     # -- Set the controller type.
     # Valid options are deployment, daemonset, statefulset, cronjob or job
-    type: job
+    type: cronjob
     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
 #     # -- Set labels on the deployment/statefulset/daemonset/cronjob/job
@@ -128,50 +129,50 @@ controllers:
 #       name:
 #     # -- CronJob configuration. Required only when using `controller.type: cronjob`.
 #     # @default -- See below
-    # cronjob:
+    cronjob:
       # -- Suspends the CronJob
       # [[ref]](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-suspension)
       # @default -- false
       # suspend: 
       # -- Specifies how to treat concurrent executions of a job that is created by this cron job
       # valid values are Allow, Forbid or Replace
-      # concurrencyPolicy: Replace
+      concurrencyPolicy: Replace
       # -- Sets the CronJob timezone (only works in Kubernetes >= 1.27)
       # timeZone: 
       # -- Sets the CronJob time when to execute your jobs
-      # schedule: "*/30 * * * *"
+      schedule: "*/30 * * * *"
       # -- The deadline in seconds for starting the job if it misses its scheduled time for any reason
-      # startingDeadlineSeconds: 30
+      startingDeadlineSeconds: 30
       # -- The number of succesful Jobs to keep
-      # successfulJobsHistory: 1
+      successfulJobsHistory: 1
       # -- The number of failed Jobs to keep
-      # failedJobsHistory: 1
-      # -- If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to
-      # be automatically deleted.
-      # ttlSecondsAfterFinished:
-      # -- Limits the number of times a failed job will be retried
-      # backoffLimit: 6
-      # -- Specify the number of parallel jobs
-      # parallelism: 0
-
-#     # -- Job configuration. Required only when using `controller.type: job`.
-#     # @default -- See below
-    job:
-      # -- Suspends the Job
-      # [[ref]](https://kubernetes.io/docs/concepts/workloads/controllers/job/#suspending-a-job)
-      # @default -- false
-      # suspend:
+      failedJobsHistory: 1
       # -- If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to
       # be automatically deleted.
       # ttlSecondsAfterFinished:
       # -- Limits the number of times a failed job will be retried
       backoffLimit: 6
       # -- Specify the number of parallel jobs
-      # parallelism:
-      # -- Specify the number of completions for the job
-      # completions:
-      # -- Specify the completionMode for the job
-      # completionMode:
+      # parallelism: 0
+
+#     # -- Job configuration. Required only when using `controller.type: job`.
+#     # @default -- See below
+#     job:
+#       # -- Suspends the Job
+#       # [[ref]](https://kubernetes.io/docs/concepts/workloads/controllers/job/#suspending-a-job)
+#       # @default -- false
+#       suspend:
+#       # -- If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to
+#       # be automatically deleted.
+#       ttlSecondsAfterFinished:
+#       # -- Limits the number of times a failed job will be retried
+#       backoffLimit: 6
+#       # -- Specify the number of parallel jobs
+#       parallelism:
+#       # -- Specify the number of completions for the job
+#       completions:
+#       # -- Specify the completionMode for the job
+#       completionMode:
 
 #     # -- StatefulSet configuration. Required only when using `controller.type: statefulset`.
 #     statefulset:
@@ -241,7 +242,7 @@ controllers:
 
         # -- Specify if this container depends on any other containers
         # This is used to determine the order in which the containers are rendered.
-        dependsOn: ["gitsync"]
+        dependsOn: []
 
         image:
           # -- image repository
@@ -256,52 +257,10 @@ controllers:
         - /bin/sh
         - -c
         - |
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /home/jeank/dump/dump_prowlarr
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_sonarr
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /home/jeank/dump/dump_radarr
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /home/jeank/dump/dump_authentik
-        env:
-          SUPERUSER:
-            valueFrom:
-              secretKeyRef:
-                name: superuser-secret
-                key: username
-          PASSWORD_:
-            valueFrom:
-              secretKeyRef:
-                name: superuser-secret
-                key: password
-
-
-      gitsync:
-        # -- Override the container name
-        # nameOverride:
-
-        # -- Specify if this container depends on any other containers
-        # This is used to determine the order in which the containers are rendered.
-        dependsOn: []
-
-        image:
-          # -- image repository
-          repository: registry.k8s.io/git-sync/git-sync
-          # -- image tag
-          tag: v4.0.0
-          # -- image pull policy
-          pullPolicy: IfNotPresent
-
-        # -- Override the command(s) for the container
-        args: 
-          - --repo=https://gitlab.com/k3s-pi1/dump-k3s#
-          - --depth=1
-          - --period=300s
-          - --link=current
-          - --root=/config
-        env:
-          GITSYNC_SSH_KEY_FILE:
-            valueFrom:
-              secretKeyRef:
-                name: ssh-secret
-                key: ssh-kubernetes
+          pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /home/jeank/dump/dump_prowlarr
+          pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_sonarr
+          pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /home/jeank/dump/dump_radarr
+          pg_dump  postgres://$USER_AUTH:$PASSWORD_AUTH@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /home/jeank/dump/dump_authentik
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
@@ -331,6 +290,27 @@ controllers:
 #         #      value: UTC
 #         # G) - name: TZ
 #         #      value: '{{ .Release.Name }}'
+        env:
+          USER_ARR:
+            valueFrom:
+              secretKeyRef:
+                name: arrpsql-secret
+                key: username
+          PASSWORD_ARR:
+            valueFrom:
+              secretKeyRef:
+                name: arrpsql-secret
+                key: password
+          USER_AUTH:
+            valueFrom:
+              secretKeyRef:
+                name: authpsql-secret
+                key: username
+          PASSWORD_AUTH:
+            valueFrom:
+              secretKeyRef:
+                name: authpsql-secret
+                key: password
 
 #         # -- Secrets and/or ConfigMaps that will be loaded as environment variables.
 #         # Syntax options:
@@ -448,7 +428,6 @@ controllers:
 #     # -- Specify any initContainers here as dictionary items.
 #     # Each initContainer should have its own key
 #     initContainers: {}
-
 
 # -- If true forces the controllers to use the `default` ServiceAccount for the namespace if one is not explicitly defined.
 # This feature flag will be removed on future versions where this will be the default behavior.
@@ -753,14 +732,14 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-  # dump:
-  # #   # -- Enables or disables the persistence item. Defaults to true
-  #   enabled: true
+  dump:
+  #   # -- Enables or disables the persistence item. Defaults to true
+    enabled: true
 
-  # #   # -- Sets the persistence type
-  # #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-  #   type: hostPath
-  #   hostPath: "/home/jeank/dump"
+  #   # -- Sets the persistence type
+  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
+    type: hostPath
+    hostPath: "/home/jeank/dump"
     
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
