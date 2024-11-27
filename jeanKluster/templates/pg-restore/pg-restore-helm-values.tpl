@@ -128,7 +128,7 @@ controllers:
         dependsOn: []
         image:
           repository: registry.k8s.io/git-sync/git-sync
-          tag: v4.0.0
+          tag: v4.2.3
           # -- image pull policy
           pullPolicy: IfNotPresent
         args: 
@@ -136,7 +136,7 @@ controllers:
           - --depth=1
           - --period=300s
           - --link=current
-          - --root=/home
+          - --root=/git
         env:
           GITSYNC_SSH_KEY_FILE:
             valueFrom:
