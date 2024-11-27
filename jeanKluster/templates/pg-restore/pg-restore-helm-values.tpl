@@ -95,7 +95,7 @@ controllers:
     type: job
     containers:
       main:
-        # dependsOn: ["gitsync"]
+        dependsOn: ["gitsync"]
         image:
           # -- image repository
           repository: postgres
@@ -108,10 +108,10 @@ controllers:
         - /bin/sh
         - -c
         - |
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /home/jeank/dump/dump_prowlarr
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_sonarr
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /home/jeank/dump/dump_radarr
-          pgsql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /home/jeank/dump/dump_authentik
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /git/dump-k3s/dump_prowlarr
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /git/dump-k3s/dump_sonarr
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /git/dump-k3s/dump_radarr
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /git/dump-k3s/dump_authentik
         env:
           SUPERUSER:
             valueFrom:
@@ -125,24 +125,24 @@ controllers:
                 key: password
 
 
-      # gitsync:
-      #   dependsOn: []
-      #   image:
-      #     repository: registry.k8s.io/git-sync/git-sync
-      #     tag: v4.2.3
-      #     # -- image pull policy
-      #     pullPolicy: IfNotPresent
-      #   args: 
-      #     - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
-      #     - --depth=1
-      #     - --period=300s
-      #     - --link=dump-k3s
-      #     - --root=/git
-      #     - --ssh-known-hosts=false
-      #     - --ssh-key-file=/config/key
-      #   env:
-      #   securityContext:
-      #     runAsUser: 65533
+      gitsync:
+        dependsOn: []
+        image:
+          repository: registry.k8s.io/git-sync/git-sync
+          tag: v4.2.3
+          # -- image pull policy
+          pullPolicy: IfNotPresent
+        args: 
+          - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
+          - --depth=1
+          - --period=300s
+          - --link=dump-k3s
+          - --root=/git
+          - --ssh-known-hosts=false
+          - --ssh-key-file=/config/key
+        env:
+        securityContext:
+          runAsUser: 65533
 
 # @default -- See below
 secrets:
