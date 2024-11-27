@@ -136,7 +136,7 @@ controllers:
           - --depth=1
           - --period=300s
           - --link=current
-          - --root=/config
+          - --root=/home
         env:
           GITSYNC_SSH_KEY_FILE:
             valueFrom:
