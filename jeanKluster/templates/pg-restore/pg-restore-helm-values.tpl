@@ -125,24 +125,24 @@ controllers:
                 key: password
 
 
-      gitsync:
-        dependsOn: []
-        image:
-          repository: registry.k8s.io/git-sync/git-sync
-          tag: v4.2.3
-          # -- image pull policy
-          pullPolicy: IfNotPresent
-        args: 
-          - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
-          - --depth=1
-          - --period=300s
-          - --link=dump-k3s
-          - --root=/git
-          - --ssh-known-hosts=false
-          - --ssh-key-file=/config/key
-        env:
-        securityContext:
-          runAsUser: 65533
+      # gitsync:
+      #   dependsOn: []
+      #   image:
+      #     repository: registry.k8s.io/git-sync/git-sync
+      #     tag: v4.2.3
+      #     # -- image pull policy
+      #     pullPolicy: IfNotPresent
+      #   args: 
+      #     - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
+      #     - --depth=1
+      #     - --period=300s
+      #     - --link=dump-k3s
+      #     - --root=/git
+      #     - --ssh-known-hosts=false
+      #     - --ssh-key-file=/config/key
+      #   env:
+      #   securityContext:
+      #     runAsUser: 65533
 
 # @default -- See below
 secrets:
