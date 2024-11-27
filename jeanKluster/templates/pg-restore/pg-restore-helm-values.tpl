@@ -139,7 +139,7 @@ controllers:
           - --link=dump-k3s
           - --root=/git
           - --ssh-known-hosts=false
-          - --ssh-key-file=/dump/ssh-secret
+          - --ssh-key-file=/dump/key
         env:
         securityContext:
           runAsUser: 65533
