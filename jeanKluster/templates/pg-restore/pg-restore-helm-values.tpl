@@ -139,17 +139,8 @@ controllers:
           - --link=dump-k3s
           - --root=/git
           - --ssh-known-hosts=false
+          - --ssh-key-file=/dump/ssh-secret
         env:
-          GITSYNC_SSH_KEY_FILE:
-            valueFrom:
-              secretKeyRef:
-                name: ssh-secret
-                key: key
-          GITSYNC_SSH_KEY_FILE:
-            valueFrom:
-              secretKeyRef:
-                name: ssh-secret
-                key: key
         securityContext:
           runAsUser: 65533
 
@@ -244,15 +235,15 @@ ingress:
 route:
   {}
 persistence:
-  # dump:
-  # #   # -- Enables or disables the persistence item. Defaults to true
-  #   enabled: true
+  dump:
+  #   # -- Enables or disables the persistence item. Defaults to true
+    enabled: true
 
-  # #   # -- Sets the persistence type
-  # #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-  #   type: hostPath
-  #   hostPath: "/home/jeank/dump"
-    
+  #   # -- Sets the persistence type
+  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
+    type: secret
+    name: ssh-secret
+
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
