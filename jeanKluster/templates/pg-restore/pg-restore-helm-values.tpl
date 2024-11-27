@@ -139,7 +139,7 @@ controllers:
           - --link=dump-k3s
           - --root=/git
           - --ssh-known-hosts=false
-          - --ssh-key-file=/dump/key
+          - --ssh-key-file=/config/key
         env:
         securityContext:
           runAsUser: 65533
@@ -235,7 +235,7 @@ ingress:
 route:
   {}
 persistence:
-  dump:
+  config:
   #   # -- Enables or disables the persistence item. Defaults to true
     enabled: true
 
