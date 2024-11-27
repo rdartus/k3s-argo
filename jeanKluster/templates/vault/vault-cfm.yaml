@@ -80,6 +80,9 @@ data:
     path "kv-v2/data/ssh/*" {
       capabilities = ["read"]
     }
+    path "kv-v2/data/ssh" {
+      capabilities = ["read"]
+    }
 
 
   initScript.sh: |
