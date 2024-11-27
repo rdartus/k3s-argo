@@ -73,7 +73,8 @@ defaultPodOptions:
   schedulerName: ""
 
   # -- Configure the Security Context for the Pod
-  securityContext: {}
+  securityContext:
+    runAsUser: 65533
 
   # -- Duration in seconds the pod needs to terminate gracefully
   # -- [[ref](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#lifecycle)]
@@ -135,7 +136,7 @@ controllers:
           - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
           - --depth=1
           - --period=300s
-          - --link=current
+          - --link=dump-k3s
           - --root=/git
           - --ssh-known-hosts=false
         env:
