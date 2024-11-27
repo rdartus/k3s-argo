@@ -95,7 +95,7 @@ controllers:
     type: job
     containers:
       main:
-        dependsOn: ["gitsync"]
+        # dependsOn: ["gitsync"]
         image:
           # -- image repository
           repository: postgres
