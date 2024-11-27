@@ -132,7 +132,7 @@ controllers:
           # -- image pull policy
           pullPolicy: IfNotPresent
         args: 
-          - --repo=git@gitlab.com/k3s-pi1/dump-k3s.git
+          - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
           - --depth=1
           - --period=300s
           - --link=current
