@@ -128,7 +128,7 @@ controllers:
       gitsync:
         dependsOn: []
         image:
-          repository: registry.k8s.io/git-sync/git-sync
+          repository: ghcs.io/rdartus/git-sync
           tag: v4.2.3
           # -- image pull policy
           pullPolicy: IfNotPresent
