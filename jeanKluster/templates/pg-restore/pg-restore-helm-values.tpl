@@ -129,7 +129,7 @@ controllers:
         dependsOn: []
         image:
           repository: ghcs.io/rdartus/git-sync
-          tag: v4.2.3
+          tag: latest
           # -- image pull policy
           pullPolicy: IfNotPresent
         args: 
