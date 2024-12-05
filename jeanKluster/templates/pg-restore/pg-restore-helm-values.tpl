@@ -128,7 +128,7 @@ controllers:
       gitsync:
         dependsOn: []
         image:
-          repository: ghcs.io/rdartus/git-sync
+          repository: ghcr.io/rdartus/git-sync
           tag: latest
           # -- image pull policy
           pullPolicy: IfNotPresent
