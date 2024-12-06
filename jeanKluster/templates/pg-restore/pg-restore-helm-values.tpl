@@ -141,7 +141,7 @@ controllers:
           - --root=/git
           - --ssh-known-hosts=false
           - --ssh-key-file=/config/key
-          - --verbose=5
+          - --verbose=9
         env:
         securityContext:
           runAsUser: 65533
