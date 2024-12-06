@@ -137,6 +137,7 @@ controllers:
           - --depth=1
           - --period=300s
           - --link=dump-k3s
+          - --ref=main
           - --root=/git
           - --ssh-known-hosts=false
           - --ssh-key-file=/config/key
