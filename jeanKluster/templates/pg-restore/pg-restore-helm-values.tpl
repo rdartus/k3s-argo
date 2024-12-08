@@ -141,6 +141,7 @@ controllers:
           - --root=/git
           - --ssh-known-hosts=false
           - --ssh-key-file=/config/key
+          - --git-LFS=true
           - --verbose=9
         env:
         securityContext:
