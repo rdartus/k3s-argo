@@ -128,7 +128,7 @@ controllers:
       gitsync:
         dependsOn: []
         image:
-          repository: docker pull ghcr.io/rdartus/git-sync@sha256
+          repository: ghcr.io/rdartus/git-sync@sha256
           tag: 175305a75380c393db1d5556850d4b2f9b8aa249f70c63491378b44e03b204c6
           # -- image pull policy
           pullPolicy: IfNotPresent
