@@ -129,7 +129,7 @@ controllers:
         dependsOn: []
         image:
           repository: ghcr.io/rdartus/git-sync@sha256
-          tag: afe8f7f2f45c6b2a8c1453e5266f92513899d63b0224b5b22ea2fa8b9bb751c7
+          tag: de4d0d7b40ed1ea71c3e9551cf24d0bf944006ec396e3ad973f6c142b115a27f
           # -- image pull policy
           pullPolicy: IfNotPresent
         args: 
