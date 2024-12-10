@@ -128,8 +128,8 @@ controllers:
       gitsync:
         dependsOn: []
         image:
-          repository: ghcr.io/rdartus/git-sync@sha256
-          tag: 1b8afc32a29f1622832e48cdb6418748d8f55d31234d3120681ee0d93b2434e5
+          repository: ghcr.io/rdartus/git-sync
+          tag: latest
           # -- image pull policy
           pullPolicy: IfNotPresent
         args: 
