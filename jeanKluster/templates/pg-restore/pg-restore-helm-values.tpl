@@ -109,10 +109,10 @@ controllers:
         - -c
         - |
           printenv
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /git/dump-k3s/dump_prowlarr
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /git/dump-k3s/dump_sonarr
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /git/dump-k3s/dump_radarr
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /git/dump-k3s/dump_authentik
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /data/dump-k3s/dump_prowlarr
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /data/dump-k3s/dump_sonarr
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /data/dump-k3s/dump_radarr
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_authentik
         env:
           SUPERUSER:
             valueFrom:
@@ -139,7 +139,7 @@ controllers:
           - --period=300s
           - --link=dump-k3s
           - --ref=main
-          - --root=/git
+          - --root=/data
           - --ssh-known-hosts=false
           - --ssh-key-file=/config/key
           - --git-LFS=true
@@ -247,7 +247,11 @@ persistence:
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
     type: secret
     name: ssh-secret
+  data :
+    enabled: true
+    type: emptyDir
 
+  
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
