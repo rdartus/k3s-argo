@@ -108,6 +108,7 @@ controllers:
         - /bin/sh
         - -c
         - |
+          printenv
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /git/dump-k3s/dump_prowlarr
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /git/dump-k3s/dump_sonarr
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /git/dump-k3s/dump_radarr
