@@ -119,7 +119,7 @@ controllers:
               secretKeyRef:
                 name: superuser-secret
                 key: username
-          PASSWORD_:
+          PASSWORD:
             valueFrom:
               secretKeyRef:
                 name: superuser-secret
