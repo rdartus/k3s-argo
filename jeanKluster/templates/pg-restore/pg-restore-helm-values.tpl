@@ -125,27 +125,6 @@ controllers:
               secretKeyRef:
                 name: superuser-secret
                 key: password
-        probes:
-          liveness:
-            enabled: true
-            ## Set this to true if you wish to specify your own livenessProbe
-            custom: true
-            ## The spec field contains the values for the default livenessProbe.
-            ## If you selected custom: true, this field holds the definition of the livenessProbe.
-            spec:
-              exec:
-                command:
-                - /usr/bin/env
-                - bash
-                - -c
-                - file /data/dump-k3s/dump_prowlarr
-              failureThreshold: 5
-              initialDelaySeconds: 60
-              periodSeconds: 10
-              successThreshold: 1
-              timeoutSeconds: 10
-
-
 
       gitsync:
         dependsOn: []
