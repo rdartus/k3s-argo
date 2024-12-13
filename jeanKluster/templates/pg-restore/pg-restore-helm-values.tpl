@@ -146,7 +146,7 @@ controllers:
           - --git-LFS=true
           - --verbose=9
           -  --exechook-timeout=190s
-          - --sync-timeout= 190s
+          - --sync-timeout=190s
         env:
         securityContext:
           runAsUser: 65533
