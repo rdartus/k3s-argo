@@ -145,7 +145,7 @@ controllers:
           - --ssh-key-file=/config/key
           - --git-LFS=true
           - --verbose=9
-          -  --exechook-timeout=90s
+          -  --exechook-timeout=190s
         env:
         securityContext:
           runAsUser: 65533
