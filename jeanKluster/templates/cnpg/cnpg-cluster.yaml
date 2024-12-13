@@ -48,17 +48,20 @@ spec:
         secretRefs:
         - name: pgsql-secret
           key: init-user-auth
-        - name: pgsql-secret-dumpauthentik
+        - name: pgsql-secret
+          key: init-authentik
         - name: pgsql-secret
           key: init-radarr-log 
-        - name: pgsql-secret-dumpradarr
+        - name: pgsql-secret
+          key: init-radarr-main
         - name: pgsql-secret
           key: init-sonarr-log 
-        - name: pgsql-secret-dumpsonarr
+        - name: pgsql-secret
           key: init-sonarr-main
         - name: pgsql-secret
           key: init-prowlarr-log 
-        - name: pgsql-secret-dumpprowlarr
+        - name: pgsql-secret
+          key: init-prowlarr-main
       # postInitSQL:
       #   - CREATE DATABASE "sonarr-log"
       #   - ALTER DATABASE "sonarr-log" OWNER TO "{{ .Values.db.arr_user }}"
