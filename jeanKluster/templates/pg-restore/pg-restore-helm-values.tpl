@@ -109,7 +109,8 @@ controllers:
         - -c
         - |
           printenv
-          sleep 5m
+          echo "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /data/dump-k3s/dump_prowlarr"
+          sleep 7m
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /data/dump-k3s/dump_prowlarr
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /data/dump-k3s/dump_sonarr
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /data/dump-k3s/dump_radarr
