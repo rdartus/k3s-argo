@@ -137,7 +137,7 @@ controllers:
         args: 
           - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
           - --depth=1
-          - --period=300s
+          - --period=1500s
           - --link=dump-k3s
           - --ref=main
           - --root=/data
@@ -145,8 +145,8 @@ controllers:
           - --ssh-key-file=/config/key
           - --git-LFS=true
           - --verbose=9
-          -  --exechook-timeout=190s
-          - --sync-timeout=190s
+          -  --exechook-timeout=300s
+          - --sync-timeout=300s
         env:
         securityContext:
           runAsUser: 65533
