@@ -1,0 +1,32 @@
+{{- if .Values.job }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tadoor
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io/background
+  annotations:
+    argocd.argoproj.io/sync-wave: "100"
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  destination:
+    namespace: default
+    server: {{ .Values.dest_server }}
+  project: default
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    path: localApps/tadoor
+    repoURL: https://github.com/rdartus/k3s-argo.git
+    targetRevision: main
+    helm : 
+      values: |
+{{ include "helmValues.tadoor" . | indent 8 }}
+{{- end}}
