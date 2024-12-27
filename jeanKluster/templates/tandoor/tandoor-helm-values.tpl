@@ -1,4 +1,4 @@
-{{- define "helmValues.tadoor" }}
+{{- define "helmValues.tandoor" }}
 
 # yaml-language-server: $schema: https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---

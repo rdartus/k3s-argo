@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: tadoor
+  name: tandoor
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
@@ -23,10 +23,10 @@ spec:
     syncOptions:
       - CreateNamespace=true
   source:
-    path: localApps/tadoor
+    path: localApps/tandoor
     repoURL: https://github.com/rdartus/k3s-argo.git
     targetRevision: main
     helm : 
       values: |
-{{ include "helmValues.tadoor" . | indent 8 }}
+{{ include "helmValues.tandoor" . | indent 8 }}
 {{- end}}
