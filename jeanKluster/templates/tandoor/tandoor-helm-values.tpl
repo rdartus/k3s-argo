@@ -118,6 +118,7 @@ controllers:
 
         env:
           # DB_ENGINE: django.db.backends.postgresql
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
           POSTGRES_HOST: {{ $dbServiceName }}
           POSTGRES_DB: tandoor
           POSTGRES_PORT: 5432
