@@ -19,6 +19,9 @@ arr:
   user : jeank
   userPass : pdpdpd
 
+#for dump
 job: false
-init: true
+
+#for pg restore
+init: false
 longhorn : false
