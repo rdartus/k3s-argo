@@ -1,4 +1,3 @@
-{{- if .Values.job }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -7,9 +6,7 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
   annotations:
-    argocd.argoproj.io/sync-wave: "100"
-    argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "29"
 spec:
   destination:
     namespace: default
@@ -29,4 +26,3 @@ spec:
     helm : 
       values: |
 {{ include "helmValues.tandoor" . | indent 8 }}
-{{- end}}
