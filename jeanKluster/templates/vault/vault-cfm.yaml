@@ -83,6 +83,10 @@ data:
     path "kv-v2/data/ssh" {
       capabilities = ["read"]
     }
+  tandoor-policy.json: |
+    path "kv-v2/data/wx/*" {
+      capabilities = ["read"]
+    }
 
 
   initScript.sh: |
@@ -149,6 +153,7 @@ data:
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
         vault kv put kv-v2/wx/config username="@/config/cred/wx-user.txt" password="@/config/cred/wx-password.txt"
         vault kv put kv-v2/wx/list list.json="@/config/cred/wx-list.json"
+        vault kv put kv-v2/tandoor/key key="@/config/cred/tandoorKey.txt"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
@@ -163,6 +168,7 @@ data:
         vault policy write plcdefault /config/scripts/default-policy.json     
         vault policy write plcauthentik /config/scripts/authentik-policy.json     
         vault policy write plcwx /config/scripts/wx-policy.json        
+        vault policy write plctandoor /config/scripts/tandoor-policy.json        
 
         vault write auth/kubernetes/role/rlcnpg \
         bound_service_account_names=cnpg-cluster \
@@ -238,6 +244,13 @@ data:
         bound_service_account_names=default \
         bound_service_account_namespaces=default \
         policies=plcwx \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rltandoor \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plctandoor \
         audience=vault\
         ttl=24h
 

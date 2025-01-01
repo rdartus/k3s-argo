@@ -124,6 +124,11 @@ controllers:
           POSTGRES_PORT: 5432
           POSTGRES_USER: djangouser
           POSTGRES_PASSWORD: test
+          SECRET_KEY:
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-secret
+                key: key
     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
 #     # -- Set labels on the deployment/statefulset/daemonset/cronjob/job
