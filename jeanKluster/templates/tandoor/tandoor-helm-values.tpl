@@ -122,8 +122,16 @@ controllers:
           POSTGRES_HOST: {{ $dbServiceName }}
           POSTGRES_DB: tandoor
           POSTGRES_PORT: 5432
-          POSTGRES_USER: djangouser
-          POSTGRES_PASSWORD: test
+          POSTGRES_USER: 
+            valueFrom:
+              secretKeyRef:
+                name: tand-db-secret
+                key: username
+          POSTGRES_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: tand-db-secret
+                key: password
           SECRET_KEY:
             valueFrom:
               secretKeyRef:
