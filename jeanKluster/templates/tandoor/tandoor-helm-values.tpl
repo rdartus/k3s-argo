@@ -1,5 +1,7 @@
 {{- define "helmValues.tandoor" }}
 
+{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
+
 # yaml-language-server: $schema: https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
 global:
@@ -118,7 +120,6 @@ controllers:
 
         env:
           # DB_ENGINE: django.db.backends.postgresql
-{{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
           POSTGRES_HOST: {{ $dbServiceName }}
           POSTGRES_DB: tandoor
           POSTGRES_PORT: 5432
