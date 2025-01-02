@@ -119,7 +119,7 @@ controllers:
           pullPolicy: IfNotPresent
 
         env:
-          # DB_ENGINE: django.db.backends.postgresql
+          DB_ENGINE: django.db.backends.postgresql
           POSTGRES_HOST: {{ $dbServiceName }}
           POSTGRES_DB: tandoor
           POSTGRES_PORT: 5432
