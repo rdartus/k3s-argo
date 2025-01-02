@@ -84,7 +84,7 @@ data:
       capabilities = ["read"]
     }
   tandoor-policy.json: |
-    path "kv-v2/data/tandoor/*" {
+    path "kv-v2/data/tandoor" {
       capabilities = ["read"]
     }
     path "kv-v2/data/postgresql/tand" {
@@ -157,7 +157,7 @@ data:
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
         vault kv put kv-v2/wx/config username="@/config/cred/wx-user.txt" password="@/config/cred/wx-password.txt"
         vault kv put kv-v2/wx/list list.json="@/config/cred/wx-list.json"
-        vault kv put kv-v2/tandoor/key key="@/config/cred/tandoorKey.txt"
+        vault kv put kv-v2/tandoor key="@/config/cred/tandoorKey.txt"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
