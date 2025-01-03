@@ -261,6 +261,7 @@ controllers:
           pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /home/jeank/dump/dump_sonarr
           pg_dump  postgres://$USER_ARR:$PASSWORD_ARR@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /home/jeank/dump/dump_radarr
           pg_dump  postgres://$USER_AUTH:$PASSWORD_AUTH@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /home/jeank/dump/dump_authentik
+          pg_dump  postgres://$USER_TAND:$PASSWORD_TAND@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/tandoor -f /home/jeank/dump/dump_tandoor
 #         # -- Override the args for the container
 #         args: []
 #         # -- Override the working directory for the container
@@ -310,6 +311,16 @@ controllers:
             valueFrom:
               secretKeyRef:
                 name: authpsql-secret
+                key: password
+          USER_TAND:
+            valueFrom:
+              secretKeyRef:
+                name: tandpsql-secret
+                key: username
+          PASSWORD_TAND:
+            valueFrom:
+              secretKeyRef:
+                name: tandpsql-secret
                 key: password
 
 #         # -- Secrets and/or ConfigMaps that will be loaded as environment variables.

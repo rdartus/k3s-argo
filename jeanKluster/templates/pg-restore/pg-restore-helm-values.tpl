@@ -115,6 +115,7 @@ controllers:
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /data/dump-k3s/dump_sonarr
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /data/dump-k3s/dump_radarr
           psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_authentik
+          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_tandoor
         env:
           SUPERUSER:
             valueFrom:
