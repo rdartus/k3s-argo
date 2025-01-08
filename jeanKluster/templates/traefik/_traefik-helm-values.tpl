@@ -51,7 +51,7 @@ deployment:
   # -- Additional deployment labels (e.g. for filtering deployment by custom labels)
   labels: {}
   # -- Additional pod annotations (e.g. for mesh injection or prometheus scraping)
-  # It supports templating. One can set it with values like traefik/name: {{`'{{ template "traefik.name" . }}'`}}
+  # It supports templating. One can set it with values like traefik/name: { template "traefik.name" . }
   podAnnotations: {}
   # -- Additional Pod labels (e.g. for filtering Pod by custom labels)
   podLabels: {}
@@ -283,7 +283,35 @@ providers:
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
     content: 
       http:
+        routers:
+          traefic-api:
+            rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/api`))"
+            service: "api@internal"
+            middlewares:
+            - authentik@file
+          traefic-dash:
+            rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/dashboard`))"
+            service: "api@internal"
+            middlewares:
+            - authentik@file
         middlewares:
+          authentik:
+              forwardAuth:
+                  address: http://outpost.company:9000/outpost.goauthentik.io/auth/traefik
+                  trustForwardHeader: true
+                  authResponseHeaders:
+                      - X-authentik-username
+                      - X-authentik-groups
+                      - X-authentik-entitlements
+                      - X-authentik-email
+                      - X-authentik-name
+                      - X-authentik-uid
+                      - X-authentik-jwt
+                      - X-authentik-meta-jwks
+                      - X-authentik-meta-outpost
+                      - X-authentik-meta-provider
+                      - X-authentik-meta-app
+                      - X-authentik-meta-version
           crowdsec:
             plugin:
               bouncer:
@@ -979,7 +1007,7 @@ affinity: {}
 #    requiredDuringSchedulingIgnoredDuringExecution:
 #      - labelSelector:
 #          matchLabels:
-#            app.kubernetes.io/name: {{/*`'{{ template "traefik.name" . }}'`*/}}
+#            app.kubernetes.io/name: {template "traefik.name" . }
 #            app.kubernetes.io/instance: {{`'{{ .Release.Name }}-{{ .Release.Namespace }}'`}}
 #        topologyKey: kubernetes.io/hostname
 
@@ -994,7 +1022,7 @@ topologySpreadConstraints: []
 # on nodes where no other traefik pods are scheduled.
 #  - labelSelector:
 #      matchLabels:
-#        app: {{`'{{ template "traefik.name" . }}'`}}
+#        app: { template "traefik.name" . }
 #    maxSkew: 1
 #    topologyKey: kubernetes.io/hostname
 #    whenUnsatisfiable: DoNotSchedule
