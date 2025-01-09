@@ -51,7 +51,7 @@ deployment:
   # -- Additional deployment labels (e.g. for filtering deployment by custom labels)
   labels: {}
   # -- Additional pod annotations (e.g. for mesh injection or prometheus scraping)
-  # It supports templating. One can set it with values like traefik/name: {{`'{{ template "traefik.name" . }}'`}}
+  # It supports templating. One can set it with values like traefik/name: { template "traefik.name" . }
   podAnnotations: {}
   # -- Additional Pod labels (e.g. for filtering Pod by custom labels)
   podLabels: {}
@@ -979,7 +979,7 @@ affinity: {}
 #    requiredDuringSchedulingIgnoredDuringExecution:
 #      - labelSelector:
 #          matchLabels:
-#            app.kubernetes.io/name: {{/*`'{{ template "traefik.name" . }}'`*/}}
+#            app.kubernetes.io/name: {template "traefik.name" . }
 #            app.kubernetes.io/instance: {{`'{{ .Release.Name }}-{{ .Release.Namespace }}'`}}
 #        topologyKey: kubernetes.io/hostname
 
@@ -994,7 +994,7 @@ topologySpreadConstraints: []
 # on nodes where no other traefik pods are scheduled.
 #  - labelSelector:
 #      matchLabels:
-#        app: {{`'{{ template "traefik.name" . }}'`}}
+#        app: { template "traefik.name" . }
 #    maxSkew: 1
 #    topologyKey: kubernetes.io/hostname
 #    whenUnsatisfiable: DoNotSchedule
