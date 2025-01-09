@@ -1003,3 +1003,4 @@ hub:
       insecureSkipVerify: false
   # Enable export of errors logs to the platform. Default: true.
   sendlogs:  # @schema type:[boolean, null]
+  {{- end }}
