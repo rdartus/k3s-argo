@@ -16,9 +16,6 @@ image:  # @schema additionalProperties: false
 # -- Add additional label to all resources
 commonLabels: {}
 
-#
-# Configure the deployment
-#
 deployment:
   # -- Enable deployment
   enabled: true
@@ -126,14 +123,6 @@ core:  # @schema additionalProperties: false
 experimental:
   # -- Defines whether all plugins must be loaded successfully for Traefik to start
   abortOnPluginFailure: false
-  fastProxy:
-    # -- Enables the FastProxy implementation.
-    enabled: false
-    # -- Enable debug mode for the FastProxy implementation.
-    debug: false
-  kubernetesGateway:
-    # -- Enable traefik experimental GatewayClass CRD
-    enabled: true
   # -- Enable traefik experimental plugins
   plugins: 
     bouncer:
@@ -142,6 +131,9 @@ experimental:
   # demo:
   #   moduleName: github.com/traefik/plugindemo
   #   version: v0.2.1
+  kubernetesGateway:
+    # -- Enable traefik experimental GatewayClass CRD
+    enabled: false
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
@@ -276,8 +268,9 @@ providers:  # @schema additionalProperties: false
     # -- Allows to reference ExternalName services in IngressRoute
     allowExternalNameServices: false
     # -- Allows to return 503 when there is no endpoints available
-    allowEmptyServices: false
-    # ingressClass: traefik-internal
+    allowEmptyServices: true
+    # -- When the parameter is set, only resources containing an annotation with the same value are processed. Otherwise, resources missing the annotation, having an empty value, or the value traefik are processed. It will also set required annotation on Dashboard and Healthcheck IngressRoute when enabled.
+    ingressClass: ""
     # labelSelector: environment=production,method=traefik
     # -- Array of namespaces to watch. If left empty, Traefik watches all namespaces.
     namespaces: []
@@ -581,8 +574,8 @@ tracing:  # @schema additionalProperties: false
   addInternals: false
   # -- Service name used in selected backend. Default: traefik.
   serviceName:  # @schema type:[string, null]
-  # -- Defines additional resource attributes to be sent to the collector.
-  resourceAttributes: {}
+  # -- Applies a list of shared key:value attributes on all spans.
+  globalAttributes: {}
   # -- Defines the list of request headers to add as attributes. It applies to client and server kind spans.
   capturedRequestHeaders: []
   # -- Defines the list of response headers to add as attributes. It applies to client and server kind spans.
