@@ -327,7 +327,7 @@ providers:  # @schema additionalProperties: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
-    content: 
+    content: |
       http:
         middlewares:
           crowdsec:
@@ -342,10 +342,11 @@ providers:  # @schema additionalProperties: false
                 clientTrustedIPs:
                   - 192.168.1.0/24
                   - 10.13.13.0/16
+          
           # auth:
           #   basicAuth:
           #   usersFile: "/etc/traefik/users"
-
+          
         # routers:
         #   traefic-api:
         #     rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/api`))"
