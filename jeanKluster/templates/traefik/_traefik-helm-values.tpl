@@ -380,7 +380,7 @@ volumes: []
 # - name: public-cert
 #   mountPath: "/certs"
 #   type: secret
-# - name: '{{ printf "%s-configs" .Release.Name }}'
+# - name: '{ printf "%s-configs" .Release.Name }'
 #   mountPath: "/config"
 #   type: configMap
 
@@ -914,7 +914,7 @@ affinity: {}
 #      - labelSelector:
 #          matchLabels:
 #            app.kubernetes.io/name: {template "traefik.name" . }
-#            app.kubernetes.io/instance: {{`'{{ .Release.Name }}-{{ .Release.Namespace }}'`}}
+#            app.kubernetes.io/instance: {`'{ .Release.Name }}-{ .Release.Namespace }'`}
 #        topologyKey: kubernetes.io/hostname
 
 # -- nodeSelector is the simplest recommended form of node selection constraint.
