@@ -668,7 +668,7 @@ ports:
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
-    port: 9000
+    port: 8000
     # hostPort: 8000
     # containerPort: 8000
     expose:
