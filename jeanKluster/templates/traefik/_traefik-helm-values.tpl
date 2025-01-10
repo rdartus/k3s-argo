@@ -133,7 +133,7 @@ experimental:
   #   version: v0.2.1
   kubernetesGateway:
     # -- Enable traefik experimental GatewayClass CRD
-    enabled: false
+    enabled: true
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
@@ -151,9 +151,9 @@ gateway:
     web:
       # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
       # The port must match a port declared in ports section.
-      port: 8000
+      port: 9000
       # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
-      hostname: ""
+      hostname: "*.dartus.fr"
       # Specify expected protocol on this listener. See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
       protocol: HTTP
       # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces
@@ -262,7 +262,7 @@ startupProbe: {}
 providers:  # @schema additionalProperties: false
   kubernetesCRD:
     # -- Load Kubernetes IngressRoute provider
-    enabled: true
+    enabled: false
     # -- Allows IngressRoute to reference resources in namespace other than theirs
     allowCrossNamespace: false
     # -- Allows to reference ExternalName services in IngressRoute
@@ -301,7 +301,7 @@ providers:  # @schema additionalProperties: false
 
   kubernetesGateway:
     # -- Enable Traefik Gateway provider for Gateway API
-    enabled: false
+    enabled: true
     # -- Toggles support for the Experimental Channel resources (Gateway API release channels documentation).
     # This option currently enables support for TCPRoute and TLSRoute.
     experimentalChannel: false
@@ -318,8 +318,8 @@ providers:  # @schema additionalProperties: false
       hostname: ""
       # -- The Kubernetes service to copy status addresses from. When using third parties tools like External-DNS, this option can be used to copy the service loadbalancer.status (containing the service's endpoints IPs) to the gateways. Default to Service of this Chart.
       service:
-        name: "{ (include \"traefik.fullname\" .) }"
-        namespace: "{ include \"traefik.namespace\" . }"
+        name: "traefik"
+        namespace: "traefik"
 
   file:
     # -- Create a file provider
@@ -346,7 +346,7 @@ providers:  # @schema additionalProperties: false
           # auth:
           #   basicAuth:
           #   usersFile: "/etc/traefik/users"
-          
+
         # routers:
         #   traefic-api:
         #     rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/api`))"
@@ -668,7 +668,7 @@ ports:
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
-    port: 8000
+    port: 9000
     # hostPort: 8000
     # containerPort: 8000
     expose:
