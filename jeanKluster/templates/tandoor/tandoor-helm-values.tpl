@@ -138,6 +138,11 @@ controllers:
               secretKeyRef:
                 name: tandoor-secret
                 key: key
+          SOCIALACCOUNT_PROVIDERS:
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-secret
+                key: tandoorSocialProvider
     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
 #     # -- Set labels on the deployment/statefulset/daemonset/cronjob/job
