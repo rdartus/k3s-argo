@@ -682,7 +682,7 @@ ports:
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
-    port: 8000
+    port: 80
     # hostPort: 8000
     # containerPort: 8000
     expose:
@@ -721,7 +721,7 @@ ports:
   websecure:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
-    port: 8443
+    port: 443
     hostPort:  # @schema type:[integer, null]; minimum:0
     containerPort:  # @schema type:[integer, null]; minimum:0
     expose:
