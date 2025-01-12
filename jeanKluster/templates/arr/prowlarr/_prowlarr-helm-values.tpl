@@ -600,7 +600,7 @@ service:
         # appProtocol:
 
 # -- Configure the ingresses for the chart here.
-# ingress:
+ingress: {}
 #   # -- An example is shown below
 #   main:
 #     # -- Enables or disables the ingress
