@@ -729,7 +729,8 @@ route:
         sectionName:
 
     # -- Host addresses. Helm template can be passed.
-    hostnames: sonarr2.dartus.fr
+    hostnames: 
+      - sonarr2.dartus.fr
 
     # -- Configure rules for routing. Defaults to the primary service.
     rules:
