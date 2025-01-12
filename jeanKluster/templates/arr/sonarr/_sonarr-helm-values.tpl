@@ -735,7 +735,9 @@ route:
     # -- Configure rules for routing. Defaults to the primary service.
     rules:
       - # -- Configure backends where matching requests should be sent.
-        backendRefs: []
+        backendRefs: 
+          - name: sonarr
+            port: 8989
         ## Configure conditions used for matching incoming requests. Only for HTTPRoutes
         matches:
           - path:
