@@ -576,48 +576,48 @@ service:
         protocol: HTTP
 
 # -- Configure the ingresses for the chart here.
-ingress:
-  # -- An example is shown below
-  main:
-    # -- Enables or disables the ingress
-    enabled: true
+# ingress:
+#   # -- An example is shown below
+#   main:
+#     # -- Enables or disables the ingress
+#     enabled: true
 
-    # # -- Override the name suffix that is used for this ingress.
-    # nameOverride:
+#     # # -- Override the name suffix that is used for this ingress.
+#     # nameOverride:
 
-    # # -- Provide additional annotations which may be required. Helm templates can be used.
-    # annotations: {}
-    annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/group: "Media"
-      hajimari.io/icon: "chef-hat"
-    # # -- Provide additional labels which may be required. Helm templates can be used.
-    # labels: {}
+#     # # -- Provide additional annotations which may be required. Helm templates can be used.
+#     # annotations: {}
+#     annotations:
+#       hajimari.io/enable: "true"
+#       hajimari.io/group: "Media"
+#       hajimari.io/icon: "chef-hat"
+#     # # -- Provide additional labels which may be required. Helm templates can be used.
+#     # labels: {}
 
-    # # -- Set the ingressClass that is used for this ingress.
-    # className:
+#     # # -- Set the ingressClass that is used for this ingress.
+#     # className:
 
-    # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-    # defaultBackend:
+#     # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
+#     # defaultBackend:
 
-    ## Configure the hosts for the ingress
-    hosts:
-      - # -- Host address. Helm template can be passed.
-        host: tandoor.dartus.fr
-        ## Configure the paths for the host
-        paths:
-          - # -- Path.  Helm template can be passed.
-            path: /
-            pathType: Prefix
-            service:
-              # -- Overrides the service name reference for this path
-              # The service name to reference.
-              identifier: main
-              port: http
-              # # -- Reference a service identifier from this values.yaml
-              # identifier: main
-              # -- Overrides the service port number reference for this path
-              # port: 8989
+#     ## Configure the hosts for the ingress
+#     hosts:
+#       - # -- Host address. Helm template can be passed.
+#         host: tandoor.dartus.fr
+#         ## Configure the paths for the host
+#         paths:
+#           - # -- Path.  Helm template can be passed.
+#             path: /
+#             pathType: Prefix
+#             service:
+#               # -- Overrides the service name reference for this path
+#               # The service name to reference.
+#               identifier: main
+#               port: http
+#               # # -- Reference a service identifier from this values.yaml
+#               # identifier: main
+#               # -- Overrides the service port number reference for this path
+#               # port: 8989
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.
@@ -663,53 +663,58 @@ serviceMonitor:
 # [[ref]](https://gateway-api.sigs.k8s.io/references/spec/)
 # @default -- See below
 route:
-  {}
-  # main:
-  #   # -- Enables or disables the route
-  #   enabled: false
+  main:
+    # -- Enables or disables the route
+    enabled: true
 
-  #   # -- Set the route kind
-  #   # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
-  #   kind: HTTPRoute
+    # -- Set the route kind
+    # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
+    kind: HTTPRoute
 
-  #   # -- Override the name suffix that is used for this route.
-  #   nameOverride: ""
+    # -- Override the name suffix that is used for this route.
+    nameOverride: ""
 
-  #   # -- Provide additional annotations which may be required.
-  #   annotations: {}
+    # -- Provide additional annotations which may be required.
+    annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/group: "Media"
+      hajimari.io/icon: "chef-hat"
 
-  #   # -- Provide additional labels which may be required.
-  #   labels: {}
+    # -- Provide additional labels which may be required.
+    labels: {}
 
-  #   # -- Configure the resource the route attaches to.
-  #   parentRefs:
-  #     - # Group of the referent resource.
-  #       group: gateway.networking.k8s.io
-  #       # Kind of the referent resource.
-  #       kind: Gateway
-  #       # Name of the referent resource
-  #       name:
-  #       # Namespace of the referent resource
-  #       namespace:
-  #       # Name of the section within the target resource.
-  #       sectionName:
+    # -- Configure the resource the route attaches to.
+    parentRefs:
+      - # Group of the referent resource.
+        group: gateway.networking.k8s.io
+        # Kind of the referent resource.
+        kind: Gateway
+        # Name of the referent resource
+        name: traefik-gateway
+        # Namespace of the referent resource
+        namespace: traefik
+        # Name of the section within the target resource.
+        sectionName:
 
-  #   # -- Host addresses. Helm template can be passed.
-  #   hostnames: []
+    # -- Host addresses. Helm template can be passed.
+    hostnames: 
+      - tandoor.dartus.fr
 
-  #   # -- Configure rules for routing. Defaults to the primary service.
-  #   rules:
-  #     - # -- Configure backends where matching requests should be sent.
-  #       backendRefs: []
-  #       ## Configure conditions used for matching incoming requests. Only for HTTPRoutes
-  #       matches:
-  #         - path:
-  #             type: PathPrefix
-  #             value: /
-  #       ## Request filters that are applied to the rules.
-  #       filters: []
-  #       ## Request timeout that are applied to the rules.
-  #       timeouts: {}
+    # -- Configure rules for routing. Defaults to the primary service.
+    rules:
+      - # -- Configure backends where matching requests should be sent.
+        backendRefs: 
+          - name: tandoor
+            port: 8080
+        ## Configure conditions used for matching incoming requests. Only for HTTPRoutes
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+        ## Request filters that are applied to the rules.
+        filters: []
+        ## Request timeout that are applied to the rules.
+        timeouts: {}
 
 # -- Configure persistence for the chart here.
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
