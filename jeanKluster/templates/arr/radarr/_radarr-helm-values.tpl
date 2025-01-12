@@ -697,7 +697,7 @@ serviceMonitor:
 route:
   main:
     # -- Enables or disables the route
-    enabled: false
+    enabled: true
 
     # -- Set the route kind
     # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
