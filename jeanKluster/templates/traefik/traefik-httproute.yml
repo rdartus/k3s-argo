@@ -14,7 +14,7 @@ spec:
     - matches:
         - path:
             type: PathPrefix
-            value: /dashboard
+            value: /
           headers:
             - type: Exact
               name: Host
