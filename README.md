@@ -26,6 +26,8 @@ sudo chown jeank:1000 cred
 kubectl exec -it vault-0 -- /bin/sh vault auth enable kubernetes
 kubectl exec -it vault-0 -- /bin/sh vault operator init -key-shares=3 -key-threshold=2
 kubectl exec -it vault-0 -- /bin/sh vault operator
+kubectl exec -it $(kubectl get pod -l app.kubernetes.io/name=traefik -n traefik -o jsonpath='{.items[0].metadata.name}') -n traefik -- /bin/sh
+
 ```
 
 Get logs
