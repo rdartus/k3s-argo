@@ -262,9 +262,9 @@ startupProbe: {}
 providers:  # @schema additionalProperties: false
   kubernetesCRD:
     # -- Load Kubernetes IngressRoute provider
-    enabled: false
+    enabled: true
     # -- Allows IngressRoute to reference resources in namespace other than theirs
-    allowCrossNamespace: false
+    allowCrossNamespace: true
     # -- Allows to reference ExternalName services in IngressRoute
     allowExternalNameServices: false
     # -- Allows to return 503 when there is no endpoints available
