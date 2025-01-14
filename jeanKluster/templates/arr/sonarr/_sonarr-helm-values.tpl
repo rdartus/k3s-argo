@@ -744,7 +744,12 @@ route:
               type: PathPrefix
               value: /
         ## Request filters that are applied to the rules.
-        filters: []
+        filters: 
+          - type: ExtensionRef
+            extensionRef:
+              apiGroup: traefik.containo.us
+              kind: Middleware
+              name: authentik-forward-auth@file
         ## Request timeout that are applied to the rules.
         timeouts: {}
 

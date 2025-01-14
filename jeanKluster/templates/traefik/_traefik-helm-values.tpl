@@ -344,7 +344,7 @@ providers:  # @schema additionalProperties: false
                   - 10.13.13.0/16
           authentik-forward-auth:
             forwardAuth:
-              address: http://outpost.company:9000/outpost.goauthentik.io/auth/traefik
+              address: http://authentik.dartus.fr/outpost.goauthentik.io/auth/traefik
               trustForwardHeader: true
               authResponseHeaders:
                     - X-authentik-username
