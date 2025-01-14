@@ -153,7 +153,7 @@ auth:
 ##
 commonConfiguration: |-
   # Enable AOF https://redis.io/topics/persistence#append-only-file
-  appendonly yes
+  appendonly no
   # Disable RDB persistence, AOF persistence already enabled.
   save ""
 ## @param existingConfigmap The name of an existing ConfigMap with your custom configuration for Redis&reg; nodes
