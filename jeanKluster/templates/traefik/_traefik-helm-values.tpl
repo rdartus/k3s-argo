@@ -342,7 +342,42 @@ providers:  # @schema additionalProperties: false
                 clientTrustedIPs:
                   - 192.168.1.0/24
                   - 10.13.13.0/16
-          
+          forward-auth-cloud:
+            forwardAuth:
+              address: "https://authentik.dartus.fr/application/o/cloud/"
+              trustForwardHeader: true
+              authResponseHeaders:
+                    - X-authentik-username
+                    - X-authentik-groups
+                    - X-authentik-entitlements
+                    - X-authentik-email
+                    - X-authentik-name
+                    - X-authentik-uid
+                    - X-authentik-jwt
+                    - X-authentik-meta-jwks
+                    - X-authentik-meta-outpost
+                    - X-authentik-meta-provider
+                    - X-authentik-meta-app
+                    - X-authentik-meta-version
+
+          forward-auth-radarr:
+            forwardAuth:
+              address: "https://authentik.dartus.fr/application/o/radarr/"
+              trustForwardHeader: true
+              authResponseHeaders:
+                    - X-authentik-username
+                    - X-authentik-groups
+                    - X-authentik-entitlements
+                    - X-authentik-email
+                    - X-authentik-name
+                    - X-authentik-uid
+                    - X-authentik-jwt
+                    - X-authentik-meta-jwks
+                    - X-authentik-meta-outpost
+                    - X-authentik-meta-provider
+                    - X-authentik-meta-app
+                    - X-authentik-meta-version
+
           # auth:
           #   basicAuth:
           #   usersFile: "/etc/traefik/users"
