@@ -711,7 +711,7 @@ route:
       hajimari.io/enable: "true"
       hajimari.io/group: "Media"
       hajimari.io/icon: "cog-play-outline"
-      traefik.io/router.middlewares: "traefik-forward-auth-radarr@file"
+      traefik.io/router.middlewares: "traefik-authentik-forward-auth@file"
     # -- Provide additional labels which may be required.
     labels: {}
 
