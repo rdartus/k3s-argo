@@ -8,15 +8,17 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 spec:
-  hostnames:
-    - traefik2.dartus.fr
   parentRefs:
     - name: traefik-gateway
   rules:
     - matches:
         - path:
             type: PathPrefix
-            value: /
+            value: /dashboard
+          headers:
+            - type: Exact
+              name: Host
+              value: traefik2.dartus.fr
       backendRefs:
         - name: api@internal
           kind: TraefikService
