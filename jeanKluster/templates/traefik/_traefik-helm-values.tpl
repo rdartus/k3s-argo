@@ -262,9 +262,9 @@ startupProbe: {}
 providers:  # @schema additionalProperties: false
   kubernetesCRD:
     # -- Load Kubernetes IngressRoute provider
-    enabled: true
+    enabled: false
     # -- Allows IngressRoute to reference resources in namespace other than theirs
-    allowCrossNamespace: true
+    allowCrossNamespace: false
     # -- Allows to reference ExternalName services in IngressRoute
     allowExternalNameServices: false
     # -- Allows to return 503 when there is no endpoints available
@@ -323,7 +323,7 @@ providers:  # @schema additionalProperties: false
 
   file:
     # -- Create a file provider
-    enabled: true
+    enabled: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
@@ -342,7 +342,23 @@ providers:  # @schema additionalProperties: false
                 clientTrustedIPs:
                   - 192.168.1.0/24
                   - 10.13.13.0/16
-
+          authentik-forward-auth:
+            forwardAuth:
+              address: http://authentik.dartus.fr/outpost.goauthentik.io/auth/traefik
+              trustForwardHeader: true
+              authResponseHeaders:
+                    - X-authentik-username
+                    - X-authentik-groups
+                    - X-authentik-entitlements
+                    - X-authentik-email
+                    - X-authentik-name
+                    - X-authentik-uid
+                    - X-authentik-jwt
+                    - X-authentik-meta-jwks
+                    - X-authentik-meta-outpost
+                    - X-authentik-meta-provider
+                    - X-authentik-meta-app
+                    - X-authentik-meta-version
 
           # auth:
           #   basicAuth:
@@ -391,7 +407,7 @@ logs:
     format:  # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
     # By default, the level is set to INFO.
     # -- Alternative logging levels are TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC.
-    level: "INFO"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
+    level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
     # -- To write the logs into a log file, use the filePath option.
     filePath: ""
     # -- When set to true and format is common, it disables the colorized output.
