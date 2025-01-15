@@ -644,11 +644,11 @@ ingress: {}
               # -- Overrides the service port number reference for this path
               # port: 9696
 
-#     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-#     tls: []
-#     #  - secretName: chart-example-tls
-#     #    hosts:
-#     #      - chart-example.local
+    # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.
@@ -694,7 +694,7 @@ serviceMonitor:
 # Additional routes can be added by adding a dictionary key similar to the 'main' route.
 # [[ref]](https://gateway-api.sigs.k8s.io/references/spec/)
 # @default -- See below
-# route:
+route: {}
 #   main:
 #     # -- Enables or disables the route
 #     enabled: true
