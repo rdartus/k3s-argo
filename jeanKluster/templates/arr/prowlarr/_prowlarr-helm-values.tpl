@@ -615,7 +615,7 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Media"
       hajimari.io/icon: "cog-play-outline"
-      traefik.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
+      traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
 
     # # -- Provide additional labels which may be required. Helm templates can be used.
     # labels: {}
