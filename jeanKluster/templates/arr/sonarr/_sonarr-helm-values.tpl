@@ -747,7 +747,7 @@ route:
         filters: 
           - type: ExtensionRef
             extensionRef:
-              apiGroup: traefik.io
+              Group: traefik.io
               kind: Middleware
               name: authentik-forward-auth
         ## Request timeout that are applied to the rules.
