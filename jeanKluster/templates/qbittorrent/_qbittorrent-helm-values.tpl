@@ -195,6 +195,8 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Media"
       hajimari.io/icon: "cart-arrow-down"
+      traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
+
     hosts:
       -  # -- Host address. Helm template can be passed.
         host: tor2.dartus.fr

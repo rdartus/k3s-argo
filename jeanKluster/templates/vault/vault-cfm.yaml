@@ -141,6 +141,7 @@ data:
         echo "Start configuration"
         vault login $ROOT_TOKEN
         vault secrets enable kv-v2
+        vault auth enable oidc
         vault kv put kv-v2/ddns-updater/config CONFIG='@/config/cred/ddns-config.json'
         vault kv put kv-v2/postgresql/config init-authentik="@/config/cred/init-authentik.sql" init-radarr-log="@/config/cred/init-radarr-log.sql" init-radarr-main="@/config/cred/init-radarr-main.sql" init-sonarr-log="@/config/cred/init-sonarr-log.sql" init-sonarr-main="@/config/cred/init-sonarr-main.sql" init-prowlarr-log="@/config/cred/init-prowlarr-log.sql" init-prowlarr-main="@/config/cred/init-prowlarr-main.sql" init-user-auth="@/config/cred/init-user-auth.sql" init-DB="@/config/cred/init-DB.sql"
         vault kv put kv-v2/postgresql/superuser username="postgres" password="@/config/cred/DB-superuser-password.txt"
@@ -257,6 +258,24 @@ data:
         policies=plctandoor \
         audience=vault\
         ttl=24h
+
+        vault write auth/oidc/config \
+        oidc_discovery_url="http://authentik.dartus.fr/application/o/vault/" \
+        oidc_client_id="@/config/cred/vaultOIDCClient.txt" \
+        oidc_client_secret="@/config/cred/vaultOIDCSecret.txt" \
+        default_role="reader"
+
+        vault write auth/oidc/role/reader \
+        bound_audiences="@/config/cred/vaultOIDCClient.txt" \
+        allowed_redirect_uris="https://vault.dartus.fr/ui/vault/auth/oidc/oidc/callback" \
+        allowed_redirect_uris="https://vault.dartus.fr/oidc/callback" \
+        allowed_redirect_uris="http://vault.dartus.fr/ui/vault/auth/oidc/oidc/callback" \
+        allowed_redirect_uris="http://vault.dartus.fr/ui/vault/auth?with=oidc" \
+        allowed_redirect_uris="http://vault.dartus.fr/oidc/callback" \
+        allowed_redirect_uris="http://localhost:8250/oidc/callback" \
+        user_claim="sub" \
+        policies="reader"\
+        groups_claim="groups" \
 
         exit 0
       elif [ $STATUS = "true" ]; then

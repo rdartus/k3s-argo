@@ -44,6 +44,8 @@ ingress:
       hajimari.io/group: "Media"
       hajimari.io/icon: "bookshelf"
       hajimari.io/appName: "livres"
+      traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
+
     hosts:
       -  # -- Host address. Helm template can be passed.
         host: books2.dartus.fr
