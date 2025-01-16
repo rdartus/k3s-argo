@@ -22,10 +22,8 @@ data:
           reload 15s
           fallthrough
         }
-        rewrite stop {
-            name regex (.*)\.lan NXDOMAIN
-            name regex (.*)\.local\.dartus\.fr NXDOMAIN
-        }
+        rewrite name regex (.*)\.lan NXDOMAIN
+        rewrite name regex (.*)\.local\.dartus\.fr NXDOMAIN
         prometheus :9153
         forward . /etc/resolv.conf
         cache 30
