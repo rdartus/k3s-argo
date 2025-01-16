@@ -22,9 +22,9 @@ data:
           reload 15s
           fallthrough
         }
-        block {
-          name lan
-          name local.dartus.fr
+        rewrite stop {
+            name regex .*\.lan NXDOMAIN
+            name regex .*\.local\.dartus\.fr NXDOMAIN
         }
         prometheus :9153
         forward . /etc/resolv.conf
