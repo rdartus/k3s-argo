@@ -22,6 +22,10 @@ data:
           reload 15s
           fallthrough
         }
+        block {
+          name lan
+          name local.dartus.fr
+        }
         prometheus :9153
         forward . /etc/resolv.conf
         cache 30
