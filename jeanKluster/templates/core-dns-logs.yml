@@ -23,8 +23,8 @@ data:
           fallthrough
         }
         rewrite stop {
-            name regex .*\.lan NXDOMAIN
-            name regex .*\.local\.dartus\.fr NXDOMAIN
+            name regex (.*)\.lan NXDOMAIN
+            name regex (.*)\.local\.dartus\.fr NXDOMAIN
         }
         prometheus :9153
         forward . /etc/resolv.conf
