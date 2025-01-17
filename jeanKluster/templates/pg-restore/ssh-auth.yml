@@ -4,7 +4,7 @@ metadata:
   name: ssh-auth
   namespace: default
   annotations:
-    argocd.argoproj.io/sync-wave: "4"
+    argocd.argoproj.io/sync-wave: "8"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   method: kubernetes
