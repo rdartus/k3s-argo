@@ -23,5 +23,6 @@ arr:
 job: false
 
 #for pg restore
-init: false
+init: true
+
 longhorn : false
