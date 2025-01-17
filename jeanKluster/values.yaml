@@ -19,8 +19,13 @@ arr:
   user : jeank
   userPass : pdpdpd
 
+#for PgLoader
+loader:
+  active: true
+
 #for dump
-job: false
+dump :
+  schedule: "*0 0 * * 1"
 
 #for pg restore
 init: true
