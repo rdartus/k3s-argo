@@ -4,7 +4,7 @@ metadata:
   name: authentik-forward-auth
   namespace: default
   annotations:
-    argocd.argoproj.io/sync-wave: "-99"
+    argocd.argoproj.io/sync-wave: "-100"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   forwardAuth:
