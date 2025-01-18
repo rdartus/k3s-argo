@@ -28,6 +28,6 @@ dump :
   schedule: "*0 0 * * 1"
 
 #for pg restore
-init: true
+init: false
 
 longhorn : false
