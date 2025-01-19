@@ -117,7 +117,7 @@ controllers:
           pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_radarr
           pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_authentik
 #          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_tandoor
-          echo done
+
         env:
           SUPERUSER:
             valueFrom:
