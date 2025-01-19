@@ -111,10 +111,6 @@ ingress:
 
     # -- Provide additional annotations which may be required.
     annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/group: "Home"
-      hajimari.io/icon: "cog-play-outline"
-      cert-manager.io/issuer: letsEncrypt-staging
 
     # -- Provide additional labels which may be required.
     labels: {}

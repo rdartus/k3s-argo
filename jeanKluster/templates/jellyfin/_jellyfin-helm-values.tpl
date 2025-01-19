@@ -71,8 +71,6 @@ spec:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
               hajimari.io/icon: "video-vintage"
-              cert-manager.io/issuer: letsEncrypt-staging
-
             hosts:
               -  # -- Host address. Helm template can be passed.
                 host: stream2.dartus.fr
@@ -83,10 +81,6 @@ spec:
                     # -- Ignored if not kubeVersion >= 1.14-0
                     pathType: Prefix
 
-            tls:
-              - hosts:
-                - stream2.dartus.fr
-                secretName: stream2.dartus.fr-tls
 
         # -- Configure persistence settings for the chart under this key.
         # @default -- See values.yaml

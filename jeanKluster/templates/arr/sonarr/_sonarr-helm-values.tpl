@@ -616,8 +616,6 @@ ingress: {}
 #       hajimari.io/enable: "true"
 #       hajimari.io/group: "Media"
 #       hajimari.io/icon: "cog-play-outline"
-    # cert-manager.io/issuer: letsEncrypt-staging
-
 #     # # -- Provide additional labels which may be required. Helm templates can be used.
 #     # labels: {}
 
@@ -647,10 +645,7 @@ ingress: {}
 #               # port: 8989
 
 #     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-    # tls:
-    #   - hosts:
-    #     - sonarr.dartus.fr
-    #     secretName: sonarr.dartus.fr-tls
+#     tls: []
 #     #  - secretName: chart-example-tls
 #     #    hosts:
 #     #      - chart-example.local

@@ -591,8 +591,6 @@ ingress: {}
 #       hajimari.io/enable: "true"
 #       hajimari.io/group: "Media"
 #       hajimari.io/icon: "chef-hat"
-      # cert-manager.io/issuer: letsEncrypt-staging
-
 #     # # -- Provide additional labels which may be required. Helm templates can be used.
 #     # labels: {}
 
@@ -620,10 +618,6 @@ ingress: {}
 #               # identifier: main
 #               # -- Overrides the service port number reference for this path
 #               # port: 8989
-    # tls:
-    #   - hosts:
-    #     - tandoor.dartus.fr
-    #     secretName: tandoor.dartus.fr-tls
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.

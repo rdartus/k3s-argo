@@ -196,7 +196,6 @@ ingress:
       hajimari.io/group: "Media"
       hajimari.io/icon: "cart-arrow-down"
       traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
-      cert-manager.io/issuer: letsEncrypt-staging
 
     hosts:
       -  # -- Host address. Helm template can be passed.
@@ -207,11 +206,6 @@ ingress:
             path: /
             # -- Ignored if not kubeVersion >= 1.14-0
             pathType: Prefix
-    tls:
-      - hosts:
-        - tor2.dartus.fr
-        secretName: tor2.dartus.fr-tls
-
 
 # -- Configure persistence settings for the chart under this key.
 # @default -- See values.yaml
