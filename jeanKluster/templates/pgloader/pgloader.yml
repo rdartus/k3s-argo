@@ -1,4 +1,4 @@
-{{- if .Values.loader.active }}
+{{- if .Values.pg-loader.enable }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:

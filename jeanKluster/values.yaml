@@ -20,14 +20,15 @@ arr:
   userPass : pdpdpd
 
 #for PgLoader
-loader:
-  active: true
+pg-loader:
+  enable: false
 
 #for dump
 dump :
-  schedule: "*0 0 * * 1"
+  schedule: "0 0 * * 1"
 
 #for pg restore
-init: false
+pg-restore:
+  enable: false
 
 longhorn : false
