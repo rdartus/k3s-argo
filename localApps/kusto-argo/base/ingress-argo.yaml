@@ -8,6 +8,7 @@ metadata:
     hajimari.io/group: "Management"
     hajimari.io/icon: "jellyfish"
     hajimari.io/appName: "argocd"
+    cert-manager.io/issuer: letsEncrypt-staging
 
 spec:
   rules:
@@ -21,3 +22,7 @@ spec:
             name: argocd-server
             port:
               number: 80
+  tls:
+    - hosts:
+      - argo.dartus.fr
+      secretName: argo.dartus.fr-tls

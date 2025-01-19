@@ -632,6 +632,7 @@ server:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "safe-square"
+      cert-manager.io/issuer: letsEncrypt-staging
     # -- additional ingress labels
     labels: {}
     # -- defines which ingress controller will implement the resource
@@ -657,7 +658,11 @@ server:
       #         name: use-annotation
 
     # -- ingress TLS configuration
-    tls: []
+    tls:
+      - hosts:
+        - authentik.dartus.fr
+        secretName: authentik.dartus.fr-tls
+
       # - secretName: authentik-tls
       #   hosts:
       #     - authentik.domain.tld
