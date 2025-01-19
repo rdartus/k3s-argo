@@ -20,7 +20,7 @@ arr:
   userPass : pdpdpd
 
 #for PgLoader
-pg-loader:
+pg_loader:
   enable: false
 
 #for dump
@@ -28,7 +28,7 @@ dump :
   schedule: "0 0 * * 1"
 
 #for pg restore
-pg-restore:
+pg_restore:
   enable: false
 
 longhorn : false

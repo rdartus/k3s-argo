@@ -1,4 +1,4 @@
-{{- if .Values.pg-restore.enable }}
+{{- if .Values.pg_restore.enable }}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
