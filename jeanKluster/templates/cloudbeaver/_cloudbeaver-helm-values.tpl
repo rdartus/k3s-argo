@@ -572,6 +572,8 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "database-edit"
+      cert-manager.io/issuer: letsEncrypt-staging
+
     # -- additional ingress labels
     labels: {}
     # -- defines which ingress controller will implement the resource
@@ -592,6 +594,10 @@ ingress:
               identifier: main
               port: http
 
+    tls:
+      - hosts:
+        - cloudbeaver.dartus.fr
+        secretName: cloudbeaver.dartus.fr-tls
 
   #   # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
   #   tls: []

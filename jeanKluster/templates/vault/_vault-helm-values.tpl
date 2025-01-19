@@ -413,6 +413,9 @@ server:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "safe-square"
+      cert-manager.io/cluster-issuer: "letsEncrypt-staging"
+      # cert-manager.io/cluster-issuer: "letsEncrypt-prod"
+
 
     # Optionally use ingressClassName instead of deprecated annotation.
     # See: https://kubernetes.io/docs/concepts/services-networking/ingress/#deprecated-annotation
@@ -436,7 +439,10 @@ server:
     #       name: ssl-redirect
     #       port:
     #         number: use-annotation
-    tls: []
+    tls:
+      - hosts:
+        - vault.dartus.fr
+        secretName: vault.dartus.fr-tls
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local

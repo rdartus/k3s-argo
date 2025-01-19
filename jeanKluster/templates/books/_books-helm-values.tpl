@@ -45,6 +45,8 @@ ingress:
       hajimari.io/icon: "bookshelf"
       hajimari.io/appName: "livres"
       traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
+      cert-manager.io/issuer: letsEncrypt-staging
+
 
     hosts:
       -  # -- Host address. Helm template can be passed.
@@ -55,6 +57,11 @@ ingress:
             path: /
             # -- Ignored if not kubeVersion >= 1.14-0
             pathType: Prefix
+    tls:
+      - hosts:
+        - books.dartus.fr
+        secretName: books.dartus.fr-tls
+
 
 
 # -- Configure persistence settings for the chart under this key.
