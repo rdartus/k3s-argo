@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsEncrypt-prod
+  name: letsencrypt-prod
   annotations:
     argocd.argoproj.io/sync-wave: "201"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
@@ -11,7 +11,7 @@ spec:
 # Todo change directory to prod : 
     # server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsEncrypt-prod
+      name: letsencrypt-prod
     solvers:
     - http01:
         ingress:
