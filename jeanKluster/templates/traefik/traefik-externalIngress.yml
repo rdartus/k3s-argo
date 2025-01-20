@@ -1,0 +1,114 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pi-ingress
+  namespace: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    # traefik.ingress.kubernetes.io/router.tls: "true" # A ne pas utiliser si le trafik du cluster ne doit pas gérer les certifs
+    traefik.ingress.kubernetes.io/service.serversscheme: https
+    argocd.argoproj.io/sync-wave: "-100"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+
+spec:
+  rules:
+  - host: tor.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: radarr.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: sonarr.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: stream.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: authelia.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: prowlarr.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: cloud.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: livres.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: books.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
+  - host: traefik.dartus.fr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pi-external
+            port:
+              number: 443
