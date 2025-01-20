@@ -68,3 +68,5 @@ spec:
         - name: pi-external
           port: 443
 
+  tls:
+    passthrough: true
