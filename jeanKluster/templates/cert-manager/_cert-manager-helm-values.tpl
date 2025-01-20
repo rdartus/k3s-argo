@@ -95,12 +95,12 @@ image:
 # Override the namespace used to store DNS provider credentials etc. for ClusterIssuer
 # resources. By default, the same namespace as cert-manager is deployed within is
 # used. This namespace will not be automatically created by the Helm chart.
-clusterResourceNamespace: ""
+clusterResourceNamespace: "traefik"
 
 # This namespace allows you to define where the services will be installed into
 # if not set then they will use the namespace of the release
 # This is helpful when installing cert manager as a chart dependency (sub chart)
-namespace: ""
+namespace: "traefik"
 
 serviceAccount:
   # Specifies whether a service account should be created
