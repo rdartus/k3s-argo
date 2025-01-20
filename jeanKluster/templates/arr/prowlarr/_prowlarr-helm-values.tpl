@@ -649,8 +649,8 @@ ingress:
     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
     tls:
       - hosts:
-        - prowlarr.dartus.fr
-        secretName: prowlarr.dartus.fr-tls
+        - prowlarr2.dartus.fr
+        secretName: prowlarr2.dartus.fr-tls
 
     #  - secretName: chart-example-tls
     #    hosts:
