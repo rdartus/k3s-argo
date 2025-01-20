@@ -325,7 +325,7 @@ providers:  # @schema additionalProperties: false
     # -- Allows IngressRoute to reference resources in namespace other than theirs
     allowCrossNamespace: false
     # -- Allows to reference ExternalName services in IngressRoute
-    allowExternalNameServices: false
+    allowExternalNameServices: true
     # -- Allows to return 503 when there is no endpoints available
     allowEmptyServices: true
     # -- When the parameter is set, only resources containing an annotation with the same value are processed. Otherwise, resources missing the annotation, having an empty value, or the value traefik are processed. It will also set required annotation on Dashboard and Healthcheck IngressRoute when enabled.

@@ -1,115 +1,66 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: traefik.io/v1alpha1
+kind: IngressRouteTCP
 metadata:
   name: pi-ingress
   namespace: traefik
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    # traefik.ingress.kubernetes.io/router.entrypoints: websecure
     # traefik.ingress.kubernetes.io/router.tls: "true" # A ne pas utiliser si le trafik du cluster ne doit pas gérer les certifs
     traefik.ingress.kubernetes.io/service.serversscheme: https
     traefik.ingress.kubernetes.io/service.serverstransport: "insecure@kubernetescrd"
     argocd.argoproj.io/sync-wave: "-100"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
-
 spec:
-  rules:
-  - host: tor.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: radarr.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: sonarr.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: stream.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: authelia.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: prowlarr.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: cloud.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: livres.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: books.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
-  - host: traefik.dartus.fr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: pi-external
-            port:
-              number: 443
+  entryPoints:
+    - websecure
+  routes:
+  - match: HostSNI(`tor.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`radarr.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`sonarr.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`stream.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`authelia.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`prowlarr.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`cloud.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`livres.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`books.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
+  - match: HostSNI(`traefik.dartus.fr`)
+      services:
+        - name: pi-external
+          port: 443
+
