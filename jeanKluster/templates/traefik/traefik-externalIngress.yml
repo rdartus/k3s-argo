@@ -4,10 +4,6 @@ metadata:
   name: pi-ingress
   namespace: traefik
   annotations:
-    # traefik.ingress.kubernetes.io/router.entrypoints: websecure
-    # traefik.ingress.kubernetes.io/router.tls: "true" # A ne pas utiliser si le trafik du cluster ne doit pas gérer les certifs
-    traefik.ingress.kubernetes.io/service.serversscheme: https
-    traefik.ingress.kubernetes.io/service.serverstransport: "insecure@kubernetescrd"
     argocd.argoproj.io/sync-wave: "-100"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:

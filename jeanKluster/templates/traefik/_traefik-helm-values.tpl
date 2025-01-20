@@ -827,7 +827,7 @@ ports:
     forwardedHeaders:
     # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs: []
-      insecure: false
+      insecure: true
     proxyProtocol:
     # -- Enable the Proxy Protocol header parsing for the entry point
       trustedIPs: []
@@ -846,6 +846,7 @@ ports:
     # --  See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#tls)
     tls:
       enabled: true
+      passthrough: true  
       options: ""
       certResolver: ""
       domains: []
