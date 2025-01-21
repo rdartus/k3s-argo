@@ -90,6 +90,10 @@ data:
     path "kv-v2/data/postgresql/tand" {
       capabilities = ["read"]
     }
+  zerossl-policy.json: |
+    path "kv-v2/data/zerossl" {
+      capabilities = ["read"]
+    }
 
 
   initScript.sh: |
@@ -159,6 +163,7 @@ data:
         vault kv put kv-v2/wx/config username="@/config/cred/wx-user.txt" password="@/config/cred/wx-password.txt"
         vault kv put kv-v2/wx/list list.json="@/config/cred/wx-list.json"
         vault kv put kv-v2/tandoor key="@/config/cred/tandoorKey.txt" oidcProvider="@/config/cred/tandoorSocialProvider.txt"
+        vault kv put kv-v2/zerossl keyID="@/config/cred/zeroSSLID.txt" HMAC="@/config/cred/zeroSSLHMAC.txt"
         vault auth enable kubernetes
         vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
 
@@ -174,6 +179,7 @@ data:
         vault policy write plcauthentik /config/scripts/authentik-policy.json     
         vault policy write plcwx /config/scripts/wx-policy.json        
         vault policy write plctandoor /config/scripts/tandoor-policy.json        
+        vault policy write plczerossl /config/scripts/zerossl-policy.json        
 
         vault write auth/kubernetes/role/rlcnpg \
         bound_service_account_names=cnpg-cluster \
@@ -259,8 +265,15 @@ data:
         audience=vault\
         ttl=24h
 
+        vault write auth/kubernetes/role/rlzerossl \
+        bound_service_account_names=traefik \
+        bound_service_account_namespaces=traefik \
+        policies=plczerossl \
+        audience=vault\
+        ttl=24h
+
         vault write auth/oidc/config \
-        oidc_discovery_url="http://authentik.dartus.fr/application/o/vault/" \
+        oidc_discovery_url="https://authentik.dartus.fr/application/o/vault/" \
         oidc_client_id="@/config/cred/vaultOIDCClient.txt" \
         oidc_client_secret="@/config/cred/vaultOIDCSecret.txt" \
         default_role="reader"

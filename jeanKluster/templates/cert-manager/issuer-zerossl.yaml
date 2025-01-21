@@ -1,0 +1,31 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: zerossl
+  namespace: traefik
+  annotations:
+    argocd.argoproj.io/sync-wave: "201"
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  acme:
+    # ZeroSSL ACME server
+    server: https://acme.zerossl.com/v2/DV90
+    email: richard.dartus@gmail.com
+
+    # name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: zerossl-prod
+
+    # for each cert-manager new EAB credencials are required
+    externalAccountBinding:
+      keyID: VA4mQz1XLkqFEhk_U6V0uA
+
+      keySecretRef:
+        name: zero-sslsecret
+        key: HMAC
+      keyAlgorithm: HS256
+
+    - http01:
+        ingress:
+          # serviceType: "ClusterIP"
+          ingressClassName: "traefik-ingresses"

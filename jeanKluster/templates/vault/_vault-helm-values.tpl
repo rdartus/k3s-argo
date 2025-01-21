@@ -413,7 +413,7 @@ server:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "safe-square"
-      cert-manager.io/cluster-issuer: "letsencrypt-staging"
+      cert-manager.io/cluster-issuer: "zerossl"
       # cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
 
