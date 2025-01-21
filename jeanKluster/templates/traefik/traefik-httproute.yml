@@ -20,7 +20,7 @@ spec:
       # Namespace of the referent resource
       namespace: traefik
       # Name of the section within the target resource.
-    sectionName: websecure-traefik  
+      sectionName: websecure-traefik  
   rules:
     - matches:
         - path:
