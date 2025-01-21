@@ -700,7 +700,7 @@ route:
         # Namespace of the referent resource
         namespace: traefik
         # Name of the section within the target resource.
-        sectionName:
+        sectionName: websecure-tandoor
 
     # -- Host addresses. Helm template can be passed.
     hostnames: 
