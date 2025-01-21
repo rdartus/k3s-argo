@@ -413,8 +413,8 @@ server:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "safe-square"
-      cert-manager.io/cluster-issuer: "letsEncrypt-staging"
-      # cert-manager.io/cluster-issuer: "letsEncrypt-prod"
+      cert-manager.io/cluster-issuer: "letsencrypt-staging"
+      # cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
 
     # Optionally use ingressClassName instead of deprecated annotation.

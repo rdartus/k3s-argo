@@ -572,7 +572,7 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "database-edit"
-      cert-manager.io/issuer: letsEncrypt-staging
+      cert-manager.io/issuer: letsencrypt-staging
 
     # -- additional ingress labels
     labels: {}

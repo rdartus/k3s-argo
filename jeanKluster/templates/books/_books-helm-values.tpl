@@ -45,7 +45,7 @@ ingress:
       hajimari.io/icon: "bookshelf"
       hajimari.io/appName: "livres"
       traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
-      cert-manager.io/issuer: letsEncrypt-staging
+      cert-manager.io/issuer: letsencrypt-staging
 
 
     hosts:

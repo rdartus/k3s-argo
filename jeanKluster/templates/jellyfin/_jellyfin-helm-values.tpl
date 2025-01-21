@@ -71,7 +71,7 @@ spec:
               hajimari.io/enable: "true"
               hajimari.io/group: "Media"
               hajimari.io/icon: "video-vintage"
-              cert-manager.io/issuer: letsEncrypt-staging
+              cert-manager.io/issuer: letsencrypt-staging
 
             hosts:
               -  # -- Host address. Helm template can be passed.

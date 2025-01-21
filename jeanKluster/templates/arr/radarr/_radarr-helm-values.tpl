@@ -616,7 +616,7 @@ ingress: {}
 #       hajimari.io/enable: "true"
 #       hajimari.io/group: "Media"
 #       hajimari.io/icon: "cog-play-outline"
-    # cert-manager.io/issuer: letsEncrypt-staging
+    # cert-manager.io/issuer: letsencrypt-staging
 
 #     # # -- Provide additional labels which may be required. Helm templates can be used.
 #     # labels: {}
