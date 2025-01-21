@@ -24,7 +24,8 @@ spec:
         name: zero-sslsecret
         key: HMAC
       keyAlgorithm: HS256
-
+      
+    solvers:
     - http01:
         ingress:
           # serviceType: "ClusterIP"
