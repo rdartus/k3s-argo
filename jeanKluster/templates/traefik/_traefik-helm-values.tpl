@@ -123,6 +123,14 @@ core:  # @schema additionalProperties: false
 experimental:
   # -- Defines whether all plugins must be loaded successfully for Traefik to start
   abortOnPluginFailure: false
+  fastProxy:
+    # -- Enables the FastProxy implementation.
+    enabled: false
+    # -- Enable debug mode for the FastProxy implementation.
+    debug: false
+  kubernetesGateway:
+    # -- Enable traefik experimental GatewayClass CRD
+    enabled: false
   # -- Enable traefik experimental plugins
   plugins: 
     bouncer:
@@ -377,6 +385,7 @@ providers:  # @schema additionalProperties: false
       hostname: ""
       # -- The Kubernetes service to copy status addresses from. When using third parties tools like External-DNS, this option can be used to copy the service loadbalancer.status (containing the service's endpoints IPs) to the gateways. Default to Service of this Chart.
       service:
+        enabled: true
         name: "traefik"
         namespace: "traefik"
 
@@ -442,7 +451,7 @@ providers:  # @schema additionalProperties: false
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
 # This can be used to mount a cert pair or a configmap that holds a config.toml file.
 # After the volume has been mounted, add the configs into traefik by using the `additionalArguments` list below, eg:
-# additionalArguments:
+# `additionalArguments:
 # - "--providers.file.filename=/config/dynamic.toml"
 # - "--ping"
 # - "--ping.entrypoint=web"`
@@ -651,8 +660,8 @@ tracing:  # @schema additionalProperties: false
   addInternals: false
   # -- Service name used in selected backend. Default: traefik.
   serviceName:  # @schema type:[string, null]
-  # -- Applies a list of shared key:value attributes on all spans.
-  globalAttributes: {}
+  # -- Defines additional resource attributes to be sent to the collector.
+  resourceAttributes: {}
   # -- Defines the list of request headers to add as attributes. It applies to client and server kind spans.
   capturedRequestHeaders: []
   # -- Defines the list of response headers to add as attributes. It applies to client and server kind spans.
@@ -722,7 +731,7 @@ envFrom: []
 
 ports:
   traefik:
-    port: 9000
+    port: 8080
     # -- Use hostPort if set.
     hostPort:  # @schema type:[integer, null]; minimum:0
     # -- Use hostIP if set. If not set, Kubernetes will default to 0.0.0.0, which
@@ -740,23 +749,9 @@ ports:
     expose:
       default: false
     # -- The exposed port for this service
-    exposedPort: 9000
+    exposedPort: 8080
     # -- The port protocol (TCP/UDP)
     protocol: TCP
-  gateway-test :
-    ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
-    # asDefault: true
-    port: 8080
-    # hostPort: 8000
-    # containerPort: 8000
-    expose:
-      default: true
-    exposedPort: 8080
-    ## -- Different target traefik port on the cluster, useful for IP type LB
-    targetPort:  # @schema type:[string, integer, null]; minimum:0
-    # The port protocol (TCP/UDP)
-    protocol: TCP
-
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
@@ -772,10 +767,15 @@ ports:
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
     nodePort:  # @schema type:[integer, null]; minimum:0
-    # Port Redirections
-    # Added in 2.2, you can make permanent redirects via entrypoints.
+    redirections:
+      # -- Port Redirections
+      # Added in 2.2, one can make permanent redirects via entrypoints.
+      # Same sets of parameters: to, scheme, permanent and priority.
     # https://docs.traefik.io/routing/entrypoints/#redirection
-    redirectTo: {}
+      entryPoint:
+        to: websecure
+        scheme: https
+        permanent: true
     forwardedHeaders:
     # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs: []
@@ -1065,7 +1065,13 @@ hub:
       listenAddr: ""
       # -- Certificate of the WebHook admission server. Default: "hub-agent-cert".
       secretName: ""
+    openApi:
+      # -- When set to true, it will only accept paths and methods that are explicitly defined in its OpenAPI specification
+      validateRequestMethodAndPath: false
 
+  experimental:
+    # -- Set to true in order to enable AI Gateway. Requires a valid license token.
+    aigateway: false
   redis:
     # -- Enable Redis Cluster. Default: true.
     cluster:    # @schema type:[boolean, null]

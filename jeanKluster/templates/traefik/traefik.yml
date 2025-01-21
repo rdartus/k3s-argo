@@ -22,7 +22,7 @@ spec:
       - CreateNamespace=true
   source:
     chart: traefik
-    targetRevision: "33.2.1"
+    targetRevision: "34.1.0"
     repoURL: https://traefik.github.io/charts
     helm : 
       values: |
