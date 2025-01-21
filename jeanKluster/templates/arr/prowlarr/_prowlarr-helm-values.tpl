@@ -616,7 +616,7 @@ ingress:
       hajimari.io/group: "Media"
       hajimari.io/icon: "cog-play-outline"
       traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
-      cert-manager.io/issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: letsencrypt-staging
 
     # # -- Provide additional labels which may be required. Helm templates can be used.
     # labels: {}

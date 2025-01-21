@@ -42,7 +42,7 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "database-edit"
-      cert-manager.io/issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: letsencrypt-staging
 
     # -- additional ingress labels
     labels: {}

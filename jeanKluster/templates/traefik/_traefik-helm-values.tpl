@@ -144,7 +144,7 @@ gateway:
   namespace: ""
   # -- Additional gateway annotations (e.g. for cert-manager.io/issuer)
   annotations: 
-    cert-manager.io/issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: letsencrypt-staging
   # -- [Infrastructure](https://kubernetes.io/blog/2023/11/28/gateway-api-ga/#gateway-infrastructure-labels)
   infrastructure: {}
   # -- Define listeners
