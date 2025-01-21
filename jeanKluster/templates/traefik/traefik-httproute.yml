@@ -11,14 +11,15 @@ spec:
   hostnames:
     - traefik2.dartus.fr
   parentRefs:
-    group: gateway.networking.k8s.io
-    # Kind of the referent resource.
-    kind: Gateway
-    # Name of the referent resource
-    name: traefik-gateway
-    # Namespace of the referent resource
-    namespace: traefik
-    # Name of the section within the target resource.
+    - # Group of the referent resource.
+      group: gateway.networking.k8s.io
+      # Kind of the referent resource.
+      kind: Gateway
+      # Name of the referent resource
+      name: traefik-gateway
+      # Namespace of the referent resource
+      namespace: traefik
+      # Name of the section within the target resource.
     sectionName: websecure-traefik  
   rules:
     - matches:
