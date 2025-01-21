@@ -603,58 +603,59 @@ service:
 # -- Configure the ingresses for the chart here.
 ingress: {}
 #   # -- An example is shown below
-#   main:
-#     # -- Enables or disables the ingress
-#     enabled: true
+  main:
+    # -- Enables or disables the ingress
+    enabled: true
 
-#     # # -- Override the name suffix that is used for this ingress.
-#     # nameOverride:
+    # # -- Override the name suffix that is used for this ingress.
+    # nameOverride:
 
-#     # # -- Provide additional annotations which may be required. Helm templates can be used.
-#     # annotations: {}
-#     annotations:
-#       hajimari.io/enable: "true"
-#       hajimari.io/group: "Media"
-#       hajimari.io/icon: "cog-play-outline"
-    # cert-manager.io/cluster-issuer: letsencrypt-staging
+    # # -- Provide additional annotations which may be required. Helm templates can be used.
+    # annotations: {}
+    annotations:
+      hajimari.io/enable: "true"
+      hajimari.io/group: "Media"
+      hajimari.io/icon: "cog-play-outline"
+      cert-manager.io/cluster-issuer: letsencrypt-staging
+      traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
 
-#     # # -- Provide additional labels which may be required. Helm templates can be used.
-#     # labels: {}
+    # # -- Provide additional labels which may be required. Helm templates can be used.
+    # labels: {}
 
-#     # # -- Set the ingressClass that is used for this ingress.
-#     # className:
+    # # -- Set the ingressClass that is used for this ingress.
+    # className:
 
-#     # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-#     # defaultBackend:
+    # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
+    # defaultBackend:
 
-#     ## Configure the hosts for the ingress
-#     hosts:
-#       - # -- Host address. Helm template can be passed.
-#         host: radarr2.dartus.fr
-#         ## Configure the paths for the host
-#         paths:
-#           - # -- Path.  Helm template can be passed.
-#             path: /
-#             pathType: Prefix
-#             service:
-#               # -- Overrides the service name reference for this path
-#               # The service name to reference.
-#               identifier: main
-#               port: http
-#               # # -- Reference a service identifier from this values.yaml
-#               # identifier: main
-#               # -- Overrides the service port number reference for this path
-#               # port: 7878
+    ## Configure the hosts for the ingress
+    hosts:
+      - # -- Host address. Helm template can be passed.
+        host: radarr2.dartus.fr
+        ## Configure the paths for the host
+        paths:
+          - # -- Path.  Helm template can be passed.
+            path: /
+            pathType: Prefix
+            service:
+              # -- Overrides the service name reference for this path
+              # The service name to reference.
+              identifier: main
+              port: http
+              # # -- Reference a service identifier from this values.yaml
+              # identifier: main
+              # -- Overrides the service port number reference for this path
+              # port: 7878
 
-#     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-    # tls:
-    #   - hosts:
-    #     - radarr.dartus.fr
-    #     secretName: radarr.dartus.fr-tls
+    # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+    tls:
+      - hosts:
+        - radarr2.dartus.fr
+        secretName: radarr2.dartus.fr-tls
 
-#     #  - secretName: chart-example-tls
-#     #    hosts:
-#     #      - chart-example.local
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.
@@ -700,10 +701,10 @@ serviceMonitor:
 # Additional routes can be added by adding a dictionary key similar to the 'main' route.
 # [[ref]](https://gateway-api.sigs.k8s.io/references/spec/)
 # @default -- See below
-route:
+route: {}
   main:
     # -- Enables or disables the route
-    enabled: true
+    enabled: false
 
     # -- Set the route kind
     # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute

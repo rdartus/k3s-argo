@@ -59,8 +59,8 @@ ingress:
             pathType: Prefix
     tls:
       - hosts:
-        - books.dartus.fr
-        secretName: books.dartus.fr-tls
+        - books2.dartus.fr
+        secretName: books2.dartus.fr-tls
 
 
 

@@ -241,6 +241,16 @@ gateway:
       - kind: Secret
         name: tandoor-tls    #   # -- TLS behavior for the TLS session initiated by the client. See [TLSModeType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.TLSModeType).
       mode: Terminate
+    websecure-traefik:
+      port: 443
+      hostname: "traefik2.dartus.fr"
+      protocol: HTTPS
+      namespacePolicy: All
+      certificateRefs:
+      - kind: Secret
+        name: traefik-tls
+      mode: Terminate
+
 
 gatewayClass:  # @schema additionalProperties: false
   # -- When providers.kubernetesGateway.enabled and gateway.enabled, deploy a default gatewayClass
