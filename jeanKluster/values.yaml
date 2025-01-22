@@ -30,6 +30,6 @@ dump :
 
 #for pg restore
 pg_restore:
-  enable: false
+  enable: true
 
 longhorn : false
