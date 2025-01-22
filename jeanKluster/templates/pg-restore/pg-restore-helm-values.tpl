@@ -109,26 +109,29 @@ controllers:
         - -c
         - |
           printenv
-          echo "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /data/dump-k3s/dump_prowlarr"
           sleep 7m
-          echo "dump_prowlarr"
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /data/dump-k3s/dump_prowlarr
-          echo "dump_sonarr"
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /data/dump-k3s/dump_sonarr
-          echo "dump_radarr"
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /data/dump-k3s/dump_radarr
-          echo "dump_authentik"
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_authentik
-          echo "dump_tandoor"
-          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_tandoor
+          # echo "dump_prowlarr"
+          # psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/prowlarr-main -f /data/dump-k3s/dump_prowlarr
+          # echo "dump_sonarr"
+          # psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/sonarr-main -f /data/dump-k3s/dump_sonarr
+          # echo "dump_radarr"
+          # psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/radarr-main -f /data/dump-k3s/dump_radarr
+          # echo "dump_authentik"
+          # psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_authentik
+          # echo "dump_tandoor"
+          # psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_tandoor
 
-#
-          # pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
-          # pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
-          # pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_sonarr
-          # pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_radarr
-          # pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_authentik
-#          psql postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/authentik -f /data/dump-k3s/dump_tandoor
+          echo "dump_prowlarr"
+          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
+          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
+          echo "dump_sonarr"
+          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_sonarr
+          echo "dump_radarr"
+          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_radarr
+          echo "dump_authentik"
+          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_authentik
+          echo "dump_tandoor"
+          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@{{.Values.db.appName}}.{{.Values.db.namespace}}.svc.cluster.local/postgres" /data/dump-k3s/dump_tandoor
 
         env:
           SUPERUSER:
