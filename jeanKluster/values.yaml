@@ -25,11 +25,11 @@ pg_loader:
 
 #for dump
 dump :
-  schedule: "30 * * * *"
-  # schedule: "0 0 * * 1"
+  # schedule: "30 * * * *"
+  schedule: "0 0 * * 1"
 
 #for pg restore
 pg_restore:
-  enable: false
+  enable: true
 
 longhorn : false
