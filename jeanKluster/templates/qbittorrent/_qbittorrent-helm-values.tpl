@@ -196,7 +196,7 @@ ingress:
       hajimari.io/group: "Media"
       hajimari.io/icon: "cart-arrow-down"
       traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
-      cert-manager.io/cluster-issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: zerossl
 
     hosts:
       -  # -- Host address. Helm template can be passed.

@@ -632,7 +632,7 @@ server:
       hajimari.io/enable: "true"
       hajimari.io/group: "Management"
       hajimari.io/icon: "safe-square"
-      cert-manager.io/cluster-issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: zerossl
     # -- additional ingress labels
     labels: {}
     # -- defines which ingress controller will implement the resource

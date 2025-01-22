@@ -114,7 +114,7 @@ ingress:
       hajimari.io/enable: "true"
       hajimari.io/group: "Home"
       hajimari.io/icon: "cog-play-outline"
-      cert-manager.io/cluster-issuer: letsencrypt-staging
+      cert-manager.io/cluster-issuer: zerossl
 
     # -- Provide additional labels which may be required.
     labels: {}
