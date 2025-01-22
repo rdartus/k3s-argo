@@ -138,11 +138,12 @@ controllers:
               secretKeyRef:
                 name: tandoor-secret
                 key: key
-          # SOCIALACCOUNT_PROVIDERS:
-          #   valueFrom:
-          #     secretKeyRef:
-          #       name: tandoor-secret
-          #       key: tandoorSocialProvider
+          SOCIAL_PROVIDERS: allauth.socialaccount.providers.openid_connect
+          SOCIALACCOUNT_PROVIDERS:
+            valueFrom:
+              secretKeyRef:
+                name: tandoor-secret
+                key: tandoorSocialProvider
           
     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
