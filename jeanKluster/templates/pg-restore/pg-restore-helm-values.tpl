@@ -165,6 +165,7 @@ controllers:
           - --verbose=9
           -  --exechook-timeout=300s
           - --sync-timeout=300s
+          - --one-time
         env:
         securityContext:
           runAsUser: 65533
