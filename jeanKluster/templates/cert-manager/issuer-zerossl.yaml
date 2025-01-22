@@ -21,7 +21,7 @@ spec:
       keyID: VA4mQz1XLkqFEhk_U6V0uA
 
       keySecretRef:
-        name: zero-sslsecret
+        name: zerossl-secret
         key: HMAC
       keyAlgorithm: HS256
       
