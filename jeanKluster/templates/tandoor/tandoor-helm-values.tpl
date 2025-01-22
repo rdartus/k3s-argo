@@ -143,7 +143,7 @@ controllers:
             valueFrom:
               secretKeyRef:
                 name: tandoor-secret
-                key: tandoorSocialProvider
+                key: oidcProvider
           
     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
