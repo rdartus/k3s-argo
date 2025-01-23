@@ -181,66 +181,42 @@ gateway:
     #   namespacePolicy: All
     # #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
     #   mode: Terminate
-    websecure-radarr:
-      # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
-      # The port must match a port declared in ports section.
-      port: 443
-      # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
-      hostname: "radarr2.dartus.fr"
-      # Specify expected protocol on this listener See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
-      protocol: HTTPS
-    #   # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces)
-      namespacePolicy: All
-    #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
-      certificateRefs:
-      - kind: Secret
-        name: radarr-tls    #   # -- TLS behavior for the TLS session initiated by the client. See [TLSModeType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.TLSModeType).
-      mode: Terminate
-    websecure-sonarr:
-      # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
-      # The port must match a port declared in ports section.
-      port: 443
-      # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
-      hostname: "sonarr2.dartus.fr"
-      # Specify expected protocol on this listener See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
-      protocol: HTTPS
-    #   # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces)
-      namespacePolicy: All
-    #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
-      certificateRefs:
-      - kind: Secret
-        name: sonarr-tls    #   # -- TLS behavior for the TLS session initiated by the client. See [TLSModeType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.TLSModeType).
-      mode: Terminate
-    # websecure-prowlarr:
-    #   # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
-    #   # The port must match a port declared in ports section.
+    # websecure-radarr:
     #   port: 443
-    #   # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
-    #   hostname: "prowlarr2.dartus.fr"
-    #   # Specify expected protocol on this listener See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
+    #   hostname: "radarr2.dartus.fr"
     #   protocol: HTTPS
-    # #   # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces)
     #   namespacePolicy: All
-    # #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
     #   certificateRefs:
     #   - kind: Secret
-    #     name: prowlarr-tls    #   # -- TLS behavior for the TLS session initiated by the client. See [TLSModeType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.TLSModeType).
+    #     name: radarr-tls
     #   mode: Terminate
-    websecure-tandoor:
-      # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
-      # The port must match a port declared in ports section.
-      port: 443
-      # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
-      hostname: "tandoor.dartus.fr"
-      # Specify expected protocol on this listener See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
-      protocol: HTTPS
-    #   # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces)
-      namespacePolicy: All
-    #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
-      certificateRefs:
-      - kind: Secret
-        name: tandoor-tls    #   # -- TLS behavior for the TLS session initiated by the client. See [TLSModeType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.TLSModeType).
-      mode: Terminate
+    # websecure-sonarr:
+    #   port: 443
+    #   hostname: "sonarr2.dartus.fr"
+    #   protocol: HTTPS
+    #   namespacePolicy: All
+    #   certificateRefs:
+    #   - kind: Secret
+    #     name: sonarr-tls
+    #   mode: Terminate
+    # websecure-prowlarr:
+    #   port: 443
+    #   hostname: "prowlarr2.dartus.fr"
+    #   protocol: HTTPS
+    #   namespacePolicy: All
+    #   certificateRefs:
+    #   - kind: Secret
+    #     name: prowlarr-tls
+    #   mode: Terminate
+    # websecure-tandoor:
+    #   port: 443
+    #   hostname: "tandoor.dartus.fr"
+    #   protocol: HTTPS
+    #   namespacePolicy: All
+    #   certificateRefs:
+    #   - kind: Secret
+    #     name: tandoor-tls 
+    #   mode: Terminate
     websecure-traefik:
       port: 443
       hostname: "traefik2.dartus.fr"
