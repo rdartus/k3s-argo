@@ -17,6 +17,8 @@ global:
   nameOverride: ""
   # -- String to fully override `"authentik.fullname"`
   fullnameOverride: ""
+  # -- A custom namespace to override the default namespace for the deployed resources.
+  namespaceOverride: ""
   # -- Common labels for all resources.
   additionalLabels: {}
     # app: authentik
@@ -43,6 +45,9 @@ global:
 
   # -- Annotations for all deployed pods
   podAnnotations: {}
+
+  # -- Annotations for all deployed secrets
+  secretAnnotations: {}
 
   # -- Labels for all deployed pods
   podLabels: {}
@@ -207,7 +212,7 @@ global:
 ## Authentik configuration
 authentik:
   # -- Log level for server and worker
-  log_level: debug
+  log_level: info
   # -- Secret key used for cookie singing and unique user IDs,
   # don't change this after the first install
   secret_key: ""
@@ -437,6 +442,9 @@ server:
   dnsConfig: {}
   # -- Alternative DNS policy for authentik server pods
   dnsPolicy: ""
+
+  # -- serviceAccount to use for authentik server pods
+  serviceAccountName: ~
 
   # -- authentik server pod-level security context
   # @default -- `{}` (See [values.yaml])
@@ -823,6 +831,9 @@ worker:
   # -- Alternative DNS policy for authentik worker pods
   dnsPolicy: ""
 
+  # -- serviceAccount to use for authentik worker pods. If set, overrides the value used when serviceAccount.create is true
+  serviceAccountName: ~
+
   # -- authentik worker pod-level security context
   # @default -- `{}` (See [values.yaml])
   securityContext: {}
@@ -968,7 +979,7 @@ geoip:
     # -- If defined, a repository for GeoIP images
     repository: ghcr.io/maxmind/geoipupdate
     # -- If defined, a tag for GeoIP images
-    tag: v6.0.0
+    tag: v7.1.0
     # -- If defined, an image digest for GeoIP images
     digest: ""
     # -- If defined, an imagePullPolicy for GeoIP images
@@ -1043,6 +1054,9 @@ prometheus:
 postgresql:
   # -- enable the Bitnami PostgreSQL chart. Refer to https://github.com/bitnami/charts/blob/main/bitnami/postgresql/ for possible values.
   enabled: false
+  image:
+    repository: bitnami/postgresql
+    tag: 15.8.0-debian-12-r18
   auth:
     username: authentik
     database: authentik
@@ -1050,11 +1064,22 @@ postgresql:
   primary:
     extendedConfiguration: |
       max_connections = 500
+    resourcesPreset: "none"
     # persistence:
     #   enabled: true
     #   storageClass:
     #   accessModes:
     #     - ReadWriteOnce
+  readReplicas:
+    resourcesPreset: "none"
+  backup:
+    resourcesPreset: "none"
+  passwordUpdateJob:
+    resourcesPreset: "none"
+  volumePermissions:
+    resourcesPreset: "none"
+  metrics:
+    resourcesPreset: "none"
 
 
 redis:
@@ -1063,9 +1088,19 @@ redis:
   architecture: standalone
   auth:
     enabled: false
+  master:
+    resourcesPreset: "none"
+  replica:
+    resourcesPreset: "none"
+  sentinel:
+    resourcesPreset: "none"
+  metrics:
+    resourcesPreset: "none"
+  volumePermissions:
+    resourcesPreset: "none"
+  sysctl:
+    resourcesPreset: "none"
 
-  image:
-    tag: 6.2.10-debian-11-r13
     
 # -- additional resources to deploy. Those objects are templated.
 additionalObjects: []
