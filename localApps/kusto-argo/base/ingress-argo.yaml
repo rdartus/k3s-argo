@@ -8,7 +8,7 @@ metadata:
     hajimari.io/group: "Management"
     hajimari.io/icon: "jellyfish"
     hajimari.io/appName: "argocd"
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+    cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
 
 spec:
   rules:

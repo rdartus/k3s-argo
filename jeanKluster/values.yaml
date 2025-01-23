@@ -4,6 +4,7 @@ template_transfo_sonarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/conf
 template_transfo_prowlarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_prowlarr")) | quote -}}'
 template_transfo_radarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_radarr")) | quote -}}'
 
+clusterIssuer: zerossl-prod
 
 db :
   appName: cnpg-cluster-rw
