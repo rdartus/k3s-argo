@@ -601,7 +601,7 @@ service:
         # appProtocol:
 
 # -- Configure the ingresses for the chart here.
-ingress: {}
+ingress: 
 #   # -- An example is shown below
   main:
     # -- Enables or disables the ingress
@@ -701,7 +701,7 @@ serviceMonitor:
 # Additional routes can be added by adding a dictionary key similar to the 'main' route.
 # [[ref]](https://gateway-api.sigs.k8s.io/references/spec/)
 # @default -- See below
-route: {}
+route: 
   main:
     # -- Enables or disables the route
     enabled: false
