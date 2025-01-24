@@ -9,8 +9,6 @@ metadata:
     hajimari.io/icon: "jellyfish"
     hajimari.io/appName: "argocd"
     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
-    argocd.argoproj.io/sync-wave: "-100"
-    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 
 spec:
