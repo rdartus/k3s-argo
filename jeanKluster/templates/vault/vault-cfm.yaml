@@ -51,7 +51,7 @@ data:
     }
   pgadmin-policy.json: |
 
-    path "kv-v2/data/pgadmin/*" {
+    path "kv-v2/data/pgadmin" {
       capabilities = ["read"]
     }
   authentik-policy.json: |
