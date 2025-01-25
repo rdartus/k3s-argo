@@ -26,4 +26,4 @@
 #     targetRevision: "main"
 #     helm : 
 #       values: |
-# {{ include "helmValues.cloudbeaver" . | indent 8 }}
+# { include "helmValues.cloudbeaver" . | indent 8 }
