@@ -600,10 +600,10 @@ server:
         path: /home/jeank/cred
         type: Directory
 
-    - name: b64dump
-      hostPath:
-        path: /home/jeank/b64dump
-        type: Directory
+    # - name: b64dump
+    #   hostPath:
+    #     path: /home/jeank/b64dump
+    #     type: Directory
 
     - name: scripts
       configMap: 
@@ -616,8 +616,8 @@ server:
     - mountPath: /config/cred
       name: cred
 
-    - mountPath: /config/b64dump
-      name: b64dump
+    # - mountPath: /config/b64dump
+    #   name: b64dump
 
     - mountPath: /config/scripts
       name: scripts
