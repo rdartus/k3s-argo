@@ -217,16 +217,16 @@ envVarsFromSecrets: []
   # - secret-names
 
 ## Additional environment variables
-envVarsExtra:
-  - PGADMIN_CONFIG_AUTHENTICATION_SOURCES: "['oauth2', 'internal']"
-  - PGADMIN_CONFIG_OAUTH2_AUTO_CREATE_USER: true
-  - PGPASS_FILE: 
-  - PGADMIN_CONFIG_OAUTH2_CONFIG: 
-    valueFrom:
-      secretKeyRef:
-        name: pgadmin-secret
-        key: oidcConf
-  - POSTGRES_USERNAME: postgres
+envVarsExtra: []
+  # - PGADMIN_CONFIG_AUTHENTICATION_SOURCES: "['oauth2', 'internal']"
+  # - PGADMIN_CONFIG_OAUTH2_AUTO_CREATE_USER: true
+  # - PGPASS_FILE: 
+  # - PGADMIN_CONFIG_OAUTH2_CONFIG: 
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: pgadmin-secret
+  #       key: oidcConf
+  # - POSTGRES_USERNAME: postgres
 
 
 persistentVolume:
