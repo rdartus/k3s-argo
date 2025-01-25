@@ -178,7 +178,7 @@ existingSecret: "pgadmin-secret"
 ## @param secretKeys.pgadminPasswordKey Name of key in existing secret to use for default pgadmin credentials. Only used when `existingSecret` is set.
 ##
 secretKeys:
-  pgadminPasswordKey: password
+  # pgadminPasswordKey: password
 
 ## pgAdmin4 startup configuration
 ## Values in here get injected as environment variables
