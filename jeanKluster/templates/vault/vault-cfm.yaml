@@ -95,6 +95,14 @@ data:
       capabilities = ["read"]
     }
 
+  manager-policy.json: |
+    path "/secret/*" {
+        capabilities = ["create", "read", "update", "delete", "list"]
+    }
+  reader-policy.json: |
+    path "/secret/*" {
+      capabilities = ["read", "list"]
+    } 
 
   initScript.sh: |
 
@@ -181,6 +189,9 @@ data:
         vault policy write plcwx /config/scripts/wx-policy.json        
         vault policy write plctandoor /config/scripts/tandoor-policy.json        
         vault policy write plczerossl /config/scripts/zerossl-policy.json        
+
+        vault policy write reader /config/scripts/reader-policy.json       
+        vault policy write manager /config/scripts/manager-policy.json        
 
         vault write auth/kubernetes/role/rlcnpg \
         bound_service_account_names=cnpg-cluster \
