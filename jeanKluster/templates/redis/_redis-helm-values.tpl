@@ -150,11 +150,11 @@ auth:
   ## @param auth.existingSecret The name of an existing secret with Redis&reg; credentials
   ## NOTE: When it's set, the previous `auth.password` parameter is ignored
   ##
-  existingSecret: ""
+  existingSecret: "redis-secret"
   ## @param auth.existingSecretPasswordKey Password key to be retrieved from existing secret
   ## NOTE: ignored unless `auth.existingSecret` parameter is set
   ##
-  existingSecretPasswordKey: ""
+  existingSecretPasswordKey: "password"
   ## @param auth.usePasswordFiles Mount credentials as files instead of using an environment variable
   ##
   usePasswordFiles: false
@@ -166,7 +166,7 @@ auth:
 ##
 commonConfiguration: |-
   # Enable AOF https://redis.io/topics/persistence#append-only-file
-  appendonly yes
+  appendonly no
   # Disable RDB persistence, AOF persistence already enabled.
   save ""
 ## @param existingConfigmap The name of an existing ConfigMap with your custom configuration for Redis&reg; nodes
