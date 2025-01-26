@@ -617,6 +617,7 @@ ingress:
       hajimari.io/group: "Media"
       hajimari.io/icon: "cog-play-outline"
       cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-bouncer@kubernetescrd
       traefik.ingress.kubernetes.io/router.middlewares: "default-authentik-forward-auth@kubernetescrd"
 
     # # -- Provide additional labels which may be required. Helm templates can be used.

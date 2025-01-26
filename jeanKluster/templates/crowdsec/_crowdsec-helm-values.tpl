@@ -164,6 +164,8 @@ lapi:
         secretKeyRef:
           name: crowdsec-secret
           key: enroll-key
+    - name: ENROLL_INSTANCE_NAME
+      value: JeanBalade2
     # by default disable the agent because it only needs the local API.
     # - name: DISABLE_AGENT
     #  value: "true"

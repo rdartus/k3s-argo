@@ -135,7 +135,7 @@ experimental:
   plugins: 
     bouncer:
       moduleName: "github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin"
-      version: "v1.1.13"
+      version: "v1.3.5"
   # demo:
   #   moduleName: github.com/traefik/plugindemo
   #   version: v0.2.1
@@ -426,7 +426,7 @@ logs:
     noColor: false
   access:
     # -- To enable access logs
-    enabled: false
+    enabled: true
     # -- Set [access log format](https://doc.traefik.io/traefik/observability/access-logs/#format)
     format:  # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
     # filePath: "/var/log/traefik/access.log
@@ -451,7 +451,7 @@ logs:
       # -- [Limit logged fields or headers](https://doc.traefik.io/traefik/observability/access-logs/#limiting-the-fieldsincluding-headers)
       headers:
         # -- Set default mode for fields.headers
-        defaultmode: drop  # @schema enum:[keep, drop, redact]; default: drop
+        defaultmode: keep  # @schema enum:[keep, drop, redact]; default: drop
         names: {}
 
 metrics:
