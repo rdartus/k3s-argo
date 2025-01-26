@@ -183,7 +183,6 @@ gateway:
     #   mode: Terminate
     endlessh:
       port: 22
-      hostname: "*"
       protocol: tcp
       namespacePolicy: All
     # websecure-radarr:
