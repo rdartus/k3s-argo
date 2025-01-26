@@ -10,3 +10,7 @@ spec:
   entryPoints:
     - ssh
   routes:
+  - match: HostSNI(`*`)
+    services:
+    - name: endlessh
+      port: 22

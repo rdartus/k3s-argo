@@ -10,5 +10,6 @@ spec:
   entryPoints:
     - wireguard
   routes:
-    - match: HostSNI(`*`)
-      service: wireguard
+  - services:
+    - name: wireguard
+      port: 51820
