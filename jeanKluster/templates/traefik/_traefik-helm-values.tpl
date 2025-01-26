@@ -696,6 +696,24 @@ ports:
     exposedPort: 8080
     # -- The port protocol (TCP/UDP)
     protocol: TCP
+  ssh:
+    port: 22
+    expose:
+      default: true
+    exposedPort: 22
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: TCP
+  wireguard:
+    port: 51820
+    expose:
+      default: true
+    exposedPort: 51820
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
