@@ -550,7 +550,7 @@ service:
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
         # HTTP and HTTPS spawn a TCP service and get used for internal URL and name generation
-        protocol: UDP
+        protocol: TCP
 
   #       # -- Specify a service targetPort if you wish to differ the service port from the application port.
   #       # If `targetPort` is specified, this port number is used in the container definition instead of
@@ -660,51 +660,51 @@ serviceMonitor:
 # Additional routes can be added by adding a dictionary key similar to the 'main' route.
 # [[ref]](https://gateway-api.sigs.k8s.io/references/spec/)
 # @default -- See below
-route:
-  main:
-    # -- Enables or disables the route
-    enabled: true
+route: {}
+  # main:
+  #   # -- Enables or disables the route
+  #   enabled: true
 
-    # -- Set the route kind
-    # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
-    kind: TCPRoute
+  #   # -- Set the route kind
+  #   # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
+  #   kind: TCPRoute
 
-  #   # -- Override the name suffix that is used for this route.
-  #   nameOverride: ""
+  # #   # -- Override the name suffix that is used for this route.
+  # #   nameOverride: ""
 
-    # -- Provide additional annotations which may be required.
-    annotations: 
-      hajimari.io/enable: "true"
-      hajimari.io/group: "Media"
-      hajimari.io/icon: "cog-play-outline"
+  #   # -- Provide additional annotations which may be required.
+  #   annotations: 
+  #     hajimari.io/enable: "true"
+  #     hajimari.io/group: "Media"
+  #     hajimari.io/icon: "cog-play-outline"
 
-    # -- Provide additional labels which may be required.
-    labels: {}
+  #   # -- Provide additional labels which may be required.
+  #   labels: {}
 
-    # -- Configure the resource the route attaches to.
-    parentRefs:
-      - # Group of the referent resource.
-        group: gateway.networking.k8s.io
-        # Kind of the referent resource.
-        kind: Gateway
-        # Name of the referent resource
-        name: traefik-gateway
-        # Namespace of the referent resource
-        namespace: traefik
-        # Name of the section within the target resource.
-        sectionName: endlessh
+  #   # -- Configure the resource the route attaches to.
+  #   parentRefs:
+  #     - # Group of the referent resource.
+  #       group: gateway.networking.k8s.io
+  #       # Kind of the referent resource.
+  #       kind: Gateway
+  #       # Name of the referent resource
+  #       name: traefik-gateway
+  #       # Namespace of the referent resource
+  #       namespace: traefik
+  #       # Name of the section within the target resource.
+  #       sectionName: endlessh
 
-    # -- Host addresses. Helm template can be passed.
-    hostnames: 
+  #   # -- Host addresses. Helm template can be passed.
+  #   hostnames: 
 
-    # -- Configure rules for routing. Defaults to the primary service.
-    rules:
-      - # -- Configure backends where matching requests should be sent.
-        backendRefs: 
-          - name: endlessh
-            port: 22
-        ## Request timeout that are applied to the rules.
-        timeouts: {}
+  #   # -- Configure rules for routing. Defaults to the primary service.
+  #   rules:
+  #     - # -- Configure backends where matching requests should be sent.
+  #       backendRefs: 
+  #         - name: endlessh
+  #           port: 22
+  #       ## Request timeout that are applied to the rules.
+  #       timeouts: {}
 
 # -- Configure persistence for the chart here.
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
