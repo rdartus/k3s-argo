@@ -382,56 +382,9 @@ providers:  # @schema additionalProperties: false
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
     content: |
-      http:
-        middlewares:
-          crowdsec:
-            plugin:
-              bouncer:
-                Enabled: "true"
-                logLevel: DEBUG
-                crowdsecMode: stream
-                crowdsecLapiScheme: https
-                crowdsecLapiHost: crowdsec-service.crowdsec:8080
-                crowdsecLapiKey: mysecretkey12345
-                clientTrustedIPs:
-                  - 192.168.1.0/24
-                  - 10.13.13.0/16
-          authentik-forward-auth:
-            forwardAuth:
-              address: http://authentik.dartus.fr/outpost.goauthentik.io/auth/traefik
-              trustForwardHeader: true
-              authResponseHeaders:
-                    - X-authentik-username
-                    - X-authentik-groups
-                    - X-authentik-entitlements
-                    - X-authentik-email
-                    - X-authentik-name
-                    - X-authentik-uid
-                    - X-authentik-jwt
-                    - X-authentik-meta-jwks
-                    - X-authentik-meta-outpost
-                    - X-authentik-meta-provider
-                    - X-authentik-meta-app
-                    - X-authentik-meta-version
-
-          # auth:
-          #   basicAuth:
-          #   usersFile: "/etc/traefik/users"
-
-        # routers:
-        #   traefic-api:
-        #     rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/api`))"
-        #     service: "api@internal"
-        #     middlewares:
-        #     - crowdsec-test@docker
-        #     - authelia@docker
-        #   traefic-dash:
-        #     rule: "Host(`traefik.dartus.fr`) && (PathPrefix(`/dashboard`))"
-        #     service: "api@internal"
-        #     middlewares:
-        #     - crowdsec-test@docker
-        #     - authelia@docker
-
+      entryPoints:
+        wireguard:
+          address: ":51820/udp"
 
 #
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
