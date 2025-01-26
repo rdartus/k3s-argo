@@ -1,6 +1,6 @@
-{{- define "helmValues.redis"}} 
+{{- define "helmValues.redis"}}
 
-# Copyright VMware, Inc.
+# Copyright Broadcom, Inc. All Rights Reserved.
 # SPDX-License-Identifier: APACHE-2.0
 
 ## @section Global parameters
@@ -31,7 +31,6 @@ global:
     allowInsecureImages: false
   redis:
     password: ""
-    # password: "testredis"
   ## Compatibility adaptations for Kubernetes platforms
   ##
   compatibility:
@@ -151,11 +150,11 @@ auth:
   ## @param auth.existingSecret The name of an existing secret with Redis&reg; credentials
   ## NOTE: When it's set, the previous `auth.password` parameter is ignored
   ##
-  existingSecret: "redis-secret"
+  existingSecret: ""
   ## @param auth.existingSecretPasswordKey Password key to be retrieved from existing secret
   ## NOTE: ignored unless `auth.existingSecret` parameter is set
   ##
-  existingSecretPasswordKey: "password"
+  existingSecretPasswordKey: ""
   ## @param auth.usePasswordFiles Mount credentials as files instead of using an environment variable
   ##
   usePasswordFiles: false
@@ -167,7 +166,7 @@ auth:
 ##
 commonConfiguration: |-
   # Enable AOF https://redis.io/topics/persistence#append-only-file
-  appendonly no
+  appendonly yes
   # Disable RDB persistence, AOF persistence already enabled.
   save ""
 ## @param existingConfigmap The name of an existing ConfigMap with your custom configuration for Redis&reg; nodes
@@ -508,7 +507,7 @@ master:
       - ReadWriteOnce
     ## @param master.persistence.size Persistent Volume size
     ##
-    size: 1Gi
+    size: 8Gi
     ## @param master.persistence.annotations Additional custom annotations for the PVC
     ##
     annotations: {}
@@ -993,7 +992,7 @@ replica:
       - ReadWriteOnce
     ## @param replica.persistence.size Persistent Volume size
     ##
-    size: 1Gi
+    size: 8Gi
     ## @param replica.persistence.annotations Additional custom annotations for the PVC
     ##
     annotations: {}
@@ -1135,8 +1134,8 @@ replica:
   ##
   extraPodSpec: {}
   ## @param replica.annotations Additional custom annotations for Redis&reg; replicas resource
-    ##
-    annotations: {}
+  ##
+  annotations: {}
 ## @section Redis&reg; Sentinel configuration parameters
 ##
 
@@ -1958,7 +1957,7 @@ metrics:
     # - interval: "30s"
     #   path: "/scrape"
     #   port: "http-metrics"
-      #   params:
+    #   params:
     #     target: ["localhost:26379"]
     #   metricRelabelings:
     #     - targetLabel: "app"
@@ -2015,7 +2014,7 @@ metrics:
     # - interval: "30s"
     #   path: "/scrape"
     #   port: "metrics"
-      #   params:
+    #   params:
     #     target: ["localhost:26379"]
     #   metricRelabelings:
     #     - targetLabel: "app"
@@ -2037,36 +2036,36 @@ metrics:
     ## e.g:
     ## rules:
     ##   - alert: RedisDown
-    ##     expr: redis_up{service="*- template "common.names.fullname" . -*-metrics"} == 0
+    ##     expr: redis_up{service="{ template "common.names.fullname" . }-metrics"} == 0
     ##     for: 2m
     ##     labels:
     ##       severity: error
     ##     annotations:
-    ##       summary: Redis&reg; instance *- "*- $labels.instance -*" -* down
-    ##       description: Redis&reg; instance *- "*- $labels.instance -*" -* is down
+    ##       summary: Redis&reg; instance { "{ $labels.instance }" } down
+    ##       description: Redis&reg; instance { "{ $labels.instance }" } is down
     ##    - alert: RedisMemoryHigh
     ##      expr: >
-    ##        redis_memory_used_bytes{service="*- template "common.names.fullname" . -*-metrics"} * 100
+    ##        redis_memory_used_bytes{service="{ template "common.names.fullname" . }-metrics"} * 100
     ##        /
-    ##        redis_memory_max_bytes{service="*- template "common.names.fullname" . -*-metrics"}
+    ##        redis_memory_max_bytes{service="{ template "common.names.fullname" . }-metrics"}
     ##        > 90
     ##      for: 2m
     ##      labels:
     ##        severity: error
     ##      annotations:
-    ##        summary: Redis&reg; instance *- "*- $labels.instance -*" -* is using too much memory
+    ##        summary: Redis&reg; instance { "{ $labels.instance }" } is using too much memory
     ##        description: |
-    ##          Redis&reg; instance *- "*- $labels.instance -*" -* is using *- "*- $value -*" -*% of its available memory.
+    ##          Redis&reg; instance { "{ $labels.instance }" } is using { "{ $value }" }% of its available memory.
     ##    - alert: RedisKeyEviction
     ##      expr: |
-    ##        increase(redis_evicted_keys_total{service="*- template "common.names.fullname" . -*-metrics"}[5m]) > 0
+    ##        increase(redis_evicted_keys_total{service="{ template "common.names.fullname" . }-metrics"}[5m]) > 0
     ##      for: 1s
     ##      labels:
     ##        severity: error
     ##      annotations:
-    ##        summary: Redis&reg; instance *- "*- $labels.instance -*" -* has evicted keys
+    ##        summary: Redis&reg; instance { "{ $labels.instance }" } has evicted keys
     ##        description: |
-    ##          Redis&reg; instance *- "*- $labels.instance -*" -* has evicted *- "*- $value -*" -* keys in the last 5 minutes.
+    ##          Redis&reg; instance { "{ $labels.instance }" } has evicted { "{ $value }" } keys in the last 5 minutes.
     ##
     rules: []
 ## @section Init Container Parameters
