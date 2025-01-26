@@ -181,6 +181,11 @@ gateway:
     #   namespacePolicy: All
     # #   # -- Add certificates for TLS or HTTPS protocols. See [GatewayTLSConfig](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1.GatewayTLSConfig)
     #   mode: Terminate
+    endlessh:
+      port: 22
+      hostname: "*"
+      protocol: tcp
+      namespacePolicy: All
     # websecure-radarr:
     #   port: 443
     #   hostname: "radarr2.dartus.fr"
