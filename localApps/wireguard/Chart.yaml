@@ -1,0 +1,15 @@
+apiVersion: v2
+description: |
+    wireguard : 
+name: wireguard
+version: 1.0.0
+kubeVersion: ">=1.22.0-0"
+keywords:
+- wireguard
+
+maintainers:
+- name: rdartus
+dependencies:
+- name: common
+  version: 3.6.1
+  repository: https://bjw-s.github.io/helm-charts/
