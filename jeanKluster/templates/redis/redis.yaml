@@ -23,7 +23,7 @@ spec:
   source:
     chart: redis
     targetRevision: "20.6.3"
-    repoURL: https://charts.bitnami.com/bitnami
+    repoURL: registry-1.docker.io/bitnamicharts/redis
     helm : 
       values: |
 {{- include "helmValues.redis" . | indent 8 }}
