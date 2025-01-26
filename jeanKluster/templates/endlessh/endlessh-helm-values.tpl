@@ -545,7 +545,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 51820
+        port: 22
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
@@ -696,7 +696,6 @@ route:
 
     # -- Host addresses. Helm template can be passed.
     hostnames: 
-      - radarr2.dartus.fr
 
     # -- Configure rules for routing. Defaults to the primary service.
     rules:
