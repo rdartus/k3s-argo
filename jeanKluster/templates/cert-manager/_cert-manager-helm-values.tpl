@@ -132,7 +132,7 @@ podDisruptionBudget:
 
 # A comma-separated list of feature gates that should be enabled on the
 # controller pod.
-featureGates: "ExperimentalGatewayAPISupport"
+featureGates: "ExperimentalGatewayAPISupport=true"
 
 # The maximum number of challenges that can be scheduled as 'processing' at once.
 maxConcurrentChallenges: 60
