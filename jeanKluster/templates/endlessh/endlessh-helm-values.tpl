@@ -545,7 +545,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 22
+        port: 2222
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
