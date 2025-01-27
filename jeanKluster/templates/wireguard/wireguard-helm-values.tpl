@@ -81,6 +81,8 @@ defaultPodOptions:
 
   # -- Configure the Security Context for the Pod
   securityContext: {}
+      # fsGroup: 65533
+
 
   # -- Duration in seconds the pod needs to terminate gracefully
   # -- [[ref](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#lifecycle)]
@@ -247,7 +249,7 @@ controllers:
 
         # -- Specify if this container depends on any other containers
         # This is used to determine the order in which the containers are rendered.
-        dependsOn: []
+        # dependsOn: [gitsync]
 
         image:
           # -- image repository
@@ -256,6 +258,42 @@ controllers:
           tag: 1.0.20210914
           # -- image pull policy
           pullPolicy: IfNotPresent
+        
+        env:
+          SERVERURL: secure.dartus.fr
+          TZ: "Europe/Paris"
+          PEERS: "test"
+        securityContext:
+          privileged: true
+          capabilities:
+            add:
+              - NET_ADMIN
+
+      # gitsync:
+      #   dependsOn: []
+      #   image:
+      #     repository: ghcr.io/rdartus/git-sync@sha256
+      #     tag: 1e73176654edc824de658a270582edd815ac7cb4bae06de96d8aadaebc900ac9
+      #     # -- image pull policy
+      #     pullPolicy: IfNotPresent
+      #   args:
+      #     - --repo=git@gitlab.com:k3s-pi1/dump-k3s.git
+      #     - --depth=1
+      #     - --period=1500s
+      #     - --link=dump-k3s
+      #     - --ref=main
+      #     - --root=/data
+      #     - --ssh-known-hosts=false
+      #     - --ssh-key-file=/config/key
+      #     - --git-LFS=true
+      #     - --verbose=9
+      #     -  --exechook-timeout=300s
+      #     - --sync-timeout=300s
+      #     - --one-time
+      #   env:
+      #   securityContext:
+      #     runAsUser: 65533
+
 
         # -- Override the command(s) for the container
         # command: []
@@ -405,7 +443,15 @@ controllers:
 
 #     # -- Specify any initContainers here as dictionary items.
 #     # Each initContainer should have its own key
-#     initContainers: {}
+    initContainers:
+      - name: "wireguard-template-replacement"
+        image: "busybox"
+        command: ["sh", "-c", "ENI=$(ip route get 8.8.8.8 | grep 8.8.8.8 | awk '{print $5}'); sed \"s/ENI/$ENI/g\" /etc/wireguard-secret/wg0.conf.template > /etc/wireguard/wg0.conf; chmod 400 /etc/wireguard/wg0.conf"]
+        volumeMounts:
+          - name: wireguard-config
+            mountPath: /etc/wireguard/
+          - name: wireguard-secret
+            mountPath: /etc/wireguard-secret/
 
 # -- If true forces the controllers to use the `default` ServiceAccount for the namespace if one is not explicitly defined.
 # This feature flag will be removed on future versions where this will be the default behavior.
@@ -714,7 +760,15 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-  {}
+    enabled: false
+
+  #   # -- Sets the persistence type
+  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
+  #   type: secret
+  #   name: ssh-secret
+  # data :
+  #   enabled: true
+  #   type: emptyDir
   # config:
   #   # -- Enables or disables the persistence item. Defaults to true
   #   enabled: false
