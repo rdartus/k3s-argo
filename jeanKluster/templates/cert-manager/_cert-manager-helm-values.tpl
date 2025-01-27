@@ -283,7 +283,8 @@ approveSignerNames:
 # For example:
 #  extraArgs:
 #    - --controllers=*,-certificaterequests-approver
-extraArgs: []
+extraArgs: 
+  - --enable-gateway-api
 
 # Additional environment variables to pass to cert-manager controller binary.
 # For example:
