@@ -13,4 +13,4 @@ spec:
   - match: HostSNI(`*`)
     services:
     - name: endlessh
-      port: 22
+      port: 2222
