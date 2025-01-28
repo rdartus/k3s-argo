@@ -116,9 +116,9 @@ config:
     # splunk.yaml: ""
 
 tls:
-  enabled: true
+  enabled: false
   caBundle: true
-  insecureSkipVerify: false
+  insecureSkipVerify: true
   certManager:
     enabled: true
     # -- Use existing issuer to sign certificates. Leave empty to generate a self-signed issuer
