@@ -21,7 +21,7 @@ spec:
       namespace: traefik
       # Name of the section within the target resource.
       # sectionName: websecure-traefik  
-      sectionName: webs
+      sectionName: web
   rules:
     - matches:
         - path:
