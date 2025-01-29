@@ -10,7 +10,7 @@ metadata:
 
 spec:
   destination:
-    namespace: crowdsec
+    namespace: traefik
     server: {{ .Values.dest_server }}
   project: default
   syncPolicy:
