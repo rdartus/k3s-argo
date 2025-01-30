@@ -1,29 +1,32 @@
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: livres
-#   namespace: argocd
-#   finalizers:
-#   - resources-finalizer.argocd.argoproj.io
-#   annotations:
-#     argocd.argoproj.io/sync-wave: "41"
+{{- if .Values.simplifyCluster }}
 
-# spec:
-#   destination:
-#     namespace: default
-#     server: {{ .Values.dest_server }}
-#   project: default
-#   syncPolicy:
-#     automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
-#       prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
-#       selfHeal: true
-#       allowEmpty: true
-#     syncOptions:
-#       - CreateNamespace=true
-#   source:
-#     chart: calibre-web
-#     targetRevision: "*"
-#     repoURL: https://k8s-home-lab.github.io/helm-charts/
-#     helm : 
-#       values: |
-# {{ include "helmValues.livres" . | indent 8 }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: livres
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "41"
+
+spec:
+  destination:
+    namespace: default
+    server: {{ .Values.dest_server }}
+  project: default
+  syncPolicy:
+    automated: # automated sync by default retries failed attempts 5 times with following delays between attempts ( 5s, 10s, 20s, 40s, 80s ); retry controlled using `retry` field.
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+      - CreateNamespace=true
+  source:
+    chart: calibre-web
+    targetRevision: "*"
+    repoURL: https://k8s-home-lab.github.io/helm-charts/
+    helm : 
+      values: |
+{{ include "helmValues.livres" . | indent 8 }}
+{{end}}
