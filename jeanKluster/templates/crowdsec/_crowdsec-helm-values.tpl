@@ -163,7 +163,12 @@ lapi:
       valueFrom:
         secretKeyRef:
           name: crowdsec-secret
-          key: enroll-key
+          key: enroll_key
+    - name: BOUNCER_KEY_traefik
+      valueFrom:
+        secretKeyRef:
+          name: crowdsec-secret
+          key: bouncer_traefik
     - name: ENROLL_INSTANCE_NAME
       value: JeanBalade2
     # by default disable the agent because it only needs the local API.
