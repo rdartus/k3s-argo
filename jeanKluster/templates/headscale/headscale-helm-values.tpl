@@ -482,9 +482,12 @@ secrets:
   config:
     stringData:
       config.yaml: |
-        server_url: http://secure.dartus.fr
+        server_url: https://secure2.dartus.fr
         listen_addr: 0.0.0.0:8080
         metrics_listen_addr: 0.0.0.0:9090
+        # disable TLS - nginx handles it
+        tls_cert_path: ""
+        tls_key_path: ""
         private_key_path: /var/lib/headscale/private.key
         noise:
           private_key_path: /var/lib/headscale/noise_private.key
@@ -513,8 +516,9 @@ secrets:
           # List of DNS servers to expose to clients.
           nameservers:
             - 192.168.1.1
+            - 192.168.1.24
           domains: []
-          magic_dns: true
+          magic_dns: false
           base_domain: ts.sko.ai
         log:
           level: debug

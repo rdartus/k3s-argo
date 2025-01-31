@@ -1,4 +1,4 @@
-{{- if .Values.simplifyCluster }}
+{{- if .Values.complexifyCluster }}
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
