@@ -719,10 +719,10 @@ ingress:
               
 
     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+    tls:
+      - hosts:
+        - secure2.dartus.fr
+        secretName: secure2.dartus.fr-tls
 
   ui:
     annotations:
@@ -738,6 +738,10 @@ ingress:
             service:
               identifier: ui
               port: http
+    tls:
+      - hosts:
+        - secure2.dartus.fr
+        secretName: secure2.dartus.fr-tls
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.
