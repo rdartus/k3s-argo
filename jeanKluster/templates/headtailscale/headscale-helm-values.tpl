@@ -144,6 +144,7 @@ controllers:
             enabled: true
 
   ui:
+    enabled: true
     strategy: RollingUpdate
     containers:
       app:
@@ -583,7 +584,20 @@ configMapsFromFolderBasePath: null
 # -- Configure the services for the chart here.
 # Additional services can be added by adding a dictionary key similar to the 'main' service.
 # @default -- See below
-service: {}
+service: 
+  main:
+    controller: main
+    ports:
+      http:
+        primary: true
+        port: 8080
+      metrics:
+        port: 9090
+  ui:
+    controller: ui
+    ports:
+      http:
+        port: 80
 
   # main:
   #   # -- Enables or disables the service
@@ -701,7 +715,8 @@ ingress:
               # -- Reference a service identifier from this values.yaml
               identifier: main
     #           # -- Overrides the service port number reference for this path
-              # port:
+              port: http
+              
 
     # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
     tls: []
