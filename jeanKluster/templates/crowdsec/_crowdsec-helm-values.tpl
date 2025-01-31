@@ -366,6 +366,13 @@ agent:
       program: "traefik" #nginx
       # -- If set to true, will poll the files using os.Stat instead of using inotify
       poll_without_inotify: false
+    # - namespace: "default" #ingress-nginx
+    #   # -- to select pod logs to process
+    #   podName: "endlessh-*" #ingress-nginx-controller-*
+    #   # -- program name related to specific parser you will use (see https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs)
+    #   program: "endlessh" #nginx
+    #   # -- If set to true, will poll the files using os.Stat instead of using inotify
+    #   poll_without_inotify: false
 
   # -- pod priority class name
   priorityClassName: ""
@@ -411,10 +418,14 @@ agent:
   hostVarLog: true
   # -- environment variables from crowdsecurity/crowdsec docker image
   env:
+    - name: COLLECTIONS
+      value: "crowdsecurity/traefik crowdsecurity/endlessh"
+    - name: TZ
+      value: "Europe/Paris"
     # by default we configure the docker-logs parser to be able to parse docker logs in k8s
     # by default we disable local API on the agent pod
-    - name: COLLECTIONS
-      value: "crowdsecurity/traefik"
+    # - name: COLLECTIONS
+    #   value: "crowdsecurity/traefik"
     # - name: SCENARIOS
     #   value: "scenario/name otherScenario/name"
     # - name: PARSERS
@@ -429,8 +440,6 @@ agent:
     #   value: "Labels.type_for_time-machine_mode"
     # - name: TEST_MODE
     #   value: "false"
-    # - name: TZ
-    #   value: ""
     # - name: DISABLE_AGENT
     #   value: "false"
     # - name: DISABLE_ONLINE_API
