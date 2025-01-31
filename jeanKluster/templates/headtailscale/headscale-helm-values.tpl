@@ -1,5 +1,4 @@
 {{- define "helmValues.headscale" }}
-
 # yaml-language-server: $schema: https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
 global:
@@ -583,92 +582,80 @@ configMapsFromFolderBasePath: null
 # -- Configure the services for the chart here.
 # Additional services can be added by adding a dictionary key similar to the 'main' service.
 # @default -- See below
-service:
-  main:
-    controller: main
-    ports:
-      http:
-        primary: true
-        port: 8080
-      metrics:
-        port: 9090
-  ui:
-    controller: ui
-    ports:
-      http:
-        port: 80
-  main:
-    # -- Enables or disables the service
-    enabled: true
+service: {}
 
-    # -- Override the name suffix that is used for this service
-    nameOverride: ""
+  # main:
+  #   # -- Enables or disables the service
+  #   enabled: true
 
-    # -- Configure which controller this service should target
-    controller: main
+  #   # -- Override the name suffix that is used for this service
+  #   nameOverride: ""
 
-    # -- Make this the primary service for this controller (used in probes, notes, etc...).
-    # If there is more than 1 service targeting the controller, make sure that only 1 service is
-    # marked as primary.
-    primary: true
+  #   # -- Configure which controller this service should target
+  #   controller: main
 
-    # -- Set the service type
-    type: ClusterIP
+  #   # -- Make this the primary service for this controller (used in probes, notes, etc...).
+  #   # If there is more than 1 service targeting the controller, make sure that only 1 service is
+  #   # marked as primary.
+  #   primary: true
 
-    # # -- Specify the internalTrafficPolicy for the service. Options: Cluster, Local
-    # # -- [[ref](https://kubernetes.io/docs/concepts/services-networking/service-traffic-policy/)]
-    # internalTrafficPolicy:
+  #   # -- Set the service type
+  #   type: ClusterIP
 
-    # # -- Specify the externalTrafficPolicy for the service. Options: Cluster, Local
-    # # -- [[ref](https://kubernetes.io/docs/tutorials/services/source-ip/)]
-    # externalTrafficPolicy:
+  #   # # -- Specify the internalTrafficPolicy for the service. Options: Cluster, Local
+  #   # # -- [[ref](https://kubernetes.io/docs/concepts/services-networking/service-traffic-policy/)]
+  #   # internalTrafficPolicy:
 
-    # # -- Specify the ip policy. Options: SingleStack, PreferDualStack, RequireDualStack
-    # ipFamilyPolicy:
-    # # -- The ip families that should be used. Options: IPv4, IPv6
-    # ipFamilies: []
+  #   # # -- Specify the externalTrafficPolicy for the service. Options: Cluster, Local
+  #   # # -- [[ref](https://kubernetes.io/docs/tutorials/services/source-ip/)]
+  #   # externalTrafficPolicy:
 
-    # # -- Provide additional annotations which may be required.
-    # annotations: {}
+  #   # # -- Specify the ip policy. Options: SingleStack, PreferDualStack, RequireDualStack
+  #   # ipFamilyPolicy:
+  #   # # -- The ip families that should be used. Options: IPv4, IPv6
+  #   # ipFamilies: []
 
-    # # -- Provide additional labels which may be required.
-    # labels: {}
+  #   # # -- Provide additional annotations which may be required.
+  #   # annotations: {}
 
-    # # -- Allow adding additional match labels
-    # extraSelectorLabels: {}
+  #   # # -- Provide additional labels which may be required.
+  #   # labels: {}
 
-    # # -- Configure the Service port information here.
-    # # Additional ports can be added by adding a dictionary key similar to the 'http' service.
-    # # @default -- See below
-    ports:
-      http:
-        # -- Enables or disables the port
-        enabled: true
+  #   # # -- Allow adding additional match labels
+  #   # extraSelectorLabels: {}
 
-        # -- Make this the primary port (used in probes, notes, etc...)
-        # If there is more than 1 service, make sure that only 1 port is marked as primary.
-        primary: true
+  #   # # -- Configure the Service port information here.
+  #   # # Additional ports can be added by adding a dictionary key similar to the 'http' service.
+  #   # # @default -- See below
+  #   ports:
+  #     http:
+  #       # -- Enables or disables the port
+  #       enabled: true
 
-        # -- The port number
-        port: 51820
+  #       # -- Make this the primary port (used in probes, notes, etc...)
+  #       # If there is more than 1 service, make sure that only 1 port is marked as primary.
+  #       primary: true
 
-        # -- Port protocol.
-        # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
-        # HTTP and HTTPS spawn a TCP service and get used for internal URL and name generation
-        protocol: UDP
+  #       # -- The port number
+  #       port: 51820
 
-  #       # -- Specify a service targetPort if you wish to differ the service port from the application port.
-  #       # If `targetPort` is specified, this port number is used in the container definition instead of
-  #       # the `port` value. Therefore named ports are not supported for this field.
-  #       targetPort:
+  #       # -- Port protocol.
+  #       # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
+  #       # HTTP and HTTPS spawn a TCP service and get used for internal URL and name generation
+  #       protocol: UDP
 
-  #       # -- Specify the nodePort value for the LoadBalancer and NodePort service types.
-  #       # [[ref]](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-  #       nodePort:
+  # #       # -- Specify a service targetPort if you wish to differ the service port from the application port.
+  # #       # If `targetPort` is specified, this port number is used in the container definition instead of
+  # #       # the `port` value. Therefore named ports are not supported for this field.
+  # #       targetPort:
 
-  #       # -- Specify the appProtocol value for the Service.
-  #       # [[ref]](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
-  #       appProtocol:
+  # #       # -- Specify the nodePort value for the LoadBalancer and NodePort service types.
+  # #       # [[ref]](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
+  # #       nodePort:
+
+  # #       # -- Specify the appProtocol value for the Service.
+  # #       # [[ref]](https://kubernetes.io/docs/concepts/services-networking/service/#application-protocol)
+  # #       appProtocol:
 
 # -- Configure the ingresses for the chart here.
 ingress: 
