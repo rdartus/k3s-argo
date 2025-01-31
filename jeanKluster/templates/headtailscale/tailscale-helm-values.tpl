@@ -530,22 +530,7 @@ configMapsFromFolderBasePath: null
 # -- Configure the services for the chart here.
 # Additional services can be added by adding a dictionary key similar to the 'main' service.
 # @default -- See below
-service:
-  main:
-    enabled: true
-    controller: main
-    ports:
-      http:
-        primary: true
-        port: 8080
-      metrics:
-        port: 9090
-  ui:
-    enabled: true
-    controller: ui
-    ports:
-      http:
-        port: 80
+service: {}
 
 # -- Configure the ingresses for the chart here.
 ingress: {}
