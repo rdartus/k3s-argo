@@ -1,4 +1,4 @@
-{{- define "helmValues.headscale" }}
+{{- define "helmValues.tailscale" }}
 
 # yaml-language-server: $schema: https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
 ---
@@ -115,43 +115,48 @@ controllers:
 
         image:
           # -- image repository
-          repository: headscale/headscale
+          repository: tailscale/tailscale
           # -- image tag
-          tag: v0.24
+          tag: latest
           # -- image pull policy
           pullPolicy: IfNotPresent
-        
+
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /debug/pprof/
+                port: 9001
+              initialDelaySeconds: 15
+              periodSeconds: 20
+              timeoutSeconds: 1
+              failureThreshold: 3
         env:
-          SERVERURL: secure.dartus.fr
-          TZ: "Europe/Paris"
-          PEERS: "test"
+          # TZ: Europe/France
+          TS_AUTHKEY: tskey-auth-kV7bYL6CNTRL-GXXhAHWhHXAVTcumJyyxXAc2cyjxQ3QkD
+          TS_STATE_DIR: /var/lib/tailscale
+          TS_USERSPACE: false
+          NO_AUTOUPDATE: true
+          TS_EXTRA_ARGS: --advertise-exit-node  --advertise-tags=tag:k8s
+          TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
         securityContext:
           privileged: true
           capabilities:
             add:
               - NET_ADMIN
-        command: [headscale]
-        args: [serve]
-        probes:
-          startup:
-            enabled: true
-            spec:
-              failureThreshold: 30
-              periodSeconds: 5
-          liveness:
-            enabled: true
-          readiness:
-            enabled: true
+        # probes:
+        #   startup:
+        #     enabled: true
+        #     spec:
+        #       failureThreshold: 30
+        #       periodSeconds: 5
+        #   liveness:
+        #     enabled: true
+        #   readiness:
+        #     enabled: true
 
-  ui:
-    strategy: RollingUpdate
-    containers:
-      app:
-        image:
-          repository: ghcr.io/gurucomputing/headscale-ui
-          tag: 2024.02.24-beta1@sha256:4c618a7b6e8b32f5ef6af3c7e6936c63e8568ad9ae8d190dafb2551a64ff40a2
-        securityContext:
-          readOnlyRootFilesystem: true
 #     # -- Set annotations on the deployment/statefulset/daemonset/cronjob/job
 #     annotations: {}
 #     # -- Set labels on the deployment/statefulset/daemonset/cronjob/job
@@ -478,50 +483,7 @@ serviceAccount:
 # to anybody with access to the values.yaml file.
 # Additional Secrets can be added by adding a dictionary key similar to the 'secret' object.
 # @default -- See below
-secrets:
-  config:
-    stringData:
-      config.yaml: |
-        server_url: https://secure2.dartus.fr
-        listen_addr: 0.0.0.0:8080
-        metrics_listen_addr: 0.0.0.0:9090
-        # disable TLS - nginx handles it
-        tls_cert_path: ""
-        tls_key_path: ""
-        private_key_path: /var/lib/headscale/private.key
-        noise:
-          private_key_path: /var/lib/headscale/noise_private.key
-        prefixes:
-          v6: fd7a:115c:a1e0::/48
-          v4: 100.64.0.0/10
-        derp:
-          server:
-            enabled: false
-          urls:
-            - https://controlplane.tailscale.com/derpmap/default
-          auto_update_enabled: false
-          update_frequency: 24h
-        disable_check_updates: true
-        ephemeral_node_inactivity_timeout: 30m
-        database:
-          type: sqlite
-          sqlite:
-            path: /var/lib/headscale/db.sqlite
-        # TODO: Remove after 0.23.0
-        db_type: sqlite3
-        db_path: /var/lib/headscale/db.sqlite
-        dns_config:
-          # Whether to prefer using Headscale provided DNS or use local.
-          override_local_dns: false
-          # List of DNS servers to expose to clients.
-          nameservers:
-            - 192.168.1.1
-            - 192.168.1.24
-          domains: []
-          magic_dns: false
-          base_domain: ts.sko.ai
-        log:
-          level: debug
+secrets: {}
   # secret:
   #   # -- Enables or disables the Secret
   #   enabled: false
@@ -655,70 +617,70 @@ service:
   #       appProtocol:
 
 # -- Configure the ingresses for the chart here.
-ingress: 
-  # -- An example is shown below
-  main:
-    # -- Enables or disables the ingress
-    enabled: true
+ingress: {}
+  # # -- An example is shown below
+  # main:
+  #   # -- Enables or disables the ingress
+  #   enabled: true
 
-    # # -- Override the name suffix that is used for this ingress.
-    # nameOverride:
+  #   # # -- Override the name suffix that is used for this ingress.
+  #   # nameOverride:
 
-    # # -- Provide additional annotations which may be required. Helm templates can be used.
-    # annotations: {}
-    annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/group: "Media"
-      hajimari.io/icon: "chef-hat"
-      cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+  #   # # -- Provide additional annotations which may be required. Helm templates can be used.
+  #   # annotations: {}
+  #   annotations:
+  #     hajimari.io/enable: "true"
+  #     hajimari.io/group: "Media"
+  #     hajimari.io/icon: "chef-hat"
+  #     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
 
-    # # -- Provide additional labels which may be required. Helm templates can be used.
-    # labels: {}
+  #   # # -- Provide additional labels which may be required. Helm templates can be used.
+  #   # labels: {}
 
-    # # -- Set the ingressClass that is used for this ingress.
-    # className:
+  #   # # -- Set the ingressClass that is used for this ingress.
+  #   # className:
 
-    # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-    # defaultBackend:
+  #   # # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
+  #   # defaultBackend:
 
-    ## Configure the hosts for the ingress
-    hosts:
-      - # -- Host address. Helm template can be passed.
-        host: secure2.dartus.fr
-        ## Configure the paths for the host
-        paths:
-          - # -- Path.  Helm template can be passed.
-            path: /
-            pathType: Prefix
-            service:
-              # -- Overrides the service name reference for this path
-              # The service name to reference.
-              name: main
-              # -- Reference a service identifier from this values.yaml
-              identifier: main
-    #           # -- Overrides the service port number reference for this path
-              # port:
+  #   ## Configure the hosts for the ingress
+  #   hosts:
+  #     - # -- Host address. Helm template can be passed.
+  #       host: secure2.dartus.fr
+  #       ## Configure the paths for the host
+  #       paths:
+  #         - # -- Path.  Helm template can be passed.
+  #           path: /
+  #           pathType: Prefix
+  #           service:
+  #             # -- Overrides the service name reference for this path
+  #             # The service name to reference.
+  #             name: main
+  #             # -- Reference a service identifier from this values.yaml
+  #             identifier: main
+  #   #           # -- Overrides the service port number reference for this path
+  #             # port:
 
-    # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
+  #   # -- Configure TLS for the ingress. Both secretName and hosts can process a Helm template.
+  #   tls: []
+  #   #  - secretName: chart-example-tls
+  #   #    hosts:
+  #   #      - chart-example.local
 
-  ui:
-    annotations:
-      hajimari.io/enable: "true"
-      hajimari.io/group: "Media"
-      hajimari.io/icon: "chef-hat"
-      cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+  # ui:
+  #   annotations:
+  #     hajimari.io/enable: "true"
+  #     hajimari.io/group: "Media"
+  #     hajimari.io/icon: "chef-hat"
+  #     cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
 
-    hosts:
-      - host: secure2.dartus.fr
-        paths:
-          - path: /web
-            service:
-              identifier: ui
-              port: http
+  #   hosts:
+  #     - host: secure2.dartus.fr
+  #       paths:
+  #         - path: /web
+  #           service:
+  #             identifier: ui
+              # port: http
 
 # -- Configure the ServiceMonitors for the chart here.
 # Additional ServiceMonitors can be added by adding a dictionary key similar to the 'main' ServiceMonitors.
@@ -818,36 +780,21 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-    enabled: false
+  enabled: true
 
   config:
-    type: secret
-    name: headscale-config
+    type: hostPath
+    hostPath: /home/jeank/db
     advancedMounts:
-      headscale:
-        app:
-          - path: /etc/headscale/config.yaml
-            subPath: config.yaml
+      main:
+        main:
+          - path: /var/lib/tailscale
 
-  var-lib-headscale:
-    existingClaim: headscale
-    advancedMounts:
-      headscale:
-        app:
-          - path: /var/lib/headscale
-  tmp:
+  cache:
     type: emptyDir
-    advancedMounts:
-      headscale:
-        app:
-          - path: /var/run/headscale
-            subPath: run
-      ui:
-        app:
-          - path: /data
-            subPath: data
-          - path: /home/appuser/.local
-            subPath: .local
+    globalMounts:
+      - path: /.cache
+
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
   #   type: secret
