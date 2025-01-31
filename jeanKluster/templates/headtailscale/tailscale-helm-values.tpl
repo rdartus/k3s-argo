@@ -142,11 +142,21 @@ controllers:
           NO_AUTOUPDATE: true
           TS_EXTRA_ARGS: --advertise-exit-node  --advertise-tags=tag:k8s
           TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
+
         securityContext:
-          privileged: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
           capabilities:
-            add:
-              - NET_ADMIN
+            drop:
+              - ALL
+defaultPodOptions:
+  dnsPolicy: ClusterFirstWithHostNet
+  hostNetwork: true
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
+
         # probes:
         #   startup:
         #     enabled: true
