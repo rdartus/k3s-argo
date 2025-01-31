@@ -415,7 +415,7 @@ additionalVolumeMounts: []
 logs:
   general:
     # -- Set [logs format](https://doc.traefik.io/traefik/observability/logs/#format)
-    format:  common # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
+    format:  json # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
     # By default, the level is set to INFO.
     # -- Alternative logging levels are TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC.
     level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
@@ -427,7 +427,7 @@ logs:
     # -- To enable access logs
     enabled: true
     # -- Set [access log format](https://doc.traefik.io/traefik/observability/access-logs/#format)
-    format: common # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
+    format: json # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
     # filePath: "/var/log/traefik/access.log
     # -- Set [bufferingSize](https://doc.traefik.io/traefik/observability/access-logs/#bufferingsize)
     bufferingSize:  # @schema type:[integer, null]

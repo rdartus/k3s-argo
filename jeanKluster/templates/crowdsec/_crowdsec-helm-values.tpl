@@ -359,20 +359,20 @@ agent:
     #     type: syslog
     # -- Specify each pod you want to process it logs (namespace, podName and program)
   acquisition: 
-    - namespace: "traefik" #ingress-nginx
-      # -- to select pod logs to process
-      podName: "traefik-*" #ingress-nginx-controller-*
-      # -- program name related to specific parser you will use (see https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs)
-      program: "traefik" #nginx
-      # -- If set to true, will poll the files using os.Stat instead of using inotify
-      poll_without_inotify: false
-    # - namespace: "default" #ingress-nginx
+    # - namespace: "traefik" #ingress-nginx
     #   # -- to select pod logs to process
-    #   podName: "endlessh-*" #ingress-nginx-controller-*
+    #   podName: "traefik-*" #ingress-nginx-controller-*
     #   # -- program name related to specific parser you will use (see https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs)
-    #   program: "endlessh" #nginx
+    #   program: "traefik" #nginx
     #   # -- If set to true, will poll the files using os.Stat instead of using inotify
     #   poll_without_inotify: false
+    - namespace: "default" #ingress-nginx
+      # -- to select pod logs to process
+      podName: "endlessh-*" #ingress-nginx-controller-*
+      # -- program name related to specific parser you will use (see https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs)
+      program: "endlessh" #nginx
+      # -- If set to true, will poll the files using os.Stat instead of using inotify
+      poll_without_inotify: false
 
   # -- pod priority class name
   priorityClassName: ""
