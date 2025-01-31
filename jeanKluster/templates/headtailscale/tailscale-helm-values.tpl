@@ -145,18 +145,10 @@ controllers:
 
         securityContext:
           privileged: true
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
           capabilities:
-            drop:
-              - ALL
-defaultPodOptions:
-  dnsPolicy: ClusterFirstWithHostNet
-  hostNetwork: true
-  securityContext:
-    runAsNonRoot: true
-    runAsUser: 568
-    runAsGroup: 568
+            add:
+              - NET_ADMIN
+
 
         # probes:
         #   startup:
