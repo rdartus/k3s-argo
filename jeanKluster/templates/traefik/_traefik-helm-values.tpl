@@ -427,7 +427,7 @@ logs:
     # -- To enable access logs
     enabled: true
     # -- Set [access log format](https://doc.traefik.io/traefik/observability/access-logs/#format)
-    format: json # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
+    format: common # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
     # filePath: "/var/log/traefik/access.log
     # -- Set [bufferingSize](https://doc.traefik.io/traefik/observability/access-logs/#bufferingsize)
     bufferingSize:  # @schema type:[integer, null]
