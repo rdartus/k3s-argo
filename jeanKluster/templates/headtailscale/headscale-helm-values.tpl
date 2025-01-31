@@ -122,7 +122,7 @@ controllers:
           pullPolicy: IfNotPresent
         
         env:
-          SERVERURL: secure.dartus.fr
+          SERVERURL: https://secure2.dartus.fr
           TZ: "Europe/Paris"
           PEERS: "test"
         securityContext:
