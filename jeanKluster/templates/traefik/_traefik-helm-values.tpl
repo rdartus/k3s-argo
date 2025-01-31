@@ -415,7 +415,7 @@ additionalVolumeMounts: []
 logs:
   general:
     # -- Set [logs format](https://doc.traefik.io/traefik/observability/logs/#format)
-    format:  json # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
+    format:  common # @schema enum:["common", "json", null]; type:[string, null]; default: "common"
     # By default, the level is set to INFO.
     # -- Alternative logging levels are TRACE, DEBUG, INFO, WARN, ERROR, FATAL, and PANIC.
     level: "DEBUG"  # @schema enum:[TRACE,DEBUG,INFO,WARN,ERROR,FATAL,PANIC]; default: "INFO"
