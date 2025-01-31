@@ -1,6 +1,7 @@
 {{- define "helmValues.tailscale" }}
 
-# yaml-language-server: $schema: https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
+
 ---
 global:
   # -- Set an override for the prefix of the fullname
@@ -710,7 +711,6 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-  enabled: true
 
   config:
     type: hostPath

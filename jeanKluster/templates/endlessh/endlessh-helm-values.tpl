@@ -1,6 +1,7 @@
 {{- define "helmValues.endlessh" }}
 
-# yaml-language-server: $schema: https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/refs/heads/main/charts/library/common/values.schema.json
+
 ---
 global:
   # -- Set an override for the prefix of the fullname
