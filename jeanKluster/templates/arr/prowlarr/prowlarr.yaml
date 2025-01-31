@@ -1,3 +1,4 @@
+{{- if .Values.complexifyCluster }}
 {{-  $dbServiceName := printf "%s.%s.svc.cluster.local" .Values.db.appName .Values.db.namespace -}}
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -28,3 +29,4 @@ spec:
     helm : 
       values: |
 {{ include "helmValues.prowlarr" . | indent 8 }}
+{{end}}
