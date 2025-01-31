@@ -834,7 +834,7 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-    enabled: true
+  enabled: true
 
   config:
     type: secret
