@@ -597,7 +597,7 @@ service:
     controller: ui
     ports:
       http:
-        port: 80
+        port: 8080
 
   # main:
   #   # -- Enables or disables the service
