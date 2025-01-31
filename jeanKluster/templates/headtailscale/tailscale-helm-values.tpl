@@ -144,6 +144,7 @@ controllers:
           TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
 
         securityContext:
+          privileged: true
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
           capabilities:
