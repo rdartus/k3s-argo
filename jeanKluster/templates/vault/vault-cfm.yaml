@@ -222,7 +222,7 @@ data:
 
         vault write auth/kubernetes/role/rlcrowdsec \
         bound_service_account_names=default \
-        bound_service_account_namespaces=crowdsec \
+        bound_service_account_namespaces=traefik \
         policies=plccrowdsec \
         audience=vault\
         ttl=24h
