@@ -1,11 +1,11 @@
 apiVersion: v2
 description: |
-    wireguard : 
-name: wireguard
+    AppTemplate BJWS : 
+name: appTemplate
 version: 1.0.0
 kubeVersion: ">=1.22.0-0"
 keywords:
-- wireguard
+- appTemplate
 
 maintainers:
 - name: rdartus
