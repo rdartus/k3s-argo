@@ -6,6 +6,7 @@ template_transfo_radarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/conf
 
 clusterIssuer: zerossl-prod
 complexifyCluster: false
+tailscale: true
 
 db :
   appName: cnpg-cluster-rw
