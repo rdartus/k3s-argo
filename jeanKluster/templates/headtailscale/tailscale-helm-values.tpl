@@ -868,10 +868,10 @@ rbac:
         kind: Role
         identifier: tailscale
       # -- If using an identifier it will be automatically filled, otherwise every key will need to be explicitly declared
-      # subjects:
-      #   - identifier: default
-      #   - kind: ServiceAccount
-      #     name: test
-      #     namespace: "{{ .Release.Namespace }}"
+      subjects:
+        - identifier: tailscale
+        # - kind: ServiceAccount
+        #   name: test
+        #   namespace: "{{ .Release.Namespace }}"
 
 {{- end }}
