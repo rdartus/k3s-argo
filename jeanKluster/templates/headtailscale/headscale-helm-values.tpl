@@ -711,7 +711,7 @@ ingress:
             service:
               # -- Overrides the service name reference for this path
               # The service name to reference.
-              name: main
+              name: headscale-main
               # -- Reference a service identifier from this values.yaml
               identifier: main
     #           # -- Overrides the service port number reference for this path
