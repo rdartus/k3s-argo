@@ -60,7 +60,7 @@ persistence:
   tmp:
     type: emptyDir
     globalMounts:
-      - path: *path
+      - path: /tmp
   run:
     type: emptyDir
     globalMounts:
