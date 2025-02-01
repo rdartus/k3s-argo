@@ -484,10 +484,10 @@ secrets:
     stringData:
       config.yaml: |
 
-        server_url: https://secure2.dartus.fr
+        server_url: 127.0.0.1:8080
 
         # Address to listen to / bind to on the server
-        listen_addr: 0.0.0.0:8080
+        listen_addr: 127.0.0.1:8080
 
         # Address to listen to /metrics, you may want to keep this endpoint private to your internal network
         metrics_listen_addr: 127.0.0.1:9090
