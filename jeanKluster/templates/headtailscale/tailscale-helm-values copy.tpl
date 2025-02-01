@@ -82,13 +82,13 @@ service:
       tailnet:
         port: 5160
         protocol: UDP
-serviceMonitor:
-  app:
-    serviceName: tailscale
-    endpoints:
-      - port: http
-        scheme: http
-        path: /debug/metrics
-        interval: 1m
-        scrapeTimeout: 10s
+# serviceMonitor:
+#   app:
+#     serviceName: tailscale
+#     endpoints:
+#       - port: http
+#         scheme: http
+#         path: /debug/metrics
+#         interval: 1m
+#         scrapeTimeout: 10s
 {{- end }}
