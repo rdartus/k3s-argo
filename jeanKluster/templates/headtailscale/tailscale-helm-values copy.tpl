@@ -33,7 +33,6 @@ controllers:
               periodSeconds: 20
               timeoutSeconds: 1
               failureThreshold: 3
-          readiness: 
         resources:
           requests:
             cpu: 10m
