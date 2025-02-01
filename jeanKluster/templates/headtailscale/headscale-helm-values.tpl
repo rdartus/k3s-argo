@@ -122,7 +122,7 @@ controllers:
           pullPolicy: IfNotPresent
         
         env:
-          SERVERURL: https://secure2.dartus.fr
+          # SERVERURL: https://secure2.dartus.fr
           TZ: "Europe/Paris"
           PEERS: "test"
         securityContext:
@@ -484,7 +484,7 @@ secrets:
     stringData:
       config.yaml: |
 
-        server_url: https://secure2.dartus.fr
+        server_url: http://secure2.dartus.fr
 
         # Address to listen to / bind to on the server
         listen_addr: 0.0.0.0:8080
