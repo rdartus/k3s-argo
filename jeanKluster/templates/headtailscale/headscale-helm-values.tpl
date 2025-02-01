@@ -484,13 +484,13 @@ secrets:
     stringData:
       config.yaml: |
 
-        server_url: http://127.0.0.1:8080
+        server_url: https://secure2.dartus.fr
 
         # Address to listen to / bind to on the server
-        listen_addr: 127.0.0.1:8080
+        listen_addr: 0.0.0.0:8080
 
         # Address to listen to /metrics, you may want to keep this endpoint private to your internal network
-        metrics_listen_addr: 127.0.0.1:9090
+        metrics_listen_addr: 0.0.0.0:9090
 
         noise:
           # The Noise private key is used to encrypt the traffic between headscale and Tailscale clients when using the new Noise-based protocol.
