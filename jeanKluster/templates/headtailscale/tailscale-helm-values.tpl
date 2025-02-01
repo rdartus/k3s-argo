@@ -849,6 +849,9 @@ rbac:
       type: Role
       rules:
         - apiGroups: ["*"]
+          resources: ["events"]
+          verbs: ["create","get","update","patch", "list", "watch"]
+        - apiGroups: ["*"]
           resources: ["secrets"]
           verbs: ["create","get","update","patch", "list", "watch"]
         - apiGroups: ["*"]
