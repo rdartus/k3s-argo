@@ -839,37 +839,39 @@ rawResources:
 
 # -- Configure the Roles and Role Bindings for the chart here.
 rbac:
-  {}
-  # roles:
-  #   role1:
-  #     # -- Force replace the name of the object.
-  #     forceRename: <force name>
-  #     # -- Enables or disables the Role. Can be templated.
-  #     enabled: true
-  #     # -- Set to Role,ClusterRole
-  #     type: Role
-  #     rules:
-  #       - apiGroups: ["*"]
-  #         resources: ["*"]
-  #         verbs: ["get", "list", "watch"]
-  # bindings:
-  #   binding1:
-  #     # -- Force replace the name of the object.
-  #     forceRename: <force name>
-  #     # -- Enables or disables the Role. Can be templated.
-  #     enabled: true
-  #     # -- Set to RoleBinding,ClusterRoleBinding
-  #     type: RoleBinding
-  #     # -- Can be an identifier of rbac.roles or a custom name and kind
-  #     roleRef:
-  #       name: test-role
-  #       kind: Role
-  #       identifier: test
-  #     # -- If using an identifier it will be automatically filled, otherwise every key will need to be explicitly declared
-  #     subjects:
-  #       - identifier: default
-  #       - kind: ServiceAccount
-  #         name: test
-  #         namespace: "{{ .Release.Namespace }}"
+  roles:
+    tailscale:
+      # -- Force replace the name of the object.
+      # forceRename: 
+      # -- Enables or disables the Role. Can be templated.
+      enabled: true
+      # -- Set to Role,ClusterRole
+      type: Role
+      rules:
+        - apiGroups: ["*"]
+          resources: ["secrets"]
+          verbs: ["create","get","update","patch", "list", "watch"]
+        - apiGroups: ["*"]
+          resources: ["tailscale-state"]
+          verbs: ["create","get","update","patch", "list", "watch"]
+  bindings:
+    tailscale:
+      # -- Force replace the name of the object.
+      # forceRename: <force name>
+      # -- Enables or disables the Role. Can be templated.
+      enabled: true
+      # -- Set to RoleBinding,ClusterRoleBinding
+      type: RoleBinding
+      # -- Can be an identifier of rbac.roles or a custom name and kind
+      roleRef:
+        name: tailscale
+        kind: Role
+        identifier: tailscale
+      # -- If using an identifier it will be automatically filled, otherwise every key will need to be explicitly declared
+      # subjects:
+      #   - identifier: default
+      #   - kind: ServiceAccount
+      #     name: test
+      #     namespace: "{{ .Release.Namespace }}"
 
 {{- end }}
