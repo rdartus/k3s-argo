@@ -32,7 +32,7 @@ defaultPodOptions:
   dnsConfig: {}
 
   # -- Defaults to "ClusterFirst" if hostNetwork is false and "ClusterFirstWithHostNet" if hostNetwork is true.
-  dnsPolicy: ""
+  dnsPolicy: "ClusterFirstWithHostNet"
 
   # -- Enable/disable the generation of environment variables for services.
   # [[ref]](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/#accessing-the-service)
@@ -49,7 +49,7 @@ defaultPodOptions:
   hostIPC: false
 
   # -- When using hostNetwork make sure you set dnsPolicy to `ClusterFirstWithHostNet`
-  hostNetwork: false
+  hostNetwork: true
 
   # -- Use the host's pid namespace
   hostPID: false
