@@ -871,6 +871,6 @@ rbac:
       subjects:
         - kind: ServiceAccount
           name: tailscale
-          namespace: "{{ .Release.Namespace }}"
+          namespace: default
 
 {{- end }}
