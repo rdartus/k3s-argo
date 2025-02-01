@@ -121,7 +121,7 @@ controllers:
           # -- image repository
           repository: tailscale/tailscale
           # -- image tag
-          tag: latest
+          tag: v1.78.3
           # -- image pull policy
           pullPolicy: IfNotPresent
 
