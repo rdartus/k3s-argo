@@ -81,7 +81,10 @@ defaultPodOptions:
   schedulerName: ""
 
   # -- Configure the Security Context for the Pod
-  securityContext: {}
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 568
+    runAsGroup: 568
       # fsGroup: 65533
 
 
@@ -138,17 +141,17 @@ controllers:
           # TZ: Europe/France
           TS_AUTHKEY: tskey-auth-kV7bYL6CNTRL-GXXhAHWhHXAVTcumJyyxXAc2cyjxQ3QkD
           TS_STATE_DIR: /var/lib/tailscale
-          TS_USERSPACE: false
+          TS_USERSPACE: true
           NO_AUTOUPDATE: true
           TS_EXTRA_ARGS: --advertise-exit-node  --advertise-tags=tag:k8s
           TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
 
         securityContext:
-          privileged: true
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
           capabilities:
-            add:
-              - NET_ADMIN
-              - SYS_MODULE
+            drop:
+              - ALL
 
 
         # probes:
