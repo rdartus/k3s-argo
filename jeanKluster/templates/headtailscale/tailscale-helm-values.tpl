@@ -461,7 +461,7 @@ enforceServiceAccountCreation: false
 serviceAccount:
   # -- Specifies whether a service account should be created
   # The identifier for this ServiceAccount will be `default`
-  create: false
+  create: true
 
   # -- Annotations to add to the service account
   annotations: {}
@@ -471,7 +471,7 @@ serviceAccount:
 
   # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: "tailscale"
 
   # -- Additional Service Accounts to create
   # Each extra service account admit the same keys as the main service account
