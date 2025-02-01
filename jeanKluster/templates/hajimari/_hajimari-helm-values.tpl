@@ -123,7 +123,7 @@ ingress:
     className: "traefik-ingresses"
 
     # -- Configure the defaultBackend for this ingress. This will disable any other rules for the ingress.
-    # defaultBackend: '{"service": {"name": "hajimari","port": {"number": 3000}}}'
+    defaultBackend: '{"service": {"name": "hajimari","port": {"number": 3000}}}'
 
 persistence:
   config:
