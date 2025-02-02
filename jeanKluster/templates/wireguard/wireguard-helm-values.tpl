@@ -766,6 +766,7 @@ route:
 persistence: 
 
   data :
+    enabled: true
     type: hostPath
     hostPath: /home/jeank/wireguard
     advancedMounts:
