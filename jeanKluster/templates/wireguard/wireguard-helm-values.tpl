@@ -760,16 +760,12 @@ route:
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
-persistence:
-    enabled: false
+persistence: 
 
-  #   # -- Sets the persistence type
-  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-  #   type: secret
-  #   name: ssh-secret
-  # data :
-  #   enabled: true
-  #   type: emptyDir
+  data :
+    type: hostPath
+    hostPath: /home/jeank/wireguard
+
   # config:
   #   # -- Enables or disables the persistence item. Defaults to true
   #   enabled: false
