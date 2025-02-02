@@ -596,7 +596,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 80
+        port: 51820
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
