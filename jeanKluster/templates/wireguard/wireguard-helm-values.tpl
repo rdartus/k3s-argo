@@ -265,7 +265,7 @@ controllers:
           PERSISTENTKEEPALIVE_PEERS: all
           PEERS: phone,pc,memed,inv1,hallais
           LOG_CONFS: true
-          SERVERPORT: 51820
+          SERVERPORT: 80
         securityContext:
           privileged: true
           capabilities:
@@ -594,7 +594,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 51820
+        port: 80
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.

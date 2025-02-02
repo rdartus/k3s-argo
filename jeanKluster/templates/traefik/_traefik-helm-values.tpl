@@ -388,7 +388,7 @@ providers:  # @schema additionalProperties: false
     content: |
       entryPoints:
         wireguard:
-          address: ":51820/udp"
+          address: ":80/udp"
 
 #
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
@@ -705,10 +705,10 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
   wireguard:
-    port: 51820
+    port: 80
     expose:
       default: true
-    exposedPort: 51820
+    exposedPort: 80
     ## -- Different target traefik port on the cluster, useful for IP type LB
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
