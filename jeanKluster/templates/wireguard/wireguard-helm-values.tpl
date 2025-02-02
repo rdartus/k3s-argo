@@ -261,7 +261,7 @@ controllers:
         
         env:
           PUID: 1001
-          GUID: 1001
+          GID: 1001
           SERVERURL: secure2.dartus.fr
           TZ: "Europe/Paris"
           PERSISTENTKEEPALIVE_PEERS: all
@@ -597,7 +597,7 @@ service:
         primary: true
 
         # -- The port number
-        port: 8008
+        port: 51820
 
         # -- Port protocol.
         # Support values are `HTTP`, `HTTPS`, `TCP` and `UDP`.
