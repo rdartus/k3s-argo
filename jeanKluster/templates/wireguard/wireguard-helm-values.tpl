@@ -267,7 +267,7 @@ controllers:
           PERSISTENTKEEPALIVE_PEERS: all
           PEERS: phone,pc,memed,inv1,hallais
           LOG_CONFS: true
-          SERVERPORT: 8008
+          SERVERPORT: 80
         securityContext:
           privileged: true
           capabilities:
