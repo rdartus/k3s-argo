@@ -256,7 +256,7 @@ controllers:
           # -- image repository
           repository: linuxserver/wireguard
           # -- image tag
-          tag: 1.0.20210914
+          tag: "1.0.20210914"
           # -- image pull policy
           pullPolicy: IfNotPresent
         
