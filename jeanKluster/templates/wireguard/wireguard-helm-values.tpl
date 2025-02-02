@@ -246,7 +246,6 @@ controllers:
     containers:
       main:
         # -- Override the container name
-        nameOverride:
 
         # -- Specify if this container depends on any other containers
         # This is used to determine the order in which the containers are rendered.
@@ -447,15 +446,15 @@ controllers:
 
 #     # -- Specify any initContainers here as dictionary items.
 #     # Each initContainer should have its own key
-    initContainers:
-      - name: "wireguard-template-replacement"
-        image: "busybox"
-        command: ["sh", "-c", "ENI=$(ip route get 8.8.8.8 | grep 8.8.8.8 | awk '{print $5}'); sed \"s/ENI/$ENI/g\" /etc/wireguard-secret/wg0.conf.template > /etc/wireguard/wg0.conf; chmod 400 /etc/wireguard/wg0.conf"]
-        volumeMounts:
-          - name: wireguard-config
-            mountPath: /etc/wireguard/
-          - name: wireguard-secret
-            mountPath: /etc/wireguard-secret/
+    # initContainers:
+    #   - name: "wireguard-template-replacement"
+    #     image: "busybox"
+    #     command: ["sh", "-c", "ENI=$(ip route get 8.8.8.8 | grep 8.8.8.8 | awk '{print $5}'); sed \"s/ENI/$ENI/g\" /etc/wireguard-secret/wg0.conf.template > /etc/wireguard/wg0.conf; chmod 400 /etc/wireguard/wg0.conf"]
+    #     volumeMounts:
+    #       - name: wireguard-config
+    #         mountPath: /etc/wireguard/
+    #       - name: wireguard-secret
+    #         mountPath: /etc/wireguard-secret/
 
 # -- If true forces the controllers to use the `default` ServiceAccount for the namespace if one is not explicitly defined.
 # This feature flag will be removed on future versions where this will be the default behavior.
