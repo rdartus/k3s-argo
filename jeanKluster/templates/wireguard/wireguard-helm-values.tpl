@@ -768,7 +768,10 @@ persistence:
   data :
     type: hostPath
     hostPath: /home/jeank/wireguard
-
+    advancedMounts:
+      main:
+        main:
+          - path: /config
   # config:
   #   # -- Enables or disables the persistence item. Defaults to true
   #   enabled: false
