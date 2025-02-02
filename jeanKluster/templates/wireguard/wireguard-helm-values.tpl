@@ -261,9 +261,12 @@ controllers:
           pullPolicy: IfNotPresent
         
         env:
-          SERVERURL: secure.dartus.fr
+          SERVERURL: secure2.dartus.fr
           TZ: "Europe/Paris"
-          PEERS: "test"
+          PERSISTENTKEEPALIVE_PEERS: all
+          PEERS: phone,pc,memed,inv1,hallais
+          LOG_CONFS: true
+          SERVERPORT: 51820
         securityContext:
           privileged: true
           capabilities:
