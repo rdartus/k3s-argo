@@ -705,10 +705,10 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
   wireguard:
-    port: 80
+    port: 8008
     expose:
       default: true
-    exposedPort: 80
+    exposedPort: 8008
     ## -- Different target traefik port on the cluster, useful for IP type LB
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
