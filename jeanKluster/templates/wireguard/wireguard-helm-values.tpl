@@ -260,6 +260,8 @@ controllers:
           pullPolicy: IfNotPresent
         
         env:
+          PUID: 1001
+          GUID: 1001
           SERVERURL: secure2.dartus.fr
           TZ: "Europe/Paris"
           PERSISTENTKEEPALIVE_PEERS: all
