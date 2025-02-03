@@ -261,7 +261,8 @@ ingressRoute:
     # -- Additional ingressRoute middlewares (e.g. for authentication)
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
-    tls: {}
+    tls: 
+     - secretName: traefik-dash
   healthcheck:
     # -- Create an IngressRoute for the healthcheck probe
     enabled: false
