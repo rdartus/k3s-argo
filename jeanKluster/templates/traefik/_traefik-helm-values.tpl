@@ -145,7 +145,7 @@ experimental:
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
-  enabled: true
+  enabled: false
   # -- Set a custom name to gateway
   name: ""
   # -- By default, Gateway is created in the same `Namespace` than Traefik.
@@ -385,10 +385,7 @@ providers:  # @schema additionalProperties: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
-    content: |
-      entryPoints:
-        wireguard:
-          address: ":80/udp"
+    content:
 
 #
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
