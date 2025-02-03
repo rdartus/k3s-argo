@@ -277,7 +277,7 @@ ingressRoute:
         kind: TraefikService
     # -- Specify the allowed entrypoints to use for the healthcheck ingress route, (e.g. traefik, web, websecure).
     # By default, it's using traefik entrypoint, which is not exposed.
-    entryPoints: ["traefik"]
+    entryPoints: ["web", "websecure"]
     # -- Additional ingressRoute middlewares (e.g. for authentication)
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
