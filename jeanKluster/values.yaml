@@ -10,7 +10,7 @@ tailscale: true
 
 wireguard:
   enable: true
-  port: 53
+  port: 9000
 
 db :
   appName: cnpg-cluster-rw
