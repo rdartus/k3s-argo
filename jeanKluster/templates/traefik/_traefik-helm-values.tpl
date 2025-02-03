@@ -711,6 +711,24 @@ ports:
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
     protocol: UDP
+  wireguard2:
+    port: 51820
+    expose:
+      default: true
+    exposedPort: 51820
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
+  wireguard3:
+    port: 123
+    expose:
+      default: true
+    exposedPort: 123
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
 {{end}}
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
