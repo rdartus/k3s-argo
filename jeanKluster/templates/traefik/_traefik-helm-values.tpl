@@ -243,13 +243,13 @@ gatewayClass:  # @schema additionalProperties: false
 ingressRoute:
   dashboard:
     # -- Create an IngressRoute for the dashboard
-    enabled: false
+    enabled: true
     # -- Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
     annotations: {}
     # -- Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
     labels: {}
     # -- The router match rule used for the dashboard ingressRoute
-    matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+    matchRule: Host(`traefik2.dartus.fr`) && PathPrefix(`/`)
     # -- The internal service used for the dashboard ingressRoute
     services:
       - name: api@internal
