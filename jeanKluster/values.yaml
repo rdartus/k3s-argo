@@ -8,6 +8,10 @@ clusterIssuer: zerossl-prod
 complexifyCluster: false
 tailscale: true
 
+wireguard:
+  enable: true
+  port: 8008
+
 db :
   appName: cnpg-cluster-rw
   namespace: cnpg

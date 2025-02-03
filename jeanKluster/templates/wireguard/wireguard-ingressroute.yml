@@ -1,3 +1,4 @@
+{{ if .Values.wireguard.enable}}
 apiVersion: traefik.io/v1alpha1
 kind: IngressRouteUDP
 metadata:
@@ -13,3 +14,4 @@ spec:
   - services:
     - name: wireguard
       port: 51820
+{{end}}
