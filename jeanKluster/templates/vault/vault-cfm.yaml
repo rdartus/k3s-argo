@@ -277,8 +277,8 @@ data:
         ttl=24h
 
         vault write auth/kubernetes/role/rlkubeprom \
-        bound_service_account_names=kubeprom \
-        bound_service_account_namespaces=kubeprom \
+        bound_service_account_names=kube-prometheus-stack-prometheus \
+        bound_service_account_namespaces=default \
         policies=plckubeprom \
         audience=vault\
         ttl=24h
