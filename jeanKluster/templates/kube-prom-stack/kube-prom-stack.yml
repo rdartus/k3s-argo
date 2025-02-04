@@ -7,7 +7,7 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
   annotations:
-    argocd.argoproj.io/sync-wave: "290"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
   destination:
     namespace: default
