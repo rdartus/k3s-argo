@@ -503,21 +503,21 @@ alertmanager:
   #
   ## An example template:
   #   template_1.tmpl: |-
-  #       {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
+  #       {* define "cluster" *}{* .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" *}{* end *}
   #
-  #       {{ define "slack.myorg.text" }}
-  #       {{- $root := . -}}
-  #       {{ range .Alerts }}
-  #         *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
-  #         *Cluster:* {{ template "cluster" $root }}
-  #         *Description:* {{ .Annotations.description }}
-  #         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
-  #         *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+  #       {* define "slack.myorg.text" *}
+  #       {*- $root := . -*}
+  #       {* range .Alerts *}
+  #         *Alert:* {* .Annotations.summary *} - `{* .Labels.severity *}`
+  #         *Cluster:* {* template "cluster" $root *}
+  #         *Description:* {* .Annotations.description *}
+  #         *Graph:* <{* .GeneratorURL *}|:chart_with_upwards_trend:>
+  #         *Runbook:* <{* .Annotations.runbook *}|:spiral_note_pad:>
   #         *Details:*
-  #           {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
-  #           {{ end }}
-  #       {{ end }}
-  #       {{ end }}
+  #           {* range .Labels.SortedPairs *} - *{* .Name *}:* `{* .Value *}`
+  #           {* end *}
+  #       {* end *}
+  #       {* end *}
 
   ingress:
     enabled: false
@@ -613,7 +613,7 @@ alertmanager:
     labels: {}
 
     ## Final form of the hostname for each per replica ingress is
-    ## {{ ingressPerReplica.hostPrefix }}-{{ $replicaNumber }}.{{ ingressPerReplica.hostDomain }}
+    ## {* ingressPerReplica.hostPrefix *}-{* $replicaNumber *}.{* ingressPerReplica.hostDomain *}
     ##
     ## Prefix for the per replica ingress that will have `-$replicaNumber`
     ## appended to the end
@@ -639,7 +639,7 @@ alertmanager:
     tlsSecretPerReplica:
       enabled: false
       ## Final form of the secret for each per replica ingress is
-      ## {{ tlsSecretPerReplica.prefix }}-{{ $replicaNumber }}
+      ## {* tlsSecretPerReplica.prefix *}-{* $replicaNumber *}
       ##
       prefix: "alertmanager"
 
@@ -1307,7 +1307,7 @@ grafana:
   #       tlsSkipVerify: true
   #   orgId: 1
   #   type: prometheus
-  #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
+  #   url: https://{* printf "%s-prometheus.svc" .Release.Name *}:9090
   #   version: 1
 
   # Flag to mark provisioned data sources for deletion if they are no longer configured.
@@ -2467,7 +2467,7 @@ prometheus-node-exporter:
 prometheusOperator:
   enabled: true
 
-  ## Use '{{ template "kube-prometheus-stack.fullname" . }}-operator' by default
+  ## Use '{* template "kube-prometheus-stack.fullname" . *}-operator' by default
   fullnameOverride: ""
 
   ## Number of old replicasets to retain ##
@@ -2956,7 +2956,7 @@ prometheusOperator:
     enabled: true
     namespace: kube-system
     selector: ""
-    ## Use '{{ template "kube-prometheus-stack.fullname" . }}-kubelet' by default
+    ## Use '{* template "kube-prometheus-stack.fullname" . *}-kubelet' by default
     name: ""
 
   ## Create Endpoints objects for kubelet targets.
@@ -3616,7 +3616,7 @@ prometheus:
     labels: {}
 
     ## Final form of the hostname for each per replica ingress is
-    ## {{ ingressPerReplica.hostPrefix }}-{{ $replicaNumber }}.{{ ingressPerReplica.hostDomain }}
+    ## {* ingressPerReplica.hostPrefix *}-{* $replicaNumber *}.{* ingressPerReplica.hostDomain *}
     ##
     ## Prefix for the per replica ingress that will have `-$replicaNumber`
     ## appended to the end
@@ -3642,7 +3642,7 @@ prometheus:
     tlsSecretPerReplica:
       enabled: false
       ## Final form of the secret for each per replica ingress is
-      ## {{ tlsSecretPerReplica.prefix }}-{{ $replicaNumber }}
+      ## {* tlsSecretPerReplica.prefix *}-{* $replicaNumber *}
       ##
       prefix: "prometheus"
 
@@ -4210,11 +4210,11 @@ prometheus:
     # additionalScrapeConfigs: |
     #  - job_name: "node-exporter"
     #    gce_sd_configs:
-    #    {{range $zone := .Values.gcp_zones}}
+    #    {*range $zone := .Values.gcp_zones*}
     #    - project: "project1"
-    #      zone: "{{$zone}}"
+    #      zone: "{*$zone*}"
     #      port: 9100
-    #    {{end}}
+    #    {*end*}
     #    relabel_configs:
     #    ...
 
@@ -4984,7 +4984,7 @@ thanosRuler:
     ##
     externalPrefix:
 
-    ## If true, http://{{ template "kube-prometheus-stack.thanosRuler.name" . }}.{{ template "kube-prometheus-stack.namespace" . }}:{{ .Values.thanosRuler.service.port }}
+    ## If true, http://{* template "kube-prometheus-stack.thanosRuler.name" . *}.{* template "kube-prometheus-stack.namespace" . *}:{* .Values.thanosRuler.service.port *}
     ## will be used as value for externalPrefix
     externalPrefixNilUsesHelmValues: true
 
@@ -5190,4 +5190,4 @@ extraManifests: []
   #   data:
   #     extra-data: "value"
 
-{{- end }}
+{{- end}}
