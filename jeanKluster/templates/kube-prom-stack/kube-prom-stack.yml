@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: wireguard
+  name: kube-prometheus-stack
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io/background
