@@ -9,7 +9,7 @@ complexifyCluster: false
 tailscale: true
 
 wireguard:
-  enable: true
+  enable: false
   port: 9000
 
 db :
