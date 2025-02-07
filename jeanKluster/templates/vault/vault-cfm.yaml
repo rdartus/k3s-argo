@@ -71,11 +71,6 @@ data:
     path "kv-v2/data/default/*" {
       capabilities = ["read"]
     }
-  kubeprom-policy.json: |
-
-    path "kv-v2/data/kubeprom/*" {
-      capabilities = ["read"]
-    }
 
   wx-policy.json: |
     path "kv-v2/data/wx/*" {
@@ -176,7 +171,6 @@ data:
         vault kv put kv-v2/crowdsec/config enroll_key="@/config/cred/crowdsec_enroll_key.txt" bouncer_traefik="@/config/cred/crowdsec_bouncer_traefik.txt"
         vault kv put kv-v2/redis/config password="@/config/cred/redis-password.txt"
         vault kv put kv-v2/authentik/config key="@/config/cred/authentik-key.txt"
-        vault kv put kv-v2/kubeprom/config username="@/config/cred/grafanaUser.txt" password="@/config/cred/grafanaPassword.txt"
         vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
         vault kv put kv-v2/wx/config username="@/config/cred/wx-user.txt" password="@/config/cred/wx-password.txt"
         vault kv put kv-v2/wx/list list.json="@/config/cred/wx-list.json"
@@ -198,7 +192,6 @@ data:
         vault policy write plcarr /config/scripts/arr-policy.json        
         vault policy write plcdefault /config/scripts/default-policy.json     
         vault policy write plcauthentik /config/scripts/authentik-policy.json     
-        vault policy write plckubeprom /config/scripts/kubeprom-policy.json     
         vault policy write plcwx /config/scripts/wx-policy.json        
         vault policy write plctandoor /config/scripts/tandoor-policy.json        
         vault policy write plczerossl /config/scripts/zerossl-policy.json        
@@ -273,13 +266,6 @@ data:
         bound_service_account_names=authentik \
         bound_service_account_namespaces=authentik \
         policies=plcauthentik \
-        audience=vault\
-        ttl=24h
-
-        vault write auth/kubernetes/role/rlkubeprom \
-        bound_service_account_names=default \
-        bound_service_account_namespaces=default \
-        policies=plckubeprom \
         audience=vault\
         ttl=24h
 

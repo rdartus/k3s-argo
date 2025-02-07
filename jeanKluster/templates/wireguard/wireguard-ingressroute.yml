@@ -10,8 +10,6 @@ metadata:
 spec:
   entryPoints:
     - wireguard
-    - wireguard2
-    - wireguard3
   routes:
   - services:
     - name: wireguard
