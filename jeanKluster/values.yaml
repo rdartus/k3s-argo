@@ -9,8 +9,8 @@ complexifyCluster: false
 tailscale: true
 
 wireguard:
-  enable: true
-  port: 443
+  enable: false
+  port: 9000
 
 db :
   appName: cnpg-cluster-rw
