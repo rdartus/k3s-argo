@@ -11,7 +11,7 @@ tailscale: true
 prom:
   enable: true
 wireguard:
-  enable: false
+  enable: true
   port: 9000
 
 db :
