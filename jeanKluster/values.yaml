@@ -8,6 +8,8 @@ clusterIssuer: zerossl-prod
 complexifyCluster: false
 tailscale: true
 
+prom:
+  enable: true
 wireguard:
   enable: false
   port: 9000
