@@ -243,13 +243,13 @@ gatewayClass:  # @schema additionalProperties: false
 ingressRoute:
   dashboard:
     # -- Create an IngressRoute for the dashboard
-    enabled: false
+    enabled: true
     # -- Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
     annotations: {}
     # -- Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
     labels: {}
     # -- The router match rule used for the dashboard ingressRoute
-    matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
+    matchRule: Host(`traefik2.dartus.fr`) && PathPrefix(`/`)
     # -- The internal service used for the dashboard ingressRoute
     services:
       - name: api@internal
@@ -257,11 +257,12 @@ ingressRoute:
     # -- Specify the allowed entrypoints to use for the dashboard ingress route, (e.g. traefik, web, websecure).
     # By default, it's using traefik entrypoint, which is not exposed.
     # /!\ Do not expose your dashboard without any protection over the internet /!\
-    entryPoints: ["traefik"]
+    entryPoints: ["websecure", "web", traefik]
     # -- Additional ingressRoute middlewares (e.g. for authentication)
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
-    tls: {}
+    tls: 
+     - secretName: traefik-dash
   healthcheck:
     # -- Create an IngressRoute for the healthcheck probe
     enabled: false
@@ -277,7 +278,7 @@ ingressRoute:
         kind: TraefikService
     # -- Specify the allowed entrypoints to use for the healthcheck ingress route, (e.g. traefik, web, websecure).
     # By default, it's using traefik entrypoint, which is not exposed.
-    entryPoints: ["traefik"]
+    entryPoints: ["websecure"]
     # -- Additional ingressRoute middlewares (e.g. for authentication)
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
@@ -711,51 +712,69 @@ ports:
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
     protocol: UDP
+  wireguard2:
+    port: 51820
+    expose:
+      default: true
+    exposedPort: 51820
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
+  wireguard3:
+    port: 123
+    expose:
+      default: true
+    exposedPort: 123
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
 {{end}}
-  # web:
-  #   ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
-  #   # asDefault: true
-  #   port: 80
-  #   # hostPort: 8000
-  #   # containerPort: 8000
-  #   expose:
-  #     default: true
-  #   exposedPort: 80
-  #   ## -- Different target traefik port on the cluster, useful for IP type LB
-  #   targetPort:  # @schema type:[string, integer, null]; minimum:0
-  #   # The port protocol (TCP/UDP)
-  #   protocol: TCP
-  #   # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
-  #   nodePort:  # @schema type:[integer, null]; minimum:0
-  #   redirections: {}
-  #     # -- Port Redirections
-  #     # Added in 2.2, one can make permanent redirects via entrypoints.
-  #     # Same sets of parameters: to, scheme, permanent and priority.
-  #   # https://docs.traefik.io/routing/entrypoints/#redirection
-  #     # entryPoint:
-  #     #   to: websecure
-  #     #   scheme: https
-  #     #   permanent: true
-  #   forwardedHeaders:
-  #   # -- Trust forwarded headers information (X-Forwarded-*).
-  #     trustedIPs: []
-  #     insecure: false
-  #   proxyProtocol:
-  #   # -- Enable the Proxy Protocol header parsing for the entry point
-  #     trustedIPs: []
-  #     insecure: false
-  #   # -- Set transport settings for the entrypoint; see also
-  #   # https://doc.traefik.io/traefik/routing/entrypoints/#transport
-  #   transport:
-  #     respondingTimeouts:
-  #       readTimeout:   # @schema type:[string, integer, null]
-  #       writeTimeout:  # @schema type:[string, integer, null]
-  #       idleTimeout:   # @schema type:[string, integer, null]
-  #     lifeCycle:
-  #       requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
-  #       graceTimeOut:               # @schema type:[string, integer, null]
-  #     keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
-  #     keepAliveMaxTime:             # @schema type:[string, integer, null]
+  web:
+    ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
+    # asDefault: true
+    port: 80
+    # hostPort: 8000
+    # containerPort: 8000
+    expose:
+      default: true
+    exposedPort: 80
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: TCP
+    # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
+    nodePort:  # @schema type:[integer, null]; minimum:0
+    redirections: {}
+      # -- Port Redirections
+      # Added in 2.2, one can make permanent redirects via entrypoints.
+      # Same sets of parameters: to, scheme, permanent and priority.
+    # https://docs.traefik.io/routing/entrypoints/#redirection
+      # entryPoint:
+      #   to: websecure
+      #   scheme: https
+      #   permanent: true
+    forwardedHeaders:
+    # -- Trust forwarded headers information (X-Forwarded-*).
+      trustedIPs: []
+      insecure: false
+    proxyProtocol:
+    # -- Enable the Proxy Protocol header parsing for the entry point
+      trustedIPs: []
+      insecure: false
+    # -- Set transport settings for the entrypoint; see also
+    # https://doc.traefik.io/traefik/routing/entrypoints/#transport
+    transport:
+      respondingTimeouts:
+        readTimeout:   # @schema type:[string, integer, null]
+        writeTimeout:  # @schema type:[string, integer, null]
+        idleTimeout:   # @schema type:[string, integer, null]
+      lifeCycle:
+        requestAcceptGraceTimeout:  # @schema type:[string, integer, null]
+        graceTimeOut:               # @schema type:[string, integer, null]
+      keepAliveMaxRequests:         # @schema type:[integer, null]; minimum:0
+      keepAliveMaxTime:             # @schema type:[string, integer, null]
   websecure:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
