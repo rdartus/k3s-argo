@@ -4038,7 +4038,7 @@ prometheus:
 
     ## How long to retain metrics
     ##
-    retention: 10d
+    retention: 2d
 
     ## Maximum size of metrics
     ##
