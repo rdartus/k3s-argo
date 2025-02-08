@@ -702,7 +702,6 @@ ports:
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
     protocol: TCP
-{{ if .Values.wireguard.enable}}
   wireguard:
     port: {{.Values.wireguard.port}}
     expose:
@@ -730,7 +729,6 @@ ports:
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
     protocol: UDP
-{{end}}
   web:
     ## -- Enable this entrypoint as a default entrypoint. When a service doesn't explicitly set an entrypoint it will only use this entrypoint.
     # asDefault: true
