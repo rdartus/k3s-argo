@@ -145,7 +145,7 @@ experimental:
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
-  enabled: false
+  enabled: true
   # -- Set a custom name to gateway
   name: ""
   # -- By default, Gateway is created in the same `Namespace` than Traefik.
@@ -157,16 +157,16 @@ gateway:
   infrastructure: {}
   # -- Define listeners
   listeners:
-    # web:
-    #   # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
-    #   # The port must match a port declared in ports section.
-    #   port: 80
-    #   # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
-    #   hostname: "*.dartus.fr"
-    #   # Specify expected protocol on this listener. See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
-    #   protocol: HTTP
-    #   # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces
-    #   namespacePolicy: All # @schema type:[string, null]
+    web:
+      # -- Port is the network port. Multiple listeners may use the same port, subject to the Listener compatibility rules.
+      # The port must match a port declared in ports section.
+      port: 80
+      # -- Optional hostname. See [Hostname](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.Hostname)
+      hostname: "*.dartus.fr"
+      # Specify expected protocol on this listener. See [ProtocolType](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.ProtocolType)
+      protocol: HTTP
+      # -- Routes are restricted to namespace of the gateway [by default](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io/v1.FromNamespaces
+      namespacePolicy: All # @schema type:[string, null]
     # websecure listener is disabled by default because certificateRefs needs to be added,
     # or you may specify TLS protocol with Passthrough mode and add "--providers.kubernetesGateway.experimentalChannel=true" in additionalArguments section.
     # websecure:
@@ -243,13 +243,13 @@ gatewayClass:  # @schema additionalProperties: false
 ingressRoute:
   dashboard:
     # -- Create an IngressRoute for the dashboard
-    enabled: true
+    enabled: false
     # -- Additional ingressRoute annotations (e.g. for kubernetes.io/ingress.class)
     annotations: {}
     # -- Additional ingressRoute labels (e.g. for filtering IngressRoute by custom labels)
     labels: {}
     # -- The router match rule used for the dashboard ingressRoute
-    matchRule: Host(`traefik2.dartus.fr`) && PathPrefix(`/`)
+    matchRule: PathPrefix(`/dashboard`) || PathPrefix(`/api`)
     # -- The internal service used for the dashboard ingressRoute
     services:
       - name: api@internal
@@ -257,12 +257,11 @@ ingressRoute:
     # -- Specify the allowed entrypoints to use for the dashboard ingress route, (e.g. traefik, web, websecure).
     # By default, it's using traefik entrypoint, which is not exposed.
     # /!\ Do not expose your dashboard without any protection over the internet /!\
-    entryPoints: ["websecure", "web", traefik]
+    entryPoints: ["traefik"]
     # -- Additional ingressRoute middlewares (e.g. for authentication)
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
-    tls: 
-     - secretName: traefik-dash
+    tls: {}
   healthcheck:
     # -- Create an IngressRoute for the healthcheck probe
     enabled: false
@@ -278,7 +277,7 @@ ingressRoute:
         kind: TraefikService
     # -- Specify the allowed entrypoints to use for the healthcheck ingress route, (e.g. traefik, web, websecure).
     # By default, it's using traefik entrypoint, which is not exposed.
-    entryPoints: ["websecure"]
+    entryPoints: ["traefik"]
     # -- Additional ingressRoute middlewares (e.g. for authentication)
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
@@ -386,7 +385,10 @@ providers:  # @schema additionalProperties: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
-    content:
+    content: |
+      entryPoints:
+        wireguard:
+          address: ":51820/udp"
 
 #
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
@@ -703,28 +705,10 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
   wireguard:
-    port: {{.Values.wireguard.port}}
-    expose:
-      default: true
-    exposedPort: {{.Values.wireguard.port}}
-    ## -- Different target traefik port on the cluster, useful for IP type LB
-    targetPort:  # @schema type:[string, integer, null]; minimum:0
-    # The port protocol (TCP/UDP)
-    protocol: UDP
-  wireguard2:
     port: 51820
     expose:
       default: true
     exposedPort: 51820
-    ## -- Different target traefik port on the cluster, useful for IP type LB
-    targetPort:  # @schema type:[string, integer, null]; minimum:0
-    # The port protocol (TCP/UDP)
-    protocol: UDP
-  wireguard3:
-    port: 123
-    expose:
-      default: true
-    exposedPort: 123
     ## -- Different target traefik port on the cluster, useful for IP type LB
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
