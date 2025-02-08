@@ -2684,13 +2684,13 @@ prometheusOperator:
 
       ## Resource limits & requests
       ##
-      resources: {}
-      # limits:
-      #   cpu: 200m
-      #   memory: 200Mi
-      # requests:
-      #   cpu: 100m
-      #   memory: 100Mi
+      resources:
+        limits:
+          cpu: 100m
+          memory: 200Mi
+        requests:
+          cpu: 50m
+          memory: 100Mi
 
       # Required for use in managed kubernetes clusters (such as AWS EKS) with custom CNI (such as calico),
       # because control-plane managed by AWS cannot communicate with pods' IP CIDR and admission webhooks are not working
@@ -2764,7 +2764,13 @@ prometheusOperator:
         tag: v1.5.1  # latest tag: https://github.com/kubernetes/ingress-nginx/blob/main/images/kube-webhook-certgen/TAG
         sha: ""
         pullPolicy: IfNotPresent
-      resources: {}
+      resources: 
+        limits:
+          cpu: 100m
+          memory: 200Mi
+        requests:
+          cpu: 50m
+          memory: 100Mi
       ## Provide a priority class name to the webhook patching job
       ##
       priorityClassName: ""
@@ -3025,7 +3031,13 @@ prometheusOperator:
 
   ## Resource limits & requests
   ##
-  resources: {}
+  resources: 
+    limits:
+      cpu: 100m
+      memory: 200Mi
+    requests:
+      cpu: 50m
+      memory: 100Mi
   # limits:
   #   cpu: 200m
   #   memory: 200Mi
@@ -4147,7 +4159,13 @@ prometheus:
 
     ## Resource limits & requests
     ##
-    resources: {}
+    resources: 
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 50m
+        memory: 100Mi
     # requests:
     #   memory: 400Mi
 
