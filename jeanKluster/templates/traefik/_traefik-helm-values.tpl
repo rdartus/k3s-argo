@@ -145,7 +145,7 @@ experimental:
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
-  enabled: true
+  enabled: false
   # -- Set a custom name to gateway
   name: ""
   # -- By default, Gateway is created in the same `Namespace` than Traefik.
@@ -385,10 +385,7 @@ providers:  # @schema additionalProperties: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
-    content: |
-      entryPoints:
-        wireguard:
-          address: ":51820/udp"
+    content:
 
 #
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
@@ -705,10 +702,28 @@ ports:
     # The port protocol (TCP/UDP)
     protocol: TCP
   wireguard:
+    port: {{.Values.wireguard.port}}
+    expose:
+      default: true
+    exposedPort: {{.Values.wireguard.port}}
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
+  wireguard2:
     port: 51820
     expose:
       default: true
     exposedPort: 51820
+    ## -- Different target traefik port on the cluster, useful for IP type LB
+    targetPort:  # @schema type:[string, integer, null]; minimum:0
+    # The port protocol (TCP/UDP)
+    protocol: UDP
+  wireguard3:
+    port: 123
+    expose:
+      default: true
+    exposedPort: 123
     ## -- Different target traefik port on the cluster, useful for IP type LB
     targetPort:  # @schema type:[string, integer, null]; minimum:0
     # The port protocol (TCP/UDP)
