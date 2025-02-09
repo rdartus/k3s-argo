@@ -3542,13 +3542,15 @@ prometheus:
   #     someoneelse:$apr1$DMZX2Z4q$6SbQIfyuLQd.xmo/P0m2c.
 
   ingress:
-    enabled: false
+    enabled: true
 
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    ingressClassName: traefik-ingressess
 
-    annotations: {}
+    annotations:
+      cert-manager.io/cluster-issuer: {{ .Values.clusterIssuer }}
+
     labels: {}
 
     ## Redirect ingress to an additional defined port on the service
@@ -3558,8 +3560,9 @@ prometheus:
     ## Must be provided if Ingress is enabled.
     ##
     # hosts:
-    #   - prometheus.domain.com
-    hosts: []
+    #   - .domain.com
+    hosts: 
+      - prometheus.dartus.fr
 
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
