@@ -173,7 +173,7 @@ defaultRules:
   create: true
   rules:
     alertmanager: true
-    etcd: true
+    etcd: false
     configReloaders: true
     general: true
     k8sContainerCpuUsageSecondsTotal: true
@@ -1685,7 +1685,7 @@ kubeControllerManager:
 
   ## If your kube controller manager is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
+  endpoints: ["192.168.122.32"]
   # - 10.141.4.22
   # - 10.141.4.23
   # - 10.141.4.24
@@ -1968,7 +1968,7 @@ kubeDns:
 ## Component scraping etcd
 ##
 kubeEtcd:
-  enabled: true
+  enabled: false
 
   ## If your etcd is not deployed as a pod, specify IPs it can be found on
   ##
@@ -2081,7 +2081,7 @@ kubeScheduler:
 
   ## If your kube scheduler is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
+  endpoints: ["192.168.122.32"]
   # - 10.141.4.22
   # - 10.141.4.23
   # - 10.141.4.24
@@ -2187,7 +2187,7 @@ kubeProxy:
 
   ## If your kube proxy is not deployed as a pod, specify IPs it can be found on
   ##
-  endpoints: []
+  endpoints: ["192.168.122.32"]
   # - 10.141.4.22
   # - 10.141.4.23
   # - 10.141.4.24
@@ -3566,8 +3566,8 @@ prometheus:
 
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
-    paths: []
-    # - /
+    paths: 
+    - /
 
     ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
     ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
@@ -3576,10 +3576,10 @@ prometheus:
     ## TLS configuration for Prometheus Ingress
     ## Secret must be manually created in the namespace
     ##
-    tls: []
-      # - secretName: prometheus-general-tls
-      #   hosts:
-      #     - prometheus.example.com
+    tls: 
+      - secretName: prometheus.dartus.fr-tls
+        hosts:
+          - prometheus.dartus.fr
 
   # -- BETA: Configure the gateway routes for the chart here.
   # More routes can be added by adding a dictionary key like the 'main' route.
