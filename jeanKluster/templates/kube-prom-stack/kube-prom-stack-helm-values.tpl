@@ -2492,19 +2492,19 @@ prometheusOperator:
   livenessProbe:
     enabled: true
     failureThreshold: 3
-    initialDelaySeconds: 0
-    periodSeconds: 10
+    initialDelaySeconds: 10
+    periodSeconds: 30
     successThreshold: 1
-    timeoutSeconds: 1
+    timeoutSeconds: 10
   ## Readiness probe for the prometheusOperator deployment
   ##
   readinessProbe:
     enabled: true
     failureThreshold: 3
-    initialDelaySeconds: 0
-    periodSeconds: 10
+    initialDelaySeconds: 10
+    periodSeconds: 30
     successThreshold: 1
-    timeoutSeconds: 1
+    timeoutSeconds: 10
 
   ## Admission webhook support for PrometheusRules resources added in Prometheus Operator 0.30 can be enabled to prevent incorrectly formatted
   ## rules from making their way into prometheus and potentially preventing the container from starting
@@ -2513,7 +2513,7 @@ prometheusOperator:
     ## IgnoreOnInstallOnly - If Release.IsInstall returns "true", set "Ignore" otherwise "Fail"
     failurePolicy: ""
     ## The default timeoutSeconds is 10 and the maximum value is 30.
-    timeoutSeconds: 10
+    timeoutSeconds: 30
     enabled: true
     ## A PEM encoded CA bundle which will be used to validate the webhook's server certificate.
     ## If unspecified, system trust roots on the apiserver are used.
@@ -2670,17 +2670,17 @@ prometheusOperator:
         initialDelaySeconds: 30
         periodSeconds: 10
         successThreshold: 1
-        timeoutSeconds: 1
+        timeoutSeconds: 10
 
       ## Readiness probe
       ##
       readinessProbe:
         enabled: true
         failureThreshold: 3
-        initialDelaySeconds: 5
+        initialDelaySeconds: 30
         periodSeconds: 10
         successThreshold: 1
-        timeoutSeconds: 1
+        timeoutSeconds: 10
 
       ## Resource limits & requests
       ##
@@ -3788,7 +3788,7 @@ prometheus:
 
     ## Interval between consecutive evaluations.
     ##
-    evaluationInterval: ""
+    evaluationInterval: "60s"
 
     ## ListenLocal makes the Prometheus server listen on loopback, so that it does not bind against the Pod IP.
     ##
@@ -4138,6 +4138,20 @@ prometheus:
           password:
             name: kube-prom-stack-conf-secret
             key: password
+        writeRelabelConfigs:
+          # Exemple 1 : Exclure certaines métriques jugées non essentielles
+          - sourceLabels: [__name__]
+            regex: "kubelet_.*|container_network_.*|node_filesystem_.*"
+            action: drop
+          # Exemple 2 : Garder spécifiquement quelques métriques essentielles
+          # Ces règles permettent de sélectionner des métriques importantes.
+          # (Attention, l'ordre des règles est important : dès qu'une métrique match une règle, l'action est exécutée.)
+          - sourceLabels: [__name__]
+            regex: "kube_pod_status_phase|container_cpu_usage_seconds_total|container_memory_usage_bytes|node_cpu_seconds_total|node_memory_MemAvailable_bytes|apiserver_request_duration_seconds"
+            action: keep
+          # Optionnel : Pour s'assurer qu'aucune autre métrique non sélectionnée n'est envoyée
+          - action: drop
+        # Optionnel: vous pouvez ajouter d'autres options comme "writeRelabelConfigs" si nécessaire.
     
     # - url: http://remote1/push
     ## additionalRemoteWrite is appended to remoteWrite
