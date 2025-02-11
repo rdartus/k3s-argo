@@ -4139,17 +4139,17 @@ prometheus:
             name: kube-prom-stack-conf-secret
             key: password
         writeRelabelConfigs:
+          # Exemple 2 : Garder spécifiquement quelques métriques essentielles
+          # Ces règles permettent de sélectionner des métriques importantes.
+          - sourceLabels: [__name__]
+            regex: "node_cpu_.*|node_memory_.*|node_network_.*|namespace_workload_.*|kube_node_.*|kube_pod_container_resource_.*|kube_pod_.*|kube_replicaset_.*|kube_daemonset_.*|kube_job_.*|kube_deployment_.*|container_cpu_.*|container_memory_.*|container_network_.*|namespace_.*"
+            action: keep
           # Exemple 1 : Exclure certaines métriques jugées non essentielles
           - sourceLabels: [__name__]
             regex: "apiserver_.*|etcd_request_.*"
             # regex: "apiserver_.*|etcd_request_.*|workqueue_.*|etcd_requests_.*|scheduler_plugin_execution_duration_.*|prober_probe_duration_.*|kubernetes_feature_enabled"
             action: drop
-          # Exemple 2 : Garder spécifiquement quelques métriques essentielles
-          # Ces règles permettent de sélectionner des métriques importantes.
           # (Attention, l'ordre des règles est important : dès qu'une métrique match une règle, l'action est exécutée.)
-          - sourceLabels: [__name__]
-            regex: "node_cpu_.*|node_memory_.*|node_network_.*|namespace_.*|kube_node_.*|kube_pod_container_resource_.*|kube_pod_.*|kube_replicaset_.*|kube_daemonset_.*|kube_job_.*|kube_deployment_.*|container_cpu_.*|container_memory_.*|container_network_.*"
-            action: keep
           # # Optionnel : Pour s'assurer qu'aucune autre métrique non sélectionnée n'est envoyée
           # - action: drop
         # Optionnel: vous pouvez ajouter d'autres options comme "writeRelabelConfigs" si nécessaire.
