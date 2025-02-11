@@ -4147,7 +4147,7 @@ prometheus:
           # Ces règles permettent de sélectionner des métriques importantes.
           # (Attention, l'ordre des règles est important : dès qu'une métrique match une règle, l'action est exécutée.)
           - sourceLabels: [__name__]
-            regex: "node_cpu_.*|kube_node_.*|node_network_.*|kube_pod_container_resource_.*|node_memory_.*|container_cpu_.*|container_memory_.*|container_network_.*|node_cpu_seconds_total|apiserver_request_duration_seconds"
+            regex: "node_cpu_.*|node_memory_.*|node_network_.*|namespace_workload_.*|kube_node_.*|kube_pod_container_resource_.*|kube_pod_.*|kube_replicaset_.*|kube_daemonset_.*|kube_job_.*|kube_deployment_.*|container_cpu_.*|container_memory_.*|container_network_.*"
             action: keep
           # # Optionnel : Pour s'assurer qu'aucune autre métrique non sélectionnée n'est envoyée
           # - action: drop
