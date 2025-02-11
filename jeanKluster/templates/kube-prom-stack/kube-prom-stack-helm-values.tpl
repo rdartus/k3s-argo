@@ -4141,7 +4141,8 @@ prometheus:
         writeRelabelConfigs:
           # Exemple 1 : Exclure certaines métriques jugées non essentielles
           - sourceLabels: [__name__]
-            regex: "apiserver_.*|etcd_request_.*|workqueue_.*|etcd_requests_.*|scheduler_plugin_execution_duration_.*|prober_probe_duration_.*|kubernetes_feature_enabled"
+            regex: "apiserver_.*|etcd_request_.*"
+            # regex: "apiserver_.*|etcd_request_.*|workqueue_.*|etcd_requests_.*|scheduler_plugin_execution_duration_.*|prober_probe_duration_.*|kubernetes_feature_enabled"
             action: drop
           # Exemple 2 : Garder spécifiquement quelques métriques essentielles
           # Ces règles permettent de sélectionner des métriques importantes.
