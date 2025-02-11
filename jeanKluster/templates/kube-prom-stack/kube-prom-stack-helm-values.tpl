@@ -4138,14 +4138,14 @@ prometheus:
           password:
             name: kube-prom-stack-conf-secret
             key: password
-        # writeRelabelConfigs:
-        #   # Exemple 1 : Exclure certaines métriques jugées non essentielles
-        #   - sourceLabels: [__name__]
-        #     regex: "kubelet_.*|container_network_.*|node_filesystem_.*"
-        #     action: drop
-        #   # Exemple 2 : Garder spécifiquement quelques métriques essentielles
-        #   # Ces règles permettent de sélectionner des métriques importantes.
-        #   # (Attention, l'ordre des règles est important : dès qu'une métrique match une règle, l'action est exécutée.)
+        writeRelabelConfigs:
+          # Exemple 1 : Exclure certaines métriques jugées non essentielles
+          - sourceLabels: [__name__]
+            regex: "apiserver_.*|etcd_request_.*"
+            action: drop
+          # Exemple 2 : Garder spécifiquement quelques métriques essentielles
+          # Ces règles permettent de sélectionner des métriques importantes.
+          # (Attention, l'ordre des règles est important : dès qu'une métrique match une règle, l'action est exécutée.)
         #   - sourceLabels: [__name__]
         #     regex: "kube_pod_status_phase|container_cpu_usage_seconds_total|container_memory_usage_bytes|node_cpu_seconds_total|node_memory_MemAvailable_bytes|apiserver_request_duration_seconds"
         #     action: keep
