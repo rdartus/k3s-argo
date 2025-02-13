@@ -2275,7 +2275,7 @@ kubeProxy:
 ## Component scraping kube state metrics
 ##
 kubeStateMetrics:
-  enabled: true
+  enabled: false
 
 ## Configuration for kube-state-metrics subchart
 ##
