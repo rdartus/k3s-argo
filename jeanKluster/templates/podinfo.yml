@@ -156,9 +156,9 @@ spec:
           additionalLabels: {}
 
         resources:
-          limits:
-            cpu: 5m
-            memory: 25Mi
+          # limits:
+          #   cpu: 5m
+          #   memory: 25Mi
           requests:
             cpu: 1m
             memory: 16Mi
