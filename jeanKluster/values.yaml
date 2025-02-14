@@ -5,7 +5,7 @@ template_transfo_prowlarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/co
 template_transfo_radarr: '{{- printf "%s" (b64dec (get .Secrets "postgresql/config:b64dump_radarr")) | quote -}}'
 
 clusterIssuer: zerossl-prod
-complexifyCluster: true
+complexifyCluster: false
 tailscale: true
 
 prom:
