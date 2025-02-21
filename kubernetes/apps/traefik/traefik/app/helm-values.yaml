@@ -138,7 +138,6 @@ experimental:
   # demo:
   #   moduleName: github.com/traefik/plugindemo
   #   version: v0.2.1
-    enabled: true
 
 gateway:
   # -- When providers.kubernetesGateway.enabled, deploy a default gateway
