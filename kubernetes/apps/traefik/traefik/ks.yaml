@@ -33,8 +33,6 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/traefik/traefik/resources
   prune: true
-  dependsOn:
-    - name: traefik
   sourceRef:
     kind: GitRepository
     name: flux-system
