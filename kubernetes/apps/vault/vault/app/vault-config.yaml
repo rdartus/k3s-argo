@@ -1,0 +1,339 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vault-scripts
+  namespace: default
+data:
+  default-policy.json: |
+
+    path "kv-v2/data/default/*" {
+      capabilities = ["read"]
+    }
+  arr-policy.json: |
+
+    path "kv-v2/data/arr/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/postgresql/arr" {
+      capabilities = ["read"]
+    }
+  ddns-updater-policy.json: |
+
+    path "kv-v2/data/ddns-updater/*" {
+      capabilities = ["read"]
+    }
+  cnpg-policy.json: |
+
+    path "kv-v2/data/postgresql/*" {
+      capabilities = ["read"]
+    }
+  pgsql-policy.json: |
+
+    path "kv-v2/data/postgresql/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/arr/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/pgadmin/*" {
+      capabilities = ["read"]
+    }
+
+  redis-policy.json: |
+
+    path "kv-v2/data/redis/*" {
+      capabilities = ["read"]
+    }
+  crowdsec-policy.json: |
+
+    path "kv-v2/data/crowdsec/*" {
+      capabilities = ["read"]
+    }
+  pgadmin-policy.json: |
+
+    path "kv-v2/data/pgadmin" {
+      capabilities = ["read"]
+    }
+  authentik-policy.json: |
+
+    path "kv-v2/data/smtp/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/authentik/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/postgresql/auth" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/redis/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/default/*" {
+      capabilities = ["read"]
+    }
+  kubeprom-policy.json: |
+
+    path "kv-v2/data/kubeprom/*" {
+      capabilities = ["read"]
+    }
+
+  wx-policy.json: |
+    path "kv-v2/data/wx/*" {
+      capabilities = ["read"]
+    }
+  ssh-policy.json: |
+    path "kv-v2/data/ssh/*" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/ssh" {
+      capabilities = ["read"]
+    }
+  tandoor-policy.json: |
+    path "kv-v2/data/tandoor" {
+      capabilities = ["read"]
+    }
+    path "kv-v2/data/postgresql/tand" {
+      capabilities = ["read"]
+    }
+  zerossl-policy.json: |
+    path "kv-v2/data/zerossl" {
+      capabilities = ["read"]
+    }
+  wireguard-policy.json: |
+    path "kv-v2/data/wireguard" {
+      capabilities = ["read"]
+    }
+
+  manager-policy.json: |
+    path "/secret/*" {
+        capabilities = ["create", "read", "update", "delete", "list"]
+    }
+  reader-policy.json: |
+    path "/secret/*" {
+      capabilities = ["read", "list"]
+    } 
+
+  initScript.sh: |
+
+    #!/bin/sh
+    # Three scenarios
+    # * Vault is not running yet
+    # ** Just wait...
+    # * Vault is running but not initialized
+    # ** Exit, it needs to be initialized and unsealed manually
+    # * Vault is running and initialized but sealed
+    # ** Take action and unseal the vault, then exit
+    # * Vault is running, initialized and unsealed
+    # ** all is good, exit
+
+    COUNT=1
+    LIMIT=60
+    while [ 1 ]
+    do
+      echo "Checking if Vault is up and running (try $COUNT)..."
+      VAULT_STATUS=$(vault status $1 2>&1)
+      EXIT_STATUS=$?
+      STATUS = $(vault status)
+      echo "Vault status $STATUS"
+      export STATUS=$(vault status | grep 'Initialized' | awk '{print $2}')
+      echo "status vault $STATUS"
+      if [ $STATUS = "false" ]; then
+        vault operator init -key-shares=3 -key-threshold=2 | tee /config/cred/vault.init
+
+        # Store master keys in consul for operator to retrieve and remove
+        COUNTER=1
+        cat /config/cred/vault.init  | grep '^Unseal' | awk '{print $4}' | for key in $(cat -); do
+          echo  $key | tee /config/cred/vault-init-$COUNTER
+          COUNTER=$((COUNTER + 1))
+        done
+
+        export ROOT_TOKEN=$(cat /config/cred/vault.init | grep '^Initial' | awk '{print $4}')
+        echo  $ROOT_TOKEN | tee /config/cred/vault-root-token
+
+        # echo "Remove master keys from disk"
+        # shred /config/cred/vault.init
+
+        echo "Unsealing Vault"
+        vault operator unseal $(cat /config/cred/vault-init-1)
+        vault operator unseal $(cat /config/cred/vault-init-2)
+
+        echo "Vault init complete."
+
+        echo "Start configuration"
+        vault login $ROOT_TOKEN
+        vault secrets enable kv-v2
+        vault auth enable oidc
+        vault kv put kv-v2/ddns-updater/config CONFIG='@/config/cred/ddns-config.json'
+        vault kv put kv-v2/postgresql/config init-authentik="@/config/cred/init-authentik.sql" init-radarr-log="@/config/cred/init-radarr-log.sql" init-radarr-main="@/config/cred/init-radarr-main.sql" init-sonarr-log="@/config/cred/init-sonarr-log.sql" init-sonarr-main="@/config/cred/init-sonarr-main.sql" init-prowlarr-log="@/config/cred/init-prowlarr-log.sql" init-prowlarr-main="@/config/cred/init-prowlarr-main.sql" init-user-auth="@/config/cred/init-user-auth.sql" init-DB="@/config/cred/init-DB.sql"
+        vault kv put kv-v2/postgresql/superuser username="postgres" password="@/config/cred/DB-superuser-password.txt"
+        vault kv put kv-v2/postgresql/arr username="@/config/cred/DB-arr-user.txt" password="@/config/cred/DB-arr-password.txt"
+        vault kv put kv-v2/postgresql/auth username="@/config/cred/DB-auth-user.txt" password="@/config/cred/DB-auth-password.txt"
+        vault kv put kv-v2/postgresql/tand username="@/config/cred/DB-tand-user.txt" password="@/config/cred/DB-tand-password.txt"
+        vault kv put kv-v2/ssh key="@/config/cred/key.txt"
+        vault kv put kv-v2/arr/config sonarrKey="@/config/cred/sonarrKey.txt" prowlarrKey="@/config/cred/prowlarrKey.txt" radarrKey="@/config/cred/radarrKey.txt"
+        vault kv put kv-v2/default/config username="admin" password="@/config/cred/default-password.txt" passwordPBKDF2="@/config/cred/default-passwordPBKDF2.txt"
+        vault kv put kv-v2/default/smb username="jeank" password="@/config/cred/jeank-smb.txt"
+        vault kv put kv-v2/crowdsec/config enroll_key="@/config/cred/crowdsec_enroll_key.txt" bouncer_traefik="@/config/cred/crowdsec_bouncer_traefik.txt"
+        vault kv put kv-v2/redis/config password="@/config/cred/redis-password.txt"
+        vault kv put kv-v2/authentik/config key="@/config/cred/authentik-key.txt"
+        vault kv put kv-v2/kubeprom/config username="@/config/cred/grafanaUser.txt" password="@/config/cred/grafanaPassword.txt"
+        vault kv put kv-v2/smtp/config gmail_username="jeanvoitouh@gmail.com" gmail_password="@/config/cred/gmail-password.txt"
+        vault kv put kv-v2/wx/config username="@/config/cred/wx-user.txt" password="@/config/cred/wx-password.txt"
+        vault kv put kv-v2/wx/list list.json="@/config/cred/wx-list.json"
+        vault kv put kv-v2/tandoor key="@/config/cred/tandoorKey.txt" oidcProvider="@/config/cred/tandoorSocialProvider.txt"
+        vault kv put kv-v2/zerossl keyID="@/config/cred/zeroSSLID.txt" HMAC="@/config/cred/zeroSSLHMAC.txt"
+        vault kv put kv-v2/pgadmin oidcSecret="@/config/cred/pgadminOIDCClient.txt" oidcClient="@/config/cred/pgadminOIDCSecret.txt"
+        vault kv put kv-v2/gitOps oidcSecret="@/config/cred/gitOpsOIDCClient.txt" oidcClient="@/config/cred/gitOpsOIDCSecret.txt"
+        vault kv put kv-v2/wireguard oidcSecret="@/config/cred/gitOpsOIDCClient.txt" oidcClient="@/config/cred/gitOpsOIDCSecret.txt"
+        vault auth enable kubernetes
+        vault write auth/kubernetes/config kubernetes_host="https://$KUBERNETES_PORT_443_TCP_ADDR:443"
+
+        vault policy write plccnpg /config/scripts/cnpg-policy.json
+        vault policy write plcpgsql /config/scripts/pgsql-policy.json
+        vault policy write plcssh /config/scripts/ssh-policy.json        
+        vault policy write plcpgadmin /config/scripts/pgadmin-policy.json        
+        vault policy write plccrowdsec /config/scripts/crowdsec-policy.json        
+        vault policy write plcredis /config/scripts/redis-policy.json        
+        vault policy write plcddns-updater /config/scripts/ddns-updater-policy.json        
+        vault policy write plcarr /config/scripts/arr-policy.json        
+        vault policy write plcdefault /config/scripts/default-policy.json     
+        vault policy write plcauthentik /config/scripts/authentik-policy.json     
+        vault policy write plckubeprom /config/scripts/kubeprom-policy.json     
+        vault policy write plcwx /config/scripts/wx-policy.json        
+        vault policy write plctandoor /config/scripts/tandoor-policy.json        
+        vault policy write plczerossl /config/scripts/zerossl-policy.json        
+
+        vault policy write reader /config/scripts/reader-policy.json       
+        vault policy write manager /config/scripts/manager-policy.json        
+
+        vault write auth/kubernetes/role/rlcnpg \
+        bound_service_account_names=cnpg-cluster \
+        bound_service_account_namespaces=cnpg \
+        policies=plccnpg \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlpgsql \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcpgsql \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlssh \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcssh \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlcrowdsec \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=traefik \
+        policies=plccrowdsec \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlredis \
+        bound_service_account_names=redis-master \
+        bound_service_account_namespaces=default \
+        policies=plcredis \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlpgadmin \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcpgadmin \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlddns-updater \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=ddns-updater \
+        policies=plcddns-updater \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlarr \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcarr \
+        audience=vault\
+        ttl=24h
+        
+        vault write auth/kubernetes/role/rldefault \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcdefault \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlauthentik \
+        bound_service_account_names=authentik \
+        bound_service_account_namespaces=authentik \
+        policies=plcauthentik \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlkubeprom \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plckubeprom \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlwx \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plcwx \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rltandoor \
+        bound_service_account_names=default \
+        bound_service_account_namespaces=default \
+        policies=plctandoor \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlzerossl \
+        bound_service_account_names=traefik \
+        bound_service_account_namespaces=traefik \
+        policies=plczerossl \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/oidc/config \
+        oidc_discovery_url="https://authentik.dartus.fr/application/o/vault/" \
+        oidc_client_id="@/config/cred/vaultOIDCClient.txt" \
+        oidc_client_secret="@/config/cred/vaultOIDCSecret.txt" \
+        default_role="reader"
+
+        vault write auth/oidc/role/reader \
+        bound_audiences="@/config/cred/vaultOIDCClient.txt" \
+        allowed_redirect_uris="https://vault.dartus.fr/ui/vault/auth/oidc/oidc/callback" \
+        allowed_redirect_uris="https://vault.dartus.fr/oidc/callback" \
+        allowed_redirect_uris="http://vault.dartus.fr/ui/vault/auth/oidc/oidc/callback" \
+        allowed_redirect_uris="http://vault.dartus.fr/ui/vault/auth?with=oidc" \
+        allowed_redirect_uris="http://vault.dartus.fr/oidc/callback" \
+        allowed_redirect_uris="http://localhost:8250/oidc/callback" \
+        user_claim="sub" \
+        policies="reader"\
+        groups_claim="groups" \
+
+        exit 0
+      elif [ $STATUS = "true" ]; then
+        exit 0
+      elif [ $COUNT -ge $LIMIT ]; then
+        # Dont know what happened... Exiting
+        echo "$VAULT_STAUS" &> /proc/1/fd/1
+        exit 1
+      else
+        # For debugging
+        echo "$VAULT_STATUS" &> /proc/1/fd/1
+        ps aux &> /proc/1/fd/1
+      fi
+      COUNT=$((COUNT+1))
+      sleep 1
+    done
