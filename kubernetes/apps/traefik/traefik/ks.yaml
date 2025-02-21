@@ -10,9 +10,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  dependsOn:
-    - name: metallb
-      namespace: metallb
   path: ./kubernetes/apps/traefik/traefik/app
   prune: true
   sourceRef:
@@ -34,9 +31,6 @@ spec:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  dependsOn:
-    - name: metallb
-      namespace: metallb
   path: ./kubernetes/apps/traefik/traefik/resources
   prune: true
   sourceRef:
