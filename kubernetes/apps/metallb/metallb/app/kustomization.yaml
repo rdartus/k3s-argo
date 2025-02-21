@@ -6,7 +6,6 @@ resources:
   - ./helmrelease.yaml
 configMapGenerator:
   - name: metallb-instance-helm-values
-    namespace: flux-system
     files:
       - values.yaml=./helm-values.yaml
 configurations:
