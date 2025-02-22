@@ -4,13 +4,18 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crowdsec
-  namespace: &namespace crowdsec
+  namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: ./kubernetes/apps/crowdsec/crowdsec/app
+  path: ./kubernetes/apps/network/crowdsec/app
+  dependsOn:
+    - name: vault-secret-operator
+      namespace: vault
+    - name: traefik
+      namespace: network
   prune: true
   sourceRef:
     kind: GitRepository
@@ -25,13 +30,18 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app crowdsec-resources
-  namespace: &namespace crowdsec
+  namespace: &namespace network
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: ./kubernetes/apps/crowdsec/crowdsec/resources
+  path: ./kubernetes/apps/network/crowdsec/resources
+  dependsOn:
+    - name: vault-secret-operator
+      namespace: vault
+    - name: traefik
+      namespace: network
   prune: true
   sourceRef:
     kind: GitRepository

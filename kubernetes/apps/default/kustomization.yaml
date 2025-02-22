@@ -5,16 +5,21 @@ kind: Kustomization
 namespace: vault
 resources:
   - ./automate-wx/ks.yaml
-  - ./books/ks.yaml
-  - ./livres/ks.yaml
   - ./ddns-updater/ks.yaml
   - ./endlessh/ks.yaml
-  - ./filebrowser/ks.yaml
   - ./hajimari/ks.yaml
-  - ./jellyfin/ks.yaml
   - ./pg-dump/ks.yaml
   - ./pg-restore/ks.yaml
-  - ./qbittorrent/ks.yaml
+  # - ./pg-loader/ks.yaml
   - ./redis/ks.yaml
+  - ./prowlarr/ks.yaml
+  - ./radarr/ks.yaml
+  - ./sonarr/ks.yaml
+  - ./flaresolverr/ks.yaml
+  - ./filebrowser/ks.yaml
+  - ./jellyfin/ks.yaml
+  - ./qbittorrent/ks.yaml
   - ./tandoor/ks.yaml
   - ./wireguard/ks.yaml
+  - ./books/ks.yaml
+  - ./livres/ks.yaml
