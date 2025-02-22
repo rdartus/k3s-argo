@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./helmrelease.yaml
 configMapGenerator:
-  - name: automate-wx-helm-values
+  - name: pg-restore-helm-values
     files:
       - values.yaml=./helm-values.yaml
 configurations:

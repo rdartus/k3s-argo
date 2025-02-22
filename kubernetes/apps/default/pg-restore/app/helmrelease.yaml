@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: automate-wx
+  name: pg-restore
 spec:
   interval: 30m
   chart:
@@ -24,4 +24,4 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: automate-wx-helm-values
+      name: pg-restore-helm-values
