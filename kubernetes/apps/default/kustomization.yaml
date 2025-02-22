@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: vault
+resources:
+  - ./automate-wx/ks.yaml
+  - ./books/ks.yaml
+  - ./livres/ks.yaml
+  - ./ddns-updater/ks.yaml
+  - ./endlessh/ks.yaml
+  - ./filebrowser/ks.yaml
+  - ./hajimari/ks.yaml
+  - ./jellyfin/ks.yaml
+  - ./pg-dump/ks.yaml
+  - ./pg-restore/ks.yaml
+  - ./qbittorrent/ks.yaml
+  - ./redis/ks.yaml
+  - ./tandoor/ks.yaml
+  - ./wireguard/ks.yaml

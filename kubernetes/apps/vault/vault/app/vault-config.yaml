@@ -208,7 +208,7 @@ data:
 
         vault write auth/kubernetes/role/rlcnpg \
         bound_service_account_names=cnpg-cluster \
-        bound_service_account_namespaces=cnpg \
+        bound_service_account_namespaces=database \
         policies=plccnpg \
         audience=vault\
         ttl=24h
@@ -229,7 +229,7 @@ data:
 
         vault write auth/kubernetes/role/rlcrowdsec \
         bound_service_account_names=default \
-        bound_service_account_namespaces=traefik \
+        bound_service_account_namespaces=network \
         policies=plccrowdsec \
         audience=vault\
         ttl=24h
@@ -250,7 +250,7 @@ data:
 
         vault write auth/kubernetes/role/rlddns-updater \
         bound_service_account_names=default \
-        bound_service_account_namespaces=ddns-updater \
+        bound_service_account_namespaces=network \
         policies=plcddns-updater \
         audience=vault\
         ttl=24h
@@ -299,7 +299,7 @@ data:
 
         vault write auth/kubernetes/role/rlzerossl \
         bound_service_account_names=traefik \
-        bound_service_account_namespaces=traefik \
+        bound_service_account_namespaces=network \
         policies=plczerossl \
         audience=vault\
         ttl=24h

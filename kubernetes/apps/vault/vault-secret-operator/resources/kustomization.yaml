@@ -6,3 +6,22 @@ resources:
   - ./default-auth.yaml
   - ./default-secret.yaml
   - ./smb-secret.yaml
+  - ./cnpg-arr-secret.yaml
+  - ./cnpg-auth-secret.yaml
+  - ./cnpg-auth.yaml
+  - ./cnpg-secret.yaml
+  - ./cnpg-superuser-secret.yaml
+  - ./cnpg-tand-secret.yaml
+  - ./default-secret.yaml
+  - ./default-auth.yaml
+  - ./arr-db-secret.yaml
+  - ./arr-conf-secret.yaml
+  - ./arr-auth.yaml
+  - ./psql-superuser-secret.yaml
+  - ./psqlg-auth.yaml
+  - ./ssh-auth.yaml
+  - ./ssh-secret.yaml
+  - ./crowdsec-auth.yaml
+  - ./crowdsec-secret.yaml
+  - ./redis-auth.yaml
+  - ./redis-secret.yaml
