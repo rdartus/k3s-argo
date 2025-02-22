@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: vault
 resources:
   - ./automate-wx/ks.yaml
-  - ./ddns-updater/ks.yaml
   - ./endlessh/ks.yaml
   - ./hajimari/ks.yaml
   - ./pg-dump/ks.yaml

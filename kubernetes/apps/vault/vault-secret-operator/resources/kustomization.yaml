@@ -12,7 +12,6 @@ resources:
   - ./cnpg-secret.yaml
   - ./cnpg-superuser-secret.yaml
   - ./cnpg-tand-secret.yaml
-  - ./default-secret.yaml
   - ./default-auth.yaml
   - ./arr-db-secret.yaml
   - ./arr-conf-secret.yaml
