@@ -20,6 +20,5 @@ resources:
   # - ./jellyfin/ks.yaml
   # - ./qbittorrent/ks.yaml
   - ./tandoor/ks.yaml
-  - ./wireguard/ks.yaml
   # - ./books/ks.yaml
   # - ./livres/ks.yaml
