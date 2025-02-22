@@ -6,6 +6,7 @@ namespace: vault
 resources:
   - ./automate-wx/ks.yaml
   - ./endlessh/ks.yaml
+  - ./authentik/ks.yaml
   - ./hajimari/ks.yaml
   - ./pg-dump/ks.yaml
   - ./pg-restore/ks.yaml
@@ -16,9 +17,9 @@ resources:
   - ./sonarr/ks.yaml
   - ./flaresolverr/ks.yaml
   - ./filebrowser/ks.yaml
-  - ./jellyfin/ks.yaml
-  - ./qbittorrent/ks.yaml
+  # - ./jellyfin/ks.yaml
+  # - ./qbittorrent/ks.yaml
   - ./tandoor/ks.yaml
   - ./wireguard/ks.yaml
-  - ./books/ks.yaml
-  - ./livres/ks.yaml
+  # - ./books/ks.yaml
+  # - ./livres/ks.yaml

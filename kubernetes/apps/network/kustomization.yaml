@@ -8,3 +8,4 @@ resources:
   - ./traefik/ks.yaml
   - ./crowdsec/ks.yaml
   - ./ddns-updater/ks.yaml
+  - ./wireguard/ks.yaml

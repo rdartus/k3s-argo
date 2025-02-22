@@ -13,6 +13,7 @@ resources:
   - ./cnpg-superuser-secret.yaml
   - ./cnpg-tand-secret.yaml
   - ./arr-db-secret.yaml
+  - ./tand-db-secret.yaml
   - ./arr-conf-secret.yaml
   - ./arr-auth.yaml
   - ./psql-superuser-secret.yaml
@@ -23,3 +24,7 @@ resources:
   - ./crowdsec-secret.yaml
   - ./redis-auth.yaml
   - ./redis-secret.yaml
+  - ./tandoor-auth.yaml
+  - ./tandoor-secret.yaml
+  - ./ddns-updater-auth.yaml
+  - ./ddns-updater-secret.yaml
