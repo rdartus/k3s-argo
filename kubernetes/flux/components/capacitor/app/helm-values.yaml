@@ -414,7 +414,7 @@ enforceServiceAccountCreation: false
 serviceAccount:
   # -- Specifies whether a service account should be created
   # The identifier for this ServiceAccount will be `default`
-  create: false
+  create: true
 
   # -- Annotations to add to the service account
   annotations: {}
@@ -424,7 +424,7 @@ serviceAccount:
 
   # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: "capacitor"
 
   # -- Additional Service Accounts to create
   # Each extra service account admit the same keys as the main service account
@@ -772,31 +772,32 @@ persistence:
 # Additional networkPolicies can be added by adding a dictionary key similar to the 'main' networkPolicy.
 # @default -- See below
 networkpolicies:
-  {}
-  # main:
-  #   # -- Enables or disables the networkPolicy item. Defaults to true
-  #   enabled: false
+  main:
+    # -- Enables or disables the networkPolicy item. Defaults to true
+    enabled: true
 
-  #   # -- Configure which controller this networkPolicy should target
-  #   controller: main
+    # -- Configure which controller this networkPolicy should target
+    controller: main
 
-  #   # -- Define a custom podSelector for the networkPolicy. This takes precedence over targeting a controller.
-  #   # podSelector: {}
+    # -- Define a custom podSelector for the networkPolicy. This takes precedence over targeting a controller.
+    podSelector: 
+      matchLabels:
+        app.kubernetes.io/instance: capacitor
 
-  #   # -- The policyTypes for this networkPolicy
-  #   policyTypes:
-  #     - Ingress
-  #     - Egress
+    # -- The policyTypes for this networkPolicy
+    policyTypes:
+      - Ingress
 
-  #   # -- The rulesets for this networkPolicy
-  #   # [[ref]](https://kubernetes.io/docs/concepts/services-networking/network-policies/#networkpolicy-resource)
-  #   rules:
-  #     # -- The ingress rules for this networkPolicy. Allows all ingress traffic by default.
-  #     ingress:
-  #       - {}
-  #     # -- The egress rules for this networkPolicy. Allows all egress traffic by default.
-  #     egress:
-  #       - {}
+    # -- The rulesets for this networkPolicy
+    # [[ref]](https://kubernetes.io/docs/concepts/services-networking/network-policies/#networkpolicy-resource)
+    rules:
+      # -- The ingress rules for this networkPolicy. Allows all ingress traffic by default.
+      ingress:
+        - from:
+          - namespaceSelector: {}
+      # -- The egress rules for this networkPolicy. Allows all egress traffic by default.
+      # egress:
+      #   - {}
 
 # -- Configure any unsupported raw resources here.
 # @default -- See below
