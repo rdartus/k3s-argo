@@ -32,7 +32,7 @@ spec:
     - name: authentik
       namespace: default
     - name: cnpg
-      namespace: default
+      namespace: database
   prune: true
   sourceRef:
     kind: GitRepository
