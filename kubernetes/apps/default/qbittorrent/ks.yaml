@@ -15,7 +15,7 @@
 #     - name: vault-secrets-operator
 #       namespace: vault
 #     - name: traefik
-#       namespace: networkk
+#       namespace: network
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository
