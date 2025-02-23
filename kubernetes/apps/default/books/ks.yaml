@@ -12,7 +12,7 @@
 #   interval: 30m
 #   path: ./kubernetes/apps/default/books/app
   # dependsOn:
-  #   - name: vault-secret-operator
+  #   - name: vault-secrets-operator
   #     namespace: vault
   #   - name: traefik
   #     namespace: network

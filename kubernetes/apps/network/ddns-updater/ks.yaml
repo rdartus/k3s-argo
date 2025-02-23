@@ -12,7 +12,7 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/network/ddns-updater/app
   dependsOn:
-    - name: vault-secret-operator
+    - name: vault-secrets-operator
       namespace: vault
     - name: traefik
       namespace: network

@@ -6,4 +6,4 @@ namespace: vault
 resources:
   - ./namespace.yaml
   - ./vault/ks.yaml
-  - ./vault-secret-operator/ks.yaml
+  - ./vault-secrets-operator/ks.yaml
