@@ -3,7 +3,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: bitnamoi2
+  name: bitnami2
   namespace: flux-system
 spec:
   type: oci
