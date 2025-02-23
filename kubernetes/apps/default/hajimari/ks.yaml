@@ -11,6 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/hajimari/app  
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
   dependsOn:
     - name: traefik
       namespace: network

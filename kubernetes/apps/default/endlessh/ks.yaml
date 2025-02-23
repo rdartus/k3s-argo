@@ -12,6 +12,14 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/default/endlessh/app
   prune: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
+  dependsOn:
+    - name: traefik
+      namespace: network
   sourceRef:
     kind: GitRepository
     name: flux-system

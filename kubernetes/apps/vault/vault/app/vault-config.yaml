@@ -278,7 +278,7 @@ data:
 
         vault write auth/kubernetes/role/rlkubeprom \
         bound_service_account_names=default \
-        bound_service_account_namespaces=default \
+        bound_service_account_namespaces=observability \
         policies=plckubeprom \
         audience=vault\
         ttl=24h
