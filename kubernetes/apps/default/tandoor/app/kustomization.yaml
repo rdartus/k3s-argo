@@ -4,6 +4,9 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./helmrelease.yaml
+  - ./tand-db-secret.yaml
+  - ./tandoor-auth.yaml
+  - ./tandoor-secret.yaml
 configMapGenerator:
   - name: tandoor-helm-values
     files:
