@@ -12,6 +12,11 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/network/traefik/app
   prune: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: *app
+      namespace: *namespace
   sourceRef:
     kind: GitRepository
     name: flux-system

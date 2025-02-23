@@ -12,6 +12,11 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/vault/vault-secrets-operator/app
   prune: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
+      namespace: *namespace
   sourceRef:
     kind: GitRepository
     name: flux-system
@@ -38,7 +43,7 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/vault/vault-secrets-operator/resources
   dependsOn:
-    - name: vault-secrets-operator
+    - name: vault
       namespace: *namespace
   prune: true
   sourceRef:

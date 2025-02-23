@@ -15,6 +15,11 @@ spec:
     - name: vault-secrets-operator
       namespace: vault
   prune: true
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: *app
+      namespace: *namespace
   sourceRef:
     kind: GitRepository
     name: flux-system

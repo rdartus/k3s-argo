@@ -11,6 +11,11 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/network/crowdsec/app
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: crowdsec-lapi
+      namespace: *namespace
   dependsOn:
     - name: vault-secrets-operator
       namespace: vault
