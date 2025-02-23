@@ -16,7 +16,7 @@
   #     namespace: vault
   #   - name: traefik
   #     namespace: network
-    # - name: kube-prom-stack
+    # - name: kube-prometeus-stack
     #   namespace: observability
     # - name: jellyfin
     #   namespace: default
