@@ -6,4 +6,4 @@ resources:
   - ./traefik-externalingress.yaml
   - ./traefik-externalservice.yaml
   - ./endelesshIngressRoute.yaml
-  - ./wireguard-ingressRoute.yaml
+  - ./wireguard-ingressroute.yaml

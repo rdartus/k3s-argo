@@ -727,7 +727,7 @@ route:
         # Name of the referent resource
         name: traefik-gateway
         # Namespace of the referent resource
-        namespace: traefik
+        namespace: network
         # Name of the section within the target resource.
         sectionName: websecure-sonarr
 

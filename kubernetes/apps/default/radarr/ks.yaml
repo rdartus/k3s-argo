@@ -16,6 +16,8 @@ spec:
       namespace: vault
     - name: cnpg
       namespace: database
+    - name: traefik
+      namespace: networkk
   prune: true
   sourceRef:
     kind: GitRepository

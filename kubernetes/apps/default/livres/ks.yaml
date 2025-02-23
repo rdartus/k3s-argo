@@ -11,6 +11,11 @@
 #       app.kubernetes.io/name: *app
 #   interval: 30m
 #   path: ./kubernetes/apps/default/livres/app
+  # dependsOn:
+  #   - name: vault-secret-operator
+  #     namespace: vault
+  #   - name: traefik
+  #     namespace: network
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository
