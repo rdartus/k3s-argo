@@ -32,6 +32,9 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/database/cnpg/resources
+  dependsOn:
+    - name: cnpg
+      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository

@@ -32,6 +32,9 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/metallb/metallb/resources
+  dependsOn:
+    - name: metallb
+      namespace: *namespace
   prune: true
   sourceRef:
     kind: GitRepository
