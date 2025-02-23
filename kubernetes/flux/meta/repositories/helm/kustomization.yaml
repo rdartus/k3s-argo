@@ -5,7 +5,8 @@ kind: Kustomization
 resources:
   - ./authentik.yaml
   - ./bjw-s.yaml
-  - ./cnpg.yaml
+  - ./bitnami2.yaml
+  - ./cloudnative-pg.yaml
   - ./crowdsec.yaml
   - ./csi-driver-nfs.yaml
   - ./hashicorp.yaml
