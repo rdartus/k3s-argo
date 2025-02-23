@@ -264,7 +264,7 @@ controllers:
           PERSISTENTKEEPALIVE_PEERS: all
           PEERS: phone,pc,memed,inv1,hallais
           LOG_CONFS: true
-          SERVERPORT: {{.Values.wireguard.port}}
+          SERVERPORT: 51820
         securityContext:
           privileged: true
           capabilities:
