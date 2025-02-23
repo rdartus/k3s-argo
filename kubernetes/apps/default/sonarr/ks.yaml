@@ -11,14 +11,27 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/sonarr/app
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
+      namespace: vault
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
+    - apiVersion: apps/v1
+      kind: deployment
+      name: authentik
+      namespace: default
   dependsOn:
     - name: vault-secrets-operator
       namespace: vault
-    - name: cnpg
-      namespace: database
     - name: traefik
       namespace: network
     - name: authentik
+      namespace: default
+    - name: cnpg
       namespace: default
   prune: true
   sourceRef:

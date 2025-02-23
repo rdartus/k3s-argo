@@ -123,7 +123,7 @@ global:
     - name: AUTHENTIK_POSTGRESQL__NAME
       value : "authentik"
     - name: AUTHENTIK_POSTGRESQL__HOST
-      value : database.cnpg.svc.cluster.local
+      value : cnpg.database.svc.cluster.local
     - name: AUTHENTIK_POSTGRESQL__USER
       valueFrom:
         secretKeyRef:

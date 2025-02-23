@@ -11,11 +11,14 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/automate-wx/app
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
+      namespace: vault
   dependsOn:
     - name: vault-secrets-operator
       namespace: vault
-    - name: kube-prometeus-stack
-      namespace: observability
   prune: true
   sourceRef:
     kind: GitRepository

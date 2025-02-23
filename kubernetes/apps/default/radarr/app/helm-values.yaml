@@ -265,7 +265,7 @@ controllers:
                 name: arr-conf-secret
                 key: radarrKey
           RADARR__POSTGRES__PORT: "5432"
-          RADARR__POSTGRES__HOST: database.cnpg.svc.cluster.localS
+          RADARR__POSTGRES__HOST: cnpg.database.svc.cluster.localS
           RADARR__AUTH__METHOD: "External"
           RADARR__AUTH__REQUIRED: DisabledForLocalAddresses
           RADARR__POSTGRES__USER:

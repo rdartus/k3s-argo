@@ -18,8 +18,8 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: deployment
-      name: *app
-      namespace: *namespace
+      name: vault-agent-injector
+      namespace: vault
   sourceRef:
     kind: GitRepository
     name: flux-system

@@ -12,10 +12,13 @@ spec:
   interval: 30m
   path: ./kubernetes/apps/vault/vault-secrets-operator/app
   prune: true
+  dependsOn:
+    - name: vault
+      namespace: *namespace
   healthChecks:
     - apiVersion: apps/v1
-      kind: deployment
-      name: vault-agent-injector
+      kind: statefulset
+      name: vault
       namespace: *namespace
   sourceRef:
     kind: GitRepository
@@ -35,15 +38,15 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  # healthCheckExprs:
-  #   - apiVersion: vault-secrets-operator.io/v1
-  #     kind: ClusterIssuer
-  #     failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
-  #     current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
   interval: 30m
   path: ./kubernetes/apps/vault/vault-secrets-operator/resources
   dependsOn:
-    - name: vault
+    - name: vault-secrets-operator
+      namespace: *namespace
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
       namespace: *namespace
   prune: true
   sourceRef:

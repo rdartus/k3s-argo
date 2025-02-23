@@ -11,11 +11,22 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/apps/default/tandoor/app
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
+      namespace: vault
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
   dependsOn:
     - name: vault-secrets-operator
       namespace: vault
     - name: traefik
       namespace: network
+    - name: cnpg
+      namespace: default
   prune: true
   sourceRef:
     kind: GitRepository

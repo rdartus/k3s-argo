@@ -118,7 +118,7 @@ controllers:
           DB_ENGINE: django.db.backends.postgresql
           SOCIAL_DEFAULT_ACCESS: 1
           SOCIAL_DEFAULT_GROUP: user
-          POSTGRES_HOST: database.cnpg.svc.cluster.local
+          POSTGRES_HOST: cnpg.database.svc.cluster.local
           POSTGRES_DB: tandoor
           POSTGRES_PORT: 5432
           POSTGRES_USER: 

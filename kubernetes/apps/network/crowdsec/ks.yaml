@@ -14,8 +14,12 @@ spec:
   healthChecks:
     - apiVersion: apps/v1
       kind: deployment
-      name: crowdsec-lapi
-      namespace: *namespace
+      name: vault-agent-injector
+      namespace: vault
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
   dependsOn:
     - name: vault-secrets-operator
       namespace: vault
