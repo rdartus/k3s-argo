@@ -16,6 +16,10 @@
   #     namespace: vault
   #   - name: traefik
   #     namespace: network
+    - name: kube-prom-stack
+      namespace: observability
+    - name: 
+      namespace: default
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository

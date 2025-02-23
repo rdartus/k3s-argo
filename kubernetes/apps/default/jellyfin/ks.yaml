@@ -16,6 +16,8 @@ spec:
       namespace: vault
     - name: traefik
       namespace: network
+    - name: prowlarr
+      namespace: default
   prune: true
   sourceRef:
     kind: GitRepository

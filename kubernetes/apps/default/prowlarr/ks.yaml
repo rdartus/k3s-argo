@@ -18,6 +18,8 @@ spec:
       namespace: database
     - name: traefik
       namespace: network
+    - name: sonarr
+      namespace: default
   prune: true
   sourceRef:
     kind: GitRepository

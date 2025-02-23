@@ -16,6 +16,8 @@
   #     namespace: vault
   #   - name: traefik
   #     namespace: network
+    # - name: jellyfin
+    #   namespace: default
 #   prune: true
 #   sourceRef:
 #     kind: GitRepository
