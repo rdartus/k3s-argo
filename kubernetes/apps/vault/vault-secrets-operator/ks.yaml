@@ -33,6 +33,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app vault-secrets-operator-resources
+  namespace: &namespace vault
 spec:
   commonMetadata:
     labels:
@@ -41,17 +42,17 @@ spec:
   path: ./kubernetes/apps/vault/vault-secrets-operator/resources
   dependsOn:
     - name: vault-secrets-operator
-      namespace: vault
+      namespace: *namespace
   healthChecks:
     - apiVersion: apps/v1
       kind: deployment
       name: vault-agent-injector
-      namespace: vault
+      namespace: *namespace
   prune: true
-  targetNamespace: vault
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
+  targetNamespace: default
   timeout: 15m
   wait: true
