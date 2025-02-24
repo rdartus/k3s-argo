@@ -53,7 +53,7 @@ spec:
   bootstrap:
     initdb:
       database: default
-      owner: arr
+      owner: potgres
       secret:
         name: pgsql-secret
       postInitApplicationSQLRefs:
