@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: db-tandoor
+  namespace: database
+spec:
+  name: tandoor
+  owner: tand
+  cluster:
+    name: cnpg-cluster

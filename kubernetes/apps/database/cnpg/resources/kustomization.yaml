@@ -10,3 +10,11 @@ resources:
   - ./cnpg-secret.yaml
   - ./cnpg-superuser-secret.yaml
   - ./cnpg-tand-secret.yaml
+  - ./db-tandoor.yaml
+  - ./db-authentik.yaml
+  - ./db-prowlarr-log.yaml
+  - ./db-prowlarr-main.yaml
+  - ./db-radarr-log.yaml
+  - ./db-radarr-main.yaml
+  - ./db-sonarr-log.yaml
+  - ./db-sonarr-main.yaml
