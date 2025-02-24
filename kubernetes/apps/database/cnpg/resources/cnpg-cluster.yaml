@@ -23,32 +23,32 @@ spec:
   superuserSecret:
     name: superuser-secret
 
-  managed:
-    roles:
-    - name: arr
-      connectionLimit: -1
-      inherit: true
-      ensure: present
-      comment: "*arr user"
-      login: true
-      passwordSecret:
-        name: arr-secret
-    - name: auth
-      connectionLimit: -1
-      inherit: true
-      ensure: present
-      comment: authentik user 
-      passwordSecret:
-        name: auth-secret
-      login: true
-    - name: tand
-      connectionLimit: -1
-      inherit: true
-      ensure: present
-      comment: tandoor user 
-      login: true
-      passwordSecret:
-        name: tand-secret
+  # managed:
+  #   roles:
+  #   - name: arr
+  #     connectionLimit: -1
+  #     inherit: true
+  #     ensure: present
+  #     comment: "*arr user"
+  #     login: true
+  #     passwordSecret:
+  #       name: arr-secret
+  #   - name: auth
+  #     connectionLimit: -1
+  #     inherit: true
+  #     ensure: present
+  #     comment: authentik user 
+  #     passwordSecret:
+  #       name: auth-secret
+  #     login: true
+  #   - name: tand
+  #     connectionLimit: -1
+  #     inherit: true
+  #     ensure: present
+  #     comment: tandoor user 
+  #     login: true
+  #     passwordSecret:
+  #       name: tand-secret
 
   bootstrap:
     initdb:
@@ -58,8 +58,8 @@ spec:
         name: pgsql-secret
       postInitApplicationSQLRefs:
         secretRefs:
-        # - name: pgsql-secret
-        #   key: init-user-auth
+        - name: pgsql-secret
+          key: init-user-auth
         - name: pgsql-secret
           key: init-authentik
         - name: pgsql-secret
