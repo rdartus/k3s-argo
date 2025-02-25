@@ -711,14 +711,18 @@ route:
 # [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
-  config:
-  #   # -- Enables or disables the persistence item. Defaults to true
-    enabled: false
+  # config:
+  #   enabled: false
 
-  #   # -- Sets the persistence type
-  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-    type: secret
-    name: list.json
+  # # Cache does NOT contain temporary transcoding data.
+  # cache:
+  #   enabled: false
+  #   mountPath: /cache
+
+  # media:
+  #   enabled: false
+  #   mountPath: /media
+
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.

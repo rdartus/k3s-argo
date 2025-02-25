@@ -244,7 +244,7 @@ controllers:
 
         image:
           # -- image repository
-          repository: ghcr.io/rdartus/filebrowser
+          repository: ghcr.io/rdartus/automate-wx
           # -- image tag
           tag: latest
           # -- image pull policy
@@ -715,13 +715,13 @@ route:
 # @default -- See below
 persistence:
   config:
-  #   # -- Enables or disables the persistence item. Defaults to true
     enabled: false
-
-  #   # -- Sets the persistence type
-  #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
-    type: secret
-    name: list.json
+    type : persistentVolumeClaim
+    existingClaim: pvc-filebrowser-conf
+  data:
+    enabled: false
+    type : persistentVolumeClaim
+    existingClaim: pvc-drive
   #   # -- Storage Class for the config volume.
   #   # If set to `-`, dynamic provisioning is disabled.
   #   # If set to something else, the given storageClass is used.
