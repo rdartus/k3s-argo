@@ -716,7 +716,7 @@ route:
 persistence:
   config:
   #   # -- Enables or disables the persistence item. Defaults to true
-    enabled: true
+    enabled: false
 
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
