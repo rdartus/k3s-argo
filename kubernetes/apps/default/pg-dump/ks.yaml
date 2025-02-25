@@ -20,9 +20,9 @@ spec:
       kind: deployment
       name: traefik
       namespace: network
-    - apiVersion: apps/v1
-      kind: statefulset
-      name: cnpg-master
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: cluster
+      name: cnpg-cluster
       namespace: database
   dependsOn:
     - name: vault-secrets-operator
