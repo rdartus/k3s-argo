@@ -398,7 +398,7 @@ agent:
   resources:
     limits:
       memory: 250Mi
-      cpu: 500m
+      cpu: 200m
     requests:
       cpu: 150m
       memory: 100Mi

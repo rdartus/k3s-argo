@@ -131,7 +131,7 @@ controller:
     # @type: map
     resources:
       limits:
-        cpu: 500m
+        cpu: 200m
         memory: 128Mi
       requests:
         cpu: 5m
@@ -487,7 +487,7 @@ controller:
     # @type: map
     resources:
       limits:
-        cpu: 500m
+        cpu: 200m
         memory: 128Mi
       requests:
         cpu: 10m
@@ -833,7 +833,7 @@ hooks:
   # Resources common to all hooks.
   resources:
     limits:
-      cpu: 500m
+      cpu: 200m
       memory: 128Mi
     requests:
       cpu: 10m
