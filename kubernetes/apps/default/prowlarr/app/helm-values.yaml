@@ -265,7 +265,7 @@ controllers:
                 name: arr-conf-secret
                 key: prowlarrKey
           PROWLARR__POSTGRES__PORT: "5432"
-          PROWLARR__POSTGRES__HOST: cnpg.database.svc.cluster.local
+          PROWLARR__POSTGRES__HOST: cnpg-cluster-rw.database.svc.cluster.local
           PROWLARR__AUTH__METHOD: "External"
           PROWLARR__AUTH__REQUIRED: DisabledForLocalAddresses
           PROWLARR__POSTGRES__USER:
