@@ -804,7 +804,7 @@ persistence:
 #   #   # -- Enables or disables the persistence item. Defaults to true
     enabled: true
     type: configMap
-    name: hajimari-config
+    identifier: config
 #     enabled: true
 
 #   #   # -- Sets the persistence type
