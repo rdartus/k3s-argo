@@ -436,7 +436,7 @@ serviceAccount:
 
   # -- The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "hajimari"
+  name: ""
 
   # -- Additional Service Accounts to create
   # Each extra service account admit the same keys as the main service account
@@ -949,7 +949,7 @@ rbac:
         identifier: hajimari
       # -- If using an identifier it will be automatically filled, otherwise every key will need to be explicitly declared
       subjects:
-        - identifier: hajimari
+        - identifier: default
         # - kind: ServiceAccount
         #   name: test
         #   namespace: "{{ .Release.Namespace }}"
