@@ -11,7 +11,18 @@ spec:
       app.kubernetes.io/name: *app
   interval: 30m
   path: ./kubernetes/flux/components/headlamp/app
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
+      namespace: vault
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
   dependsOn:
+    - name: vault-secrets-operator
+      namespace: vault
     - name: traefik
       namespace: network
   prune: true

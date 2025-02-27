@@ -112,7 +112,11 @@ data:
     path "/secret/*" {
       capabilities = ["read", "list"]
     } 
+  gitops-policy.json: |
 
+    path "kv-v2/data/gitops" {
+      capabilities = ["read"]
+    }
   initScript.sh: |
 
     #!/bin/sh
@@ -202,6 +206,7 @@ data:
         vault policy write plcwx /config/scripts/wx-policy.json        
         vault policy write plctandoor /config/scripts/tandoor-policy.json        
         vault policy write plczerossl /config/scripts/zerossl-policy.json        
+        vault policy write plcgitops /config/scripts/gitops-policy.json        
 
         vault policy write reader /config/scripts/reader-policy.json       
         vault policy write manager /config/scripts/manager-policy.json        
@@ -301,6 +306,13 @@ data:
         bound_service_account_names=traefik \
         bound_service_account_namespaces=network \
         policies=plczerossl \
+        audience=vault\
+        ttl=24h
+
+        vault write auth/kubernetes/role/rlgitops \
+        bound_service_account_names=flux-system \
+        bound_service_account_namespaces=flux-system \
+        policies=plcgitops \
         audience=vault\
         ttl=24h
 
