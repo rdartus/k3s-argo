@@ -16,3 +16,4 @@ resources:
   - ./prometheus-community.yaml
   - ./traefik.yaml
   - ./wiremind.yaml
+  - ./headlamp.yaml
