@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 30m
+  timeout: 4m
   path: ./kubernetes/apps/default/automate-wx/app
   healthChecks:
     - apiVersion: apps/v1
@@ -25,5 +25,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 15m
+  timeout: 4m
   wait: false

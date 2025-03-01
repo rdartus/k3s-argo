@@ -9,7 +9,7 @@
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *app
-#   interval: 30m
+#   timeout: 4m
 #   path: ./kubernetes/apps/default/books/app
   # dependsOn:
   #   - name: vault-secrets-operator
