@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  timeout: 4m
+  interval: 30m
   path: ./kubernetes/apps/default/prowlarr/app
   healthChecks:
     - apiVersion: apps/v1
@@ -45,5 +45,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 4m
+  timeout: 15m
   wait: true

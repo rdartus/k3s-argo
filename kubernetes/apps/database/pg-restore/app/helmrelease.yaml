@@ -6,7 +6,7 @@ metadata:
   name: pg-restore
 spec:
   interval: 30m
-  timeout: 4m
+  timeout: 15m
   chart:
     spec:
       chart: app-template

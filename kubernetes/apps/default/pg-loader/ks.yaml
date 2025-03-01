@@ -9,7 +9,7 @@
 #   commonMetadata:
 #     labels:
 #       app.kubernetes.io/name: *app
-#   timeout: 4m
+#   interval: 30m
 #   path: ./kubernetes/apps/default/pg-loader/app
   # dependsOn:
   #   - name: vault-secrets-operator

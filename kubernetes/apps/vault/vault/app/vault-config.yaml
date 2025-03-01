@@ -230,7 +230,7 @@ data:
 
         vault write auth/kubernetes/role/rlssh \
         bound_service_account_names=default \
-        bound_service_account_namespaces=database \
+        bound_service_account_namespaces=default \
         policies=plcssh \
         audience=vault\
         ttl=24h
