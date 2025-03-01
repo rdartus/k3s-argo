@@ -6,3 +6,5 @@ namespace: database
 resources:
   - ./namespace.yaml
   - ./cnpg/ks.yaml
+  - ./pg-dump/ks.yaml
+  - ./pg-restore/ks.yaml
