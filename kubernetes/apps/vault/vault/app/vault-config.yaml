@@ -71,6 +71,9 @@ data:
     path "kv-v2/data/default/*" {
       capabilities = ["read"]
     }
+    path "kv-v2/data/default/*" {
+      capabilities = ["read"]
+    }
   kubeprom-policy.json: |
 
     path "kv-v2/data/kubeprom/*" {
