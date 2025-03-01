@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./issuer-staging.yaml
   - ./issuer-prod.yaml
+  - ./issuer-zerossl.yaml
