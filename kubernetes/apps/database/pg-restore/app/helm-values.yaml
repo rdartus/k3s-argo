@@ -122,16 +122,16 @@ controllers:
           # psql postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/authentik -f /data/dump-k3s/dump_tandoor
 
           echo "dump_prowlarr"
-          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
-          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
+          pg_restore -c  --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
+          pg_restore -c  --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_prowlarr
           echo "dump_sonarr"
-          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_sonarr
+          pg_restore -c  --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_sonarr
           echo "dump_radarr"
-          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_radarr
+          pg_restore -c  --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_radarr
           echo "dump_authentik"
-          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_authentik
+          pg_restore -c  --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_authentik
           echo "dump_tandoor"
-          pg_restore -c -C --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_tandoor
+          pg_restore -c  --if-exists -d "postgres://$SUPERUSER:$PASSWORD@cnpg-cluster-rw.database.svc.cluster.local/postgres" /data/dump-k3s/dump_tandoor
 
         env:
           SUPERUSER:

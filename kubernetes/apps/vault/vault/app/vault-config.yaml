@@ -223,7 +223,7 @@ data:
 
         vault write auth/kubernetes/role/rlpgsql \
         bound_service_account_names=default \
-        bound_service_account_namespaces=default \
+        bound_service_account_namespaces=database \
         policies=plcpgsql \
         audience=vault\
         ttl=24h
@@ -251,7 +251,7 @@ data:
 
         vault write auth/kubernetes/role/rlpgadmin \
         bound_service_account_names=default \
-        bound_service_account_namespaces=default \
+        bound_service_account_namespaces=database \
         policies=plcpgadmin \
         audience=vault\
         ttl=24h

@@ -2,7 +2,7 @@ apiVersion: secrets.hashicorp.com/v1beta1
 kind: VaultAuth
 metadata:
   name: ssh-auth
-  namespace: default
+  namespace: database
   annotations:
     argocd.argoproj.io/sync-wave: "8"
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
