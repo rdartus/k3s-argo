@@ -29,6 +29,8 @@ spec:
       namespace: vault
     - name: traefik
       namespace: network
+    # - name: pg-restore
+    #   namespace: database
     - name: redis
       namespace: default
   prune: true

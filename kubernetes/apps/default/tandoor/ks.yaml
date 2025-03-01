@@ -31,6 +31,8 @@ spec:
       namespace: network
     - name: cnpg
       namespace: database
+    - name: pg-restore
+      namespace: database
   prune: true
   sourceRef:
     kind: GitRepository
@@ -38,4 +40,4 @@ spec:
     namespace: flux-system
   targetNamespace: *namespace
   timeout: 15m
-  wait: false
+  wait: true
