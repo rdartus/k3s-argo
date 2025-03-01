@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 30m
+  interval: 4m
   path: ./kubernetes/apps/default/jellyfin/app
   dependsOn:
     - name: vault-secrets-operator
@@ -24,5 +24,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 15m
+  timeout: 4m
   wait: false
