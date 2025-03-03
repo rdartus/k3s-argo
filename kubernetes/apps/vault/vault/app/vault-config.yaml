@@ -306,8 +306,8 @@ data:
         ttl=24h
 
         vault write auth/kubernetes/role/rlzerossl \
-        bound_service_account_names=traefik \
-        bound_service_account_namespaces=network \
+        bound_service_account_names=cert-manager \
+        bound_service_account_namespaces=cert-manager \
         policies=plczerossl \
         audience=vault\
         ttl=24h
