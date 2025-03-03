@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 4m
+  interval: 7m
   path: ./kubernetes/apps/cert-manager/cert-manager/app
   prune: true
   healthChecks:
@@ -31,7 +31,7 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 4m
+  timeout: 5m
   wait: false
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
@@ -49,7 +49,7 @@ spec:
       kind: ClusterIssuer
       failed: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'False')
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')
-  interval: 4m
+  interval: 7m
   path: ./kubernetes/apps/cert-manager/cert-manager/issuers
   healthChecks:
     - apiVersion: apps/v1
@@ -77,5 +77,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 4m
+  timeout: 5m
   wait: true

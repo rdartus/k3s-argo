@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  interval: 4m
+  interval: 7m
   path: ./kubernetes/apps/default/tandoor/app
   healthChecks:
     - apiVersion: apps/v1
@@ -39,5 +39,5 @@ spec:
     name: flux-system
     namespace: flux-system
   targetNamespace: *namespace
-  timeout: 4m
+  timeout: 5m
   wait: true
