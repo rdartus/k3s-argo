@@ -6,3 +6,5 @@ resources:
   - ./issuer-staging.yaml
   - ./issuer-prod.yaml
   - ./issuer-zerossl.yaml
+  - ./zerossl-secret-key.yaml
+  - ./zerossl-auth.yaml
