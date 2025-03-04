@@ -7,3 +7,4 @@ resources:
   - ./traefik-externalservice.yaml
   - ./endelesshIngressRoute.yaml
   - ./wireguard-ingressroute.yaml
+  - ./traefik-authentik-middleware.yaml
