@@ -196,7 +196,7 @@ ingress:
         pathType: Prefix
         backend:
           service:
-            name: argocd-server
+            name: headlamp
             port:
               number: 80
   # -- Ingress TLS configuration
