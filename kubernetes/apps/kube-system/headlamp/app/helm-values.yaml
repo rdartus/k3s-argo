@@ -26,6 +26,7 @@ fullnameOverride: ""
 initContainers: []
 
 config:
+  inCluster: true
   # -- base url path at which headlamp should run
   baseURL: ""
   oidc:
@@ -133,7 +134,7 @@ service:
   # -- Kubernetes Service type
   type: ClusterIP
   # -- Kubernetes Service port
-  port: 4466
+  port: 80
   # -- Kubernetes Service clusterIP
   clusterIP: ""
   # -- Kubernetes Service loadBalancerIP
