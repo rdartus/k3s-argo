@@ -133,7 +133,7 @@ service:
   # -- Kubernetes Service type
   type: ClusterIP
   # -- Kubernetes Service port
-  port: 8080
+  port: 80
   # -- Kubernetes Service clusterIP
   clusterIP: ""
   # -- Kubernetes Service loadBalancerIP
@@ -168,7 +168,7 @@ persistentVolumeClaim:
 
 ingress:
   # -- Enable ingress controller resource
-  enabled: false
+  enabled: true
   # -- Annotations for Ingress resource
   annotations:
     hajimari.io/enable: "true"
@@ -198,7 +198,7 @@ ingress:
           service:
             name: headlamp
             port:
-              number: 8080
+              number: 80
   # -- Ingress TLS configuration
   tls: 
     - hosts:
