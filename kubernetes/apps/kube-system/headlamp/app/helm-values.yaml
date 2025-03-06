@@ -192,13 +192,8 @@ ingress:
   - host: argo.dartus.fr
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: headlamp
-            port:
-              number: 80
+        - path: /
+          type: ImplementationSpecific
   # -- Ingress TLS configuration
   tls: 
     - hosts:
