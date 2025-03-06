@@ -4,13 +4,13 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: &app headlamp
-  namespace: &namespace kube-system
+  namespace: &namespace flux-system
 spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   interval: 30m
-  path: ./kubernetes/apps/kube-system/headlamp/app
+  path: ./kubernetes/flux/components/headlamp/app
   healthChecks:
     - apiVersion: apps/v1
       kind: deployment
