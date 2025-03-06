@@ -314,7 +314,7 @@ data:
 
         vault write auth/kubernetes/role/rlgitops \
         bound_service_account_names=default \
-        bound_service_account_namespaces=flux-system \
+        bound_service_account_namespaces=kube-system \
         policies=plcgitops \
         audience=vault\
         ttl=24h
