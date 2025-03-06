@@ -191,10 +191,9 @@ ingress:
   # Please refer to https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec for more information.
   hosts:
   - host: argo.dartus.fr
-    http:
-      paths:
-        - path: /
-          type: ImplementationSpecific
+    paths:
+      - path: /
+        type: ImplementationSpecific
   # -- Ingress TLS configuration
   tls: 
     - hosts:
