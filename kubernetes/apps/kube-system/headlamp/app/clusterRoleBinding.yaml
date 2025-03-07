@@ -4,7 +4,10 @@ metadata:
   name: authentik-admin-binding
 subjects:
 - kind: Group
-  name: admin  # Correspond au nom du groupe envoyé par Authentik
+  name: authentik Admins  # Correspond au nom du groupe envoyé par Authentik
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: Pirates  # Correspond au nom du groupe envoyé par Authentik
   apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
