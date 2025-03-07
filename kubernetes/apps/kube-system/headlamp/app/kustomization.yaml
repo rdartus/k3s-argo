@@ -6,6 +6,7 @@ resources:
   - ./gitops-auth.yaml
   - ./gitops-secret.yaml
   - ./helmrelease.yaml
+  - ./clusterRoleBinding.yaml
 configMapGenerator:
   - name: headlamp-helm-values
     files:
