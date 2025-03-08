@@ -9,6 +9,12 @@ subjects:
 - kind: Group
   name: Pirates  # Correspond au nom du groupe envoyé par Authentik
   apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: richard.dartus@gmail.com
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: hallais.elliot@gmail.com
+  apiGroup: rbac.authorization.k8s.io
 roleRef:
   kind: ClusterRole
   name: cluster-admin
