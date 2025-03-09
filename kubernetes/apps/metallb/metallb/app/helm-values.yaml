@@ -6,7 +6,7 @@
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
-# loadBalancerClass: "traefik-ingresses"
+loadBalancerClass: ""
 
 # To configure MetalLB, you must specify ONE of the following two
 # options.
@@ -43,7 +43,7 @@ prometheus:
   # certificate to be used.
   controllerMetricsTLSSecret: ""
 
-  # prometheus doens't have the permission to scrape all namespaces so we give it permission to scrape metallb's one
+  # prometheus doesn't have the permission to scrape all namespaces so we give it permission to scrape metallb's one
   rbacPrometheus: true
 
   # the service account used by prometheus
@@ -65,7 +65,7 @@ prometheus:
     # enable support for Prometheus Operator
     enabled: false
 
-    # optional additionnal labels for podMonitors
+    # optional additional labels for podMonitors
     additionalLabels: {}
 
     # optional annotations for podMonitors
@@ -144,7 +144,7 @@ prometheus:
     # enable alertmanager alerts
     enabled: false
 
-    # optional additionnal labels for prometheusRules
+    # optional additional labels for prometheusRules
     additionalLabels: {}
 
     # optional annotations for prometheusRules
@@ -166,7 +166,7 @@ prometheus:
     addressPoolExhausted:
       enabled: true
       labels:
-        severity: alert
+        severity: critical
 
     addressPoolUsage:
       enabled: true
@@ -179,13 +179,13 @@ prometheus:
             severity: warning
         - percent: 95
           labels:
-            severity: alert
+            severity: critical
 
     # MetalLBBGPSessionDown
     bgpSessionDown:
       enabled: true
       labels:
-        severity: alert
+        severity: critical
 
     extraAlerts: []
 
@@ -269,6 +269,9 @@ speaker:
     mlSecretKeyPath: "/etc/ml_secret_key"
   excludeInterfaces:
     enabled: true
+  # ignore the exclude-from-external-loadbalancer label
+  ignoreExcludeLB: false
+
   image:
     repository: quay.io/metallb/speaker
     tag:
@@ -329,7 +332,7 @@ speaker:
     enabled: false
     image:
       repository: quay.io/frrouting/frr
-      tag: 8.5.2
+      tag: 9.1.0
       pullPolicy:
     metricsPort: 7473
     resources: {}
@@ -359,3 +362,5 @@ frrk8s:
   # if set, enables frrk8s as a backend. This is mutually exclusive to frr
   # mode.
   enabled: false
+  external: false
+  namespace: ""

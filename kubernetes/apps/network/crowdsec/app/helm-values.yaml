@@ -16,7 +16,7 @@ image:
   pullSecrets: []
     # - name: ""
   # -- docker image tag
-  tag: "v1.6.4"
+  tag: ""
 
 # -- Annotations to be added to pods
 podAnnotations: {}
@@ -134,8 +134,13 @@ tls:
   bouncer:
     secret: "{{ .Release.Name }}-bouncer-tls"
     reflector:
-      namespaces: ["traefik"]
+      namespaces: ["network"]
   agent:
+    tlsClientAuth: true
+    secret: "{{ .Release.Name }}-agent-tls"
+    reflector:
+      namespaces: []
+  appsec:
     tlsClientAuth: true
     secret: "{{ .Release.Name }}-agent-tls"
     reflector:
@@ -153,6 +158,8 @@ secrets:
 
 # lapi will deploy pod with crowdsec lapi and dashboard as deployment
 lapi:
+  # -- enable lapi (by default enabled)
+  enabled: true
   # -- replicas for local API
   replicas: 1
   # -- environment variables from crowdsecurity/crowdsec docker image
@@ -170,7 +177,7 @@ lapi:
     - name: ENROLL_INSTANCE_NAME
       value: JeanBalade2
     # by default disable the agent because it only needs the local API.
-    # - name: DISABLE_AGENT
+    #- name: DISABLE_AGENT
     #  value: "true"
   # Allows you to load environment variables from kubernetes secret or config map
   envFrom: []
@@ -331,8 +338,16 @@ lapi:
 
 # agent will deploy pod on every node as daemonSet to read wanted pods logs
 agent:
+  # -- enable agent (by default enabled)
+  enabled: true
   # -- Switch to Deployment instead of DaemonSet (In some cases, you may want to deploy the agent as a Deployment)
   isDeployment: false
+  # -- lapiURL for agent to connect to (default is the lapi service URL)
+  lapiURL: ""
+  # -- lapiHost for agent to connect to (default is the lapi service)
+  lapiHost: ""
+  # -- lapiPort for agent to connect to (default is the lapi service port)
+  lapiPort: 8080
   # -- replicas for agent if isDeployment is set to true
   replicas: 1
   # -- strategy for agent if isDeployment is set to true
@@ -357,7 +372,7 @@ agent:
     #     type: syslog
     # -- Specify each pod you want to process it logs (namespace, podName and program)
   acquisition: 
-    - namespace: "traefik" #ingress-nginx
+    - namespace: "network" #ingress-nginx
       # -- to select pod logs to process
       podName: "traefik-*" #ingress-nginx-controller-*
       # -- program name related to specific parser you will use (see https://hub.crowdsec.net/author/crowdsecurity/configurations/docker-logs)
@@ -422,8 +437,6 @@ agent:
       value: "Europe/Paris"
     # by default we configure the docker-logs parser to be able to parse docker logs in k8s
     # by default we disable local API on the agent pod
-    # - name: COLLECTIONS
-    #   value: "crowdsecurity/traefik"
     # - name: SCENARIOS
     #   value: "scenario/name otherScenario/name"
     # - name: PARSERS
@@ -438,6 +451,8 @@ agent:
     #   value: "Labels.type_for_time-machine_mode"
     # - name: TEST_MODE
     #   value: "false"
+    # - name: TZ
+    #   value: ""
     # - name: DISABLE_AGENT
     #   value: "false"
     # - name: DISABLE_ONLINE_API
@@ -530,6 +545,12 @@ agent:
 appsec:
   # -- Enable AppSec (by default disabled)
   enabled: false
+  # -- lapiURL for agent to connect to (default is the lapi service URL)
+  lapiURL: ""
+  # -- lapiHost for agent to connect to (default is the lapi service)
+  lapiHost: ""
+  # -- lapiPort for agent to connect to (default is the lapi service port)
+  lapiPort: 8080
   # -- replicas for Appsec
   replicas: 1
   # -- strategy for appsec deployment
@@ -679,3 +700,13 @@ appsec:
     loadBalancerIP: null
     loadBalancerClass: null
     externalTrafficPolicy: Cluster
+
+  # -- wait-for-lapi init container
+  wait_for_lapi:
+    image:
+      # -- docker image repository name
+      repository: busybox
+      # -- pullPolicy
+      pullPolicy: IfNotPresent
+      # -- docker image tag
+      tag: "1.28"
