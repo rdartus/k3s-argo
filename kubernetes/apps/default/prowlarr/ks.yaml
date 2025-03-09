@@ -1,0 +1,49 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: &app prowlarr
+  namespace: &namespace default
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: *app
+  interval: 7m
+  path: ./kubernetes/apps/default/prowlarr/app
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: deployment
+      name: vault-agent-injector
+      namespace: vault
+    - apiVersion: apps/v1
+      kind: deployment
+      name: traefik
+      namespace: network
+    - apiVersion: apps/v1
+      kind: deployment
+      name: authentik
+      namespace: default
+    - apiVersion: apps/v1
+      kind: deployment
+      name: sonarr
+      namespace: default
+  dependsOn:
+    - name: vault-secrets-operator
+      namespace: vault
+    - name: traefik
+      namespace: network
+    - name: authentik
+      namespace: default
+    - name: sonarr
+      namespace: default
+    - name: pg-restore
+      namespace: database
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  targetNamespace: *namespace
+  timeout: 5m
+  wait: true

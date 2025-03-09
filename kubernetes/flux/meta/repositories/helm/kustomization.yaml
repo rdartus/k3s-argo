@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./authentik.yaml
+  - ./bjw-s.yaml
+  - ./bitnami2.yaml
+  - ./cloudnative-pg.yaml
+  - ./crowdsec.yaml
+  - ./csi-driver-nfs.yaml
+  - ./hashicorp.yaml
+  - ./jetstack.yaml
+  - ./metrics-server.yaml
+  - ./metallb.yaml
+  - ./prometheus-community.yaml
+  - ./traefik.yaml
+  - ./wiremind.yaml
+  - ./headlamp.yaml

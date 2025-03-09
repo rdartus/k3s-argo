@@ -1,0 +1,24 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: authentik-admin-binding
+subjects:
+- kind: Group
+  name: authentik Admins  # Correspond au nom du groupe envoyé par Authentik
+  apiGroup: rbac.authorization.k8s.io
+- kind: Group
+  name: Pirates  # Correspond au nom du groupe envoyé par Authentik
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: richard.dartus@gmail.com
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: "Richard Dartus"
+  apiGroup: rbac.authorization.k8s.io
+- kind: User
+  name: hallais.elliot@gmail.com
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io

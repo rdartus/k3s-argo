@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ./helmrelease.yaml
+  # # TODO Add when CSI SMB is up
+  # - ./series-PVC.yaml
+  # - ./films-PVC.yaml
+  # - ./dl-pvc.yaml
+  - ./arr-db-secret.yaml
+  - ./arr-conf-secret.yaml
+  - ./arr-auth.yaml
+configMapGenerator:
+  - name: sonarr-helm-values
+    files:
+      - values.yaml=./helm-values.yaml
+configurations:
+  - kustomizeconfig.yaml
