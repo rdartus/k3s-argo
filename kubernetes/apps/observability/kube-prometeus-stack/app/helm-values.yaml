@@ -39,6 +39,7 @@ crds:
   ## This feature is in preview, off by default and may change in the future.
   upgradeJob:
     enabled: false
+    forceConflicts: false
     image:
       busybox:
         registry: docker.io
@@ -146,7 +147,7 @@ crds:
     ## This defaults to non root user with uid 1000 and gid 2000. *v1.PodSecurityContext  false
     ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
     ##
-    securityContext:
+    podSecurityContext:
       fsGroup: 65534
       runAsGroup: 65534
       runAsNonRoot: true
@@ -408,6 +409,79 @@ alertmanager:
   ##
   forceDeployDashboards: false
 
+  ## Network Policy configuration
+  ##
+  networkPolicy:
+    # -- Enable network policy for Alertmanager
+    enabled: false
+
+    # -- Define policy types. If egress is enabled, both Ingress and Egress will be used
+    # Valid values are ["Ingress"] or ["Ingress", "Egress"]
+    ##
+    policyTypes:
+      - Ingress
+
+    # -- Gateway (formerly ingress controller) configuration
+    ##
+    gateway:
+      # -- Gateway namespace
+      ##
+      namespace: ""
+      # -- Gateway pod labels
+      ##
+      podLabels: {}
+      # app.kubernetes.io/name: ingress-nginx
+
+    # -- Additional custom ingress rules
+    ##
+    additionalIngress: []
+    # - from:
+    #   - namespaceSelector:
+    #       matchLabels:
+    #         name: another-namespace
+    #     podSelector:
+    #       matchLabels:
+    #         app: another-app
+    # - from:
+    #     - podSelector:
+    #         matchLabels:
+    #           app.kubernetes.io/name: loki
+    #   ports:
+    #     - port: 9093
+    #       protocol: TCP
+
+    # -- Configure egress rules
+    ##
+    egress:
+      # -- Enable egress rules. When enabled, policyTypes will include Egress
+      ##
+      enabled: false
+      # -- Custom egress rules
+      ##
+      rules: []
+      # - to:
+      #   - namespaceSelector: {}
+      #     podSelector:
+      #       matchLabels:
+      #         name: smtp-relay
+      #   ports:
+      #   - port: 25
+      #     protocol: TCP
+
+    # -- Enable rules for alertmanager cluster traffic
+    ##
+    enableClusterRules: true
+
+    # -- Configure monitoring component rules
+    ##
+    monitoringRules:
+      # -- Enable ingress from Prometheus
+      ##
+      prometheus: true
+      # -- Enable ingress for config reloader metrics
+      ##
+      configReloader: true
+
   ## Service account for Alertmanager to use.
   ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   ##
@@ -499,21 +573,21 @@ alertmanager:
   #
   ## An example template:
   #   template_1.tmpl: |-
-  #       {* define "cluster" *}{* .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" *}{* end *}
+  #       {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
   #
-  #       {* define "slack.myorg.text" *}
-  #       {*- $root := . -*}
-  #       {* range .Alerts *}
-  #         *Alert:* {* .Annotations.summary *} - `{* .Labels.severity *}`
-  #         *Cluster:* {* template "cluster" $root *}
-  #         *Description:* {* .Annotations.description *}
-  #         *Graph:* <{* .GeneratorURL *}|:chart_with_upwards_trend:>
-  #         *Runbook:* <{* .Annotations.runbook *}|:spiral_note_pad:>
+  #       {{ define "slack.myorg.text" }}
+  #       {{- $root := . -}}
+  #       {{ range .Alerts }}
+  #         *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+  #         *Cluster:* {{ template "cluster" $root }}
+  #         *Description:* {{ .Annotations.description }}
+  #         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
+  #         *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
   #         *Details:*
-  #           {* range .Labels.SortedPairs *} - *{* .Name *}:* `{* .Value *}`
-  #           {* end *}
-  #       {* end *}
-  #       {* end *}
+  #           {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
+  #           {{ end }}
+  #       {{ end }}
+  #       {{ end }}
 
   ingress:
     enabled: false
@@ -579,6 +653,11 @@ alertmanager:
       parentRefs: []
       # - name: acme-gw
 
+      # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
+      ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+      ## matches, filters and additionalRules will be ignored if this is set to true. Be are
+      httpsRedirect: false
+
       matches:
         - path:
             type: PathPrefix
@@ -609,7 +688,7 @@ alertmanager:
     labels: {}
 
     ## Final form of the hostname for each per replica ingress is
-    ## {* ingressPerReplica.hostPrefix *}-{* $replicaNumber *}.{* ingressPerReplica.hostDomain *}
+    ## {{ ingressPerReplica.hostPrefix }}-{{ $replicaNumber }}.{{ ingressPerReplica.hostDomain }}
     ##
     ## Prefix for the per replica ingress that will have `-$replicaNumber`
     ## appended to the end
@@ -635,7 +714,7 @@ alertmanager:
     tlsSecretPerReplica:
       enabled: false
       ## Final form of the secret for each per replica ingress is
-      ## {* tlsSecretPerReplica.prefix *}-{* $replicaNumber *}
+      ## {{ tlsSecretPerReplica.prefix }}-{{ $replicaNumber }}
       ##
       prefix: "alertmanager"
 
@@ -653,6 +732,9 @@ alertmanager:
     ## Port for Alertmanager Service to listen on
     ##
     port: 9093
+    ## Port for Alertmanager cluster communication
+    ##
+    # clusterPort: 9094
     ## To be used with a proxy extraContainer port
     ##
     targetPort: 9093
@@ -829,7 +911,7 @@ alertmanager:
     image:
       registry: quay.io
       repository: prometheus/alertmanager
-      tag: v0.28.0
+      tag: v0.28.1
       sha: ""
 
     ## If true then the user will be responsible to provide a secret with alertmanager configuration
@@ -928,7 +1010,7 @@ alertmanager:
     retention: 120h
 
     ## Storage is the definition of how storage will be used by the Alertmanager instances.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
     storage: {}
     # volumeClaimTemplate:
@@ -1151,6 +1233,10 @@ grafana:
   ##
   defaultDashboardsEditable: true
 
+  ## Default interval for Grafana dashboards
+  ##
+  defaultDashboardsInterval: 1m
+
   adminUser: admin
   adminPassword: prom-operator
 
@@ -1272,6 +1358,7 @@ grafana:
       exemplarTraceIdDestinations: {}
         # datasourceUid: Jaeger
         # traceIdLabelName: trace_id
+        # urlDisplayLabel: View traces
       alertmanager:
         enabled: true
         name: Alertmanager
@@ -1303,7 +1390,7 @@ grafana:
   #       tlsSkipVerify: true
   #   orgId: 1
   #   type: prometheus
-  #   url: https://{* printf "%s-prometheus.svc" .Release.Name *}:9090
+  #   url: https://{{ printf "%s-prometheus.svc" .Release.Name }}:9090
   #   version: 1
 
   # Flag to mark provisioned data sources for deletion if they are no longer configured.
@@ -1364,6 +1451,7 @@ kubeApiServer:
     serverName: kubernetes
     insecureSkipVerify: true
   serviceMonitor:
+    enabled: false
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
     interval: ""
@@ -1745,10 +1833,10 @@ kubeControllerManager:
     ## Requires proper certs (not self-signed) and delegated authentication/authorization checks.
     ## If null or unset, the value is determined dynamically based on target Kubernetes version.
     ##
-    https: true
+    https: null
 
     # Skip TLS certificate validation when scraping
-    insecureSkipVerify: true
+    insecureSkipVerify: null
 
     # Name of the server to use when validating TLS certificate
     serverName: null
@@ -2131,7 +2219,7 @@ kubeScheduler:
     ## Requires proper certs (not self-signed) and delegated authentication/authorization checks.
     ## If null or unset, the value is determined dynamically based on target Kubernetes version.
     ##
-    https: true
+    https: null
 
     ## port: Name of the port the metrics will be scraped from
     ##
@@ -2143,7 +2231,7 @@ kubeScheduler:
     #    component: kube-scheduler
 
     ## Skip TLS certificate validation when scraping
-    insecureSkipVerify: true
+    insecureSkipVerify: null
 
     ## Name of the server to use when validating TLS certificate
     serverName: null
@@ -2241,7 +2329,7 @@ kubeProxy:
     ## Enable scraping kube-proxy over https.
     ## Requires proper certs (not self-signed) and delegated authentication/authorization checks
     ##
-    https: true
+    https: false
 
     ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
@@ -2463,7 +2551,7 @@ prometheus-node-exporter:
 prometheusOperator:
   enabled: true
 
-  ## Use '{* template "kube-prometheus-stack.fullname" . *}-operator' by default
+  ## Use '{{ template "kube-prometheus-stack.fullname" . }}-operator' by default
   fullnameOverride: ""
 
   ## Number of old replicasets to retain ##
@@ -2821,8 +2909,16 @@ prometheusOperator:
       # self-signed root certificate
       rootCert:
         duration: ""  # default to be 5y
+        # -- Set the revisionHistoryLimit on the Certificate. See
+        # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
+        # Defaults to nil.
+        revisionHistoryLimit:
       admissionCert:
         duration: ""  # default to be 1y
+        # -- Set the revisionHistoryLimit on the Certificate. See
+        # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
+        # Defaults to nil.
+        revisionHistoryLimit:
       # issuerRef:
       #   name: "issuer"
       #   kind: "ClusterIssuer"
@@ -2958,7 +3054,7 @@ prometheusOperator:
     enabled: true
     namespace: kube-system
     selector: ""
-    ## Use '{* template "kube-prometheus-stack.fullname" . *}-kubelet' by default
+    ## Use '{{ template "kube-prometheus-stack.fullname" . }}-kubelet' by default
     name: ""
 
   ## Create Endpoints objects for kubelet targets.
@@ -3602,10 +3698,15 @@ prometheus:
       parentRefs: []
       # - name: acme-gw
 
+      # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
+      ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+      ## matches, filters and additionalRules will be ignored if this is set to true. Be are
+      httpsRedirect: false
+
       matches:
-      - path:
-          type: PathPrefix
-          value: /
+        - path:
+            type: PathPrefix
+            value: /
 
       ## Filters define the filters that are applied to requests that match this rule.
       filters: []
@@ -3627,7 +3728,7 @@ prometheus:
     labels: {}
 
     ## Final form of the hostname for each per replica ingress is
-    ## {* ingressPerReplica.hostPrefix *}-{* $replicaNumber *}.{* ingressPerReplica.hostDomain *}
+    ## {{ ingressPerReplica.hostPrefix }}-{{ $replicaNumber }}.{{ ingressPerReplica.hostDomain }}
     ##
     ## Prefix for the per replica ingress that will have `-$replicaNumber`
     ## appended to the end
@@ -3653,7 +3754,7 @@ prometheus:
     tlsSecretPerReplica:
       enabled: false
       ## Final form of the secret for each per replica ingress is
-      ## {* tlsSecretPerReplica.prefix *}-{* $replicaNumber *}
+      ## {{ tlsSecretPerReplica.prefix }}-{{ $replicaNumber }}
       ##
       prefix: "prometheus"
 
@@ -3762,6 +3863,13 @@ prometheus:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.Prometheus
     additionalArgs: []
 
+    ## File to which scrape failures are logged.
+    ## Reloading the configuration will reopen the file.
+    ## Defaults to empty (disabled)
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.Prometheus
+    ##
+    scrapeFailureLogFile: ""
+
     ## Interval between consecutive scrapes.
     ## Defaults to 30s.
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/release-0.44/pkg/prometheus/promcfg.go#L180-L183
@@ -3784,7 +3892,7 @@ prometheus:
 
     ## Interval between consecutive evaluations.
     ##
-    evaluationInterval: "60s"
+    evaluationInterval: "60"
 
     ## ListenLocal makes the Prometheus server listen on loopback, so that it does not bind against the Pod IP.
     ##
@@ -3822,7 +3930,7 @@ prometheus:
     image:
       registry: quay.io
       repository: prometheus/prometheus
-      tag: v3.1.0
+      tag: v3.2.1
       sha: ""
 
     ## Tolerations for use with node taints
@@ -4170,7 +4278,7 @@ prometheus:
     #   memory: 400Mi
 
     ## Prometheus StorageSpec for persistent data
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
     storageSpec: {}
     ## Using PersistentVolumeClaim
@@ -4241,11 +4349,11 @@ prometheus:
     # additionalScrapeConfigs: |
     #  - job_name: "node-exporter"
     #    gce_sd_configs:
-    #    {*range $zone := .Values.gcp_zones*}
+    #    {{range $zone := .Values.gcp_zones}}
     #    - project: "project1"
-    #      zone: "{*$zone*}"
+    #      zone: "{{$zone}}"
     #      port: 9100
-    #    {*end*}
+    #    {{end}}
     #    relabel_configs:
     #    ...
 
@@ -4460,6 +4568,10 @@ prometheus:
     ## AllowOverlappingBlocks enables vertical compaction and vertical query merge in Prometheus. This is still experimental
     ## in Prometheus so it may change in any upcoming release.
     allowOverlappingBlocks: false
+
+    ## Specifies the validation scheme for metric and label names.
+    ## Supported values are: Legacy, UTF8
+    nameValidationScheme: ""
 
     ## Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to
     ## be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
@@ -4780,6 +4892,11 @@ thanosRuler:
       parentRefs: []
       # - name: acme-gw
 
+      # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
+      ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+      ## matches, filters and additionalRules will be ignored if this is set to true. Be are
+      httpsRedirect: false
+
       matches:
         - path:
             type: PathPrefix
@@ -4974,7 +5091,7 @@ thanosRuler:
     evaluationInterval: "60s"
 
     ## Storage is the definition of how storage will be used by the ThanosRuler instances.
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
     ##
     storage: {}
     # volumeClaimTemplate:
@@ -5015,7 +5132,7 @@ thanosRuler:
     ##
     externalPrefix:
 
-    ## If true, http://{* template "kube-prometheus-stack.thanosRuler.name" . *}.{* template "kube-prometheus-stack.namespace" . *}:{* .Values.thanosRuler.service.port *}
+    ## If true, http://{{ template "kube-prometheus-stack.thanosRuler.name" . }}.{{ template "kube-prometheus-stack.namespace" . }}:{{ .Values.thanosRuler.service.port }}
     ## will be used as value for externalPrefix
     externalPrefixNilUsesHelmValues: true
 
