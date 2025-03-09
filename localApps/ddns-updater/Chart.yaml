@@ -12,5 +12,5 @@ maintainers:
 - name: qdm12
 dependencies:
 - name: common
-  version: 2.3.0
+  version: 2.6.0
   repository: https://bjw-s.github.io/helm-charts/
