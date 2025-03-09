@@ -539,7 +539,7 @@ agent:
       # -- pullPolicy
       pullPolicy: IfNotPresent
       # -- docker image tag
-      tag: "1.28"
+      tag: "1.37"
 
 # -- Enable AppSec (https://docs.crowdsec.net/docs/next/appsec/intro)
 appsec:
@@ -709,4 +709,4 @@ appsec:
       # -- pullPolicy
       pullPolicy: IfNotPresent
       # -- docker image tag
-      tag: "1.28"
+      tag: "1.37"
