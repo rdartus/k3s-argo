@@ -8,10 +8,10 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: Flux
+    branch: main
   secretRef:
     name: flux-system
-  url: ssh://git@github.com/rdartus/k3s-argo
+  url: ssh://git@github.com/rdartus/home-ops
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
