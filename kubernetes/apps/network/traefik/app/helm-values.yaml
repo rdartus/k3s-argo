@@ -1,3 +1,5 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/heads/master/traefik/values.schema.json
+---
 # Default values for Traefik
 # This is a YAML-formatted file.
 # Declare variables to be passed into templates
@@ -49,7 +51,7 @@ deployment:
   # -- Additional deployment labels (e.g. for filtering deployment by custom labels)
   labels: {}
   # -- Additional pod annotations (e.g. for mesh injection or prometheus scraping)
-  # It supports templating. One can set it with values like traefik/name: { template "traefik.name" . }
+  # It supports templating. One can set it with values like traefik/name: '{{ template "traefik.name" . }}'
   podAnnotations: {}
   # -- Additional Pod labels (e.g. for filtering Pod by custom labels)
   podLabels: {}
@@ -373,7 +375,7 @@ providers:  # @schema additionalProperties: false
       service:
         enabled: true
         name: "traefik"
-        namespace: "traefik"
+        namespace: "network"
 
   file:
     # -- Create a file provider
@@ -381,9 +383,8 @@ providers:  # @schema additionalProperties: false
     # -- Allows Traefik to automatically watch for file changes
     watch: true
     # -- File content (YAML format, go template supported) (see https://doc.traefik.io/traefik/providers/file/)
-    content:
+    content: ""
 
-#
 # -- Add volumes to the traefik pod. The volume name will be passed to tpl.
 # This can be used to mount a cert pair or a configmap that holds a config.toml file.
 # After the volume has been mounted, add the configs into traefik by using the `additionalArguments` list below, eg:
@@ -395,7 +396,7 @@ volumes: []
 # - name: public-cert
 #   mountPath: "/certs"
 #   type: secret
-# - name: '{ printf "%s-configs" .Release.Name }'
+# - name: '{{ printf "%s-configs" .Release.Name }}'
 #   mountPath: "/config"
 #   type: configMap
 
@@ -447,25 +448,27 @@ logs:
         names: {}
 
 metrics:
-  ## -- Enable metrics for internal resources. Default: false
+  # -- Enable metrics for internal resources. Default: false
   addInternals: false
 
-  ## -- Prometheus is enabled by default.
-  ## -- It can be disabled by setting "prometheus: null"
+  ## Prometheus is enabled by default.
+  ## It can be disabled by setting "prometheus: null"
   prometheus:
     # -- Entry point used to expose metrics.
     entryPoint: metrics
-    ## Enable metrics on entry points. Default: true
+    # -- Enable metrics on entry points. Default: true
     addEntryPointsLabels:  # @schema type:[boolean, null]
-    ## Enable metrics on routers. Default: false
+    # -- Enable metrics on routers. Default: false
     addRoutersLabels:  # @schema type:[boolean, null]
-    ## Enable metrics on services. Default: true
+    # -- Enable metrics on services. Default: true
     addServicesLabels:  # @schema type:[boolean, null]
-    ## Buckets for latency metrics. Default="0.1,0.3,1.2,5.0"
+    # -- Buckets for latency metrics. Default="0.1,0.3,1.2,5.0"
     buckets: ""
-    ## When manualRouting is true, it disables the default internal router in
+    # -- When manualRouting is true, it disables the default internal router in
     ## order to allow creating a custom router for prometheus@internal service.
     manualRouting: false
+    # -- Add HTTP header labels to metrics. See EXAMPLES.md or upstream doc for usage.
+    headerLabels: {}  # @schema type:[object, null]
     service:
       # -- Create a dedicated metrics service to use with ServiceMonitor
       enabled: false
@@ -652,9 +655,7 @@ globalArguments:
 # -- Additional arguments to be passed at Traefik's binary
 # See [CLI Reference](https://docs.traefik.io/reference/static-configuration/cli/)
 # Use curly braces to pass values: `helm install --set="additionalArguments={--providers.kubernetesingress.ingressclass=traefik-internal,--log.level=DEBUG}"`
-additionalArguments: 
-  - "--api.dashboard=true"
-  - "--api.insecure=true"
+additionalArguments: []
 #  - "--providers.kubernetesingress.ingressclass=traefik-internal"
 #  - "--log.level=DEBUG"
 
@@ -730,7 +731,7 @@ ports:
     protocol: TCP
     # -- See [upstream documentation](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport)
     nodePort:  # @schema type:[integer, null]; minimum:0
-    redirections: {}
+    redirections:
       # -- Port Redirections
       # Added in 2.2, one can make permanent redirects via entrypoints.
       # Same sets of parameters: to, scheme, permanent and priority.
@@ -740,11 +741,11 @@ ports:
       #   scheme: https
       #   permanent: true
     forwardedHeaders:
-    # -- Trust forwarded headers information (X-Forwarded-*).
+      # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs: []
       insecure: false
     proxyProtocol:
-    # -- Enable the Proxy Protocol header parsing for the entry point
+      # -- Enable the Proxy Protocol header parsing for the entry point
       trustedIPs: []
       insecure: false
     # -- Set transport settings for the entrypoint; see also
@@ -779,20 +780,20 @@ ports:
     # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#allowacmebypass)
     allowACMEByPass: false
     http3:
-    ## -- Enable HTTP/3 on the entrypoint
-    ## Enabling it will also enable http3 experimental feature
-    ## https://doc.traefik.io/traefik/routing/entrypoints/#http3
-    ## There are known limitations when trying to listen on same ports for
-    ## TCP & UDP (Http3). There is a workaround in this chart using dual Service.
-    ## https://github.com/kubernetes/kubernetes/issues/47249#issuecomment-587960741
+      ## -- Enable HTTP/3 on the entrypoint
+      ## Enabling it will also enable http3 experimental feature
+      ## https://doc.traefik.io/traefik/routing/entrypoints/#http3
+      ## There are known limitations when trying to listen on same ports for
+      ## TCP & UDP (Http3). There is a workaround in this chart using dual Service.
+      ## https://github.com/kubernetes/kubernetes/issues/47249#issuecomment-587960741
       enabled: false
       advertisedPort:  # @schema type:[integer, null]; minimum:0
     forwardedHeaders:
-    # -- Trust forwarded headers information (X-Forwarded-*).
+        # -- Trust forwarded headers information (X-Forwarded-*).
       trustedIPs: []
       insecure: true
     proxyProtocol:
-    # -- Enable the Proxy Protocol header parsing for the entry point
+      # -- Enable the Proxy Protocol header parsing for the entry point
       trustedIPs: []
       insecure: false
     # -- See [upstream documentation](https://doc.traefik.io/traefik/routing/entrypoints/#transport)
@@ -963,8 +964,8 @@ affinity: {}
 #    requiredDuringSchedulingIgnoredDuringExecution:
 #      - labelSelector:
 #          matchLabels:
-#            app.kubernetes.io/name: {template "traefik.name" . }
-#            app.kubernetes.io/instance: {`'{ .Release.Name }}-{ .Release.Namespace }'`}
+#            app.kubernetes.io/name: '{{ template "traefik.name" . }}'
+#            app.kubernetes.io/instance: '{{ .Release.Name }}-{{ include "traefik.namespace" . }}'
 #        topologyKey: kubernetes.io/hostname
 
 # -- nodeSelector is the simplest recommended form of node selection constraint.
@@ -978,7 +979,7 @@ topologySpreadConstraints: []
 # on nodes where no other traefik pods are scheduled.
 #  - labelSelector:
 #      matchLabels:
-#        app.kubernetes.io/name: '{ template "traefik.name" . }'
+#        app.kubernetes.io/name: '{{ template "traefik.name" . }}'
 #    maxSkew: 1
 #    topologyKey: kubernetes.io/hostname
 #    whenUnsatisfiable: DoNotSchedule
@@ -1035,6 +1036,92 @@ hub:
   experimental:
     # -- Set to true in order to enable AI Gateway. Requires a valid license token.
     aigateway: false
+  providers:
+    consulCatalogEnterprise:
+      # -- Enable Consul Catalog Enterprise backend with default settings.
+      enabled: false
+      # -- Use local agent caching for catalog reads.
+      cache: false
+      # -- Enable Consul Connect support.
+      connectAware: false
+      # -- Consider every service as Connect capable by default.
+      connectByDefault: false
+      # -- Constraints is an expression that Traefik matches against the container's labels
+      constraints: ""
+      # -- Default rule.
+      defaultRule: "Host(`{{ normalize .Name }}`)"
+      endpoint:
+        # -- The address of the Consul server
+        address: ""
+        # -- Data center to use. If not provided, the default agent data center is used
+        datacenter: ""
+        # -- WaitTime limits how long a Watch will block. If not provided, the agent default
+        endpointWaitTime: 0
+        httpauth:
+          # -- Basic Auth password
+          password: ""
+          # -- Basic Auth username
+          username: ""
+        # -- The URI scheme for the Consul server
+        scheme: ""
+        tls:
+          # -- TLS CA
+          ca: ""
+          # -- TLS cert
+          cert: ""
+          # -- TLS insecure skip verify
+          insecureSkipVerify: false
+          # -- TLS key
+          key: ""
+        # -- Token is used to provide a per-request ACL token which overrides the agent's
+        token: ""
+      # -- Expose containers by default.
+      exposedByDefault: true
+      # -- Sets the namespaces used to discover services (Consul Enterprise only).
+      namespaces: ""
+      # -- Sets the partition used to discover services (Consul Enterprise only).
+      partition: ""
+      # -- Prefix for consul service tags.
+      prefix: "traefik"
+      # -- Interval for check Consul API.
+      refreshInterval: 15
+      # -- Forces the read to be fully consistent.
+      requireConsistent: false
+      # -- Name of the Traefik service in Consul Catalog (needs to be registered via the
+      serviceName: "traefik"
+      # -- Use stale consistency for catalog reads.
+      stale: false
+      # -- A list of service health statuses to allow taking traffic.
+      strictChecks: "passing, warning"
+      # -- Watch Consul API events.
+      watch: false
+    microcks:
+      # -- Enable Microcks provider.
+      enabled: false
+      auth:
+        # -- Microcks API client ID.
+        clientId: ""
+        # -- Microcks API client secret.
+        clientSecret: ""
+        # -- Microcks API endpoint.
+        endpoint: ""
+        # -- Microcks API token.
+        token: ""
+      # -- Microcks API endpoint.
+      endpoint: ""
+      # -- Polling interval for Microcks API.
+      pollInterval: 30
+      # -- Polling timeout for Microcks API.
+      pollTimeout: 5
+      tls:
+        # -- TLS CA
+        ca: ""
+        # -- TLS cert
+        cert: ""
+        # -- TLS insecure skip verify
+        insecureSkipVerify: false
+        # -- TLS key
+        key: ""
   redis:
     # -- Enable Redis Cluster. Default: true.
     cluster:    # @schema type:[boolean, null]
@@ -1066,3 +1153,18 @@ hub:
       insecureSkipVerify: false
   # Enable export of errors logs to the platform. Default: true.
   sendlogs:  # @schema type:[boolean, null]
+
+  tracing:
+    # -- Tracing headers to duplicate.
+    # To configure the following, tracing.otlp.enabled needs to be set to true.
+    additionalTraceHeaders:
+      enabled: false
+      traceContext:
+        # -- Name of the header that will contain the parent-id header copy.
+        parentId: ""
+        # -- Name of the header that will contain the trace-id copy.
+        traceId: ""
+        # -- Name of the header that will contain the traceparent copy.
+        traceParent: ""
+        # -- Name of the header that will contain the tracestate copy.
+        traceState: ""
