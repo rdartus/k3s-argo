@@ -11,5 +11,5 @@ maintainers:
 - name: rdartus
 dependencies:
 - name: common
-  version: 3.6.1
+  version: 3.7.2
   repository: https://bjw-s.github.io/helm-charts/
