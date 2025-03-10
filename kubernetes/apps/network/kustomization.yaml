@@ -9,3 +9,5 @@ resources:
   - ./crowdsec/ks.yaml
   - ./ddns-updater/ks.yaml
   - ./wireguard/ks.yaml
+  - ./headscale/ks.yaml
+  - ./tailscale/ks.yaml
