@@ -585,6 +585,7 @@ configMapsFromFolderBasePath: null
 service: 
   main:
     controller: main
+    nameOverride: "headscale"
     ports:
       http:
         primary: true
