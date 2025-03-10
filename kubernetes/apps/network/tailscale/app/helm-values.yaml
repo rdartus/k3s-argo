@@ -719,6 +719,11 @@ persistence:
     globalMounts:
       - path: /.cache
 
+  run:
+    type: emptyDir
+    globalMounts:
+      - path: /var/run
+
   #   # -- Sets the persistence type
   #   # Valid options are persistentVolumeClaim, emptyDir, nfs, hostPath, secret, configMap or custom
   #   type: secret
