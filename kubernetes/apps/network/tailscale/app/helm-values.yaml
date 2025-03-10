@@ -871,4 +871,4 @@ rbac:
       subjects:
         - kind: ServiceAccount
           name: tailscale
-          namespace: default
+          namespace: network
