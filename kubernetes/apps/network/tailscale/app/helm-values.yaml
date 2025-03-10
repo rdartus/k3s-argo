@@ -142,6 +142,14 @@ controllers:
           NO_AUTOUPDATE: true
           TS_EXTRA_ARGS: --advertise-exit-node  --advertise-tags=tag:k8s
           TS_TAILSCALED_EXTRA_ARGS: --debug=0.0.0.0:9001
+          POD_NAME:
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          POD_UID:
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.uid
 
         securityContext:
           allowPrivilegeEscalation: false
@@ -845,7 +853,7 @@ rbac:
       # -- Set to Role,ClusterRole
       type: Role
       rules:
-        - apiGroups: ["*"]
+        - apiGroups: [""]
           resources: ["events"]
           verbs: ["create","get","update","patch", "list", "watch"]
         - apiGroups: ["*"]
