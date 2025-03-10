@@ -151,13 +151,6 @@ controllers:
               fieldRef:
                 fieldPath: metadata.uid
 
-        securityContext:
-          allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: false
-          capabilities:
-            drop:
-              - ALL
-
 
         # probes:
         #   startup:
