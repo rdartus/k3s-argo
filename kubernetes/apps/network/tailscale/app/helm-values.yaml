@@ -80,8 +80,8 @@ defaultPodOptions:
   # -- Configure the Security Context for the Pod
   securityContext:
     runAsNonRoot: true
-    runAsUser: 568
-    runAsGroup: 568
+    runAsUser: 1000
+    runAsGroup: 1000
       # fsGroup: 65533
 
 
@@ -153,7 +153,7 @@ controllers:
 
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: false
           capabilities:
             drop:
               - ALL
@@ -856,10 +856,10 @@ rbac:
         - apiGroups: [""]
           resources: ["events"]
           verbs: ["create","get","update","patch", "list", "watch"]
-        - apiGroups: ["*"]
+        - apiGroups: [""]
           resources: ["secrets"]
           verbs: ["create","get","update","patch", "list", "watch"]
-        - apiGroups: ["*"]
+        - apiGroups: [""]
           resources: ["tailscale-state"]
           verbs: ["create","get","update","patch", "list", "watch"]
   bindings:
