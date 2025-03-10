@@ -136,7 +136,7 @@ controllers:
               failureThreshold: 3
         env:
           # TZ: Europe/France
-          TS_AUTHKEY: tskey-auth-kV7bYL6CNTRL-GXXhAHWhHXAVTcumJyyxXAc2cyjxQ3QkD
+          # TS_AUTHKEY: tskey-auth-kV7bYL6CNTRL-GXXhAHWhHXAVTcumJyyxXAc2cyjxQ3QkD
           TS_STATE_DIR: /var/lib/tailscale
           TS_USERSPACE: true
           NO_AUTOUPDATE: true
